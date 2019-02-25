@@ -1,4 +1,4 @@
 package bankmachine;
 
-public class UserAccount {
+public class User {
 }
