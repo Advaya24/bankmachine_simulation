@@ -1,4 +1,4 @@
-package BankMachine;
+package bankmachine;
 
 public class InputManager {
 }

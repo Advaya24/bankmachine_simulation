@@ -1,4 +1,4 @@
 package bankmachine;
 
-public class FileData {
+public class User {
 }
