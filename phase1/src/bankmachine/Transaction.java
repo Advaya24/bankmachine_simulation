@@ -1,7 +1,6 @@
 package bankmachine;
 import java.util.Date;
-/** Represents a Transaction within the system.
- **/
+/** Represents a Transaction within the system **/
 // Person working on this: Varun
 public class Transaction {
     /**The amount of money involve in this transaction**/
