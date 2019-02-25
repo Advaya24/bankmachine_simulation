@@ -1,4 +1,4 @@
-package bankmachine;
+package BankMachine;
 
 public class BankMachine {
 }
