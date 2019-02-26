@@ -13,4 +13,13 @@ public class Transaction {
     Date transaction_date;
     /**The type of transaction made**/
     transaction_types transaction_type;
+
+     public Transaction(float amount, Account from, Account to, Date datetime, transaction_types type){
+        this.amount=amount;
+        transaction_made_from = from;
+        transaction_made_to = to;
+        transaction_date = datetime;
+        transaction_type = type;
+    }
+
 }
