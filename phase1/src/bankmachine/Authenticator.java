@@ -1,8 +1,6 @@
 package bankmachine;
 
-import javafx.util.Pair;
-
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Optional;
 
 /**
@@ -10,31 +8,43 @@ import java.util.Optional;
  */
 // Managed by: Advaya
 public class Authenticator {
-    private HashMap<String, Pair<String, Loginable>> userLoginData;
-    private HashMap<String, Pair<String, Loginable>> managerLoginData;
+//    private HashMap<String, Pair<String, Loginable>> userLoginData;
+//    private HashMap<String, Pair<String, Loginable>> managerLoginData;
+    private ArrayList<Loginable> userLoginData;
+    private ArrayList<Loginable> managerLoginData;
 
     Authenticator() {
-        userLoginData = new HashMap<>();
-        managerLoginData = new HashMap<>();
+//        userLoginData = new HashMap<>();
+//        managerLoginData = new HashMap<>();
+        userLoginData = new ArrayList<>();
+        managerLoginData = new ArrayList<>();
     }
 
     /**
-    * Authenticates login of user
-    * @param userName username input from user
-    * @param password entered password
-    * @return the user object if login successful, empty optional otherwise
+     * Authenticates login of user or bank manager
+     * @param userName username input from user
+     * @param password entered password
+     * @param type specifies whether it is a User or BankManager
+     * @return the user object if login successful, empty optional otherwise
      */
     Optional<Loginable> authenticate(String userName, String password, LoginType type) {
-        HashMap<String, Pair<String, Loginable>> dataToCheck;
-        if (type == LoginType.USERLOGIN) {
-            dataToCheck = userLoginData;
-        } else {
-            dataToCheck = managerLoginData;
+//        HashMap<String, Pair<String, Loginable>> dataToCheck;
+        ArrayList<Loginable> dataToCheck;
+//        if (type == LoginType.USERLOGIN) {
+//            dataToCheck = userLoginData;
+//        } else {
+//            dataToCheck = managerLoginData;
+//        }
+        switch (type) {
+            case USERLOGIN: dataToCheck = userLoginData; break;
+            case BANKMANAGERLOGIN: dataToCheck = managerLoginData; break;
+            default: dataToCheck = new ArrayList<>();
         }
-        for (String tempUserName: dataToCheck.keySet()) {
-            if (tempUserName.equals(userName)) {
-                if (dataToCheck.get(userName).getKey().equals(password)) {
-                    return Optional.of(dataToCheck.get(userName).getValue());
+
+        for (Loginable tempLoginable: dataToCheck) {
+            if (tempLoginable.getUsername().equals(userName)) {
+                if (tempLoginable.getPassword().equals(password)) {
+                    return Optional.of(tempLoginable);
                 } else {
                     return Optional.empty();
                 }
@@ -46,15 +56,22 @@ public class Authenticator {
 
     /**
      * Adds new user login information
-     * @param userName username of newUser
-     * @param password password of newUser
+//     * @param userName username of newUser
+//     * @param password password of newUser
      * @param newUser User instance for newUser
      */
-    void addUser(String userName, String password, User newUser) {
-        userLoginData.put(userName, new Pair<>(password, newUser));
+    void addUser(User newUser) {
+//        userLoginData.put(userName, new Pair<>(password, newUser));
+        userLoginData.add(newUser);
     }
 
-    void addBankManager(String userName, String password, BankManager newBankManager) {
-        managerLoginData.put(userName, new Pair<>(password, newBankManager));
+    /**
+     * Adds new bank manager login information
+//     * @param userName userName of newBankManager
+//     * @param password password of newBankManager
+     * @param newBankManager BankManager instance for BankManager
+     */
+    void addBankManager(BankManager newBankManager) {
+        managerLoginData.add(newBankManager);
     }
 }

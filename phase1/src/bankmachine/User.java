@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**A User within this system.**/
 // Person working on this: Varun
-public class User implements Loginable {
+public class User extends Loginable {
     /**Name of this User**/
     private String name;
     /**All the accounts this User has**/
@@ -21,12 +21,14 @@ public class User implements Loginable {
     private String password;
 
     public User(String name, String email, String phoneNumber, String username, String default_password){
+        super(username, default_password);
         this.name = name;
         //TODO: Should it be ArrayList<Account> or ArrayList<>?
         this.email = email;
         this.phoneNumber = phoneNumber;
-        this.username = username;
-        this.password = default_password;
+//        this.username = username;
+//        this.password = default_password;
+
     }
 
     /**All the getters for this class' private variables:**/
