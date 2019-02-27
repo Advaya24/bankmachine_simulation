@@ -10,10 +10,12 @@ import java.util.Optional;
  */
 // Managed by: Advaya
 public class Authenticator {
-    private HashMap<String, Pair<String, User>> loginData;
+    private HashMap<String, Pair<String, Loginable>> userLoginData;
+    private HashMap<String, Pair<String, Loginable>> managerLoginData;
 
     Authenticator() {
-        loginData = new HashMap<>();
+        userLoginData = new HashMap<>();
+        managerLoginData = new HashMap<>();
     }
 
     /**
@@ -22,11 +24,17 @@ public class Authenticator {
     * @param password entered password
     * @return the user object if login successful, empty optional otherwise
      */
-    Optional<User> authenticate(String userName, String password) {
-        for (String tempUserName: this.loginData.keySet()) {
+    Optional<Loginable> authenticate(String userName, String password, LoginType type) {
+        HashMap<String, Pair<String, Loginable>> dataToCheck;
+        if (type == LoginType.USERLOGIN) {
+            dataToCheck = userLoginData;
+        } else {
+            dataToCheck = managerLoginData;
+        }
+        for (String tempUserName: dataToCheck.keySet()) {
             if (tempUserName.equals(userName)) {
-                if (loginData.get(userName).getKey().equals(password)) {
-                    return Optional.of(loginData.get(userName).getValue());
+                if (dataToCheck.get(userName).getKey().equals(password)) {
+                    return Optional.of(dataToCheck.get(userName).getValue());
                 } else {
                     return Optional.empty();
                 }
@@ -43,6 +51,10 @@ public class Authenticator {
      * @param newUser User instance for newUser
      */
     void addUser(String userName, String password, User newUser) {
-        loginData.put(userName, new Pair<>(password, newUser));
+        userLoginData.put(userName, new Pair<>(password, newUser));
+    }
+
+    void addBankManager(String userName, String password, BankManager newBankManager) {
+        managerLoginData.put(userName, new Pair<>(password, newBankManager));
     }
 }

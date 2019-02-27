@@ -1,4 +1,5 @@
 package bankmachine;
 
-public class TimeInfo {
+public class TimeInfo extends FileData {
+
 }

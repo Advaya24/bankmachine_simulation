@@ -6,11 +6,11 @@ import java.util.ArrayList;
 
 /**A User within this system.**/
 // Person working on this: Varun
-public class User {
+public class User implements Loginable {
     /**Name of this User**/
     private String name;
     /**All the accounts this User has**/
-    private ArrayList<Account> usersAccounts = new ArrayList<>();
+    private ArrayList<Account> usersAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
     /**Primary email address of this User**/
     private String email;
     /**This User's Phone Number**/
