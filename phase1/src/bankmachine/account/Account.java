@@ -73,5 +73,8 @@ public abstract class Account {
     public boolean withdraw(int amount){ return transferOut(amount); }
 
     public int getBalance(){ return balance; }
+    public float getFloatBalance() {
+        return Math.round(balance/100.0);
+    }
 
 }

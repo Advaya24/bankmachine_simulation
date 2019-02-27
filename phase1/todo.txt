@@ -1,0 +1,1 @@
+[ ] Check Account class hierarchy and possibly move things out of Account
