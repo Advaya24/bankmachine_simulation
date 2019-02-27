@@ -1,4 +1,6 @@
 package bankmachine;
+import bankmachine.account.Account;
+
 import java.util.Date;
 /** Represents a Transaction within the system **/
 // Person working on this: Varun

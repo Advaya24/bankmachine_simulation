@@ -1,5 +1,7 @@
 package bankmachine;
 
+import bankmachine.account.Account;
+
 import java.util.ArrayList;
 
 /**A User within this system.**/
