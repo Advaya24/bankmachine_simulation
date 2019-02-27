@@ -10,21 +10,21 @@ public class User {
     /**Name of this User**/
     private String name;
     /**All the accounts this User has**/
-    private ArrayList<Account> users_accounts = new ArrayList<>();
+    private ArrayList<Account> usersAccounts = new ArrayList<>();
     /**Primary email address of this User**/
     private String email;
     /**This User's Phone Number**/
-    private String phone_number;
+    private String phoneNumber;
     /**Username of this User, used for authentication**/
     private String username;
     /**Password of this User, used for authentication**/
     private String password;
 
-    public User(String name, String email, String phone_number, String username, String default_password){
+    public User(String name, String email, String phoneNumber, String username, String default_password){
         this.name = name;
         //TODO: Should it be ArrayList<Account> or ArrayList<>?
         this.email = email;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.username = username;
         this.password = default_password;
     }
@@ -34,13 +34,13 @@ public class User {
         return name;
     }
     public ArrayList<Account> getUsersAccounts(){
-        return users_accounts;
+        return usersAccounts;
     }
     public String getEmail(){
         return email;
     }
     public String getPhoneNumber() {
-        return phone_number;
+        return phoneNumber;
     }
     public String getUsername() {
         return username;
@@ -57,8 +57,8 @@ public class User {
     public void setEmail(String new_email){
         email = new_email;
     }
-    public void setPhoneNumber(String new_phone_number) {
-        phone_number = new_phone_number;
+    public void setPhoneNumber(String new_phoneNumber) {
+        phoneNumber = new_phoneNumber;
     }
     //TODO: Decide if we really want to be able to change username
     public void setUsername(String new_username) {
