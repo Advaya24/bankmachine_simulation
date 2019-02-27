@@ -1,11 +1,18 @@
 package bankmachine.account;
 
 /**
- * An account
+ * An account containing a balance
  */
 public abstract class Account {
     /* The current balance of the account*/
     protected double balance;
+
+    public Account(){
+        this(0.0);
+    }
+    public Account(double balance){
+        this.balance = balance;
+    }
 
     /**
      * Transfer money from an account into this account
@@ -13,7 +20,7 @@ public abstract class Account {
      * @param amount the amount to transfer
      * @return whether the transaction succeded
      */
-    boolean transferIn(Account other, double amount){
+    public boolean transferIn(Account other, double amount){
         if (amount < 0){ return false; }
         boolean status = other.transferOut(amount);
         if (!status){
@@ -35,7 +42,7 @@ public abstract class Account {
      * @param amount the amount to transfer
      * @return whether the transaction succeeded
      */
-    boolean transferOut(Account other, double amount){
+    public boolean transferOut(Account other, double amount){
         return other.transferIn(this, amount);
     }
 
@@ -45,11 +52,9 @@ public abstract class Account {
      * @return always true
      */
     boolean transferIn(double amount){
-        if (amount > 0) {
-            balance += amount;
-            return true;
-        }
-        return false;
+        if (amount < 0) { return false; }
+        balance += amount;
+        return true;
     }
 
     /**
@@ -64,8 +69,9 @@ public abstract class Account {
         }
         return false;
     }
-    boolean payBill(double amount) { return transferOut(amount); }
-    boolean withDraw(double amount){ return transferOut(amount); }
+    public boolean payBill(double amount) { return transferOut(amount); }
+    public boolean withdraw(double amount){ return transferOut(amount); }
+
     public double getBalance(){ return balance; }
 
 }
