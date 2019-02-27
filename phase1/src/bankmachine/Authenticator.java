@@ -8,6 +8,7 @@ import java.util.Optional;
 /**
  * Manages user login authentication for BankMachine
  */
+// Managed by: Advaya
 public class Authenticator {
     private HashMap<String, Pair<String, User>> loginData;
 
