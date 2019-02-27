@@ -19,7 +19,7 @@ public abstract class Account {
      * Transfer money from an account into this account
      * @param other the other account
      * @param amount the amount to transfer
-     * @return whether the transaction succeded
+     * @return whether the transaction succeeded
      */
     public boolean transferIn(Account other, int amount){
         if (amount < 0){ return false; }

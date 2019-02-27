@@ -2,8 +2,10 @@ package bankmachine.account;
 
 
 /**
- * An account for withdrawls and deposits
+ * An account for withdrawals and deposits
  */
+// TODO: Read this:
+// Consider naming it CheckingAccount instead?
 public class ChequingAccount extends Account {
     /* Whether this is a primary account. Unused but here for now */
     boolean primary = false;
