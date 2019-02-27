@@ -4,13 +4,13 @@ package bankmachine.account;
  * An account containing a balance
  */
 public abstract class Account {
-    /* The current balance of the account*/
-    protected double balance;
+    /* The current balance of the account, in cents*/
+    protected int balance;
 
     public Account(){
-        this(0.0);
+        this(0);
     }
-    public Account(double balance){
+    public Account(int balance){
         this.balance = balance;
     }
 
@@ -20,7 +20,7 @@ public abstract class Account {
      * @param amount the amount to transfer
      * @return whether the transaction succeded
      */
-    public boolean transferIn(Account other, double amount){
+    public boolean transferIn(Account other, int amount){
         if (amount < 0){ return false; }
         boolean status = other.transferOut(amount);
         if (!status){
@@ -42,7 +42,7 @@ public abstract class Account {
      * @param amount the amount to transfer
      * @return whether the transaction succeeded
      */
-    public boolean transferOut(Account other, double amount){
+    public boolean transferOut(Account other, int amount){
         return other.transferIn(this, amount);
     }
 
@@ -51,7 +51,7 @@ public abstract class Account {
      * @param amount amount to add to balance
      * @return always true
      */
-    boolean transferIn(double amount){
+    boolean transferIn(int amount){
         if (amount < 0) { return false; }
         balance += amount;
         return true;
@@ -62,16 +62,16 @@ public abstract class Account {
      * @param amount to remove
      * @return always true
      */
-    boolean transferOut(double amount) {
+    boolean transferOut(int amount) {
         if (amount < balance && amount > 0){
             balance -= amount;
             return true;
         }
         return false;
     }
-    public boolean payBill(double amount) { return transferOut(amount); }
-    public boolean withdraw(double amount){ return transferOut(amount); }
+    public boolean payBill(int amount) { return transferOut(amount); }
+    public boolean withdraw(int amount){ return transferOut(amount); }
 
-    public double getBalance(){ return balance; }
+    public int getBalance(){ return balance; }
 
 }

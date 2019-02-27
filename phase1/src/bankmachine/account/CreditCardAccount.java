@@ -9,7 +9,7 @@ public class CreditCardAccount extends DebtAccount{
      * Cannot transfer out
      * @return always false
      */
-    public boolean transferOut(double amount){
+    public boolean transferOut(int amount){
         return false;
     }
 

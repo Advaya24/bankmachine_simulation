@@ -9,11 +9,11 @@ public abstract class DebtAccount extends Account{
      * @param amount amount to subtract
      * @return always true
      */
-    boolean transferOut(double amount){
+    boolean transferOut(int amount){
         if (amount < 0){ return false; }
         this.balance -= amount;
         return true;
     }
-    public boolean payBill (double amount){ return transferOut(amount); }
-    public boolean withdraw(double amount){ return transferOut(amount); }
+    public boolean payBill (int amount){ return transferOut(amount); }
+    public boolean withdraw(int amount){ return transferOut(amount); }
 }
