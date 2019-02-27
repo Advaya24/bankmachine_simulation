@@ -10,7 +10,7 @@ public class User {
     /**Name of this User**/
     private String name;
     /**All the accounts this User has**/
-    private ArrayList<Account> users_accounts;
+    private ArrayList<Account> users_accounts = new ArrayList<>();
     /**Primary email address of this User**/
     private String email;
     /**This User's Phone Number**/
@@ -23,7 +23,6 @@ public class User {
     public User(String name, String email, String phone_number, String username, String default_password){
         this.name = name;
         //TODO: Should it be ArrayList<Account> or ArrayList<>?
-        users_accounts = new ArrayList<>();
         this.email = email;
         this.phone_number = phone_number;
         this.username = username;
@@ -70,6 +69,4 @@ public class User {
     public void setPassword(String new_password){
         password = new_password;
     }
-
-
 }
