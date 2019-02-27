@@ -3,6 +3,7 @@ package bankmachine.account;
 /**
  * An account containing a balance
  */
+//TODO: Check Account class hierarchy and possibly move things out of Account
 public abstract class Account {
     /* The current balance of the account, in cents*/
     protected int balance;
