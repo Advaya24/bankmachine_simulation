@@ -23,7 +23,6 @@ public class User extends Loginable {
     public User(String name, String email, String phoneNumber, String username, String default_password){
         super(username, default_password);
         this.name = name;
-        //TODO: Should it be ArrayList<Account> or ArrayList<>?
         this.email = email;
         this.phoneNumber = phoneNumber;
 //        this.username = username;
