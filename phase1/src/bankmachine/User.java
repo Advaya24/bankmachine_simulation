@@ -1,7 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.Account;
-
+import java.util.Date;
 import java.util.ArrayList;
 
 /**A User within this system.**/
@@ -70,5 +70,23 @@ public class User extends Loginable {
     /**Allows the user to change their password if necessary**/
     public void setPassword(String new_password){
         password = new_password;
+    }
+    //TODO: Figure out wwhether most recent transaction is outgoing, both ways, or what
+    /**
+     * Returns the most recent transaction across all accounts .
+     * @return the most recent transaction of this user
+     */
+    //TODO: Finish this
+    public Transaction mostRecentTrasaction(){
+        //TODO: Account for a case where the user has no accounts
+        Account firstAccount = usersAccounts.get(0);
+        Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size()-1);
+        for(Account a:usersAccounts) {
+            Date mostRecentFromAccount =a.getTransactions().get(a.getTransactions().size()-1).getDate();
+            if(mostRecentFromAccount.compareTo(recentTransaction.getDate())>0){
+                recentTransaction = a.getTransactions().get(a.getTransactions().size()-1);
+            }
+        }
+        return recentTransaction;
     }
 }
