@@ -1,5 +1,5 @@
 package bankmachine;
 
-public enum transaction_types {
+public enum transactionTypes {
     BILL, TRANSFER, WITHDRAW
 }
