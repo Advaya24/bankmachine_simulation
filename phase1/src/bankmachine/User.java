@@ -65,6 +65,7 @@ public class User extends BankMachineUser {
 //        username = new_username;
 //    }
 //    //TODO: Remember to ask twice!
+      //TODO: The user should only be able to change password after the first one has been set (only bankmanager can create and set the initial password.)
 //    /**Allows the user to change their password if necessary**/
 //    public void setPassword(String new_password){
 //        password = new_password;
@@ -87,4 +88,6 @@ public class User extends BankMachineUser {
         }
         return recentTransaction;
     }
+
+    //TODO: method to request BankManager to create a new account
 }

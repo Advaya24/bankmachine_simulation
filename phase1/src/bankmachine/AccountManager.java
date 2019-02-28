@@ -5,14 +5,24 @@
 
 package bankmachine;
 
-public class AccountManager {
+import bankmachine.account.Account;
 
-    //TODO:
+import java.util.ArrayList;
+
+//TODO: make this static?
+public class AccountManager {
+    private static ArrayList<User> accounts = new ArrayList<>();
+    //TODO: decide what this stores (accounts of each user (i.e. each user has their instance) or accounts of all users.)
 
     /**
      * getter for a given account
      */
-//    public Account getAccount(String username) {
-//
-//    }
+    public static ArrayList<Account> getAccounts(String username) {
+        for (User user : accounts) {
+            if (user.getUsername().equals(username)) {
+                return user.getUsersAccounts();
+            }
+        }
+        return new ArrayList<Account>();
+    }
 }
