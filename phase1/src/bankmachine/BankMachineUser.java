@@ -2,11 +2,11 @@ package bankmachine;
 
 // TODO: find better name for this
 // managed by: Advaya
-public class Loginable {
+public class BankMachineUser {
     private String userName;
     private String password;
 
-    Loginable(String userName, String password) {
+    BankMachineUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }

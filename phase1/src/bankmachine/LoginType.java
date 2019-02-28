@@ -1,5 +1,5 @@
 package bankmachine;
 
 public enum LoginType {
-    USERLOGIN, BANKMANAGERLOGIN
+    USER_LOGIN, BANK_MANAGER_LOGIN
 }
