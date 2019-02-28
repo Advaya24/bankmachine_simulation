@@ -27,8 +27,8 @@ public class Authenticator {
         ArrayList<Loginable> dataToCheck;
 
         switch (type) {
-            case USERLOGIN: dataToCheck = userLoginData; break;
-            case BANKMANAGERLOGIN: dataToCheck = managerLoginData; break;
+            case USER_LOGIN: dataToCheck = userLoginData; break;
+            case BANK_MANAGER_LOGIN: dataToCheck = managerLoginData; break;
             default: dataToCheck = new ArrayList<>();
         }
 
