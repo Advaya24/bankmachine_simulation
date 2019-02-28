@@ -15,9 +15,9 @@ public class Transaction {
     /**The Date this transaction was made**/
     private Date transactionDate;
     /**The type of transaction made**/
-    private transactionTypes transactionType;
+    private TransactionType transactionType;
 
-     public Transaction(double amount, Account from, Account to, Date datetime, transactionTypes type){
+     public Transaction(double amount, Account from, Account to, Date datetime, TransactionType type){
         this.amount=amount;
         transactionMadeFrom = from;
         transactionMadeTo = to;
@@ -37,7 +37,7 @@ public class Transaction {
     public Date getDate(){
         return transactionDate;
     }
-    public transactionTypes getType(){
+    public TransactionType getType(){
         return transactionType;
     }
 
@@ -55,7 +55,7 @@ public class Transaction {
     public void setDate(Date new_date){
         transactionDate = new_date;
     }
-    public void setType(transactionTypes new_type){
+    public void setType(TransactionType new_type){
         transactionType = new_type;
     }
 }
