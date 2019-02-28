@@ -9,7 +9,9 @@ public class ReadFile implements FileManager {
     private File file; // Sets private file as java.io.File type.
 
     public ReadFile(String filename) { // Constructor for ReadFile
-        this.file = new File(filename);
+
+        //this.file = new File(filename);
+        this.file = new File(ReadFile.class.getResource(filename).getFile());
     }
 
     public ReadFile() { // Alternate Constructor for ReadFile if no filename is passed in sets file to null
