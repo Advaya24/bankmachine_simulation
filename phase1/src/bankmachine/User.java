@@ -15,10 +15,10 @@ public class User extends Loginable {
     private String email;
     /**This User's Phone Number**/
     private String phoneNumber;
-    /**Username of this User, used for authentication**/
-    private String username;
-    /**Password of this User, used for authentication**/
-    private String password;
+//    /**Username of this User, used for authentication**/
+//    private String username;
+//    /**Password of this User, used for authentication**/
+//    private String password;
 
     public User(String name, String email, String phoneNumber, String username, String default_password){
         super(username, default_password);
@@ -44,13 +44,12 @@ public class User extends Loginable {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public String getUsername() {
-        return username;
-    }
-    //TODO: Decide if we really want access to this
-    public String getPassword(){
-        return password;
-    }
+//    public String getUsername() {
+//        return username;
+//    }
+//    public String getPassword(){
+//        return password;
+//    }
 
     /**All the setters for this class' private variables:**/
     public void setName(String new_name){
@@ -62,16 +61,16 @@ public class User extends Loginable {
     public void setPhoneNumber(String new_phoneNumber) {
         phoneNumber = new_phoneNumber;
     }
-    //TODO: Decide if we really want to be able to change username
-    public void setUsername(String new_username) {
-        username = new_username;
-    }
-    //TODO: Remember to ask twice!
-    /**Allows the user to change their password if necessary**/
-    public void setPassword(String new_password){
-        password = new_password;
-    }
-    //TODO: Figure out wwhether most recent transaction is outgoing, both ways, or what
+//    //TODO: Decide if we really want to be able to change username
+//    public void setUsername(String new_username) {
+//        username = new_username;
+//    }
+//    //TODO: Remember to ask twice!
+//    /**Allows the user to change their password if necessary**/
+//    public void setPassword(String new_password){
+//        password = new_password;
+//    }
+    //TODO: Figure out whether most recent transaction is outgoing, both ways, or what
     /**
      * Returns the most recent transaction across all accounts .
      * @return the most recent transaction of this user
