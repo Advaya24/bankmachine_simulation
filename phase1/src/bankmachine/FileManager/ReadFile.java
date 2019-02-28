@@ -8,10 +8,16 @@ public class ReadFile implements FileManager {
 
     private File file; // Sets private file as java.io.File type.
 
-    public ReadFile(String filename) { // Constructor for ReadFile
+    public ReadFile(String filename) throws Exception { // Constructor for ReadFile
 
         //this.file = new File(filename);
-        this.file = new File(ReadFile.class.getResource(filename).getFile());
+        //if(ReadFile.class.getResource(filename).getFile() == null){
+        try {
+            this.file = new File(ReadFile.class.getResource(filename).getFile());
+        } catch  (NullPointerException e){
+            System.out.println("The file attempted to be read does not exist");
+        }
+
     }
 
     public ReadFile() { // Alternate Constructor for ReadFile if no filename is passed in sets file to null
@@ -40,15 +46,29 @@ public class ReadFile implements FileManager {
 
     public String getData() throws Exception {
 
-        FileReader file_reader = new FileReader(file);
+        String str = ""; // Initializes the output string for the data.
 
-        int end_of_stream;
-        String str = "";
-        while((end_of_stream=file_reader.read()) != -1){
-            str += ((char)end_of_stream);
+        // If the file is null sets string equal to null and then for getData returns null
+        if(file == null){
+            str = null;
 
+        } else { // If file is not null
+
+            // Assigns file_reader variable to FileReader object of target file
+            FileReader file_reader = new FileReader(file);
+
+            // Variable needed to cycle through stream of characters (=0)
+            int end_of_stream;
+
+            // Loop to cycle through array of characters from file. End of file is reached when read() returns -1.
+            while ((end_of_stream = file_reader.read()) != -1) {
+                //Appends data to output string
+                str += ((char) end_of_stream);
+
+            }
+            // Closes file (important)
+            file_reader.close();
         }
-        file_reader.close();
         return str;
 
 
