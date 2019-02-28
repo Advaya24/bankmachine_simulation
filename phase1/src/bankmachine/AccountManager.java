@@ -6,4 +6,13 @@
 package bankmachine;
 
 public class AccountManager {
+
+    //TODO:
+
+    /**
+     * getter for a given account
+     */
+//    public Account getAccount(String username) {
+//
+//    }
 }
