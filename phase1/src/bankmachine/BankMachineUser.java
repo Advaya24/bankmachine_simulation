@@ -1,6 +1,5 @@
 package bankmachine;
 
-// TODO: find better name for this
 // managed by: Advaya
 public class BankMachineUser {
     private String userName;
