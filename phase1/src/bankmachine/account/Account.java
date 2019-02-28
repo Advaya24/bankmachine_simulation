@@ -1,5 +1,8 @@
 package bankmachine.account;
 
+import bankmachine.Transaction;
+import java.util.ArrayList;
+
 /**
  * An account containing a balance
  */
@@ -7,7 +10,7 @@ package bankmachine.account;
 public abstract class Account {
     /* The current balance of the account, in cents*/
     protected int balance;
-
+    ArrayList<Transaction> transactions = new ArrayList<>();
     public Account(){
         this(0);
     }
@@ -77,5 +80,8 @@ public abstract class Account {
     public float getFloatBalance() {
         return Math.round(balance/100.0);
     }
-
+    //TODO: Make a getTransactionList class
+    public ArrayList<Transaction> getTransactions(){
+        return transactions;
+    }
 }
