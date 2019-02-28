@@ -10,14 +10,15 @@ public class Main {
 
     public static void main(String[] args) throws Exception { //Main method to test read / write of files
 
+        //File does not exist exception test
+        String exception_test = "DNE.txt";
+        ReadFile ex = new ReadFile(exception_test);
+        System.out.println(ex.getData());
 
-        // READING FILE TESTING
+
+        //Standard ReadFile test
         String read_file = "input.txt";
         ReadFile in = new ReadFile(read_file);
-
-        // Ignore this:
-        //String filename = "filemanager_test.txt"; // Sets filename to our file
-        //ReadFile file_to_read = new ReadFile(filename); // calls readfile on that file
 
         System.out.println("--- Read File Test ---");
         System.out.println("* FileName: " + in.getFileName()); // prints filename
@@ -26,14 +27,12 @@ public class Main {
         System.out.println("* File Contents: ");
         System.out.println(in.getData()); // Prints data of file */
 
-        // Writing File
-
+        //Standard Writing File test
         WriteFile out = new WriteFile("output.txt");
-        String output_content = "Adding this data to file";
+        String output_content = "**Output Content**";
 
         System.out.println("--- Write File Test ---");
         System.out.println("Writing String: " + output_content);
-        //System.out.println(output_content);
         System.out.println("Filename: " + out.getFileName());
         out.writeData(output_content);
         System.out.println();
