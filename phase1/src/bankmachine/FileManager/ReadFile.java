@@ -39,6 +39,10 @@ public class ReadFile implements FileManager {
 
     @Override
     public String getLastUpdated() { // Method for returning system time of when file was last last modified
+
+        if(file == null){
+            return null;
+        }
         //Declares last_modified as a SDF object
         SimpleDateFormat last_modified = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         return last_modified.format(file.lastModified());
