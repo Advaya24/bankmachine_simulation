@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**A User within this system.**/
 // Person working on this: Varun
-public class User extends Loginable {
+public class User extends BankMachineUser {
     /**Name of this User**/
     private String name;
     /**All the accounts this User has**/
