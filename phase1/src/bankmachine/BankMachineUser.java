@@ -13,6 +13,7 @@ public class BankMachineUser {
 
     public String getUsername() { return userName; }
     public String getPassword() { return password; }
+
     public void setUserName(String new_username) {
         userName = new_username;
     }
