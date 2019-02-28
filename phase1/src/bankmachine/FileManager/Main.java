@@ -14,6 +14,7 @@ public class Main {
         String exception_test = "DNE.txt";
         ReadFile ex = new ReadFile(exception_test);
         System.out.println(ex.getData());
+        System.out.println(ex.getLastUpdated());
 
 
         //Standard ReadFile test
