@@ -1,6 +1,8 @@
 package bankmachine.FileManager;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class Main {
 
@@ -35,7 +37,22 @@ public class Main {
         System.out.println("--- Write File Test ---");
         System.out.println("Writing String: " + output_content);
         System.out.println("Filename: " + out.getFileName());
-        out.writeData(output_content);
+        out.writeData(output_content, true);
         System.out.println();
+
+
+        String output_content2 = "222222";
+        out.writeData(output_content2, true);
+
+        //No tester for writing to file that doesn't exist. As that file will simply be created
+
+        //System.out.println( new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) );
+        //System.out.println(new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime()));
+
+
+        TimeInfo tf = new TimeInfo();
+        //tf.setTime(1,22,34);
+        System.out.println(tf.getTime());
+
     }
 }
