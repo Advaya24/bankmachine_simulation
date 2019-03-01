@@ -77,16 +77,21 @@ public class User extends BankMachineUser {
      */
     //TODO: Finish this
     public Transaction mostRecentTrasaction(){
-        //TODO: Account for a case where the user has no accounts
-        Account firstAccount = usersAccounts.get(0);
-        Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size()-1);
-        for(Account a:usersAccounts) {
-            Date mostRecentFromAccount =a.getTransactions().get(a.getTransactions().size()-1).getDate();
-            if(mostRecentFromAccount.compareTo(recentTransaction.getDate())>0){
-                recentTransaction = a.getTransactions().get(a.getTransactions().size()-1);
-            }
+        if (usersAccounts.size()==0)
+        {
+            return null;
         }
-        return recentTransaction;
+        else {
+            Account firstAccount = usersAccounts.get(0);
+            Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size() - 1);
+            for (Account a : usersAccounts) {
+                Date mostRecentFromAccount = a.getTransactions().get(a.getTransactions().size() - 1).getDate();
+                if (mostRecentFromAccount.compareTo(recentTransaction.getDate()) > 0) {
+                    recentTransaction = a.getTransactions().get(a.getTransactions().size() - 1);
+                }
+            }
+            return recentTransaction;
+        }
     }
 
     //TODO: method to request BankManager to create a new account
