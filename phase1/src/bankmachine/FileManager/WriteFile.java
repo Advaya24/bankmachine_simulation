@@ -39,9 +39,11 @@ public class WriteFile implements FileManager {
     }
 
     // Main Method for writing target data into file. Appends file instead of overwriting existing.
-    public void writeData(String data) throws Exception {
-        FileOutputStream output_stream = new FileOutputStream(file, true);
+    // Data: data to be written  && append: boolean whether to append to existing data (true) or overwrite (false)
+    public void writeData(String data, Boolean append) throws Exception {
+        FileOutputStream output_stream = new FileOutputStream(file, append);
         output_stream.write(data.getBytes());
         output_stream.close();
     }
+
 }
