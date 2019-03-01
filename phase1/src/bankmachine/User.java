@@ -70,6 +70,16 @@ public class User extends BankMachineUser {
 //    public void setPassword(String new_password){
 //        password = new_password;
 //    }
+
+    /**
+     * Adds a newly created account for this user.
+     * @param newAccount the Account just created for this user
+     */
+    public void addAccount(Account newAccount){
+        usersAccounts.add(newAccount);
+    }
+
+
     //TODO: Figure out whether most recent transaction is outgoing, both ways, or what
     /**
      * Returns the most recent transaction across all accounts .
