@@ -8,11 +8,13 @@ import java.util.Optional;
  */
 // Managed by: Advaya
 public class Authenticator {
-    private ArrayList<BankMachineUser> userLoginData;
+    /* List of Client instances registered for login */
+    private ArrayList<BankMachineUser> clientLoginData;
+    /* List of BankManager instances registered for login*/
     private ArrayList<BankMachineUser> managerLoginData;
 
     Authenticator() {
-        userLoginData = new ArrayList<>();
+        clientLoginData = new ArrayList<>();
         managerLoginData = new ArrayList<>();
     }
 
@@ -27,7 +29,7 @@ public class Authenticator {
         ArrayList<BankMachineUser> dataToCheck;
 
         switch (type) {
-            case USER_LOGIN: dataToCheck = userLoginData; break;
+            case USER_LOGIN: dataToCheck = clientLoginData; break;
             case BANK_MANAGER_LOGIN: dataToCheck = managerLoginData; break;
             default: dataToCheck = new ArrayList<>();
         }
@@ -50,7 +52,7 @@ public class Authenticator {
      * @param newUser User instance for newUser
      */
     void addUser(User newUser) {
-        userLoginData.add(newUser);
+        clientLoginData.add(newUser);
     }
 
     /**
