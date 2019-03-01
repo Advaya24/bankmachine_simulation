@@ -1,9 +1,12 @@
 package bankmachine.FileManager;
 
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+
+//THIS IS STILL UNDER CONSTRUCTION
+// I know it's bulky at the moment but I'm just getting it to work, the optimizing it.
+// Only has hours so far. Not dates.
 
 
 public class TimeInfo {
@@ -11,8 +14,6 @@ public class TimeInfo {
     private int hour;
     private int minute;
     private int second;
-
-
     private int f_minute;
     private int f_second;
     private int f_hour;
