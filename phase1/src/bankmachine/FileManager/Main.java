@@ -13,10 +13,10 @@ public class Main {
     public static void main(String[] args) throws Exception { //Main method to test read / write of files
 
         //File does not exist exception test
-        String exception_test = "DNE.txt";
-        ReadFile ex = new ReadFile(exception_test);
-        System.out.println(ex.getData());
-        System.out.println(ex.getLastUpdated());
+        //String exception_test = "DNE.txt";
+        //ReadFile ex = new ReadFile(exception_test);
+        //System.out.println(ex.getData());
+        //System.out.println(ex.getLastUpdated());
 
 
         //Standard ReadFile test
