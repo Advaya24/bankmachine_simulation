@@ -9,23 +9,27 @@ import java.util.ArrayList;
 
 public class ObjectFileWriter {
 
-    private FileOutputStream fileOut;
-    private ObjectOutputStream outputStream;
+//    private FileOutputStream fileOut;
+//    private ObjectOutputStream outputStream;
+    private String fileName;
 
     // TODO: Make this throwable instead of handling exception here?
     ObjectFileWriter(String fileName) {
-        try {
-            fileOut = new FileOutputStream(fileName);
-            outputStream = new ObjectOutputStream(fileOut);
-            fileOut.close();
-            outputStream.close();
-        } catch (IOException e) {
-            System.out.println(e.toString());
-        }
+        this.fileName = fileName;
+//        try {
+//            fileOut = new FileOutputStream(fileName);
+//            outputStream = new ObjectOutputStream(fileOut);
+////            fileOut.close();
+////            outputStream.close();
+//        } catch (IOException e) {
+//            System.out.println(e.toString());
+//        }
     }
 
-    public boolean write(Serializable obj) {
+    public boolean write(Serializable obj, boolean toAppend) {
         try {
+            FileOutputStream fileOut = new FileOutputStream(fileName, toAppend);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
             outputStream.writeObject(obj);
             outputStream.close();
             fileOut.close();
@@ -35,8 +39,10 @@ public class ObjectFileWriter {
         }
     }
 
-    public boolean write(ArrayList<Serializable> arrayList) {
+    public boolean writeAll(ArrayList<Serializable> arrayList, boolean toAppend) {
         try {
+            FileOutputStream fileOut = new FileOutputStream(fileName, toAppend);
+            ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
             for (Serializable obj : arrayList) {
                 outputStream.writeObject(obj);
             }

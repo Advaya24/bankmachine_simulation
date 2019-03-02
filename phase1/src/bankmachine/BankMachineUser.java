@@ -7,7 +7,7 @@ public class BankMachineUser implements Serializable {
     private String userName;
     private String password;
 
-    BankMachineUser(String userName, String password) {
+    public BankMachineUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
