@@ -70,13 +70,29 @@ public abstract class Account {
      * @param amount to remove
      * @return always true
      */
-    abstract boolean transferOut(int amount);
+    public abstract boolean transferOut(int amount);
     public boolean payBill(int amount) { return transferOut(amount); }
     public boolean withdraw(int amount){ return transferOut(amount); }
 
+    public boolean payBill(double amount) { return transferOut((int)(amount*100)); }
+    public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
+
+    public boolean transferIn(Account acc, double amount){
+        return this.transferIn(acc, (int)(amount*100));
+    }
+    public boolean transferIn(double amount){
+        return this.transferIn((int)(amount*100));
+    }
+    public boolean transferOut(Account acc, double amount){
+        return this.transferOut(acc, (int)(amount*100));
+    }
+    public boolean transferOut(double amount){
+        return this.transferOut((int)(amount*100));
+    }
+
     public int getBalance(){ return balance; }
-    public float getFloatBalance() {
-        return Math.round(balance/100.0);
+    public double getDoubleBalance() {
+        return balance/100.0;
     }
     //TODO: Make a getTransactionList class
     public ArrayList<Transaction> getTransactions(){

@@ -18,7 +18,7 @@ public abstract class DebtAccount extends Account{
      * @param amount amount to subtract
      * @return always true
      */
-    boolean transferOut(int amount){
+    public boolean transferOut(int amount){
         if (amount < 0){ return false; }
         this.balance -= amount;
         return true;

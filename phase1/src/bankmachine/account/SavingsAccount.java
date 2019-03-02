@@ -21,7 +21,7 @@ public class SavingsAccount extends Account{
         double newBalance = this.balance * this.interestRate;
         this.balance = (int) Math.floor(newBalance);
     }
-    boolean transferOut(int amount) {
+    public boolean transferOut(int amount) {
         if (amount < balance && amount > 0){
             balance -= amount;
             return true;
