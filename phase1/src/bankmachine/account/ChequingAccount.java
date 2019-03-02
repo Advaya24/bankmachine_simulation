@@ -1,5 +1,7 @@
 package bankmachine.account;
 
+import bankmachine.User;
+
 
 import bankmachine.BankMachine;
 
@@ -12,15 +14,18 @@ public class ChequingAccount extends Account {
     /* Overdraw limit in dollars, currently fixed at 100, may change */
     private int overdrawLimit = 100;
 
-    public ChequingAccount(){ super(); }
-    public ChequingAccount(int amount){ super(amount); }
-    public ChequingAccount(boolean primary){
-        super();
+
+    public ChequingAccount(boolean primary, int amount, User user){
+        super(amount, user);
         this.primary = primary;
     }
-    public ChequingAccount(boolean primary, int amount){
-        super(amount);
-        this.primary = primary;
+    public ChequingAccount(int amount, User user){
+        super(amount, user);
+        this.primary = false;
+    }
+    public ChequingAccount(User user){
+        super(0, user);
+        this.primary = false;
     }
 
     /**

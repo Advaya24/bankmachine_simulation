@@ -1,6 +1,8 @@
 package bankmachine.account;
 
 import bankmachine.Transaction;
+import bankmachine.User;
+
 import java.util.ArrayList;
 
 /**
@@ -10,12 +12,14 @@ import java.util.ArrayList;
 public abstract class Account {
     /* The current balance of the account, in cents*/
     protected int balance;
+    protected User user;
     ArrayList<Transaction> transactions = new ArrayList<>();
-    public Account(){
-        this(0);
-    }
-    public Account(int balance){
+    public Account(int balance, User user){
+        this.user = user;
         this.balance = balance;
+    }
+    public Account(User user){
+        this.user = user;
     }
 
     /**
@@ -83,5 +87,9 @@ public abstract class Account {
     //TODO: Make a getTransactionList class
     public ArrayList<Transaction> getTransactions(){
         return transactions;
+    }
+
+    public User getUser(){
+        return user;
     }
 }
