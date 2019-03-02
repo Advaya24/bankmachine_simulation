@@ -37,6 +37,12 @@ public class ChequingAccount extends Account {
     }
 
     public boolean payBill (int amount){ return transferOut(amount); }
-    public boolean withdraw(int amount){ return transferOut(amount); }
+    public boolean withdraw(int amount){
+        if (amount % 5 != 0) {
+            return false;
+        }
+
+        return transferOut(amount);
+    }
 
 }
