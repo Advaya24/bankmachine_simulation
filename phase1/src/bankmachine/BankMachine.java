@@ -60,6 +60,6 @@ public class BankMachine {
         return false;
     }
 
-    //TODO:update method that sends alerts to alerst.txt warning about bill shortage.
+    //TODO:update method that sends alerts to alerts.txt warning about bill shortage.
 
 }
