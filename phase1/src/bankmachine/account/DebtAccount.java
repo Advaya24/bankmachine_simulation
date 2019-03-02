@@ -1,16 +1,16 @@
 package bankmachine.account;
 
-import bankmachine.User;
+import bankmachine.Client;
 
 /**
  * An account which allows negative balance
  */
 public abstract class DebtAccount extends Account{
-    public DebtAccount(int balance, User user) {
-        super(balance, user);
+    public DebtAccount(int balance, Client client) {
+        super(balance, client);
     }
-    public DebtAccount(User user) {
-        super(user);
+    public DebtAccount(Client client) {
+        super(client);
     }
 
     /**

@@ -1,6 +1,6 @@
 package account;
 
-import bankmachine.User;
+import bankmachine.Client;
 import bankmachine.account.Account;
 import bankmachine.account.ChequingAccount;
 import org.junit.jupiter.api.Test;
@@ -12,8 +12,8 @@ import static org.mockito.Mockito.*;
 public class ChequingAccountTest {
     private ChequingAccount account;
     public ChequingAccountTest(){
-        User user = mock(User.class);
-        this.account = new ChequingAccount(user);
+        Client client = mock(Client.class);
+        this.account = new ChequingAccount(client);
     }
     @Test
     public void testSanity() {

@@ -4,29 +4,23 @@ import bankmachine.account.Account;
 import java.util.Date;
 import java.util.ArrayList;
 
-/**A User within this system.**/
+/**A Client within this system.**/
 // Person working on this: Varun
-public class User extends BankMachineUser {
-    /**Name of this User**/
+public class Client extends BankMachineUser {
+    /**Name of this Client**/
     private String name;
-    /**All the accounts this User has**/
+    /**All the accounts this Client has**/
     private ArrayList<Account> usersAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
-    /**Primary email address of this User**/
+    /**Primary email address of this Client**/
     private String email;
-    /**This User's Phone Number**/
+    /**This Client's Phone Number**/
     private String phoneNumber;
-//    /**Username of this User, used for authentication**/
-//    private String username;
-//    /**Password of this User, used for authentication**/
-//    private String password;
 
-    public User(String name, String email, String phoneNumber, String username, String default_password){
+    public Client(String name, String email, String phoneNumber, String username, String default_password){
         super(username, default_password);
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-//        this.username = username;
-//        this.password = default_password;
 
     }
 
@@ -43,12 +37,6 @@ public class User extends BankMachineUser {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-//    public String getUsername() {
-//        return username;
-//    }
-//    public String getPassword(){
-//        return password;
-//    }
 
     /**All the setters for this class' private variables:**/
     public void setName(String new_name){
@@ -60,20 +48,10 @@ public class User extends BankMachineUser {
     public void setPhoneNumber(String new_phoneNumber) {
         phoneNumber = new_phoneNumber;
     }
-//    //TODO: Decide if we really want to be able to change username
-//    public void setUsername(String new_username) {
-//        username = new_username;
-//    }
-//    //TODO: Remember to ask twice!
-      //TODO: The user should only be able to change password after the first one has been set (only bankmanager can create and set the initial password.)
-//    /**Allows the user to change their password if necessary**/
-//    public void setPassword(String new_password){
-//        password = new_password;
-//    }
 
     /**
-     * Adds a newly created account for this user.
-     * @param newAccount the Account just created for this user
+     * Adds a newly created account for this client.
+     * @param newAccount the Account just created for this client
      */
     public void addAccount(Account newAccount){
         usersAccounts.add(newAccount);
@@ -83,7 +61,7 @@ public class User extends BankMachineUser {
     //TODO: Figure out whether most recent transaction is outgoing, both ways, or what
     /**
      * Returns the most recent transaction across all accounts .
-     * @return the most recent transaction of this user
+     * @return the most recent transaction of this client
      */
     //TODO: Finish this
     public Transaction mostRecentTrasaction(){
