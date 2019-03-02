@@ -83,4 +83,20 @@ public class Client extends BankMachineUser {
     }
 
     //TODO: method to request BankManager to create a new account
+
+    /**
+     * Returns the creation date of an account, if this user owns that account
+     * @param account the account that we want the creation date of.
+     * @return the creation date of the account parameter.
+     */
+    public Date getAccountCreationDate(Account account){
+        if (clientsAccounts.contains(account)){
+            return account.getCreationDate();
+        }
+        else{
+            return null;
+        }
+    }
+
+
 }
