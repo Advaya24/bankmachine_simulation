@@ -1,6 +1,8 @@
 package bankmachine.account;
 
 
+import bankmachine.BankMachine;
+
 /**
  * An account for withdrawals and deposits
  */
@@ -34,13 +36,25 @@ public class ChequingAccount extends Account {
         return super.transferOut(amount);
     }
 
-    public boolean payBill (int amount){ return transferOut(amount); }
-    public boolean withdraw(int amount){
-        if (amount % 5 != 0) {
-            return false;
-        }
-
-        return transferOut(amount);
+    // I had to add this method so that withdraw works nicely ~ Lorenzo
+    /**
+     * Return whether it is possible to transfer money equivalent to amount out.
+     * @param amount to be transferred
+     * @return true if and only if amount can be withdrawn
+     */
+    public boolean canTransferOut(int amount) {
+        return (!(amount < 0 || this.balance < 0
+                || this.balance - amount < -100*overdrawLimit));
     }
 
+    public boolean payBill (int amount){ return transferOut(amount); }
+
+    public boolean withdraw(int amount){
+        boolean canTransfer = canTransferOut(amount);
+        boolean withdraw = false;
+        if (canTransfer) {
+            withdraw = BankMachine.withdraw(amount);
+        }
+        return withdraw && transferOut(amount);
+    }
 }
