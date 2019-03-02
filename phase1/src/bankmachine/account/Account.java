@@ -1,13 +1,15 @@
 package bankmachine.account;
 
 import bankmachine.Transaction;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * An account containing a balance
  */
 //TODO: Check Account class hierarchy and possibly move things out of Account
-public abstract class Account {
+public abstract class Account implements Serializable {
     /* The current balance of the account, in cents*/
     protected int balance;
     ArrayList<Transaction> transactions = new ArrayList<>();

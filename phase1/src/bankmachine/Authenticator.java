@@ -22,7 +22,7 @@ public class Authenticator {
      * Authenticates login of user or bank manager
      * @param userName username input from user
      * @param password entered password
-     * @param type specifies whether it is a User or BankManager
+     * @param type specifies whether it is a Client or BankManager
      * @return the user object if login successful, empty optional otherwise
      */
     Optional<BankMachineUser> authenticate(String userName, String password, LoginType type) {
@@ -49,10 +49,10 @@ public class Authenticator {
 
     /**
      * Adds new user login information
-     * @param newUser User instance for newUser
+     * @param newClient Client instance for newClient
      */
-    void addUser(User newUser) {
-        clientLoginData.add(newUser);
+    void addUser(Client newClient) {
+        clientLoginData.add(newClient);
     }
 
     /**

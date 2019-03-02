@@ -1,7 +1,9 @@
 package bankmachine;
 
+import java.io.Serializable;
+
 // managed by: Advaya
-public class BankMachineUser {
+public class BankMachineUser implements Serializable {
     private String userName;
     private String password;
 

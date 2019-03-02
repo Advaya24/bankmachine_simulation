@@ -4,23 +4,23 @@ import bankmachine.account.Account;
 import java.util.Date;
 import java.util.ArrayList;
 
-/**A User within this system.**/
+/**A Client within this system.**/
 // Person working on this: Varun
-public class User extends BankMachineUser {
-    /**Name of this User**/
+public class Client extends BankMachineUser {
+    /**Name of this Client**/
     private String name;
-    /**All the accounts this User has**/
-    private ArrayList<Account> usersAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
-    /**Primary email address of this User**/
+    /**All the accounts this Client has**/
+    private ArrayList<Account> clientsAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
+    /**Primary email address of this Client**/
     private String email;
-    /**This User's Phone Number**/
+    /**This Client's Phone Number**/
     private String phoneNumber;
-//    /**Username of this User, used for authentication**/
+//    /**Username of this Client, used for authentication**/
 //    private String username;
-//    /**Password of this User, used for authentication**/
+//    /**Password of this Client, used for authentication**/
 //    private String password;
 
-    public User(String name, String email, String phoneNumber, String username, String default_password){
+    public Client(String name, String email, String phoneNumber, String username, String default_password){
         super(username, default_password);
         this.name = name;
         this.email = email;
@@ -34,8 +34,8 @@ public class User extends BankMachineUser {
     public String getName(){
         return name;
     }
-    public ArrayList<Account> getUsersAccounts(){
-        return usersAccounts;
+    public ArrayList<Account> getClientsAccounts(){
+        return clientsAccounts;
     }
     public String getEmail(){
         return email;
@@ -76,7 +76,7 @@ public class User extends BankMachineUser {
      * @param newAccount the Account just created for this user
      */
     public void addAccount(Account newAccount){
-        usersAccounts.add(newAccount);
+        clientsAccounts.add(newAccount);
     }
 
 
@@ -87,14 +87,14 @@ public class User extends BankMachineUser {
      */
     //TODO: Finish this
     public Transaction mostRecentTrasaction(){
-        if (usersAccounts.size()==0)
+        if (clientsAccounts.size()==0)
         {
             return null;
         }
         else {
-            Account firstAccount = usersAccounts.get(0);
+            Account firstAccount = clientsAccounts.get(0);
             Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size() - 1);
-            for (Account a : usersAccounts) {
+            for (Account a : clientsAccounts) {
                 Date mostRecentFromAccount = a.getTransactions().get(a.getTransactions().size() - 1).getDate();
                 if (mostRecentFromAccount.compareTo(recentTransaction.getDate()) > 0) {
                     recentTransaction = a.getTransactions().get(a.getTransactions().size() - 1);
