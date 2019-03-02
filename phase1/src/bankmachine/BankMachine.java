@@ -33,7 +33,7 @@ public class BankMachine {
 
     /**
      * Withdraw amount from this BankMachine.
-     * @param amount
+     * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */
     public static boolean withdraw(int amount) {
