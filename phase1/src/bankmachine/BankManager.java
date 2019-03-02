@@ -11,8 +11,6 @@ public class BankManager extends BankMachineUser {
         super(username, password);
     }
 
-    //TODO: Can a user have more than one account of the same type? (for now this is set to yes)
-
     /**
      * Create a new account for user of type accountType. Return true if the account was created.
      * @param user
@@ -37,11 +35,20 @@ public class BankManager extends BankMachineUser {
             default:
                 System.out.println("Invalid account type. Please try again.");
                 return false;
-
         }
         user.addAccount(account1);
         return true;
-
     }
+    //TODO: setPassword
+//    public boolean setPassword(User user) {
+//
+//    }
+
+    //TODO: restock
+//    public boolean restock(int quantity, ) {
+//    }
+
+    //TODO: undoRecentTransaction
+
 
 }
