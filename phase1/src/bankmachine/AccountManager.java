@@ -12,7 +12,7 @@ import java.util.ArrayList;
 //TODO: make this static?
 public class AccountManager {
     private static ArrayList<Client> accounts = new ArrayList<>();
-    //TODO: decide what this stores (accounts of each user (i.e. each user has their instance) or accounts of all users.)
+    //TODO: decide what this stores (accounts of each client (i.e. each user has their instance) or accounts of all users.)
 
     /**
      * getter for a given account

@@ -1,5 +1,6 @@
 package bankmachine.account;
 
+import bankmachine.Client;
 import bankmachine.Transaction;
 
 import java.io.Serializable;
@@ -12,12 +13,14 @@ import java.util.ArrayList;
 public abstract class Account implements Serializable {
     /* The current balance of the account, in cents*/
     protected int balance;
+    protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
-    public Account(){
-        this(0);
-    }
-    public Account(int balance){
+    public Account(int balance, Client client){
+        this.client = client;
         this.balance = balance;
+    }
+    public Account(Client client){
+        this.client = client;
     }
 
     /**
@@ -68,22 +71,35 @@ public abstract class Account implements Serializable {
      * @param amount to remove
      * @return always true
      */
-    boolean transferOut(int amount) {
-        if (amount < balance && amount > 0){
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean transferOut(int amount);
     public boolean payBill(int amount) { return transferOut(amount); }
     public boolean withdraw(int amount){ return transferOut(amount); }
 
+    public boolean payBill(double amount) { return transferOut((int)(amount*100)); }
+    public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
+
+    public boolean transferIn(Account acc, double amount){
+        return this.transferIn(acc, (int)(amount*100));
+    }
+    public boolean transferIn(double amount){
+        return this.transferIn((int)(amount*100));
+    }
+    public boolean transferOut(Account acc, double amount){
+        return this.transferOut(acc, (int)(amount*100));
+    }
+    public boolean transferOut(double amount){
+        return this.transferOut((int)(amount*100));
+    }
+
     public int getBalance(){ return balance; }
-    public float getFloatBalance() {
-        return Math.round(balance/100.0);
+    public double getDoubleBalance() {
+        return balance/100.0;
     }
     //TODO: Make a getTransactionList class
     public ArrayList<Transaction> getTransactions(){
         return transactions;
+    }
+    public Client getClient(){
+        return client;
     }
 }

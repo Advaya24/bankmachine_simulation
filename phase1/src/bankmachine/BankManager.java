@@ -19,16 +19,16 @@ public class BankManager extends BankMachineUser {
         Account account1;
         switch (accountType) {
             case "Chequing account":
-                account1 = new ChequingAccount();
+                account1 = new ChequingAccount(client);
                 break;
             case "Credit card account":
-                account1 = new CreditCardAccount();
+                account1 = new CreditCardAccount(client);
                 break;
             case "Line of credit account":
-                account1 = new LineOfCreditAccount();
+                account1 = new LineOfCreditAccount(client);
                 break;
             case "Savings account":
-                account1 = new SavingsAccount();
+                account1 = new SavingsAccount(client);
                 break;
             default:
                 System.out.println("Invalid account type. Please try again.");
@@ -38,7 +38,7 @@ public class BankManager extends BankMachineUser {
         return true;
     }
     //TODO: setPassword
-//    public boolean setPassword(Client user) {
+//    public boolean setPassword(Client client) {
 //
 //    }
 
