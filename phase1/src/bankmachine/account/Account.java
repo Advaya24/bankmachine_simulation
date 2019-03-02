@@ -3,20 +3,24 @@ package bankmachine.account;
 import bankmachine.Client;
 import bankmachine.Transaction;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * An account containing a balance
  */
 //TODO: Check Account class hierarchy and possibly move things out of Account
-public abstract class Account {
+public abstract class Account implements Serializable {
     /* The current balance of the account, in cents*/
     protected int balance;
     protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
-    public Account(int balance, Client client){
+    protected Date creationDate;
+    public Account(int balance, Client client, Date creationDate){
         this.client = client;
         this.balance = balance;
+        this.creationDate = creationDate;
     }
     public Account(Client client){
         this.client = client;
@@ -43,7 +47,9 @@ public abstract class Account {
         }
         return true;
     }
-
+    public Date getCreationDate(){
+        return this.creationDate;
+    }
     /**
      * Transfer money out of this account. see transferIn
      * @param other the account to transfer into

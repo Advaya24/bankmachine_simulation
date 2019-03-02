@@ -10,7 +10,7 @@ public class Client extends BankMachineUser {
     /**Name of this Client**/
     private String name;
     /**All the accounts this Client has**/
-    private ArrayList<Account> usersAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
+    private ArrayList<Account> clientsAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
     /**Primary email address of this Client**/
     private String email;
     /**This Client's Phone Number**/
@@ -28,8 +28,8 @@ public class Client extends BankMachineUser {
     public String getName(){
         return name;
     }
-    public ArrayList<Account> getUsersAccounts(){
-        return usersAccounts;
+    public ArrayList<Account> getClientsAccounts(){
+        return clientsAccounts;
     }
     public String getEmail(){
         return email;
@@ -54,7 +54,7 @@ public class Client extends BankMachineUser {
      * @param newAccount the Account just created for this client
      */
     public void addAccount(Account newAccount){
-        usersAccounts.add(newAccount);
+        clientsAccounts.add(newAccount);
     }
 
 
@@ -65,14 +65,14 @@ public class Client extends BankMachineUser {
      */
     //TODO: Finish this
     public Transaction mostRecentTrasaction(){
-        if (usersAccounts.size()==0)
+        if (clientsAccounts.size()==0)
         {
             return null;
         }
         else {
-            Account firstAccount = usersAccounts.get(0);
+            Account firstAccount = clientsAccounts.get(0);
             Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size() - 1);
-            for (Account a : usersAccounts) {
+            for (Account a : clientsAccounts) {
                 Date mostRecentFromAccount = a.getTransactions().get(a.getTransactions().size() - 1).getDate();
                 if (mostRecentFromAccount.compareTo(recentTransaction.getDate()) > 0) {
                     recentTransaction = a.getTransactions().get(a.getTransactions().size() - 1);
@@ -83,4 +83,20 @@ public class Client extends BankMachineUser {
     }
 
     //TODO: method to request BankManager to create a new account
+
+    /**
+     * Returns the creation date of an account, if this user owns that account
+     * @param account the account that we want the creation date of.
+     * @return the creation date of the account parameter.
+     */
+    public Date getAccountCreationDate(Account account){
+        if (clientsAccounts.contains(account)){
+            return account.getCreationDate();
+        }
+        else{
+            return null;
+        }
+    }
+
+
 }
