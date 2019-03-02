@@ -2,15 +2,14 @@ package bankmachine.account;
 
 import bankmachine.Client;
 
+import java.util.Date;
+
 /**
  * An account which allows negative balance
  */
 public abstract class DebtAccount extends Account{
-    public DebtAccount(int balance, Client client) {
-        super(balance, client);
-    }
-    public DebtAccount(Client client) {
-        super(client);
+    public DebtAccount(int balance, Client client,Date creationDate) {
+        super(balance, client, creationDate);
     }
 
     /**
