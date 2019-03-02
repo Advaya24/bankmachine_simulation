@@ -23,6 +23,4 @@ public abstract class DebtAccount extends Account{
         this.balance -= amount;
         return true;
     }
-    public boolean payBill (int amount){ return transferOut(amount); }
-    public boolean withdraw(int amount){ return transferOut(amount); }
 }

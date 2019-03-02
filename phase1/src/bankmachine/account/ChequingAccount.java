@@ -38,7 +38,8 @@ public class ChequingAccount extends Account {
                 || this.balance - amount < -100*overdrawLimit){
             return false;
         }
-        return super.transferOut(amount);
+        balance -= amount;
+        return true;
     }
 
     // I had to add this method so that withdraw works nicely ~ Lorenzo

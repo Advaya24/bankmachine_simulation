@@ -70,13 +70,7 @@ public abstract class Account {
      * @param amount to remove
      * @return always true
      */
-    boolean transferOut(int amount) {
-        if (amount < balance && amount > 0){
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
+    abstract boolean transferOut(int amount);
     public boolean payBill(int amount) { return transferOut(amount); }
     public boolean withdraw(int amount){ return transferOut(amount); }
 
@@ -88,7 +82,6 @@ public abstract class Account {
     public ArrayList<Transaction> getTransactions(){
         return transactions;
     }
-
     public User getUser(){
         return user;
     }
