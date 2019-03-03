@@ -15,6 +15,10 @@ public class BankMachine {
         bills.put(50, 0);
     }
 
+    public static HashMap getBills() {
+        return bills;
+    }
+
     /**
      * Increase the amount of bills of denomination billType by amount quantity stored in BankMachine.
      * @param billType which denomination to add
