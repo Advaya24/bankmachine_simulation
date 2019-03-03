@@ -9,6 +9,7 @@ import java.util.Optional;
 
 /**
  * Manages client login authentication for BillManager
+ * @param <T> a BankMachineUser type
  */
 // Managed by: Advaya
 public class Authenticator<T extends BankMachineUser> {
@@ -67,6 +68,12 @@ public class Authenticator<T extends BankMachineUser> {
 //        return Optional.empty();
 //    }
 
+    /**
+     * Matches userName to password for login
+     * @param userName for this user
+     * @param password for this user
+     * @return Optional containing the required user of type T if login successful, empty Optional otherwise
+     */
     public Optional<T> authenticate(String userName, String password) {
         for (T user: loginData) {
             if (user.getUsername().equals(userName)) {
@@ -104,16 +111,30 @@ public class Authenticator<T extends BankMachineUser> {
 //    public void clearManagerData() {
 //        managerWriter.clear();
 //    }
+
+    /**
+     * Add a single user
+     * @param newUser user to add
+     */
     public void add(T newUser) {
         loginData.add(newUser);
         writer.write(newUser);
     }
 
+    /**
+     * Add multiple users
+     * @param newUsersArrayList array list of users to add
+     */
     public void addAll(ArrayList<T> newUsersArrayList) {
         loginData.addAll(newUsersArrayList);
         writer.writeAll(newUsersArrayList);
     }
 
+    /**
+     * Get user corresponding to userName
+     * @param userName for the required user
+     * @return Optional containing the required user of type T if it exists, empty Optional otherwise
+     */
     public Optional<T> get(String userName) {
         for (T user: loginData) {
             if (user.getUsername().equals(userName)) {
@@ -123,6 +144,9 @@ public class Authenticator<T extends BankMachineUser> {
         return Optional.empty();
     }
 
+    /**
+     * Clears all loginData for this type.
+     */
     public void clearData() {
         loginData = new ArrayList<>();
         writer.clear();
