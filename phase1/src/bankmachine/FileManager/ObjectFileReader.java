@@ -50,10 +50,16 @@ public class ObjectFileReader {
         try {
             fileIn = new FileInputStream(fileName);
             inputStream = new ObjectInputStream(fileIn);
-
-            while (true) {
-                arrayList.add((Serializable)inputStream.readObject());
+            boolean toContinue = true;
+            while (toContinue) {
+                Serializable obj = (Serializable)inputStream.readObject();
+                if (obj != null) {
+                    arrayList.add(obj);
+                } else {
+                    toContinue = false;
+                }
             }
+            return arrayList;
 
         } catch (EOFException eof) {
             try {
