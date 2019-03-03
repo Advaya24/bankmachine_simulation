@@ -13,7 +13,7 @@ public class WriteFile implements FileManager {
         // Creates file with "filename" in the FileManager package
         String path = System.getProperty("user.dir");
         System.out.println(path);
-        this.file = new File(path+"/phase1/src/bankmachine/FileManager/" + filename);
+        this.file = new File(path+"/phase1/src/bankmachine/FileManager/" + filename); //
     }
 
     public WriteFile() {
