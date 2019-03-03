@@ -2,17 +2,22 @@ package bankmachine;
 
 import java.util.HashMap;
 
+
 public class BankMachine {
 
     /*Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
-    static private HashMap<Integer, Integer> bills = new HashMap<>();
+    static private HashMap<Integer, Integer> bills = new HashMap<Integer, Integer>() {
+        {
+            put(5, 0);
+            put(10, 0);
+            put(20, 0);
+            put(50, 0);
+        }
+
+    };
 
     public BankMachine(){
-        bills.put(5, 0);
-        bills.put(10, 0);
-        bills.put(20, 0);
-        bills.put(50, 0);
     }
 
     public static HashMap getBills() {
