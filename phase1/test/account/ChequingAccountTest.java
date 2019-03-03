@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -29,5 +30,12 @@ public class ChequingAccountTest {
         boolean status = account.transferIn(otherAccount, 10.0);
         assertTrue(status);
         assertEquals(10.0, account.getDoubleBalance());
+        status = account.transferOut(-200.0);
+        assertFalse(status);
+        status = account.transferOut(100.0);
+        assertTrue(status);
+        status = account.payBill(1);
+        assertFalse(status);
     }
+
 }
