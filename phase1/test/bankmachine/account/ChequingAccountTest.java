@@ -1,10 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.Client;
-import bankmachine.account.Account;
-import bankmachine.account.ChequingAccount;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Date;
 
@@ -39,4 +36,20 @@ public class ChequingAccountTest {
         assertFalse(status);
     }
 
+    public static class SavingsAccountTest {
+        private SavingsAccount account;
+        public SavingsAccountTest(){
+            Client client = mock(Client.class);
+            Date creationDate = mock(Date.class);
+            this.account = new SavingsAccount(0, client, creationDate);
+        }
+        @Test
+        public void testTransfer() {
+            assertFalse(account.transferOut(1));
+            account.transferIn(100.0);
+            account.applyInterest();
+            assertEquals(10010, account.getBalance());
+
+        }
+    }
 }
