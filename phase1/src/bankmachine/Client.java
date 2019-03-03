@@ -99,6 +99,10 @@ public class Client extends BankMachineUser {
         }
     }
 
+    /**
+     * Returns the net total of the client
+     * @return the net total of the client
+     */
     public double getNetTotal(){
         double debt=0;
         double asset =0;
@@ -111,6 +115,17 @@ public class Client extends BankMachineUser {
             }
         }
         return asset-debt;
+    }
+
+    /**
+     * Prints the summary of all Accounts this Client has.
+     */
+    public void printAccountSummary(){
+        System.out.println("Account summary for username: " + getUsername());
+        for(Account a: clientsAccounts){
+            System.out.println(a);
+        }
+        System.out.println("Net total: "+getNetTotal());
     }
 
 }

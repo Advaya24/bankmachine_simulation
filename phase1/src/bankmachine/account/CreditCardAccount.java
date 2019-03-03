@@ -21,5 +21,9 @@ public class CreditCardAccount extends DebtAccount{
     public boolean transferOut(int amount){
         return false;
     }
-
+    public String toString(){
+        String output = "";
+        output += "ID: " + id +" Type: Credit Card Account Balance: " + balance;
+        return output;
+    }
 }

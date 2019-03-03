@@ -61,4 +61,10 @@ public class ChequingAccount extends AssetAccount {
         }
         return withdraw && transferOut(amount);
     }
+
+    public String toString(){
+        String output = "";
+        output += "ID: " + id +" Type: Chequing Account Balance: " + balance;
+        return output;
+    }
 }
