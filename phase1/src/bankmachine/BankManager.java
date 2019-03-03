@@ -40,6 +40,12 @@ public class BankManager extends BankMachineUser {
         client.addAccount(account1);
         return true;
     }
+
+    public void createClient(String name, String email, String phoneNumber, String username, String default_password){
+        Client newClient = new Client(name, email, phoneNumber, username, default_password);
+        //TODO: Find a way to actually store all these clients
+
+    }
     public boolean undoRecentTransaction(Transaction transaction){
         if(transaction.getType()==TransactionType.BILL){
             return false;
