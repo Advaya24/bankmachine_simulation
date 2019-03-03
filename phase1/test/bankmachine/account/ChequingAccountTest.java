@@ -1,9 +1,10 @@
-package account;
+package bankmachine.account;
 
 import bankmachine.Client;
 import bankmachine.account.Account;
 import bankmachine.account.ChequingAccount;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.Date;
 
