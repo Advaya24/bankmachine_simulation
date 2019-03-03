@@ -14,7 +14,7 @@ public class ReadFile implements FileManager {
         //if(ReadFile.class.getResource(filename).getFile() == null){
         try {
             //this.file = new File(ReadFile.class.getResource(filename).getFile());
-            this.file = new File("phase1/src/bankmachine/FileManager", filename);
+            this.file = new File("bankmachine/FileManager", filename);
         } catch  (NullPointerException e){
             System.out.println("The file attempted to be read does not exist");
         }
