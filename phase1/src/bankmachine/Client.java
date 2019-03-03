@@ -64,21 +64,13 @@ public class Client extends BankMachineUser {
      * Returns the most recent transaction across all accounts .
      * @return the most recent transaction of this client
      */
-    public Transaction mostRecentTransaction(){
-        if (clientsAccounts.size()==0)
+    public Transaction mostRecentTransaction(Account a1){
+        if (!getClientsAccounts().contains(a1))
         {
             return null;
         }
         else {
-            Account firstAccount = clientsAccounts.get(0);
-            Transaction recentTransaction = firstAccount.getTransactions().get(firstAccount.getTransactions().size() - 1);
-            for (Account a : clientsAccounts) {
-                Date mostRecentFromAccount = a.getTransactions().get(a.getTransactions().size() - 1).getDate();
-                if (mostRecentFromAccount.compareTo(recentTransaction.getDate()) > 0) {
-                    recentTransaction = a.getTransactions().get(a.getTransactions().size() - 1);
-                }
-            }
-            return recentTransaction;
+            return a1.getTransactions().get(a1.getTransactions().size() - 1);
         }
     }
 

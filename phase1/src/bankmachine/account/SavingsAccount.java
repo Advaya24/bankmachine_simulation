@@ -17,8 +17,8 @@ public class SavingsAccount extends AssetAccount{
      * Applies interest to the balance. Partial cents are rounded down
      */
     public void applyInterest(){
-        double newBalance = this.balance * this.interestRate;
-        this.balance = (int) Math.floor(newBalance);
+        double newBalance = this.balance * (1 + this.interestRate);
+        this.balance = (int) Math.round(newBalance);
     }
     public boolean transferOut(int amount) {
         if (amount < balance && amount > 0){
