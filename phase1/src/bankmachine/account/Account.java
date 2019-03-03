@@ -12,12 +12,16 @@ import java.util.Date;
  */
 //TODO: Check Account class hierarchy and possibly move things out of Account
 public abstract class Account implements Serializable {
+    static int numAccounts = 0;
     /* The current balance of the account, in cents*/
     protected int balance;
+    int id;
     protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
     protected Date creationDate;
     public Account(int balance, Client client, Date creationDate){
+        numAccounts++;
+        id = numAccounts;
         this.client = client;
         this.balance = balance;
         this.creationDate = creationDate;
@@ -79,6 +83,7 @@ public abstract class Account implements Serializable {
     public abstract boolean transferOut(int amount);
     public boolean payBill(int amount) { return transferOut(amount); }
     public boolean withdraw(int amount){ return transferOut(amount); }
+    abstract public String toString();
 
     public boolean payBill(double amount) { return transferOut((int)(amount*100)); }
     public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }

@@ -1,6 +1,7 @@
 package bankmachine;
 
-import bankmachine.account.Account;
+import bankmachine.account.*;
+
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -98,5 +99,33 @@ public class Client extends BankMachineUser {
         }
     }
 
+    /**
+     * Returns the net total of the client
+     * @return the net total of the client
+     */
+    public double getNetTotal(){
+        double debt=0;
+        double asset =0;
+        for (Account a: clientsAccounts){
+            if(a instanceof DebtAccount){
+                debt+=a.getBalance();
+            }
+            else if(a instanceof AssetAccount){
+                asset+=a.getBalance();
+            }
+        }
+        return asset-debt;
+    }
+
+    /**
+     * Prints the summary of all Accounts this Client has.
+     */
+    public void printAccountSummary(){
+        System.out.println("Account summary for username: " + getUsername());
+        for(Account a: clientsAccounts){
+            System.out.println(a);
+        }
+        System.out.println("Net total: "+getNetTotal());
+    }
 
 }
