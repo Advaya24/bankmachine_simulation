@@ -5,6 +5,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+//TODO: sequence of inputs:
+// 1) ask and check validity of username and password (note this should already determine if they are a mank manager or client)
+// 2) ask which account they would like to access
+// 3) ask what type of transaction would like to be performed or what they would like to see
+// 4) OPTIONAL: confirmation?
+// 5) exit option
+
 public class InputManager {
     private Scanner input;
     public static void main(String[] args) {
@@ -57,11 +64,12 @@ public class InputManager {
         return items.get(index);
     }
 
+    //TODO: maybe this should be choose an account instead? Since username should already correspond to a user
     private void selectItemTest(){
         ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Hakurei Reimu", "Marisa Kirisame", "Sanae Kochiya"
+                "Credit Card Account", "Line Credit Account", "Asset Account", "Savings Account"
         ));
-        System.out.println("Choose a name");
+        System.out.println("Choose a account");
         String response = selectItem(strings);
         System.out.println("You chose " + response);
     }
