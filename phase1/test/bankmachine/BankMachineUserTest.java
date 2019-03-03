@@ -1,3 +1,5 @@
+package bankmachine;
+
 import org.junit.jupiter.api.Test;
 
 
