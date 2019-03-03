@@ -66,8 +66,14 @@ public class Main {
         tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
         tf.getTime(); // Returns Date Object of ATM date + time
 
+        // Setting up FileManager path
+        final FileSearch fileSearch = new FileSearch();
+
+        fileSearch.setFileNameToSearch("FileManager");
+        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String fileManagerPath = fileSearch.getResult().get(0);
         // Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>("src/bankmachine/FileManager/testObjectFile.ser");
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         writer.clear();
@@ -86,14 +92,9 @@ public class Main {
             System.out.println("Failed to write array list");
         }
 
-        final FileSearch fileSearch = new FileSearch();
 
 //        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
 
-        fileSearch.setFileNameToSearch("FileManager");
-        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
-
-        final String fileManagerPath = fileSearch.getResult().get(0);
 
         ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(fileManagerPath + "/testObjectFile.ser");
         for (BankMachineUser object : reader.read()) {
