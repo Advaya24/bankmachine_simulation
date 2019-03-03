@@ -56,6 +56,7 @@ public class Client extends BankMachineUser {
      */
     public void addAccount(Account newAccount){
         clientsAccounts.add(newAccount);
+        AccountManager.addAccount(newAccount);
     }
 
 

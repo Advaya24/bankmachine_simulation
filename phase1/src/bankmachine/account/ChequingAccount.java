@@ -1,9 +1,10 @@
 package bankmachine.account;
 
+import bankmachine.BankMachine;
 import bankmachine.Client;
 
 
-import bankmachine.BankMachine;
+import bankmachine.BillManager;
 
 import java.util.Date;
 
@@ -57,7 +58,7 @@ public class ChequingAccount extends AssetAccount {
         boolean canTransfer = canTransferOut(amount);
         boolean withdraw = false;
         if (canTransfer) {
-            withdraw = BankMachine.withdraw(amount);
+            withdraw = BankMachine.getBillManager().withdraw(amount);
         }
         return withdraw && transferOut(amount);
     }

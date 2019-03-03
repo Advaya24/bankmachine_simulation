@@ -3,11 +3,11 @@ package bankmachine.FileManager;
 import java.io.*;
 import java.util.ArrayList;
 
-public class ObjectFileReader {
+public class ObjectFileReader<T extends Serializable> {
 
     private String fileName;
 
-    ObjectFileReader(String fileName) {
+    public ObjectFileReader(String fileName) {
         this.fileName = fileName;
     }
 
@@ -43,8 +43,8 @@ public class ObjectFileReader {
 //            }
 //        };
 //    }
-    public ArrayList<Serializable> read() {
-        ArrayList<Serializable> arrayList = new ArrayList<>();
+    public ArrayList<T> read() {
+        ArrayList<T> arrayList = new ArrayList<>();
         FileInputStream fileIn = null;
         ObjectInputStream inputStream = null;
         try {
@@ -59,7 +59,7 @@ public class ObjectFileReader {
 //                    toContinue = false;
 //                }
 //            }
-            arrayList = (ArrayList<Serializable>)inputStream.readObject();
+            arrayList = (ArrayList<T>)inputStream.readObject();
             return arrayList;
 
         } catch (EOFException eof) {
