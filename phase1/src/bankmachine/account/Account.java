@@ -112,4 +112,8 @@ public abstract class Account implements Serializable {
     public Client getClient(){
         return client;
     }
+
+    public void changeBalance(int amount){
+        this.balance += amount;
+    }
 }
