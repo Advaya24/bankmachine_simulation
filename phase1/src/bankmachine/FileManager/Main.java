@@ -64,6 +64,7 @@ public class Main {
         ObjectFileWriter writer = new ObjectFileWriter("src/bankmachine/FileManager/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
+        writer.clear();
         if (writer.write(singleUser)) {
             System.out.println("Wrote single user to file");
         } else {
@@ -74,7 +75,7 @@ public class Main {
             users.add(new BankMachineUser("Test username " + i, "testPassword" + i));
         }
         if (writer.writeAll(users)) {
-            System.out.println("Wote array list to file");
+            System.out.println("Wrote array list to file");
         } else {
             System.out.println("Failed to write array list");
         }

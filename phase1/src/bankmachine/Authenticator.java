@@ -51,7 +51,7 @@ public class Authenticator {
      * Adds new client login information
      * @param newClient Client instance for newClient
      */
-    void addUser(Client newClient) {
+    void addClient(Client newClient) {
         clientLoginData.add(newClient);
     }
 
