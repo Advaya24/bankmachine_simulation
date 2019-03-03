@@ -5,6 +5,8 @@ import bankmachine.account.Account;
 import bankmachine.account.ChequingAccount;
 import org.junit.jupiter.api.Test;
 
+import java.util.Date;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -13,7 +15,8 @@ public class ChequingAccountTest {
     private ChequingAccount account;
     public ChequingAccountTest(){
         Client client = mock(Client.class);
-        this.account = new ChequingAccount(client);
+        Date creationDate = mock(Date.class);
+        this.account = new ChequingAccount(0, client, creationDate);
     }
     @Test
     public void testSanity() {
