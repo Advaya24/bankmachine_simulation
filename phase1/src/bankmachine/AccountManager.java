@@ -27,17 +27,7 @@ public class AccountManager {
         } else { accounts.add(account); }
     }
 
-    /**
-     * getter for a given account
-     */
-//    public static ArrayList<Account> getAccounts(String username) {
-//        for (Client client : accounts) {
-//            if (client.getUsername().equals(username)) {
-//                return client.getClientsAccounts();
-//            }
-//        }
-//        return new ArrayList<Account>();
-//    }
+    //TODO: decide whether we need a getter (and if so, what is its input parameter)
 
 
 }
