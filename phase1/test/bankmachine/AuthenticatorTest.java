@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.FileManager.FileSearch;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.verification.After;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -21,7 +23,11 @@ public class AuthenticatorTest {
 
     @BeforeAll
     public void setClientAuthenticator() {
-        clientAuthenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData.ser");
+        FileSearch fileSearch = new FileSearch();
+        fileSearch.setFileNameToSearch("FileManager");
+        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String fileManagerPath = fileSearch.getResult().get(0);
+        clientAuthenticator = new Authenticator<>("/testClientData.ser");
         clientAuthenticator.clearData();
         client = mock(Client.class);
 
