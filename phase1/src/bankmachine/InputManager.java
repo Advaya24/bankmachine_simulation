@@ -1,14 +1,14 @@
 package bankmachine;
 import java.util.Scanner;
 
+// Janice
 public class InputManager {
-
     public static void main(String[] args) {
         // Login page
         // TODO: Change the conditions in the while loops so that it tries to find the list of usernames and
         //  corresponding password
         String a = "John";
-        String b = "123abc";
+        String b = "123";
         String username = userNamePrompt();
         while (!username.equals(a)) {
             username = userNamePrompt();
@@ -37,6 +37,14 @@ public class InputManager {
         System.out.println("Enter password: ");
         password = input.next();
         return password;
+    }
+
+    private static String clientPrompt() {
+        Scanner input = new Scanner(System.in);
+        String client;
+        System.out.println("Enter password: ");
+        client = input.next();
+        return client;
     }
 
 
