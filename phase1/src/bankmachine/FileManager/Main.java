@@ -1,6 +1,9 @@
 package bankmachine.FileManager;
 
+import bankmachine.Authenticator;
 import bankmachine.BankMachineUser;
+import bankmachine.Client;
+import bankmachine.LoginType;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +11,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 
 public class Main {
 
@@ -60,7 +64,7 @@ public class Main {
 //        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
 //        tf.getTime(); // Returns Date Object of ATM date + time
 
-        //Test ObjectFileWriter and ObjectFileReader
+        // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>("src/bankmachine/FileManager/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
@@ -84,6 +88,37 @@ public class Main {
         for (BankMachineUser object : reader.read()) {
             System.out.println("From file: " + object.getUsername());
         }
+
+
+        // Test Authenticator functionality
+        Authenticator<Client> authenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData");
+        authenticator.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
+
+        Optional<Client> optionalClient = authenticator.authenticate("abc", "def");
+
+        if (optionalClient.isPresent()) optionalClient.get().printAccountSummary();
+        else System.out.println("Client not found :(");
+
+        ArrayList<Client> clients = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            clients.add(new Client("Test " + i, "test" + i +"@gmail.com", "666124123" + i,"Test username " + i, "testPassword" + i));
+        }
+        authenticator.clearData();
+        authenticator.addAll(clients);
+
+        optionalClient = authenticator.get("abc");
+
+        if (optionalClient.isPresent()) System.out.println("ABC didn't get deleted!");
+        else System.out.println("Successfully deleted ABC");
+
+        Optional<Client> testClient1 = authenticator.authenticate("Test username 1", "testPassword1");
+        if (testClient1.isPresent()) testClient1.get().printAccountSummary();
+        else System.out.println("Client not found :(");
+
+        Optional<Client> testClient2 = authenticator.get("Test username 2");
+        if (testClient2.isPresent()) testClient2.get().printAccountSummary();
+        else System.out.println("Client not found :(");
+
 
     }
 }
