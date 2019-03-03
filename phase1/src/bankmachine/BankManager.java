@@ -43,14 +43,14 @@ public class BankManager extends BankMachineUser {
 
     public void createClient(String name, String email, String phoneNumber, String username, String default_password){
         Client newClient = new Client(name, email, phoneNumber, username, default_password);
-        //TODO: Find a way to actually store all these clients
-
+        ClientManager.addClient(newClient);
     }
+
     public boolean undoRecentTransaction(Transaction transaction){
-        if(transaction.getType()==TransactionType.BILL){
+        if(transaction.getType()==TransactionType.BILL) {
             return false;
         }
-        else{
+        else {
             transaction.getFrom().transferIn(transaction.getAmount());
             transaction.getTo().transferOut(transaction.getAmount());
             return true;
