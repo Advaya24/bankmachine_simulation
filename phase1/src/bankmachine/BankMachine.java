@@ -7,8 +7,6 @@ public class BankMachine {
     /*Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
     static private HashMap<Integer, Integer> bills = new HashMap<>();
-    /*Total amount of money in cash currently stored in this machine.*/
-    static int total;
 
     public BankMachine(){
         bills.put(5, 0);
@@ -25,7 +23,6 @@ public class BankMachine {
     public static void addBills(int billType, int quantity){
         if (bills.containsKey(billType)) {
             bills.put(billType, bills.get(billType) + quantity);
-            total += billType * quantity;
         } else {
             System.out.println("Incompatible denomination.");
         }
@@ -52,7 +49,6 @@ public class BankMachine {
                 amountLeft -= i;
             }
         }
-        System.out.print(temporaryBills);
         if (amountLeft == 0) {
             bills = temporaryBills;
             return true;
