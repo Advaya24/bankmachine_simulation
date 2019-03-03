@@ -66,7 +66,7 @@ public class Authenticator {
      * Adds new client login information
      * @param newClient Client instance for newClient
      */
-    void addClient(Client newClient) {
+    public void addClient(Client newClient) {
         clientLoginData.add(newClient);
         clientWriter.write(newClient);
     }
@@ -75,8 +75,16 @@ public class Authenticator {
      * Adds new bank manager login information
      * @param newBankManager BankManager instance for BankManager
      */
-    void addBankManager(BankManager newBankManager) {
+    public void addBankManager(BankManager newBankManager) {
         managerLoginData.add(newBankManager);
         managerWriter.write(newBankManager);
+    }
+
+    public void clearClientData() {
+        clientWriter.clear();
+    }
+
+    public void clearManagerData() {
+        managerWriter.clear();
     }
 }
