@@ -5,13 +5,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Writes objects of type T to file
+ * @param <T> a serializeable type
+ */
+
 public class ObjectFileWriter<T extends Serializable> {
 
 //    private FileOutputStream fileOut;
 //    private ObjectOutputStream outputStream;
     private String fileName;
 
-    // TODO: Make this throwable instead of handling exception here?
     public ObjectFileWriter(String fileName) {
         this.fileName = fileName;
         try {
@@ -40,6 +44,11 @@ public class ObjectFileWriter<T extends Serializable> {
 //        }
     }
 
+    /**
+     * Write obj to the file corresponding to filename
+     * @param obj object to write
+     * @return true if write was successful, false otherwise
+     */
     public boolean write(T obj) {
 //        try {
 //            FileInputStream fileIn = new FileInputStream(fileName);
@@ -72,6 +81,11 @@ public class ObjectFileWriter<T extends Serializable> {
         return writeAll(arrayList);
     }
 
+    /**
+     * Write all objects of type T stored in arrayList to the file corresponding to filename
+     * @param arrayList of objects
+     * @return true if write was successful, false otherwise
+     */
     public boolean writeAll(ArrayList<T> arrayList) {
 //        try {
 //            FileOutputStream fileOut = new FileOutputStream(fileName);
@@ -112,11 +126,14 @@ public class ObjectFileWriter<T extends Serializable> {
         }
     }
 
+    /**
+     * Remove all objects from the file
+     */
     public void clear() {
         try {
             FileOutputStream fileOut = new FileOutputStream(fileName);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
-            outputStream.writeObject(new ArrayList<Serializable>());
+            outputStream.writeObject(new ArrayList<T>());
         } catch (IOException e) {
             System.out.println("Exception raised: " + Arrays.toString(e.getStackTrace()));
         }

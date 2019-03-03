@@ -3,6 +3,10 @@ package bankmachine.FileManager;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Reads objects of type T from file
+ * @param <T> a serializeable type
+ */
 public class ObjectFileReader<T extends Serializable> {
 
     private String fileName;
@@ -43,6 +47,11 @@ public class ObjectFileReader<T extends Serializable> {
 //            }
 //        };
 //    }
+
+    /**
+     * Read contents of the file
+     * @return array list containing all objects (of type T) from file
+     */
     public ArrayList<T> read() {
         ArrayList<T> arrayList = new ArrayList<>();
         FileInputStream fileIn = null;

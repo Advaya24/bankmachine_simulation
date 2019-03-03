@@ -21,13 +21,21 @@ public class AuthenticatorTest {
     private Client client;
     private ArrayList<Client> clients;
 
-    @BeforeAll
-    public void setClientAuthenticator() {
+//    @BeforeAll
+//    public static void setClientAuthenticator() {
+//
+//    }
+//    @BeforeAll
+//    public static void setClientAuthenticator() {
+//
+//    }
+    @BeforeEach
+    public void setUp() {
         FileSearch fileSearch = new FileSearch();
         fileSearch.setFileNameToSearch("FileManager");
         fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearch.getResult().get(0);
-        clientAuthenticator = new Authenticator<>("/testClientData.ser");
+        clientAuthenticator = new Authenticator<>(fileManagerPath + "/testClientData.ser");
         clientAuthenticator.clearData();
         client = mock(Client.class);
 
@@ -40,9 +48,6 @@ public class AuthenticatorTest {
             when(newClient.getUsername()).thenReturn("testPassword" + i);
             clients.add(newClient);
         }
-    }
-    @BeforeEach
-    public void emptyData() {
         clientAuthenticator.clearData();
     }
     @AfterEach
