@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 /**
- * Manages client login authentication for BankMachine
+ * Manages client login authentication for BillManager
  */
 // Managed by: Advaya
 public class Authenticator {

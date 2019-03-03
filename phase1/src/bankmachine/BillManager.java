@@ -2,8 +2,8 @@ package bankmachine;
 
 import java.util.HashMap;
 
-
-public class BankMachine {
+// Rename/move to BillManager?
+public class BillManager {
 
     /*Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
@@ -17,15 +17,15 @@ public class BankMachine {
 
     };
 
-    public BankMachine(){
+    public BillManager(){
     }
 
-    public static HashMap getBills() {
+    public static HashMap<Integer, Integer> getBills() {
         return bills;
     }
 
     /**
-     * Increase the amount of bills of denomination billType by amount quantity stored in BankMachine.
+     * Increase the amount of bills of denomination billType by amount quantity stored in BillManager.
      * @param billType which denomination to add
      * @param quantity how many bills to add
      */
@@ -38,7 +38,7 @@ public class BankMachine {
     }
 
     /**
-     * Withdraw amount from this BankMachine.
+     * Withdraw amount from this BillManager.
      * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */

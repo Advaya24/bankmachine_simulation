@@ -1,7 +1,6 @@
 package bankmachine;
 
 import bankmachine.account.*;
-import bankmachine.Exceptions.*;
 
 import java.util.Date;
 
@@ -56,6 +55,7 @@ public class BankManager extends BankMachineUser {
             return true;
         }
     }
-
-
+    public void addBills(int denomination, int amount){
+        BillManager.addBills(denomination, amount);
+    }
 }
