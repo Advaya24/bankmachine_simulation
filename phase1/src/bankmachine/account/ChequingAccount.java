@@ -5,6 +5,8 @@ import bankmachine.Client;
 
 import bankmachine.BankMachine;
 
+import java.util.Date;
+
 /**
  * An account for withdrawals and deposits
  */
@@ -15,16 +17,12 @@ public class ChequingAccount extends Account {
     private int overdrawLimit = 100;
 
 
-    public ChequingAccount(boolean primary, int amount, Client client){
-        super(amount, client);
+    public ChequingAccount(boolean primary, int amount, Client client, Date creationDate){
+        super(amount, client, creationDate);
         this.primary = primary;
     }
-    public ChequingAccount(int amount, Client client){
-        super(amount, client);
-        this.primary = false;
-    }
-    public ChequingAccount(Client client){
-        super(0, client);
+    public ChequingAccount(int amount, Client client, Date creationDate){
+        super(amount, client, creationDate);
         this.primary = false;
     }
 
