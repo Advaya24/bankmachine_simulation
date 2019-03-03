@@ -123,7 +123,10 @@ public class Main {
 
         final FileSearch fileSearch = new FileSearch();
 
-        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
+//        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
+
+        fileSearch.setFileNameToSearch("FileManager");
+        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
         System.out.println(fileSearch.getResult());
     }
 
@@ -167,7 +170,7 @@ public class Main {
                         if (temp.isDirectory()) {
                             search(temp);
                         } else {
-                            if (getFileNameToSearch().equals(temp.getName())) {
+                            if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
                                 result.add(temp.getAbsoluteFile().toString());
                             }
 
@@ -180,6 +183,28 @@ public class Main {
             }
 
         }
+
+        private void searchForDirectory(File file) {
+            if (file.isDirectory()) {
+                System.out.println("Searching directory ... " + file.getAbsoluteFile());
+
+                //do you have permission to read this directory?
+                if (file.canRead()) {
+                    for (File temp : file.listFiles()) {
+                        if (temp.isDirectory()) {
+                            if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
+                                result.add(temp.getAbsoluteFile().toString());
+                            }
+                            searchForDirectory(temp);
+                        }
+                    }
+
+                } else {
+                    System.out.println(file.getAbsoluteFile() + "Permission Denied");
+                }
+            }
+        }
+
 
     }
 }
