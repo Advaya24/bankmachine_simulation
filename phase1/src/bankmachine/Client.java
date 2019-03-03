@@ -64,8 +64,7 @@ public class Client extends BankMachineUser {
      * Returns the most recent transaction across all accounts .
      * @return the most recent transaction of this client
      */
-    //TODO: Finish this
-    public Transaction mostRecentTrasaction(){
+    public Transaction mostRecentTransaction(){
         if (clientsAccounts.size()==0)
         {
             return null;

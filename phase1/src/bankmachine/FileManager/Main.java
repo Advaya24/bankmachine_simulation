@@ -61,7 +61,7 @@ public class Main {
         ObjectFileWriter writer = new ObjectFileWriter("src/bankmachine/FileManager/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
-        if (writer.write(singleUser, false)) {
+        if (writer.write(singleUser, true)) {
             System.out.println("File wrote single user");
         } else {
             System.out.println("Failed to write single user");

@@ -1,6 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.*;
+import bankmachine.Exceptions.*;
 
 import java.util.Date;
 
@@ -39,16 +40,22 @@ public class BankManager extends BankMachineUser {
         client.addAccount(account1);
         return true;
     }
-    //TODO: setPassword
-//    public boolean setPassword(Client client) {
-//
-//    }
 
-    //TODO: restock
-//    public boolean restock(int quantity, ) {
-//    }
+    public void createClient(String name, String email, String phoneNumber, String username, String default_password){
+        Client newClient = new Client(name, email, phoneNumber, username, default_password);
+        //TODO: Find a way to actually store all these clients
 
-    //TODO: undoRecentTransaction
+    }
+    public boolean undoRecentTransaction(Transaction transaction){
+        if(transaction.getType()==TransactionType.BILL){
+            return false;
+        }
+        else{
+            transaction.getFrom().transferIn(transaction.getAmount());
+            transaction.getTo().transferOut(transaction.getAmount());
+            return true;
+        }
+    }
 
 
 }
