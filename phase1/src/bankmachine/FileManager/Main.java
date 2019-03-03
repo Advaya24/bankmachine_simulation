@@ -8,9 +8,11 @@ import bankmachine.LoginType;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 public class Main {
@@ -91,7 +93,7 @@ public class Main {
 
 
         // Test Authenticator functionality
-        Authenticator<Client> authenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData");
+        Authenticator<Client> authenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData.ser");
         authenticator.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
 
         Optional<Client> optionalClient = authenticator.authenticate("abc", "def");
@@ -101,7 +103,7 @@ public class Main {
 
         ArrayList<Client> clients = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
-            clients.add(new Client("Test " + i, "test" + i +"@gmail.com", "666124123" + i,"Test username " + i, "testPassword" + i));
+            clients.add(new Client("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i));
         }
         authenticator.clearData();
         authenticator.addAll(clients);
@@ -119,6 +121,65 @@ public class Main {
         if (testClient2.isPresent()) testClient2.get().printAccountSummary();
         else System.out.println("Client not found :(");
 
+        final FileSearch fileSearch = new FileSearch();
+
+        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
+        System.out.println(fileSearch.getResult());
+    }
+
+    static class FileSearch {
+
+        private String fileNameToSearch;
+        private List<String> result = new ArrayList<String>();
+
+        public String getFileNameToSearch() {
+            return fileNameToSearch;
+        }
+
+        public void setFileNameToSearch(String fileNameToSearch) {
+            this.fileNameToSearch = fileNameToSearch;
+        }
+
+        public List<String> getResult() {
+            return result;
+        }
+
+        public void searchDirectory(File directory, String fileNameToSearch) {
+
+            setFileNameToSearch(fileNameToSearch);
+
+            if (directory.isDirectory()) {
+                search(directory);
+            } else {
+                System.out.println(directory.getAbsoluteFile() + " is not a directory!");
+            }
+
+        }
+
+        private void search(File file) {
+
+            if (file.isDirectory()) {
+                System.out.println("Searching directory ... " + file.getAbsoluteFile());
+
+                //do you have permission to read this directory?
+                if (file.canRead()) {
+                    for (File temp : file.listFiles()) {
+                        if (temp.isDirectory()) {
+                            search(temp);
+                        } else {
+                            if (getFileNameToSearch().equals(temp.getName())) {
+                                result.add(temp.getAbsoluteFile().toString());
+                            }
+
+                        }
+                    }
+
+                } else {
+                    System.out.println(file.getAbsoluteFile() + "Permission Denied");
+                }
+            }
+
+        }
 
     }
 }
