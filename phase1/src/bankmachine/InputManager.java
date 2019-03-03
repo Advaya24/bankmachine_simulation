@@ -4,21 +4,7 @@ import java.util.Scanner;
 public class InputManager {
 
     public static void main(String[] args) {
-        // Login page
-        // TODO: Change the conditions in the while loops so that it tries to find the list of usernames and
-        //  corresponding password
-        String a = "John";
-        String b = "123abc";
-        String username = userNamePrompt();
-        while (!username.equals(a)) {
-            username = userNamePrompt();
-        }
-        String password = passwordPrompt();
-        while (!password.equals(b)) {
-            password = passwordPrompt();
-        }
-
-        System.out.println("Welcome!");
+        mainLoop();
 
 
     }
@@ -37,6 +23,27 @@ public class InputManager {
         System.out.println("Enter password: ");
         password = input.next();
         return password;
+    }
+    public static void mainLoop(){
+        // Login page
+        // TODO: Change the conditions in the while loops so that it tries to find the list of usernames and
+        //  corresponding password
+        while(true) {
+            String a = "John";
+            String b = "123abc";
+            String username = userNamePrompt();
+            if(username.equalsIgnoreCase("exit")){
+                break;
+            }
+            String password = passwordPrompt();
+            if (username.equals(a) && password.equals(b)){
+                System.out.println("Welcome!");
+            } else {
+                System.out.println("Incorrect username/password");
+            }
+
+
+        }
     }
 
 
