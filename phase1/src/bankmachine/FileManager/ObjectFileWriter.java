@@ -20,7 +20,7 @@ public class ObjectFileWriter {
             outputStream.close();
             fileOut.close();
         } catch (IOException e) {
-            //
+            System.out.println("File not created");
         }
 //        try {
 //            fileOut = new FileOutputStream(fileName);

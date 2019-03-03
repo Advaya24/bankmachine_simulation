@@ -65,7 +65,7 @@ public class Main {
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         if (writer.write(singleUser)) {
-            System.out.println("File wrote single user");
+            System.out.println("Wrote single user to file");
         } else {
             System.out.println("Failed to write single user");
         }
@@ -74,7 +74,7 @@ public class Main {
             users.add(new BankMachineUser("Test username " + i, "testPassword" + i));
         }
         if (writer.writeAll(users)) {
-            System.out.println("File wrote array list");
+            System.out.println("Wote array list to file");
         } else {
             System.out.println("Failed to write array list");
         }
