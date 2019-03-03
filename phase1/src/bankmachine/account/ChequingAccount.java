@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * An account for withdrawals and deposits
  */
-public class ChequingAccount extends Account {
+public class ChequingAccount extends AssetAccount {
     /* Whether this is a primary account. Unused but here for now */
     boolean primary = false;
     /* Overdraw limit in dollars, currently fixed at 100, may change */
@@ -60,5 +60,11 @@ public class ChequingAccount extends Account {
             withdraw = BankMachine.withdraw(amount);
         }
         return withdraw && transferOut(amount);
+    }
+
+    public String toString(){
+        String output = "";
+        output += "ID: " + id +" Type: Chequing Account Balance: " + balance;
+        return output;
     }
 }

@@ -9,4 +9,9 @@ public class LineOfCreditAccount extends DebtAccount{
     public LineOfCreditAccount(int balance, Client client, Date creationDate) {
         super(balance, client, creationDate);
     }
+    public String toString(){
+        String output = "";
+        output += "ID: " + id +" Type: Line of Credit Account Balance: " + balance;
+        return output;
+    }
 }
