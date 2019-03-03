@@ -56,6 +56,6 @@ public class BankManager extends BankMachineUser {
         }
     }
     public void addBills(int denomination, int amount){
-        BillManager.addBills(denomination, amount);
+        BankMachine.getBillManager().addBills(denomination, amount);
     }
 }
