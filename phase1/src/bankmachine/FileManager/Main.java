@@ -46,19 +46,19 @@ public class Main {
         out.writeData(output_content, true);
         System.out.println();
 
-
-        String output_content2 = "222222";
-        out.writeData(output_content2, true);
-
-        //No tester for writing to file that doesn't exist. As that file will simply be created
-
-        //Test for TimeInfo Class
-        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
-        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
-        tf.getTime(); // Returns Date Object of ATM date + time
+//
+//        String output_content2 = "222222";
+//        out.writeData(output_content2, true);
+//
+//        //No tester for writing to file that doesn't exist. As that file will simply be created
+//
+//        //Test for TimeInfo Class
+//        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
+//        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
+//        tf.getTime(); // Returns Date Object of ATM date + time
 
         //Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter writer = new ObjectFileWriter("bankmachine/FileManager/testObjectFile.ser");
+        ObjectFileWriter writer = new ObjectFileWriter("src/bankmachine/FileManager/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         if (writer.write(singleUser, false)) {
@@ -79,7 +79,7 @@ public class Main {
         ObjectFileReader reader;
 
 
-        reader = new ObjectFileReader("phase1/src/bankmachine/FileManager/testObjectFile.ser");
+        reader = new ObjectFileReader("src/bankmachine/FileManager/testObjectFile.ser");
         for (Serializable object : reader.read()) {
             System.out.println("From file: " + ((BankMachineUser) object).getUsername());
         }
