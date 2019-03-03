@@ -37,10 +37,10 @@ public class BillManagerTest {
         //noinspection unchecked
         bills = billManager.getBills();
         System.out.println(bills);
-        assertEquals(39, (int)bills.get(50));
-        assertEquals(39, (int)bills.get(20));
-        assertEquals(39, (int)bills.get(10));
-        assertEquals(40, (int)bills.get(5));
+        assertEquals(19, (int)bills.get(50));
+        assertEquals(19, (int)bills.get(20));
+        assertEquals(19, (int)bills.get(10));
+        assertEquals(20, (int)bills.get(5));
 
         assertTrue(!billManager.withdraw(1000000));
         assertTrue(!billManager.withdraw(1));
