@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * An account for withdrawals and deposits
  */
-public class ChequingAccount extends Account {
+public class ChequingAccount extends AssetAccount {
     /* Whether this is a primary account. Unused but here for now */
     boolean primary = false;
     /* Overdraw limit in dollars, currently fixed at 100, may change */

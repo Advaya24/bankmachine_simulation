@@ -5,7 +5,7 @@ import bankmachine.Client;
 import java.util.Date;
 
 /* Most behaviour is the same as account atm */
-public class SavingsAccount extends Account{
+public class SavingsAccount extends AssetAccount{
     /* The interest that is applied when applyInterest() is called */
     private double interestRate = 0.001;
 
