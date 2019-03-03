@@ -1,6 +1,9 @@
 package bankmachine.FileManager;
 
+import bankmachine.Authenticator;
 import bankmachine.BankMachineUser;
+import bankmachine.Client;
+import bankmachine.LoginType;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,6 +11,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Optional;
 
 public class Main {
 
@@ -84,6 +88,14 @@ public class Main {
         for (BankMachineUser object : reader.read()) {
             System.out.println("From file: " + object.getUsername());
         }
+
+        Authenticator<Client> authenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData");
+        authenticator.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
+
+        Optional<Client> optionalClient = authenticator.authenticate("abc", "def");
+
+        if (optionalClient.isPresent()) optionalClient.get().printAccountSummary();
+        else System.out.println("Client not found :(");
 
     }
 }
