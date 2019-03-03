@@ -9,7 +9,7 @@ public class ClientManager {
 
     public ClientManager(){}
 
-    private void addClient(Client client) {
+    public static void addClient(Client client) {
         if (clients.contains(client)) {
             System.out.print("This client is already in the system.");
         } else { clients.add(client); }
