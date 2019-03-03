@@ -12,13 +12,15 @@ public class BankMachine {
     private static AccountManager accountManager;
     // static TransactionManager transactionManager
     private static TimeInfo timeInfo;
+    private static InputManager inputManager;
 
     public static void main(String[] args){
         billManager = new BillManager();
         clientManager = new ClientManager();
         accountManager = new AccountManager();
         timeInfo = new TimeInfo();
-        InputManager.mainLoop();
+        inputManager = new InputManager();
+        inputManager.mainLoop();
     }
 
     public static BillManager getBillManager() {
