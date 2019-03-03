@@ -11,18 +11,33 @@ import java.util.ArrayList;
 
 //TODO: make this static?
 public class AccountManager {
-    private static ArrayList<Client> accounts = new ArrayList<>();
-    //TODO: decide what this stores (accounts of each client (i.e. each user has their instance) or accounts of all users.)
+
+    /* List of all accounts*/
+    private static ArrayList<Account> accounts;
+
+    public AccountManager(){}
+
+    /**
+     * Adds account to accounts.
+     * @param account to be added.
+     */
+    public static void addAccount(Account account) {
+        if (accounts.contains(account)) {
+            System.out.print("This account is already in the system.");
+        } else { accounts.add(account); }
+    }
 
     /**
      * getter for a given account
      */
-    public static ArrayList<Account> getAccounts(String username) {
-        for (Client client : accounts) {
-            if (client.getUsername().equals(username)) {
-                return client.getClientsAccounts();
-            }
-        }
-        return new ArrayList<Account>();
-    }
+//    public static ArrayList<Account> getAccounts(String username) {
+//        for (Client client : accounts) {
+//            if (client.getUsername().equals(username)) {
+//                return client.getClientsAccounts();
+//            }
+//        }
+//        return new ArrayList<Account>();
+//    }
+
+
 }
