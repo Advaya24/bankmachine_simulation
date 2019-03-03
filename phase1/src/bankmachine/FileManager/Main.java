@@ -33,38 +33,38 @@ public class Main {
 //
         //Standard ReadFile test
 
-//        String path = System.getProperty("user.dir");
-//        System.out.println(path);
-//        String read_file = "input.txt";
-//        ReadFile in = new ReadFile(read_file);
-//
-//        System.out.println("--- Read File Test ---");
-//        System.out.println("* FileName: " + in.getFileName()); // prints filename
-//        System.out.println("* Last Modified: " + in.getLastUpdated()); // prints date + time last modified
-//        System.out.println(" "); // Empty line for visuals in console -- TO BE REMOVED
-//        System.out.println("* File Contents: ");
-//        System.out.println(in.getData()); // Prints data of file */
-//
-//        //Standard Writing File test
-//        WriteFile out = new WriteFile("output.txt");
-//        String output_content = "**Output Content**";
-//
-//        System.out.println("--- Write File Test ---");
-//        System.out.println("Writing String: " + output_content);
-//        System.out.println("Filename: " + out.getFileName());
-//        out.writeData(output_content, true);
-//        System.out.println();
+        String path = System.getProperty("user.dir");
+        System.out.println(path);
+        String read_file = "input.txt";
+        ReadFile in = new ReadFile(read_file);
 
-//
-//        String output_content2 = "222222";
-//        out.writeData(output_content2, true);
-//
-//        //No tester for writing to file that doesn't exist. As that file will simply be created
-//
-//        //Test for TimeInfo Class
-//        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
-//        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
-//        tf.getTime(); // Returns Date Object of ATM date + time
+        System.out.println("--- Read File Test ---");
+        System.out.println("* FileName: " + in.getFileName()); // prints filename
+        System.out.println("* Last Modified: " + in.getLastUpdated()); // prints date + time last modified
+        System.out.println(" "); // Empty line for visuals in console -- TO BE REMOVED
+        System.out.println("* File Contents: ");
+        System.out.println(in.getData()); // Prints data of file */
+
+        //Standard Writing File test
+        WriteFile out = new WriteFile("output.txt");
+        String output_content = "**Output Content**";
+
+        System.out.println("--- Write File Test ---");
+        System.out.println("Writing String: " + output_content);
+        System.out.println("Filename: " + out.getFileName());
+        out.writeData(output_content, true);
+        System.out.println();
+
+
+        String output_content2 = "222222";
+        out.writeData(output_content2, true);
+
+        //No tester for writing to file that doesn't exist. As that file will simply be created
+
+        //Test for TimeInfo Class
+        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
+        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
+        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>("src/bankmachine/FileManager/testObjectFile.ser");
@@ -86,14 +86,23 @@ public class Main {
             System.out.println("Failed to write array list");
         }
 
-        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>("src/bankmachine/FileManager/testObjectFile.ser");
+        final FileSearch fileSearch = new FileSearch();
+
+//        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
+
+        fileSearch.setFileNameToSearch("FileManager");
+        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
+
+        final String fileManagerPath = fileSearch.getResult().get(0);
+
+        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(fileManagerPath + "/testObjectFile.ser");
         for (BankMachineUser object : reader.read()) {
             System.out.println("From file: " + object.getUsername());
         }
 
 
         // Test Authenticator functionality
-        Authenticator<Client> authenticator = new Authenticator<>("src/bankmachine/FileManager/testClientData.ser");
+        Authenticator<Client> authenticator = new Authenticator<>(fileManagerPath + "/testClientData.ser");
         authenticator.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
 
         Optional<Client> optionalClient = authenticator.authenticate("abc", "def");
@@ -121,90 +130,7 @@ public class Main {
         if (testClient2.isPresent()) testClient2.get().printAccountSummary();
         else System.out.println("Client not found :(");
 
-        final FileSearch fileSearch = new FileSearch();
-
-//        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
-
-        fileSearch.setFileNameToSearch("FileManager");
-        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
-        System.out.println(fileSearch.getResult());
-    }
-
-    static class FileSearch {
-
-        private String fileNameToSearch;
-        private List<String> result = new ArrayList<String>();
-
-        public String getFileNameToSearch() {
-            return fileNameToSearch;
-        }
-
-        public void setFileNameToSearch(String fileNameToSearch) {
-            this.fileNameToSearch = fileNameToSearch;
-        }
-
-        public List<String> getResult() {
-            return result;
-        }
-
-        public void searchDirectory(File directory, String fileNameToSearch) {
-
-            setFileNameToSearch(fileNameToSearch);
-
-            if (directory.isDirectory()) {
-                search(directory);
-            } else {
-                System.out.println(directory.getAbsoluteFile() + " is not a directory!");
-            }
-
-        }
-
-        private void search(File file) {
-
-            if (file.isDirectory()) {
-                System.out.println("Searching directory ... " + file.getAbsoluteFile());
-
-                //do you have permission to read this directory?
-                if (file.canRead()) {
-                    for (File temp : file.listFiles()) {
-                        if (temp.isDirectory()) {
-                            search(temp);
-                        } else {
-                            if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
-                                result.add(temp.getAbsoluteFile().toString());
-                            }
-
-                        }
-                    }
-
-                } else {
-                    System.out.println(file.getAbsoluteFile() + "Permission Denied");
-                }
-            }
-
-        }
-
-        private void searchForDirectory(File file) {
-            if (file.isDirectory()) {
-                System.out.println("Searching directory ... " + file.getAbsoluteFile());
-
-                //do you have permission to read this directory?
-                if (file.canRead()) {
-                    for (File temp : file.listFiles()) {
-                        if (temp.isDirectory()) {
-                            if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
-                                result.add(temp.getAbsoluteFile().toString());
-                            }
-                            searchForDirectory(temp);
-                        }
-                    }
-
-                } else {
-                    System.out.println(file.getAbsoluteFile() + "Permission Denied");
-                }
-            }
-        }
-
 
     }
+
 }
