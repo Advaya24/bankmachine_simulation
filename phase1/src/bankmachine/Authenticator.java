@@ -4,6 +4,7 @@ import bankmachine.FileManager.ObjectFileReader;
 import bankmachine.FileManager.ObjectFileWriter;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -106,6 +107,11 @@ public class Authenticator<T extends BankMachineUser> {
     public void add(T newUser) {
         loginData.add(newUser);
         writer.write(newUser);
+    }
+
+    public void addAll(ArrayList<T> newUsersArrayList) {
+        loginData.addAll(newUsersArrayList);
+        writer.writeAll(newUsersArrayList);
     }
 
     public Optional<T> get(String userName) {
