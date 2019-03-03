@@ -5,14 +5,14 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ObjectFileWriter {
+public class ObjectFileWriter<T extends Serializable> {
 
 //    private FileOutputStream fileOut;
 //    private ObjectOutputStream outputStream;
     private String fileName;
 
     // TODO: Make this throwable instead of handling exception here?
-    ObjectFileWriter(String fileName) {
+    public ObjectFileWriter(String fileName) {
         this.fileName = fileName;
         try {
             FileInputStream fileIn = new FileInputStream(fileName);
@@ -23,7 +23,7 @@ public class ObjectFileWriter {
             try {
                 FileOutputStream fileOut = new FileOutputStream(fileName);
                 ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
-                outputStream.writeObject(new ArrayList<Serializable>());
+                outputStream.writeObject(new ArrayList<T>());
                 outputStream.close();
                 fileOut.close();
             } catch (IOException e2) {
@@ -40,7 +40,7 @@ public class ObjectFileWriter {
 //        }
     }
 
-    public boolean write(Serializable obj) {
+    public boolean write(T obj) {
 //        try {
 //            FileInputStream fileIn = new FileInputStream(fileName);
 //            ObjectInputStream inputStream = new ObjectInputStream(fileIn);
@@ -67,12 +67,12 @@ public class ObjectFileWriter {
 //        } catch (IOException | ClassNotFoundException | ClassCastException e) { // ClassNotFoundException
 //            return false;
 //        }
-        ArrayList<Serializable> arrayList = new ArrayList<>();
+        ArrayList<T> arrayList = new ArrayList<>();
         arrayList.add(obj);
         return writeAll(arrayList);
     }
 
-    public boolean writeAll(ArrayList<Serializable> arrayList) {
+    public boolean writeAll(ArrayList<T> arrayList) {
 //        try {
 //            FileOutputStream fileOut = new FileOutputStream(fileName);
 //            ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
@@ -90,7 +90,7 @@ public class ObjectFileWriter {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
 
-            ArrayList<Serializable> oldArrayList = (ArrayList<Serializable>)inputStream.readObject();
+            ArrayList<T> oldArrayList = (ArrayList<T>)inputStream.readObject();
 
             inputStream.close();
             fileIn.close();

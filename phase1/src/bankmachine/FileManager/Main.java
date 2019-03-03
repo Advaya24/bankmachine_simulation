@@ -61,7 +61,7 @@ public class Main {
 //        tf.getTime(); // Returns Date Object of ATM date + time
 
         //Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter writer = new ObjectFileWriter("src/bankmachine/FileManager/testObjectFile.ser");
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>("src/bankmachine/FileManager/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         writer.clear();
@@ -70,7 +70,7 @@ public class Main {
         } else {
             System.out.println("Failed to write single user");
         }
-        ArrayList<Serializable> users = new ArrayList<>();
+        ArrayList<BankMachineUser> users = new ArrayList<>();
         for (int i = 2; i <= 5; i++) {
             users.add(new BankMachineUser("Test username " + i, "testPassword" + i));
         }
@@ -80,9 +80,9 @@ public class Main {
             System.out.println("Failed to write array list");
         }
 
-        ObjectFileReader reader = new ObjectFileReader("src/bankmachine/FileManager/testObjectFile.ser");
-        for (Serializable object : reader.read()) {
-            System.out.println("From file: " + ((BankMachineUser) object).getUsername());
+        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>("src/bankmachine/FileManager/testObjectFile.ser");
+        for (BankMachineUser object : reader.read()) {
+            System.out.println("From file: " + object.getUsername());
         }
 
     }

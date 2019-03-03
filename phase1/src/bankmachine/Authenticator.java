@@ -1,5 +1,8 @@
 package bankmachine;
 
+import bankmachine.FileManager.ObjectFileReader;
+import bankmachine.FileManager.ObjectFileWriter;
+
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -12,10 +15,22 @@ public class Authenticator {
     private ArrayList<BankMachineUser> clientLoginData;
     /* List of BankManager instances registered for login*/
     private ArrayList<BankMachineUser> managerLoginData;
+    private final ObjectFileWriter<BankMachineUser> clientWriter = new ObjectFileWriter<>("src/bankmachine/FileManager/clientData.ser");
+    private final ObjectFileWriter<BankMachineUser> managerWriter = new ObjectFileWriter<>("src/bankmachine/FileManager/managerData.ser");
+    private final ObjectFileReader<BankMachineUser> clientReader = new ObjectFileReader<>("src/bankmachine/FileManager/clientData.ser");
+    private final ObjectFileReader<BankMachineUser> managerReader = new ObjectFileReader<>("src/bankmachine/FileManager/managerData.ser");
 
     Authenticator() {
-        clientLoginData = new ArrayList<>();
-        managerLoginData = new ArrayList<>();
+        try {
+            clientLoginData = clientReader.read();
+        } catch (Exception e) {
+            clientLoginData = new ArrayList<>();
+        }
+        try {
+            managerLoginData = managerReader.read();
+        } catch (Exception e) {
+            managerLoginData = new ArrayList<>();
+        }
     }
 
     /**
@@ -53,6 +68,7 @@ public class Authenticator {
      */
     void addClient(Client newClient) {
         clientLoginData.add(newClient);
+        clientWriter.write(newClient);
     }
 
     /**
@@ -61,5 +77,6 @@ public class Authenticator {
      */
     void addBankManager(BankManager newBankManager) {
         managerLoginData.add(newBankManager);
+        managerWriter.write(newBankManager);
     }
 }
