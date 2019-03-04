@@ -15,8 +15,29 @@ import java.util.Scanner;
 public class InputManager {
     private boolean exit = false;
     private Authenticator<BankMachineUser> authenticator;
-    private Scanner input;
+
+//    TODO: Read this
+//    // You'll need to initialize an authenticator each for Clients and BankManagers separately:
+//    private static Authenticator<Client> clientAuthenticator;
+//    private static Authenticator<BankManager> bankManagerAuthenticator;
+
+//    // You should make fileManagerPath a private variable
+//    private static String fileManagerPath;
+    private Scanner input; // Should this be static instead?
+
     public static void main(String[] args) {
+
+//        TODO: Read this
+//        // Initializes fileManagerLocation correctly
+//        fileSearcher.setFileNameToSearch("FileManager");
+//        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+//        final String fileManagerPath = fileSearcher.getResult().get(0);
+//
+//        // The following should initialize the authenticators correctly:
+//        clientAuthenticator = new Authenticator<>(fileManagerPath + "/clientData.ser");
+//        bankManagerAuthenticator = new Authenticator<>(fileManagerPath + "/bankManagerData.ser");
+//
+//
 
         new InputManager().mainLoop();
     }
@@ -105,6 +126,13 @@ public class InputManager {
             String password = getInput("Enter password: ");
             // TODO: determine what file is being looked at? Or is it the array with usernames?
             // if (authenticator.authenticate(username, password).isPresent()){
+
+            // TODO: Read this
+            // Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
+            // if (optionalClient.isPresent()) {
+            //     Client retrivedClient = optionalClient.get();
+            //     // Do something with retrievedClient here
+            // }
             if (username.equals(a) && password.equals(b)){
                 System.out.println("Welcome!");
                 selectItemTest();

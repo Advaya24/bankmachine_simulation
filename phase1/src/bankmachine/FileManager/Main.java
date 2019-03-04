@@ -16,7 +16,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception { //Main method to test read / write of files
 
-        // TODO: UNCOMMENT THIS CODE!
         //File does not exist exception test
 //        String exception_test = "DNE.txt";
 //        ReadFile ex = new ReadFile(exception_test);
