@@ -10,17 +10,12 @@ public class ReadFile implements FileManager {
 
     public ReadFile(String filename) throws Exception { // Constructor for ReadFile
 
-        //this.file = new File(filename);
-        //if(ReadFile.class.getResource(filename).getFile() == null){
         try {
-            //this.file = new File(ReadFile.class.getResource(filename).getFile());
-//            this.file = new File(ReadFile.class.getResource(filename).getFile());
             final FileSearcher fileSearcher = new FileSearcher();
             fileSearcher.setFileNameToSearch("FileManager");
             fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
             final String fileManagerPath = fileSearcher.getResult().get(0);
-//        System.out.println(System.getProperty("user.dir")+"/phase1/src/bankmachine/FileManager/" + filename);
-            System.out.println(fileManagerPath + "/" + filename);
+            //System.out.println(fileManagerPath + "/" + filename);
             this.file = new File(fileManagerPath + "/" + filename); //
         } catch  (NullPointerException e){
             System.out.println("The file attempted to be read does not exist");
