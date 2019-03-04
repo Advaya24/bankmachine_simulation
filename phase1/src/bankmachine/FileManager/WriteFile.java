@@ -11,14 +11,11 @@ public class WriteFile implements FileManager {
     // Constructor for WriteFile
     public WriteFile(String filename) {
         // Creates file with "filename" in the FileManager package
-        //String path = System.getProperty("user.dir");
-        //System.out.println(path);
         final FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearcher.getResult().get(0);
-//        System.out.println(System.getProperty("user.dir")+"/phase1/src/bankmachine/FileManager/" + filename);
-        System.out.println(fileManagerPath + "/" + filename);
+        //System.out.println(fileManagerPath + "/" + filename);
         this.file = new File(fileManagerPath + "/" + filename); //
     }
 
