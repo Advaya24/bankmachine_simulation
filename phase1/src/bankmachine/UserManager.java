@@ -6,6 +6,7 @@ import bankmachine.FileManager.ObjectFileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * Manages client login authentication for BillManager
@@ -127,5 +128,16 @@ public class UserManager<T extends BankMachineUser> {
     public void updateFile() {
         writer.clear();
         writer.writeAll(loginData);
+    }
+
+    /**
+     * Run given function on all users stored.
+     * @param function the function to be applied to all the users.
+     */
+    public void runOnAll(Function<T, Void> function) {
+        for (T user: loginData) {
+            function.apply(user);
+        }
+        updateFile();
     }
 }
