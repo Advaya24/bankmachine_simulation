@@ -1,6 +1,6 @@
 package bankmachine.FileManager;
 
-import bankmachine.Authenticator;
+import bankmachine.UserManager;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
 
@@ -97,11 +97,11 @@ public class Main {
         }
 
 
-        // Test Authenticator functionality
-        Authenticator<Client> authenticator = new Authenticator<>(fileManagerPath + "/testClientData.ser");
-        authenticator.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
+        // Test UserManager functionality
+        UserManager<Client> userManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
+        userManager.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
 
-        Optional<Client> optionalClient = authenticator.authenticate("abc", "def");
+        Optional<Client> optionalClient = userManager.authenticate("abc", "def");
 
         if (optionalClient.isPresent()) optionalClient.get().printAccountSummary();
         else System.out.println("Client not found :(");
@@ -110,19 +110,19 @@ public class Main {
         for (int i = 1; i <= 5; i++) {
             clients.add(new Client("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i));
         }
-        authenticator.clearData();
-        authenticator.addAll(clients);
+        userManager.clearData();
+        userManager.addAll(clients);
 
-        optionalClient = authenticator.get("abc");
+        optionalClient = userManager.get("abc");
 
         if (optionalClient.isPresent()) System.out.println("ABC didn't get deleted!");
         else System.out.println("Successfully deleted ABC");
 
-        Optional<Client> testClient1 = authenticator.authenticate("Test username 1", "testPassword1");
+        Optional<Client> testClient1 = userManager.authenticate("Test username 1", "testPassword1");
         if (testClient1.isPresent()) testClient1.get().printAccountSummary();
         else System.out.println("Client not found :(");
 
-        Optional<Client> testClient2 = authenticator.get("Test username 2");
+        Optional<Client> testClient2 = userManager.get("Test username 2");
         if (testClient2.isPresent()) testClient2.get().printAccountSummary();
         else System.out.println("Client not found :(");
 

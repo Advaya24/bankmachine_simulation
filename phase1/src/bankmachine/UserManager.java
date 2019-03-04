@@ -13,14 +13,14 @@ import java.util.Optional;
  * @param <T> a BankMachineUser type
  */
 // Managed by: Advaya
-public class Authenticator<T extends BankMachineUser> {
+public class UserManager<T extends BankMachineUser> {
     /* List of Client instances registered for login */
     private ArrayList<T> loginData;
     private HashMap<Integer, T> loginHashMap;
     /* File writer for this authenticator */
     private ObjectFileWriter<T> writer;
 
-    public Authenticator(String fileName) {
+    public UserManager(String fileName) {
         writer = new ObjectFileWriter<>(fileName);
         ObjectFileReader<T> reader = new ObjectFileReader<>(fileName);
         try {

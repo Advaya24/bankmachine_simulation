@@ -14,12 +14,12 @@ import java.util.Scanner;
 
 public class InputManager {
     private boolean exit = false;
-    private Authenticator<BankMachineUser> authenticator;
+    private UserManager<BankMachineUser> userManager;
 
 //    TODO: Read this
-//    // You'll need to initialize an authenticator each for Clients and BankManagers separately:
-//    private Authenticator<Client> clientAuthenticator;
-//    private Authenticator<BankManager> bankManagerAuthenticator;
+//    // You'll need to initialize an userManager each for Clients and BankManagers separately:
+//    private UserManager<Client> clientAuthenticator;
+//    private UserManager<BankManager> bankManagerAuthenticator;
 
 //    // You should make fileManagerPath a private variable
 //    private String fileManagerPath;
@@ -34,8 +34,8 @@ public class InputManager {
 //        final String fileManagerPath = fileSearcher.getResult().get(0);
 //
 //        // The following should initialize the authenticators correctly:
-//        clientAuthenticator = new Authenticator<>(fileManagerPath + "/clientData.ser");
-//        bankManagerAuthenticator = new Authenticator<>(fileManagerPath + "/bankManagerData.ser");
+//        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
+//        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
 //
 //
 
@@ -125,7 +125,7 @@ public class InputManager {
             }
             String password = getInput("Enter password: ");
             // TODO: determine what file is being looked at? Or is it the array with usernames?
-            // if (authenticator.authenticate(username, password).isPresent()){
+            // if (userManager.authenticate(username, password).isPresent()){
 
             // TODO: Read this
             // Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
