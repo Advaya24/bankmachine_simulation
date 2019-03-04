@@ -1,5 +1,6 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
 import bankmachine.UserManager;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
@@ -97,10 +98,10 @@ public class Main {
 
 
         // Test UserManager functionality
-        UserManager<Client> userManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
-        userManager.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
+        UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
+        clientManager.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
 
-        Optional<Client> optionalClient = userManager.authenticate("abc", "def");
+        Optional<Client> optionalClient = clientManager.authenticate("abc", "def");
 
         if (optionalClient.isPresent()) optionalClient.get().printAccountSummary();
         else System.out.println("Client not found :(");
@@ -109,22 +110,33 @@ public class Main {
         for (int i = 1; i <= 5; i++) {
             clients.add(new Client("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i));
         }
-        userManager.clearData();
-        userManager.addAll(clients);
+        clientManager.clearData();
+        clientManager.addAll(clients);
 
-        optionalClient = userManager.get("abc");
+        optionalClient = clientManager.get("abc");
 
         if (optionalClient.isPresent()) System.out.println("ABC didn't get deleted!");
         else System.out.println("Successfully deleted ABC");
 
-        Optional<Client> testClient1 = userManager.authenticate("Test username 1", "testPassword1");
+        Optional<Client> testClient1 = clientManager.authenticate("Test username 1", "testPassword1");
         if (testClient1.isPresent()) testClient1.get().printAccountSummary();
         else System.out.println("Client not found :(");
 
-        Optional<Client> testClient2 = userManager.get("Test username 2");
-        if (testClient2.isPresent()) testClient2.get().printAccountSummary();
+        Optional<Client> testClient2 = clientManager.get("Test username 2");
+        if (testClient2.isPresent()) {
+            Client client = testClient2.get();
+            client.printAccountSummary();
+            client.setUserName("New username");
+            clientManager.updateFile();
+        }
         else System.out.println("Client not found :(");
 
+        UserManager<Client> newClientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
+        testClient2 = newClientManager.get("New username");
+        if (testClient2.isPresent()) {
+            Client client = testClient2.get();
+            client.printAccountSummary();
+        } else System.out.println("Didn't work");
 
     }
 

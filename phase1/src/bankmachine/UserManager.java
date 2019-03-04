@@ -118,4 +118,12 @@ public class UserManager<T extends BankMachineUser> {
         clearData();
         addAll(newLoginData);
     }
+
+    /**
+     * Updates file with changes made to elements of loginData. MUST CALL EVERY TIME A CHANGE IS MADE.
+     */
+    public void updateFile() {
+        writer.clear();
+        writer.writeAll(loginData);
+    }
 }

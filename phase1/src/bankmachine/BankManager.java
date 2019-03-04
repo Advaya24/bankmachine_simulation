@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.FileManager.FileSearcher;
 import bankmachine.account.*;
 
 import java.util.Date;
@@ -42,7 +43,8 @@ public class BankManager extends BankMachineUser {
 
     public void createClient(String name, String email, String phoneNumber, String username, String default_password){
         Client newClient = new Client(name, email, phoneNumber, username, default_password);
-        ClientManager.addClient(newClient);
+        UserManager<Client> clientUserManager = new UserManager<>(BankMachine.fileManagerPath + "/clientData.ser");
+        clientUserManager.add(newClient);
     }
 
     public boolean undoRecentTransaction(Transaction transaction){

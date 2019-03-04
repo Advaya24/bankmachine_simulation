@@ -1,10 +1,14 @@
 package bankmachine;
 
+import bankmachine.FileManager.FileSearcher;
 import bankmachine.FileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 
+import java.io.File;
+
 public class BankMachine {
+    public static String fileManagerPath = "";
     void executeEveryMonth(){
         //TODO: WRITE TO FILE YAY
         int oldmonth = 0;
@@ -21,15 +25,19 @@ public class BankMachine {
     }
     void executeEveryDay(){}
     private static BillManager billManager;
-    private static ClientManager clientManager;
     private static AccountManager accountManager;
     // static TransactionManager transactionManager
     private static TimeInfo timeInfo;
     private static InputManager inputManager;
 
     public static void main(String[] args){
+        FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        fileManagerPath = fileSearcher.getResult().get(0);
+
         billManager = new BillManager();
-        clientManager = new ClientManager();
+//        clientManager = new ClientManager();
         accountManager = new AccountManager();
         timeInfo = new TimeInfo();
         inputManager = new InputManager();
@@ -40,9 +48,9 @@ public class BankMachine {
         return billManager;
     }
 
-    public static ClientManager getClientManager(){
-        return clientManager;
-    }
+//    public static ClientManager getClientManager(){
+//        return clientManager;
+//    }
     public static AccountManager getAccountManager(){
         return accountManager;
     }
