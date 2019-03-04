@@ -44,7 +44,7 @@ public class BillManager {
      * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */
-    public boolean withdraw(int amount) {
+    public boolean withdraw(int amount) throws Exception{
         int amountLeft = amount;
         if (amountLeft % 5 != 0){
             return false;
@@ -62,6 +62,7 @@ public class BillManager {
         }
         if (amountLeft == 0) {
             bills = temporaryBills;
+            update();
             return true;
         }
         return false;
@@ -74,7 +75,8 @@ public class BillManager {
         for (int denomination : bills.keySet()) {
             int quantity = bills.get(denomination);
             if (quantity < 20) {
-                warningMessage.append("* There are " + quantity + " $" + denomination + " bills.\n");
+                warningMessage.append("* There are ").append(quantity).append(" $").append(denomination).append(" " +
+                        "bills.\n");
                 hasChanged = true;
             }
         }
