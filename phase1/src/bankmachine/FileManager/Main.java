@@ -57,7 +57,7 @@ public class Main {
 
         //Test for TimeInfo Class
         TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
-        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
+        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
         tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
