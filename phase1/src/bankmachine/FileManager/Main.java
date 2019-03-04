@@ -24,10 +24,9 @@ public class Main {
 //
 //
         //Standard ReadFile test
-
         WriteFile out2 = new WriteFile("alerts.txt");
-
-
+        String outputstuff = "ree";
+        out2.writeData(outputstuff, true);
         String path = System.getProperty("user.dir");
         System.out.println(path);
         String read_file = "input.txt";
