@@ -11,7 +11,7 @@ public class LineOfCreditAccount extends DebtAccount{
     }
     public String toString(){
         String output = "";
-        output += "ID: " + id +" Type: Line of Credit Account Balance: " + balance;
+        output += "ID: " + getID() +" Type: Line of Credit Account Balance: " + balance;
         return output;
     }
 }
