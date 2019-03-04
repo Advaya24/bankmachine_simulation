@@ -1,43 +1,41 @@
 package bankmachine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import bankmachine.FileManager.FileSearcher;
 
-//TODO: sequence of inputs:
-// 1) ask and check validity of username and password (note this should already determine if they are a manager or client)
-// 2) ask which account they would like to access
-// 3) ask what type of transaction would like to be performed or what they would like to see
-// 4) OPTIONAL: confirmation?
-// 5) exit option
+import java.io.File;
+import java.util.*;
+
+/*import bankmachine.BankMachine;
+import bankmachine.UserManager;
+import bankmachine.BankMachineUser;
+import bankmachine.Client;*/
 
 public class InputManager {
     private boolean exit = false;
+    private boolean userIsClient = true;
     private UserManager<BankMachineUser> userManager;
 
-//    TODO: Read this
-//    // You'll need to initialize an userManager each for Clients and BankManagers separately:
-//    private UserManager<Client> clientAuthenticator;
-//    private UserManager<BankManager> bankManagerAuthenticator;
+//  TODO: Read this
+//  Initialize an userManager each for Clients and BankManagers separately:
+    private static UserManager<Client> clientAuthenticator;
+    private static UserManager<BankManager> bankManagerAuthenticator;
 
-//    // You should make fileManagerPath a private variable
-//    private String fileManagerPath;
-    private Scanner input; // Should this be static instead?
+    // You should make fileManagerPath a private variable
+    private String fileManagerPath;
+    private Scanner input;
 
     public static void main(String[] args) {
 
-//        TODO: Read this
-//        // Initializes fileManagerLocation correctly
-//        fileSearcher.setFileNameToSearch("FileManager");
-//        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-//        final String fileManagerPath = fileSearcher.getResult().get(0);
-//
-//        // The following should initialize the authenticators correctly:
-//        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
-//        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
-//
-//
+        // TODO: Read this
+        // Initializes fileManagerLocation correctly
+        final FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String fileManagerPath = fileSearcher.getResult().get(0);
+
+        // Initialize the authenticators correctly
+        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
+        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
 
         new InputManager().mainLoop();
     }
@@ -145,6 +143,50 @@ public class InputManager {
             }
         }
     }
+
+    // TODO: sequence of inputs:
+    // 1) Ask whether a bank manager or client
+    private String itemizeChoice(ArrayList<String> strings) {
+        System.out.println("Please choose an option");
+        String response = selectItem(strings);
+        System.out.println("You chose " + response);
+        return response;
+    }
+
+        // TODO: link to person and see what accounts they have... if no accounts open one?
+    private boolean isUserClient() {
+        ArrayList<String> users = new ArrayList<>(Arrays.asList(
+                "Bank Manager", "Client"
+        ));
+        String u = itemizeChoice(users);
+        if (u.equals("Bank Manager")) {
+            userIsClient = false;
+            logIn();
+        } else {
+            logIn();
+        }
+        return userIsClient;
+    }
+
+    private void logIn(){
+        String username = getInput("Enter username: ");
+        String password = getInput("Enter password: ");
+        Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
+         if (optionalClient.isPresent()) {
+             Client retrievedClient = optionalClient.get();
+             // Do something with retrievedClient here
+         }
+        if(username.equalsIgnoreCase("exit")){
+            exit = true;
+        }
+
+    }
+
+    // 2) Input username and password and  validity
+    // 2) ask which account they would like to access
+    // 3) ask what type of transaction would like to be performed or what they would like to see
+    // 4) OPTIONAL: confirmation?
+    // 5) exit option
 
 
 }
