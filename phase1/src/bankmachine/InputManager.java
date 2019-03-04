@@ -67,25 +67,25 @@ public class InputManager {
         else if(items.size() == 1){ return items.get(0); }
 
         for(int i=0; i<items.size(); i++){
-            printObjects(new Object[]{"[", i, "] "});
+            printObjects(new Object[]{"[", i+1, "] "});
             System.out.println(items.get(i).toString());
         }
 
         int index;
         while(true){
             String number = getInput(new Object[]{
-                    "Enter a number from 0 to ", items.size()-1, ": "
+                    "Enter a number from 1 to ", items.size(), ": "
             });
             try{
                 index = Integer.parseInt(number);
             } catch(NumberFormatException e){
                 continue;
             }
-            if (0<=index && index < items.size()){
+            if (0 < index && index <= items.size()){
                 break;
             }
         }
-        return items.get(index);
+        return items.get(index-1);
     }
 
     //Choosing an account

@@ -65,7 +65,7 @@ public class ChequingAccount extends AssetAccount {
 
     public String toString(){
         String output = "";
-        output += "ID: " + id +" Type: Chequing Account Balance: " + balance;
+        output += "ID: " + getID() +" Type: Chequing Account Balance: " + balance;
         return output;
     }
 }

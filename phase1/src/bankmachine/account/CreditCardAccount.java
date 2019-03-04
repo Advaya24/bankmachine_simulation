@@ -23,7 +23,7 @@ public class CreditCardAccount extends DebtAccount{
     }
     public String toString(){
         String output = "";
-        output += "ID: " + id +" Type: Credit Card Account Balance: " + balance;
+        output += "ID: " + getID() +" Type: Credit Card Account Balance: " + balance;
         return output;
     }
 }
