@@ -3,16 +3,9 @@ package bankmachine.FileManager;
 import bankmachine.Authenticator;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
-import bankmachine.LoginType;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Optional;
 
 public class Main {
@@ -67,11 +60,11 @@ public class Main {
         tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
-        final FileSearch fileSearch = new FileSearch();
+        final FileSearcher fileSearcher = new FileSearcher();
 
-        fileSearch.setFileNameToSearch("FileManager");
-        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearch.getResult().get(0);
+        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String fileManagerPath = fileSearcher.getResult().get(0);
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
@@ -93,7 +86,7 @@ public class Main {
         }
 
 
-//        fileSearch.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
+//        fileSearcher.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
 
 
         ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(fileManagerPath + "/testObjectFile.ser");

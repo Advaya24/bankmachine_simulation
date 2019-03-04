@@ -15,10 +15,10 @@ public class ReadFile implements FileManager {
         try {
             //this.file = new File(ReadFile.class.getResource(filename).getFile());
 //            this.file = new File(ReadFile.class.getResource(filename).getFile());
-            final FileSearch fileSearch = new FileSearch();
-            fileSearch.setFileNameToSearch("FileManager");
-            fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
-            final String fileManagerPath = fileSearch.getResult().get(0);
+            final FileSearcher fileSearcher = new FileSearcher();
+            fileSearcher.setFileNameToSearch("FileManager");
+            fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+            final String fileManagerPath = fileSearcher.getResult().get(0);
 //        System.out.println(System.getProperty("user.dir")+"/phase1/src/bankmachine/FileManager/" + filename);
             System.out.println(fileManagerPath + "/" + filename);
             this.file = new File(fileManagerPath + "/" + filename); //

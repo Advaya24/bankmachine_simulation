@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileSearch {
+public class FileSearcher {
 
     private String fileNameToSearch;
     private List<String> result = new ArrayList<>();

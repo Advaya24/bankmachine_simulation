@@ -1,27 +1,22 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearch;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.verification.After;
+import bankmachine.FileManager.FileSearcher;
+import org.junit.jupiter.api.*;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
 
+
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AuthenticatorTest {
-    private Authenticator<Client> clientAuthenticator;
-    private Client client;
-    private ArrayList<Client> clients;
+    private static Authenticator<Client> clientAuthenticator;
+    private static Client client;
+    private static ArrayList<Client> clients;
 
-//    @BeforeAll
+    //    @BeforeAll
 //    public static void setClientAuthenticator() {
 //
 //    }
@@ -29,31 +24,41 @@ public class AuthenticatorTest {
 //    public static void setClientAuthenticator() {
 //
 //    }
-    @BeforeEach
-    public void setUp() {
-        FileSearch fileSearch = new FileSearch();
-        fileSearch.setFileNameToSearch("FileManager");
-        fileSearch.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearch.getResult().get(0);
-        clientAuthenticator = new Authenticator<>(fileManagerPath + "/testClientData.ser");
+    @BeforeAll
+    public static void setFileName(){
+        FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String fileManagerPath = fileSearcher.getResult().get(0);
+        String fileName = fileManagerPath + "/testClientData.ser";
+        clientAuthenticator = new Authenticator<>(fileName);
         clientAuthenticator.clearData();
-        client = mock(Client.class);
+        client = mock(Client.class, withSettings().serializable());
 
         when(client.getUsername()).thenReturn("abc");
         when(client.getPassword()).thenReturn("def");
 
-        for (int i = 0; i < 50; i++) {
-            Client newClient = mock(Client.class);
+
+        clients = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Client newClient = mock(Client.class, withSettings().serializable());
             when(newClient.getUsername()).thenReturn("testUsername" + i);
-            when(newClient.getUsername()).thenReturn("testPassword" + i);
+            when(newClient.getPassword()).thenReturn("testPassword" + i);
             clients.add(newClient);
         }
+    }
+    @AfterAll
+    public static void tearDown() {
         clientAuthenticator.clearData();
     }
-    @AfterEach
-    public void tearDown() {
+    @BeforeEach
+    public void setUp() {
         clientAuthenticator.clearData();
     }
+//    @AfterEach
+//    public void tearDown() {
+//        clientAuthenticator.clearData();
+//    }
 
     @Test
     public void testAdd() {
@@ -64,7 +69,7 @@ public class AuthenticatorTest {
     @Test
     public void testAddAll() {
         clientAuthenticator.addAll(clients);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             Optional<Client> optionalClient = clientAuthenticator.get("testUsername"+ i);
             assertTrue(optionalClient.isPresent());
             assertEquals(optionalClient.get().getUsername(), "testUsername" + i);
@@ -74,7 +79,7 @@ public class AuthenticatorTest {
     @Test
     public void testAuthenticate() {
         clientAuthenticator.addAll(clients);
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 10; i++) {
             Optional<Client> optionalClient = clientAuthenticator.authenticate("testUsername"+ i, "testPassword" + i);
             assertTrue(optionalClient.isPresent());
             assertEquals(optionalClient.get().getUsername(), "testUsername" + i);
