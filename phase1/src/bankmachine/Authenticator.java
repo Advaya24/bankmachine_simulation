@@ -57,7 +57,7 @@ public class Authenticator<T extends BankMachineUser> {
     }
 
     /**
-     * Add multiple users
+     * Add all users from an array list of users
      * @param newUsersArrayList array list of users to add
      */
     public void addAll(ArrayList<T> newUsersArrayList) {
