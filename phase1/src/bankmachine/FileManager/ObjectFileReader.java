@@ -9,44 +9,12 @@ import java.util.ArrayList;
  */
 public class ObjectFileReader<T extends Serializable> {
 
+    /* Name of the file to read */
     private String fileName;
 
     public ObjectFileReader(String fileName) {
         this.fileName = fileName;
     }
-
-//    @Override
-//    public Iterator<Serializable> iterator() {
-//        return new Iterator<Serializable>() {
-//            @Override
-//            public boolean hasNext() {
-//                try {
-//                    FileInputStream fileIn = new FileInputStream(fileName);
-//                    ObjectInputStream inputStream = new ObjectInputStream(fileIn);
-//                    int available = inputStream.available();
-//                    fileIn.close();
-//                    inputStream.close();
-//                    return available > 0;
-//                } catch (IOException e) {
-//                    return false;
-//                }
-//            }
-//
-//            @Override
-//            public Serializable next() {
-//                try {
-//                    FileInputStream fileIn = new FileInputStream(fileName);
-//                    ObjectInputStream inputStream = new ObjectInputStream(fileIn);
-//                    Serializable obj = (Serializable)inputStream.readObject();
-//                    fileIn.close();
-//                    inputStream.close();
-//                    return obj;
-//                } catch (IOException | ClassNotFoundException e) {
-//                    return null;
-//                }
-//            }
-//        };
-//    }
 
     /**
      * Read contents of the file
@@ -59,15 +27,6 @@ public class ObjectFileReader<T extends Serializable> {
         try {
             fileIn = new FileInputStream(fileName);
             inputStream = new ObjectInputStream(fileIn);
-//            boolean toContinue = true;
-//            while (toContinue) {
-//                Serializable obj = (Serializable)inputStream.readObject();
-//                if (obj != null) {
-//                    arrayList.add(obj);
-//                } else {
-//                    toContinue = false;
-//                }
-//            }
             arrayList = (ArrayList<T>)inputStream.readObject();
             return arrayList;
 

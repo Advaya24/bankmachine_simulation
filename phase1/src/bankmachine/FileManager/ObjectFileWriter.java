@@ -12,8 +12,7 @@ import java.util.Arrays;
 
 public class ObjectFileWriter<T extends Serializable> {
 
-//    private FileOutputStream fileOut;
-//    private ObjectOutputStream outputStream;
+    /* Name of the file to write in */
     private String fileName;
 
     public ObjectFileWriter(String fileName) {
@@ -34,14 +33,6 @@ public class ObjectFileWriter<T extends Serializable> {
                 System.out.println("File not created\n" + Arrays.toString(e2.getStackTrace()));
             }
         }
-//        try {
-//            fileOut = new FileOutputStream(fileName);
-//            outputStream = new ObjectOutputStream(fileOut);
-////            fileOut.close();
-////            outputStream.close();
-//        } catch (IOException e) {
-//            System.out.println(e.toString());
-//        }
     }
 
     /**
@@ -50,32 +41,6 @@ public class ObjectFileWriter<T extends Serializable> {
      * @return true if write was successful, false otherwise
      */
     public boolean write(T obj) {
-//        try {
-//            FileInputStream fileIn = new FileInputStream(fileName);
-//            ObjectInputStream inputStream = new ObjectInputStream(fileIn);
-//
-//            ArrayList<Serializable> arrayList = (ArrayList<Serializable>)inputStream.readObject();
-//
-//            inputStream.close();
-//            fileIn.close();
-//
-//            FileOutputStream fileOut = new FileOutputStream(fileName);
-//            ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
-//            if (arrayList != null) {
-//                arrayList.add(obj);
-//                outputStream.writeObject(arrayList);
-//            } else {
-//                arrayList = new ArrayList<>();
-//                arrayList.add(obj);
-//                outputStream.writeObject(arrayList);
-//            }
-//            outputStream.flush();
-//            outputStream.close();
-//            fileOut.close();
-//            return true;
-//        } catch (IOException | ClassNotFoundException | ClassCastException e) { // ClassNotFoundException
-//            return false;
-//        }
         ArrayList<T> arrayList = new ArrayList<>();
         arrayList.add(obj);
         return writeAll(arrayList);
@@ -87,19 +52,6 @@ public class ObjectFileWriter<T extends Serializable> {
      * @return true if write was successful, false otherwise
      */
     public boolean writeAll(ArrayList<T> arrayList) {
-//        try {
-//            FileOutputStream fileOut = new FileOutputStream(fileName);
-//            ObjectOutputStream outputStream = new ObjectOutputStream(fileOut);
-//            for (Serializable obj : arrayList) {
-//                outputStream.writeObject(obj);
-//                outputStream.flush();
-//            }
-//            outputStream.close();
-//            fileOut.close();
-//            return true;
-//        } catch (IOException e) {
-//            return false;
-//        }
         try {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
