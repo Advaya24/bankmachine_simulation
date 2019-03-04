@@ -55,7 +55,7 @@ public class Main {
         //No tester for writing to file that doesn't exist. As that file will simply be created
 
         //Test for TimeInfo Class
-        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
+        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
         tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
         tf.getTime(); // Returns Date Object of ATM date + time
 

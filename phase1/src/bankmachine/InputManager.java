@@ -14,8 +14,10 @@ import java.util.Scanner;
 
 public class InputManager {
     private boolean exit = false;
+    private Authenticator<BankMachineUser> authenticator;
     private Scanner input;
     public static void main(String[] args) {
+
         new InputManager().mainLoop();
     }
 
@@ -65,33 +67,7 @@ public class InputManager {
         return items.get(index);
     }
 
-    private <T> T selectAction(List<T> items){
-        if(items.size() == 0){ return null; }
-        else if(items.size() == 1){ return items.get(0); }
-
-        for(int i=0; i<items.size(); i++){
-            printObjects(new Object[]{"[", i, "] "});
-            System.out.println(items.get(i).toString());
-        }
-
-        int index;
-        while(true){
-            String number = getInput(new Object[]{
-                    "Enter a number from 0 to ", items.size()-1, ": "
-            });
-            try{
-                index = Integer.parseInt(number);
-            } catch(NumberFormatException e){
-                continue;
-            }
-            if (0<=index && index < items.size()){
-                break;
-            }
-        }
-        return items.get(index);
-    }
-
-    //TODO: maybe this should be choose an account instead? Since username should already correspond to a user
+    //Choosing an account
     private void selectItemTest(){
         ArrayList<String> strings = new ArrayList<>(Arrays.asList(
                 "Credit Card Account", "Line Credit Account", "Asset Account", "Savings Account"
@@ -107,7 +83,7 @@ public class InputManager {
                 "Withdraw", "Pay bills", "Deposit", "Transfer", "Undo Transaction"
         ));
         System.out.println("Choose a type of transaction");
-        String response = selectAction(strings);
+        String response = selectItem(strings);
         System.out.println("You chose " + response);
         // TODO: link to the account and see what transactions the account can do
         //  (NOTE: array of choices of transaction depends on the account)
@@ -127,6 +103,8 @@ public class InputManager {
                 break;
             }
             String password = getInput("Enter password: ");
+            // TODO: determine what file is being looked at? Or is it the array with usernames?
+            // if (authenticator.authenticate(username, password).isPresent()){
             if (username.equals(a) && password.equals(b)){
                 System.out.println("Welcome!");
                 selectItemTest();
