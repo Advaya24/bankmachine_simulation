@@ -91,7 +91,7 @@ public class InputManager {
     //Choosing an account
     private void selectItemTest(){
         ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Credit Card Account", "Line Credit Account", "Asset Account", "Savings Account"
+                "Credit Card Account", "Line of Credit Account", "Asset Account", "Savings Account"
         ));
         System.out.println("Choose an account");
         String response = selectItem(strings);
