@@ -18,11 +18,11 @@ public class InputManager {
 
 //    TODO: Read this
 //    // You'll need to initialize an authenticator each for Clients and BankManagers separately:
-//    private static Authenticator<Client> clientAuthenticator;
-//    private static Authenticator<BankManager> bankManagerAuthenticator;
+//    private Authenticator<Client> clientAuthenticator;
+//    private Authenticator<BankManager> bankManagerAuthenticator;
 
 //    // You should make fileManagerPath a private variable
-//    private static String fileManagerPath;
+//    private String fileManagerPath;
     private Scanner input; // Should this be static instead?
 
     public static void main(String[] args) {
