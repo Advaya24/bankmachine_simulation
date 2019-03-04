@@ -27,6 +27,9 @@ public class AccountManager {
         } else { accounts.add(account); }
     }
 
+    public ArrayList<Account> getAccounts(){
+        return accounts;
+    }
     //TODO: decide whether we need a getter (and if so, what is its input parameter)
 
 
