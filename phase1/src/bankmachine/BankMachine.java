@@ -1,10 +1,23 @@
 package bankmachine;
 
 import bankmachine.FileManager.TimeInfo;
+import bankmachine.account.Account;
+import bankmachine.account.SavingsAccount;
 
 public class BankMachine {
     void executeEveryMonth(){
-        // TODO: Increment all savings accounts
+        //TODO: WRITE TO FILE YAY
+        int oldmonth = 0;
+        int currmonth = 5;
+        if(currmonth != oldmonth){
+            for(Account a:accountManager.getAccounts()){
+                if (a instanceof SavingsAccount){
+                    ((SavingsAccount) a).applyInterest();
+                }
+            }
+        }
+        oldmonth = currmonth;
+        //then write it to file
     }
     void executeEveryDay(){}
     private static BillManager billManager;
