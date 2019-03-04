@@ -37,7 +37,6 @@ public class BankMachine {
         fileManagerPath = fileSearcher.getResult().get(0);
 
         billManager = new BillManager();
-//        clientManager = new ClientManager();
         accountManager = new AccountManager();
         timeInfo = new TimeInfo();
         inputManager = new InputManager();
@@ -47,10 +46,6 @@ public class BankMachine {
     public static BillManager getBillManager() {
         return billManager;
     }
-
-//    public static ClientManager getClientManager(){
-//        return clientManager;
-//    }
     public static AccountManager getAccountManager(){
         return accountManager;
     }

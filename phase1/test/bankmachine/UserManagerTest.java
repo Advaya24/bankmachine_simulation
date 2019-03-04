@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserManagerTest {
-    private static UserManager<Client> clientUserManager;
+    private static UserManager<Client> clientManager;
     private static Client client;
     private static ArrayList<Client> clients;
 
@@ -31,8 +31,8 @@ public class UserManagerTest {
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearcher.getResult().get(0);
         String fileName = fileManagerPath + "/testClientData.ser";
-        clientUserManager = new UserManager<>(fileName);
-        clientUserManager.clearData();
+        clientManager = new UserManager<>(fileName);
+        clientManager.clearData();
         client = mock(Client.class, withSettings().serializable());
 
         when(client.getUsername()).thenReturn("abc");
@@ -49,45 +49,47 @@ public class UserManagerTest {
     }
     @AfterAll
     public static void tearDown() {
-        clientUserManager.clearData();
+        clientManager.clearData();
     }
     @BeforeEach
     public void setUp() {
-        clientUserManager.clearData();
+        clientManager.clearData();
     }
 //    @AfterEach
 //    public void tearDown() {
-//        clientUserManager.clearData();
+//        clientManager.clearData();
 //    }
 
     @Test
     public void testAdd() {
-        clientUserManager.add(client);
-        assertTrue(clientUserManager.get("abc").isPresent());
+        clientManager.add(client);
+        assertTrue(clientManager.get("abc").isPresent());
+        assertTrue(clientManager.get(client.getID()).isPresent());
     }
 
     @Test
     public void testAddAll() {
-        clientUserManager.addAll(clients);
+        clientManager.addAll(clients);
         for (int i = 0; i < 10; i++) {
-            Optional<Client> optionalClient = clientUserManager.get("testUsername"+ i);
+            Optional<Client> optionalClient = clientManager.get("testUsername"+ i);
             assertTrue(optionalClient.isPresent());
+            assertTrue(clientManager.get(clients.get(i).getID()).isPresent());
             assertEquals(optionalClient.get().getUsername(), "testUsername" + i);
         }
     }
 
     @Test
     public void testAuthenticate() {
-        clientUserManager.addAll(clients);
+        clientManager.addAll(clients);
         for (int i = 0; i < 10; i++) {
-            Optional<Client> optionalClient = clientUserManager.authenticate("testUsername"+ i, "testPassword" + i);
+            Optional<Client> optionalClient = clientManager.authenticate("testUsername"+ i, "testPassword" + i);
             assertTrue(optionalClient.isPresent());
             assertEquals(optionalClient.get().getUsername(), "testUsername" + i);
 
-            Optional<Client> nullClient = clientUserManager.authenticate("testUsername" + i, "incorrectPassword");
+            Optional<Client> nullClient = clientManager.authenticate("testUsername" + i, "incorrectPassword");
             assertFalse(nullClient.isPresent());
 
-            nullClient = clientUserManager.authenticate("incorrectUsername", "testPassword" + i);
+            nullClient = clientManager.authenticate("incorrectUsername", "testPassword" + i);
             assertFalse(nullClient.isPresent());
         }
     }
