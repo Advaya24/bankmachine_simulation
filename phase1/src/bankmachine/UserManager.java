@@ -59,6 +59,7 @@ public class UserManager<T extends BankMachineUser> {
      */
     public void add(T newUser) {
         loginData.add(newUser);
+        loginHashMap.put(newUser.getID(), newUser);
         writer.write(newUser);
     }
 
@@ -68,6 +69,7 @@ public class UserManager<T extends BankMachineUser> {
      */
     public void addAll(ArrayList<T> newUsersArrayList) {
         loginData.addAll(newUsersArrayList);
+        for (T user: newUsersArrayList) loginHashMap.put(user.getID(), user);
         writer.writeAll(newUsersArrayList);
     }
 
@@ -95,10 +97,11 @@ public class UserManager<T extends BankMachineUser> {
     }
 
     /**
-     * Clears all loginData for this type.
+     * Clears all login data for this type.
      */
     public void clearData() {
         loginData = new ArrayList<>();
+        loginHashMap = new HashMap<>();
         writer.clear();
     }
 
