@@ -15,7 +15,7 @@ public abstract class Account implements Serializable {
     static int numAccounts = 0;
     /* The current balance of the account, in cents*/
     protected int balance;
-    int id;
+    private int id;
     protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
     protected Date creationDate;
@@ -102,6 +102,7 @@ public abstract class Account implements Serializable {
     }
 
     public int getBalance(){ return balance; }
+    public int getID(){ return id;}
     public double getDoubleBalance() {
         return balance/100.0;
     }

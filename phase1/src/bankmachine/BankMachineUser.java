@@ -6,15 +6,19 @@ import java.io.Serializable;
 public class BankMachineUser implements Serializable {
     private String userName;
     private String password;
+    static int num_users = 0;
+    private int id;
 
     public BankMachineUser(String userName, String password) {
         this.userName = userName;
         this.password = password;
+        num_users++;
+        id = num_users;
     }
 
     public String getUsername() { return userName; }
     public String getPassword() { return password; }
-
+    public int getID(){ return id; }
     public void setUserName(String new_username) {
         userName = new_username;
     }

@@ -4,7 +4,6 @@ import java.util.Date;
 /** Represents a Transaction within the system.
  * This class does not actually have any methods; it just is a container for information.**/
 // Person working on this: Varun
-//TODO: Add Getters and Setters
 public class Transaction {
     /**The amount of money involve in this transaction**/
     private double amount;
@@ -45,7 +44,6 @@ public class Transaction {
     public void setAmount(double new_amount){
         amount = new_amount;
     }
-    //TODO: Decide whether you want to change the from and to accounts
     public void setFrom(Account new_from){
         transactionMadeFrom = new_from;
     }
