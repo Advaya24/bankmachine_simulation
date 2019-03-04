@@ -32,8 +32,10 @@ public class ObjectFileReader<T extends Serializable> {
 
         } catch (EOFException eof) {
             try {
+                if (inputStream != null) {
+                    inputStream.close();
+                }
                 fileIn.close();
-                inputStream.close();
             } catch (IOException | NullPointerException e) {
                 return new ArrayList<>();
             }

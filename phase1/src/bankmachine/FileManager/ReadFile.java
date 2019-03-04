@@ -53,7 +53,7 @@ public class ReadFile implements FileManager {
 
     public String getData() throws Exception {
 
-        String str = ""; // Initializes the output string for the data.
+        StringBuilder str = new StringBuilder(); // Initializes the output string for the data.
 
         // If the file is null sets string equal to null and then for getData returns null
         if(file == null){
@@ -70,13 +70,13 @@ public class ReadFile implements FileManager {
             // Loop to cycle through array of characters from file. End of file is reached when read() returns -1.
             while ((end_of_stream = file_reader.read()) != -1) {
                 //Appends data to output string
-                str += ((char) end_of_stream);
+                str.append((char) end_of_stream);
 
             }
             // Closes file (important)
             file_reader.close();
         }
-        return str;
+        return str.toString();
 
 
     }
