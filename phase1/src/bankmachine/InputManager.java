@@ -104,8 +104,8 @@ public class InputManager {
             }
             String password = getInput("Enter password: ");
             // TODO: determine what file is being looked at? Or is it the array with usernames?
-            if (authenticator.authenticate(username, password).isPresent()){
-            //if (username.equals(a) && password.equals(b)){
+            // if (authenticator.authenticate(username, password).isPresent()){
+            if (username.equals(a) && password.equals(b)){
                 System.out.println("Welcome!");
                 selectItemTest();
                 selectActionTest();
