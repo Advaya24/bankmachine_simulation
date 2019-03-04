@@ -86,4 +86,21 @@ public class Authenticator<T extends BankMachineUser> {
         loginData = new ArrayList<>();
         writer.clear();
     }
+
+    /**
+     * Returns all the stored users of this type.
+     * @return an array list of users of type T
+     */
+    public ArrayList<T> getAll() {
+        return loginData;
+    }
+
+    /**
+     * Overwrite currently stored data with given data
+     * @param newLoginData an array list of users of type T to be stored in the file
+     */
+    public void overwrite(ArrayList<T> newLoginData) {
+        clearData();
+        addAll(newLoginData);
+    }
 }
