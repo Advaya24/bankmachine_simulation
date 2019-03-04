@@ -7,6 +7,7 @@ import bankmachine.Client;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class Main {
 
@@ -56,9 +57,9 @@ public class Main {
         //No tester for writing to file that doesn't exist. As that file will simply be created
 
         //Test for TimeInfo Class
-        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
-        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
-        tf.getTime(); // Returns Date Object of ATM date + time
+//        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
+//        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
+//        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
         final FileSearcher fileSearcher = new FileSearcher();
@@ -137,6 +138,15 @@ public class Main {
             client.printAccountSummary();
         } else System.out.println("Didn't work");
 
+        clientManager.runOnAll((Client c) -> {
+            c.printAccountSummary();
+            return null;
+        });
+
+    }
+
+    private static void testFunction(Client c) {
+        c.printAccountSummary();
     }
 
 }
