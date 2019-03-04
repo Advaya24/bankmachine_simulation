@@ -3,16 +3,9 @@ package bankmachine.FileManager;
 import bankmachine.Authenticator;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
-import bankmachine.LoginType;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.Serializable;
-import java.nio.file.Path;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Optional;
 
 public class Main {
@@ -62,7 +55,7 @@ public class Main {
         //No tester for writing to file that doesn't exist. As that file will simply be created
 
         //Test for TimeInfo Class
-        TimeInfo tf = new TimeInfo(); //Initalizes new TimeInfo object
+        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
         tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
         tf.getTime(); // Returns Date Object of ATM date + time
 
