@@ -5,6 +5,7 @@ import bankmachine.FileManager.ObjectFileWriter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Optional;
 
 /**
@@ -15,6 +16,7 @@ import java.util.Optional;
 public class Authenticator<T extends BankMachineUser> {
     /* List of Client instances registered for login */
     private ArrayList<T> loginData;
+    private HashMap<Integer, T> loginHashMap;
     /* File writer for this authenticator */
     private ObjectFileWriter<T> writer;
 
@@ -25,6 +27,10 @@ public class Authenticator<T extends BankMachineUser> {
             loginData = reader.read();
         } catch (Exception e) {
             loginData = new ArrayList<>();
+        }
+        loginHashMap = new HashMap<>();
+        for (T user: loginData) {
+            loginHashMap.put(user.getID(), user);
         }
     }
 
@@ -77,6 +83,15 @@ public class Authenticator<T extends BankMachineUser> {
             }
         }
         return Optional.empty();
+    }
+
+    /**
+     * Get user corresponding to ID.
+     * @param ID of the user
+     * @return Optional containing the required user of type T if it exists, empty Optional otherwise
+     */
+    public Optional<T> get(int ID) {
+        return Optional.of(loginHashMap.get(ID));
     }
 
     /**
