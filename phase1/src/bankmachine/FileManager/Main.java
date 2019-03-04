@@ -1,5 +1,6 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
 import bankmachine.UserManager;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
@@ -66,7 +67,7 @@ public class Main {
 
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
+        final String fileManagerPath = BankMachine.fileManagerPath;
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");

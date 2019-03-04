@@ -8,7 +8,7 @@ import bankmachine.account.SavingsAccount;
 import java.io.File;
 
 public class BankMachine {
-    public static String fileManagerPath = "";
+    final public static String fileManagerPath = findFileManagerPath();
     void executeEveryMonth(){
         //TODO: WRITE TO FILE YAY
         int oldmonth = 0;
@@ -31,10 +31,6 @@ public class BankMachine {
     private static InputManager inputManager;
 
     public static void main(String[] args){
-        FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        fileManagerPath = fileSearcher.getResult().get(0);
 
         billManager = new BillManager();
         accountManager = new AccountManager();
@@ -51,5 +47,12 @@ public class BankMachine {
     }
     public static TimeInfo getTimeInfo(){
         return timeInfo;
+    }
+
+    public static String findFileManagerPath() {
+        FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        return fileSearcher.getResult().get(0);
     }
 }

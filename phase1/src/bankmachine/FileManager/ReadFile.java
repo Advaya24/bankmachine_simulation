@@ -1,5 +1,7 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
@@ -11,12 +13,8 @@ public class ReadFile implements FileManager {
     public ReadFile(String filename) throws Exception { // Constructor for ReadFile
 
         try {
-            final FileSearcher fileSearcher = new FileSearcher();
-            fileSearcher.setFileNameToSearch("FileManager");
-            fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-            final String fileManagerPath = fileSearcher.getResult().get(0);
             //System.out.println(fileManagerPath + "/" + filename);
-            this.file = new File(fileManagerPath + "/" + filename); //
+            this.file = new File(BankMachine.fileManagerPath + "/" + filename); //
         } catch  (NullPointerException e){
             System.out.println("The file attempted to be read does not exist");
         }
