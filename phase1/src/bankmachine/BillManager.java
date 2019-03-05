@@ -37,6 +37,7 @@ public class BillManager {
         } else {
             System.out.println("Incompatible denomination.");
         }
+        //Update the alerts.txt message.
         updateAlert();
     }
 
@@ -47,20 +48,24 @@ public class BillManager {
      */
     public boolean withdrawBills(int amount) throws Exception {
         int amountLeft = amount;
+        //Any withdrawal should be a multiple of 5.
         if (amountLeft % 5 != 0){
             return false;
         }
+        // Create a copy of the bills HashMap.
         HashMap<Integer, Integer> temporaryBills = new HashMap<>();
         for (int i : bills.keySet()) {
             temporaryBills.put(i, bills.get(i));
         }
         int[] denominations = {50, 20, 10, 5};
+        //Cycle through denominations in decreasing order.
         for (int i : denominations) {
             while (amountLeft >= i && temporaryBills.get(i) > 0) {
                 temporaryBills.put(i, temporaryBills.get(i) - 1);
                 amountLeft -= i;
             }
         }
+        //Only update bills if the machine has enough bills to process it.
         if (amountLeft == 0) {
             bills = temporaryBills;
             updateAlert();
@@ -69,7 +74,10 @@ public class BillManager {
         return false;
     }
 
-    //TODO:update method that sends alerts to alerts.txt warning about bill shortage.
+    /**
+     * Function that writes to the alerts.txt file regarding whether the bank machine needs to be re-stocked.
+     * @throws Exception depending on WriteFile.
+     */
     private void updateAlert() throws Exception {
         StringBuilder warningMessage = new StringBuilder("WARNING: This bank machine currently has less than 20 bills of at least one denomination: \n");
         boolean hasChanged = false;
