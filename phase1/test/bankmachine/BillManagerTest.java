@@ -32,7 +32,7 @@ public class BillManagerTest {
     }
 
     @Test
-    public void testWithdraw() {
+    public void testWithdraw() throws Exception {
         billManager.withdraw(80);
         //noinspection unchecked
         bills = billManager.getBills();
