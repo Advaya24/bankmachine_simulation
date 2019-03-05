@@ -1,5 +1,7 @@
 package bankmachine;
 
+import bankmachine.FileManager.WriteFile;
+
 import java.util.HashMap;
 
 // Rename/move to BillManager?
@@ -42,7 +44,7 @@ public class BillManager {
      * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */
-    public boolean withdraw(int amount) {
+    public boolean withdraw(int amount) throws Exception{
         int amountLeft = amount;
         if (amountLeft % 5 != 0){
             return false;
@@ -60,15 +62,30 @@ public class BillManager {
         }
         if (amountLeft == 0) {
             bills = temporaryBills;
+            update();
             return true;
         }
         return false;
     }
 
-//    //TODO:update method that sends alerts to alerts.txt warning about bill shortage.
-//    private update() {
-//    }
+    //TODO:update method that sends alerts to alerts.txt warning about bill shortage.
+    private void update() throws Exception {
+        StringBuilder warningMessage = new StringBuilder("WARNING: This bank machine currently has less than 20 bills of at least one denomination: \n");
+        boolean hasChanged = false;
+        for (int denomination : bills.keySet()) {
+            int quantity = bills.get(denomination);
+            if (quantity < 20) {
+                warningMessage.append("* There are ").append(quantity).append(" $").append(denomination).append(" " +
+                        "bills.\n");
+                hasChanged = true;
+            }
+        }
+        WriteFile out = new WriteFile("alerts.txt");
+        if (hasChanged) {
+            out.writeData(warningMessage.toString(), false);
+        } else {
+            out.writeData("This bank machine has enough bills of each denomination.", false);
+        }
 
-
-
+    }
 }
