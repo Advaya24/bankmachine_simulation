@@ -62,14 +62,14 @@ public class BillManager {
         }
         if (amountLeft == 0) {
             bills = temporaryBills;
-            //update();
+            //updateAlert();
             return true;
         }
         return false;
     }
 
     //TODO:update method that sends alerts to alerts.txt warning about bill shortage.
-//    private void update() {
+//    private void updateAlert() {
 //        StringBuilder warningMessage = new StringBuilder("WARNING: This bank machine currently has less than 20 bills of at least one denomination: \n");
 //        boolean hasChanged = false;
 //        for (int denomination : bills.keySet()) {
