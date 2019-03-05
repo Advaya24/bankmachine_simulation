@@ -18,23 +18,12 @@ public class InputManager {
 
 //    TODO: Read this
 //    // You'll need to initialize an userManager each for Clients and BankManagers separately:
-//    private UserManager<Client> clientAuthenticator;
-//    private UserManager<BankManager> bankManagerAuthenticator;
+//    final private UserManager<Client> clientManager = BankMachine.getClientManager();
+//    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
 
-//    // You should make fileManagerPath a private variable
-//    private String fileManagerPath;
     private Scanner input; // Should this be static instead?
 
     public static void main(String[] args) {
-
-//        TODO: Read this
-
-//
-//        // The following should initialize the authenticators correctly:
-//        clientAuthenticator = new UserManager<>(BankMachine.fileManagerPath + "/clientData.ser");
-//        bankManagerAuthenticator = new UserManager<>(BankMachine.fileManagerPath + "/bankManagerData.ser");
-//
-//
 
         new InputManager().mainLoop();
     }
@@ -125,7 +114,7 @@ public class InputManager {
             // if (userManager.authenticate(username, password).isPresent()){
 
             // TODO: Read this
-            // Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
+            // Optional<Client> optionalClient = clientManager.authenticate(username, password);
             // if (optionalClient.isPresent()) {
             //     Client retrivedClient = optionalClient.get();
             //     // Do something with retrievedClient here
