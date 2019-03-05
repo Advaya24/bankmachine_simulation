@@ -6,8 +6,10 @@ import java.util.List;
 
 public class FileSearcher {
 
+    /* Name of the file to search */
     private String fileNameToSearch;
-    private List<String> result = new ArrayList<>();
+    /* List of strings giving paths for the required file */
+    private List<String> result = new ArrayList<>(1);
 
     public String getFileNameToSearch() {
         return fileNameToSearch;
@@ -22,12 +24,18 @@ public class FileSearcher {
     }
 
 
+    /**
+     * Searches for the required file with fileNameToSearch and stores it in result
+     *
+     * @param file the file/directory in which to search
+     */
     public void searchForDirectory(File file) {
         if (file.isDirectory()) {
             //do you have permission to read this directory?
             if (file.canRead()) {
-                try {
-                    for (File temp : file.listFiles()) {
+                File[] listFiles = file.listFiles();
+                if (listFiles != null) {
+                    for (File temp : listFiles) {
                         if (temp.isDirectory() && !temp.getName().equalsIgnoreCase("out")) {
                             if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
                                 result.add(temp.getAbsoluteFile().toString());
@@ -35,9 +43,8 @@ public class FileSearcher {
                             searchForDirectory(temp);
                         }
                     }
-                } catch (NullPointerException e) {
-                    // Do nothing
                 }
+
 
             } else {
                 System.out.println(file.getAbsoluteFile() + "Permission Denied");

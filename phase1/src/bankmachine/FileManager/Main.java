@@ -1,5 +1,6 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
 import bankmachine.UserManager;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
@@ -62,11 +63,8 @@ public class Main {
 //        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
-        final FileSearcher fileSearcher = new FileSearcher();
+        final String fileManagerPath = BankMachine.fileManagerPath;
 
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
@@ -128,8 +126,7 @@ public class Main {
             client.printAccountSummary();
             client.setUserName("New username");
             clientManager.updateFile();
-        }
-        else System.out.println("Client not found :(");
+        } else System.out.println("Client not found :(");
 
         UserManager<Client> newClientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
         testClient2 = newClientManager.get("New username");

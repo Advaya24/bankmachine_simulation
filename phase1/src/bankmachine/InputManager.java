@@ -28,14 +28,11 @@ public class InputManager {
     public static void main(String[] args) {
 
 //        TODO: Read this
-//        // Initializes fileManagerLocation correctly
-//        fileSearcher.setFileNameToSearch("FileManager");
-//        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-//        final String fileManagerPath = fileSearcher.getResult().get(0);
+
 //
 //        // The following should initialize the authenticators correctly:
-//        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
-//        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
+//        clientAuthenticator = new UserManager<>(BankMachine.fileManagerPath + "/clientData.ser");
+//        bankManagerAuthenticator = new UserManager<>(BankMachine.fileManagerPath + "/bankManagerData.ser");
 //
 //
 
