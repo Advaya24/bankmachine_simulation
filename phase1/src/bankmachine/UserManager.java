@@ -151,4 +151,14 @@ public class UserManager<T extends BankMachineUser> {
         }
         updateFile();
     }
+
+    /**
+     * Deletes given object.
+     * @param obj to delete
+     */
+    public void delete(T obj) {
+        loginData.remove(obj);
+        loginHashMap.remove(obj.getID());
+        updateFile();
+    }
 }

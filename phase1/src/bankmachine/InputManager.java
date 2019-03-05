@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.*;
 
 public class InputManager {
+
+    // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
     private UserManager<BankMachineUser> userManager;
@@ -18,6 +20,10 @@ public class InputManager {
     // Initialize an userManager each for Clients and BankManagers separately:
     private static UserManager<Client> clientAuthenticator;
     private static UserManager<BankManager> bankManagerAuthenticator;
+
+    //    final private UserManager<Client> clientManager = BankMachine.getClientManager();
+//    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
+
 
     // You should make fileManagerPath a private variable
     private String fileManagerPath;

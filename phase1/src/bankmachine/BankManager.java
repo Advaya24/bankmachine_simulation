@@ -43,11 +43,13 @@ public class BankManager extends BankMachineUser {
 
     public void createClient(String name, String email, String phoneNumber, String username, String default_password){
         Client newClient = new Client(name, email, phoneNumber, username, default_password);
-        UserManager<Client> clientUserManager = new UserManager<>(BankMachine.fileManagerPath + "/clientData.ser");
+        UserManager<Client> clientUserManager = BankMachine.getClientManager();
         clientUserManager.add(newClient);
     }
 
     public boolean undoRecentTransaction(Transaction transaction){
+
+        // TODO: handle corner case where one of the accounts does not have enough balance
         if(transaction.getType()==TransactionType.BILL) {
             return false;
         }
