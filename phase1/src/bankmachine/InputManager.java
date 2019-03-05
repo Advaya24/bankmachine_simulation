@@ -114,16 +114,15 @@ public class InputManager {
         // TODO: Change the conditions in the while loops so that it tries to find the list of usernames and
         //  corresponding password
         while(!exit) {
-            String a = "John";
-            String b = "123";
+            /*String a = "John";
+            String b = "123";*/
             System.out.println("Type 'exit' to quit");
-            String username = getInput("Enter username: ");
+            isUserClient();
+            /*String username = getInput("Enter username: ");
             if(username.equalsIgnoreCase("exit")){
                 break;
             }
             String password = getInput("Enter password: ");
-            // TODO: determine what file is being looked at? Or is it the array with usernames?
-            // if (userManager.authenticate(username, password).isPresent()){
 
             // TODO: Read this
             // Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
@@ -140,7 +139,7 @@ public class InputManager {
                 exit = true;
             } else {
                 System.out.println("Incorrect username/password");
-            }
+            }*/
         }
     }
 
@@ -154,39 +153,47 @@ public class InputManager {
     }
 
         // TODO: link to person and see what accounts they have... if no accounts open one?
-    private boolean isUserClient() {
+    private void isUserClient() {
         ArrayList<String> users = new ArrayList<>(Arrays.asList(
                 "Bank Manager", "Client"
         ));
         String u = itemizeChoice(users);
         if (u.equals("Bank Manager")) {
             userIsClient = false;
-            logIn();
-        } else {
-            logIn();
         }
-        return userIsClient;
+        logIn(userIsClient);
     }
 
-    private void logIn(){
-        String username = getInput("Enter username: ");
-        String password = getInput("Enter password: ");
-        Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
-         if (optionalClient.isPresent()) {
-             Client retrievedClient = optionalClient.get();
-             // Do something with retrievedClient here
-         }
-        if(username.equalsIgnoreCase("exit")){
-            exit = true;
+    private void logIn(boolean user) {
+        while (!exit) {
+            String username = getInput("Enter username: ");
+            String password = getInput("Enter password: ");
+            if (user) {
+                Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
+                if (optionalClient.isPresent()) {
+                    System.out.println("Welcome!");
+                    Client retrievedClient = optionalClient.get();
+                    //return retrievedClient.getClientsAccounts();
+                } else {
+                    System.out.println("Incorrect username/password");
+                }
+            } else {
+                Optional<BankManager> optionalBankManager = bankManagerAuthenticator.authenticate(username, password);
+                if (optionalBankManager.isPresent()) {
+                    System.out.println("Welcome!");
+                    BankManager retrievedBankManager = optionalBankManager.get();
+                    //TODO: displays a list of names
+                }
+            }
+            if (username.equalsIgnoreCase("exit")) {
+                exit = true;
+            }
         }
 
+        // 2) ask which account they would like to access
+        // 3) ask what type of transaction would like to be performed or what they would like to see
+        // 4) OPTIONAL: confirmation?
+        // 5) exit option
+
     }
-
-    // 2) Input username and password and  validity
-    // 2) ask which account they would like to access
-    // 3) ask what type of transaction would like to be performed or what they would like to see
-    // 4) OPTIONAL: confirmation?
-    // 5) exit option
-
-
 }
