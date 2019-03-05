@@ -14,8 +14,9 @@ import java.util.function.Function;
  */
 // Managed by: Advaya
 public class UserManager<T extends BankMachineUser> {
-    /* List of Client instances registered for login */
+    /* List of user instances registered for login */
     private ArrayList<T> loginData;
+    /* HashMap of user instances */
     private HashMap<Integer, T> loginHashMap;
     /* File writer for this authenticator */
     private ObjectFileWriter<T> writer;
