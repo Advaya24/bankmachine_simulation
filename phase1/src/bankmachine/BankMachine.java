@@ -9,13 +9,14 @@ import java.io.File;
 
 public class BankMachine {
     final public static String fileManagerPath = findFileManagerPath();
-    void executeEveryMonth(){
+
+    void executeEveryMonth() {
         //TODO: WRITE TO FILE YAY
         int oldmonth = 0;
         int currmonth = 5;
-        if(currmonth != oldmonth){
-            for(Account a:accountManager.getAccounts()){
-                if (a instanceof SavingsAccount){
+        if (currmonth != oldmonth) {
+            for (Account a : accountManager.getAccounts()) {
+                if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
                 }
             }
@@ -23,14 +24,17 @@ public class BankMachine {
         oldmonth = currmonth;
         //then write it to file
     }
-    void executeEveryDay(){}
+
+    void executeEveryDay() {
+    }
+
     private static BillManager billManager;
     private static AccountManager accountManager;
     // static TransactionManager transactionManager
     private static TimeInfo timeInfo;
     private static InputManager inputManager;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         billManager = new BillManager();
         accountManager = new AccountManager();
@@ -42,10 +46,12 @@ public class BankMachine {
     public static BillManager getBillManager() {
         return billManager;
     }
-    public static AccountManager getAccountManager(){
+
+    public static AccountManager getAccountManager() {
         return accountManager;
     }
-    public static TimeInfo getTimeInfo(){
+
+    public static TimeInfo getTimeInfo() {
         return timeInfo;
     }
 

@@ -126,8 +126,7 @@ public class Main {
             client.printAccountSummary();
             client.setUserName("New username");
             clientManager.updateFile();
-        }
-        else System.out.println("Client not found :(");
+        } else System.out.println("Client not found :(");
 
         UserManager<Client> newClientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
         testClient2 = newClientManager.get("New username");

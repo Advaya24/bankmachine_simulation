@@ -5,8 +5,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+// Managed by: Advaya
+
 /**
  * Writes objects of type T to file
+ *
  * @param <T> a serializeable type
  */
 
@@ -37,6 +40,7 @@ public class ObjectFileWriter<T extends Serializable> {
 
     /**
      * Write obj to the file corresponding to filename
+     *
      * @param obj object to write
      * @return true if write was successful, false otherwise
      */
@@ -48,6 +52,7 @@ public class ObjectFileWriter<T extends Serializable> {
 
     /**
      * Write all objects of type T stored in arrayList to the file corresponding to filename
+     *
      * @param arrayList of objects
      * @return true if write was successful, false otherwise
      */
@@ -56,7 +61,7 @@ public class ObjectFileWriter<T extends Serializable> {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
 
-            ArrayList<T> oldArrayList = (ArrayList<T>)inputStream.readObject();
+            ArrayList<T> oldArrayList = (ArrayList<T>) inputStream.readObject();
 
             inputStream.close();
             fileIn.close();

@@ -3,8 +3,11 @@ package bankmachine.FileManager;
 import java.io.*;
 import java.util.ArrayList;
 
+// Managed by: Advaya
+
 /**
  * Reads objects of type T from file
+ *
  * @param <T> a serializeable type
  */
 public class ObjectFileReader<T extends Serializable> {
@@ -18,6 +21,7 @@ public class ObjectFileReader<T extends Serializable> {
 
     /**
      * Read contents of the file
+     *
      * @return array list containing all objects (of type T) from file
      */
     public ArrayList<T> read() {
@@ -27,7 +31,7 @@ public class ObjectFileReader<T extends Serializable> {
         try {
             fileIn = new FileInputStream(fileName);
             inputStream = new ObjectInputStream(fileIn);
-            arrayList = (ArrayList<T>)inputStream.readObject();
+            arrayList = (ArrayList<T>) inputStream.readObject();
             return arrayList;
 
         } catch (EOFException eof) {
