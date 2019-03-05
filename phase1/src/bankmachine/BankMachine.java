@@ -9,6 +9,8 @@ import java.io.File;
 
 public class BankMachine {
     final public static String fileManagerPath = findFileManagerPath();
+    final public static UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/clientData.ser");
+    final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
 
     void executeEveryMonth() {
         //TODO: WRITE TO FILE YAY
@@ -60,5 +62,12 @@ public class BankMachine {
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
         return fileSearcher.getResult().get(0);
+    }
+
+    public static UserManager<Client> getClientManager() {
+        return clientManager;
+    }
+    public static UserManager<BankManager> getBankManagerUserManager() {
+        return bankManagerUserManager;
     }
 }
