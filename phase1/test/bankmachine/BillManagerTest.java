@@ -13,7 +13,7 @@ public class BillManagerTest {
     private BillManager billManager;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws Exception {
         this.billManager = new BillManager();
         //BillManager bankMachine = new BillManager();
         billManager.addBills(50, 20);
@@ -41,6 +41,10 @@ public class BillManagerTest {
         assertEquals(19, (int)bills.get(20));
         assertEquals(19, (int)bills.get(10));
         assertEquals(20, (int)bills.get(5));
+
+        billManager.addBills(50, 2);
+        billManager.addBills(20, 2);
+        billManager.addBills(10, 2);
 
         assertTrue(!billManager.withdrawBills(1000000));
         assertTrue(!billManager.withdrawBills(1));

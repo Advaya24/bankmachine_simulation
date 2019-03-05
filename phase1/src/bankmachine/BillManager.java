@@ -31,12 +31,13 @@ public class BillManager {
      * @param billType which denomination to add
      * @param quantity how many bills to add
      */
-    public void addBills(int billType, int quantity){
+    public void addBills(int billType, int quantity) throws Exception {
         if (bills.containsKey(billType)) {
             bills.put(billType, bills.get(billType) + quantity);
         } else {
             System.out.println("Incompatible denomination.");
         }
+        updateAlert();
     }
 
     /**
