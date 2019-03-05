@@ -82,11 +82,12 @@ public abstract class Account implements Serializable {
      */
     public abstract boolean transferOut(int amount);
     public boolean payBill(int amount) { return transferOut(amount); }
-    public boolean withdraw(int amount){ return transferOut(amount); }
+    //TODO: decide if we want the withdraw method here or only in chequing
+    //public boolean withdraw(int amount){ return transferOut(amount); }
     abstract public String toString();
 
     public boolean payBill(double amount) { return transferOut((int)(amount*100)); }
-    public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
+    //public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
 
     public boolean transferIn(Account acc, double amount){
         return this.transferIn(acc, (int)(amount*100));
