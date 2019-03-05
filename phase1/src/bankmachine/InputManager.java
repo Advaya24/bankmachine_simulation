@@ -1,14 +1,12 @@
 package bankmachine;
 
 import bankmachine.FileManager.FileSearcher;
-
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.io.File;
 import java.util.*;
-
-/*import bankmachine.BankMachine;
-import bankmachine.UserManager;
-import bankmachine.BankMachineUser;
-import bankmachine.Client;*/
 
 public class InputManager {
     private boolean exit = false;

@@ -1,11 +1,10 @@
 package bankmachine.FileManager;
 
 import bankmachine.BankMachine;
-import bankmachine.UserManager;
 import bankmachine.BankMachineUser;
 import bankmachine.Client;
+import bankmachine.UserManager;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -57,16 +56,13 @@ public class Main {
         //No tester for writing to file that doesn't exist. As that file will simply be created
 
         //Test for TimeInfo Class
-        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
-        tf.setTime("31/07/2018 9:12:54"); // Sets date and time format: "dd/mm/yyyy hh:mm:ss" (Bank manager)
-        tf.getTime(); // Returns Date Object of ATM date + time
+//        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
+//        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
+//        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
-        final FileSearcher fileSearcher = new FileSearcher();
+        final String fileManagerPath = BankMachine.fileManagerPath;
 
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
@@ -128,8 +124,7 @@ public class Main {
             client.printAccountSummary();
             client.setUserName("New username");
             clientManager.updateFile();
-        }
-        else System.out.println("Client not found :(");
+        } else System.out.println("Client not found :(");
 
         UserManager<Client> newClientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
         testClient2 = newClientManager.get("New username");
@@ -138,6 +133,15 @@ public class Main {
             client.printAccountSummary();
         } else System.out.println("Didn't work");
 
+        clientManager.runOnAll((Client c) -> {
+            c.printAccountSummary();
+            return null;
+        });
+
+    }
+
+    private static void testFunction(Client c) {
+        c.printAccountSummary();
     }
 
 }

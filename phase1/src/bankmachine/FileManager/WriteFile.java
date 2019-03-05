@@ -1,5 +1,7 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -11,12 +13,8 @@ public class WriteFile implements FileManager {
     // Constructor for WriteFile
     public WriteFile(String filename) {
         // Creates file with "filename" in the FileManager package
-        final FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
         //System.out.println(fileManagerPath + "/" + filename);
-        this.file = new File(fileManagerPath + "/" + filename); //
+        this.file = new File(BankMachine.fileManagerPath + "/" + filename); //
     }
 
     public WriteFile() {

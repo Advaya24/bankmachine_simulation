@@ -1,5 +1,7 @@
 package bankmachine.FileManager;
 
+import bankmachine.BankMachine;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
@@ -11,12 +13,8 @@ public class ReadFile implements FileManager {
     public ReadFile(String filename) throws Exception { // Constructor for ReadFile
 
         try {
-            final FileSearcher fileSearcher = new FileSearcher();
-            fileSearcher.setFileNameToSearch("FileManager");
-            fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-            final String fileManagerPath = fileSearcher.getResult().get(0);
             //System.out.println(fileManagerPath + "/" + filename);
-            this.file = new File(fileManagerPath + "/" + filename); //
+            this.file = new File(BankMachine.fileManagerPath + "/" + filename); //
         } catch  (NullPointerException e){
             System.out.println("The file attempted to be read does not exist");
         }
@@ -53,7 +51,7 @@ public class ReadFile implements FileManager {
 
     public String getData() throws Exception {
 
-        String str = ""; // Initializes the output string for the data.
+        StringBuilder str = new StringBuilder(); // Initializes the output string for the data.
 
         // If the file is null sets string equal to null and then for getData returns null
         if(file == null){
@@ -70,13 +68,13 @@ public class ReadFile implements FileManager {
             // Loop to cycle through array of characters from file. End of file is reached when read() returns -1.
             while ((end_of_stream = file_reader.read()) != -1) {
                 //Appends data to output string
-                str += ((char) end_of_stream);
+                str.append((char) end_of_stream);
 
             }
             // Closes file (important)
             file_reader.close();
         }
-        return str;
+        return str.toString();
 
 
     }

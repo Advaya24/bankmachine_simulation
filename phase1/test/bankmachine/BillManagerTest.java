@@ -32,8 +32,8 @@ public class BillManagerTest {
     }
 
     @Test
-    public void testWithdraw() {
-        billManager.withdraw(80);
+    public void testWithdrawBills() throws Exception {
+        billManager.withdrawBills(80);
         //noinspection unchecked
         bills = billManager.getBills();
         System.out.println(bills);
@@ -42,8 +42,8 @@ public class BillManagerTest {
         assertEquals(19, (int)bills.get(10));
         assertEquals(20, (int)bills.get(5));
 
-        assertTrue(!billManager.withdraw(1000000));
-        assertTrue(!billManager.withdraw(1));
+        assertTrue(!billManager.withdrawBills(1000000));
+        assertTrue(!billManager.withdrawBills(1));
 
 
     }

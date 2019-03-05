@@ -6,8 +6,10 @@ import java.util.List;
 
 public class FileSearcher {
 
+    /* Name of the file to search */
     private String fileNameToSearch;
-    private List<String> result = new ArrayList<>();
+    /* List of strings giving paths for the required file */
+    private List<String> result = new ArrayList<>(1);
 
     public String getFileNameToSearch() {
         return fileNameToSearch;
@@ -21,63 +23,32 @@ public class FileSearcher {
         return result;
     }
 
-//    public void searchDirectory(File directory, String fileNameToSearch) {
-//
-//        setFileNameToSearch(fileNameToSearch);
-//
-//        if (directory.isDirectory()) {
-//            search(directory);
-//        } else {
-//            System.out.println(directory.getAbsoluteFile() + " is not a directory!");
-//        }
-//
-//    }
 
-//    private void search(File file) {
-//
-//        if (file.isDirectory()) {
-//            System.out.println("Searching directory ... " + file.getAbsoluteFile());
-//
-//            //do you have permission to read this directory?
-//            if (file.canRead()) {
-//                for (File temp : file.listFiles()) {
-//                    if (temp.isDirectory()) {
-//                        search(temp);
-//                    } else {
-//                        if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
-//                            result.add(temp.getAbsoluteFile().toString());
-//                        }
-//
-//                    }
-//                }
-//
-//            } else {
-//                System.out.println(file.getAbsoluteFile() + "Permission Denied");
-//            }
-//        }
-//
-//    }
-
+    /**
+     * Searches for the required file with fileNameToSearch and stores it in result
+     *
+     * @param file the file/directory in which to search
+     */
     public void searchForDirectory(File file) {
         if (file.isDirectory()) {
-//            System.out.println("Searching directory ... " + file.getAbsoluteFile());
-
             //do you have permission to read this directory?
             if (file.canRead()) {
-                for (File temp : file.listFiles()) {
-                    if (temp.isDirectory() && !temp.getName().equalsIgnoreCase("out")) {
-                        if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
-                            result.add(temp.getAbsoluteFile().toString());
+                File[] listFiles = file.listFiles();
+                if (listFiles != null) {
+                    for (File temp : listFiles) {
+                        if (temp.isDirectory() && !temp.getName().equalsIgnoreCase("out")) {
+                            if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
+                                result.add(temp.getAbsoluteFile().toString());
+                            }
+                            searchForDirectory(temp);
                         }
-                        searchForDirectory(temp);
                     }
                 }
+
 
             } else {
                 System.out.println(file.getAbsoluteFile() + "Permission Denied");
             }
         }
     }
-
-
 }
