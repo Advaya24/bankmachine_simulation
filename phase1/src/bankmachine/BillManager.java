@@ -7,7 +7,7 @@ import java.util.HashMap;
 // Rename/move to BillManager?
 public class BillManager {
 
-    /*Dictionary containing the number of bills of each type the machine has. Order of denomination:
+    /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
     private HashMap<Integer, Integer> bills = new HashMap<Integer, Integer>() {
         {
