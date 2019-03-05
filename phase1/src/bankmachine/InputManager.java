@@ -1,6 +1,8 @@
 package bankmachine;
 
 import bankmachine.FileManager.FileSearcher;
+import bankmachine.account.Account;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,8 +15,7 @@ public class InputManager {
     private boolean userIsClient = true;
     private UserManager<BankMachineUser> userManager;
 
-//  TODO: Read this
-//  Initialize an userManager each for Clients and BankManagers separately:
+    // Initialize an userManager each for Clients and BankManagers separately:
     private static UserManager<Client> clientAuthenticator;
     private static UserManager<BankManager> bankManagerAuthenticator;
 
@@ -24,7 +25,6 @@ public class InputManager {
 
     public static void main(String[] args) {
 
-        // TODO: Read this
         // Initializes fileManagerLocation correctly
         final FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
@@ -84,7 +84,7 @@ public class InputManager {
         return items.get(index-1);
     }
 
-    //Choosing an account
+    /*//Choosing an account
     private void selectItemTest(){
         ArrayList<String> strings = new ArrayList<>(Arrays.asList(
                 "Credit Card Account", "Line of Credit Account", "Asset Account", "Savings Account"
@@ -92,7 +92,6 @@ public class InputManager {
         System.out.println("Choose an account");
         String response = selectItem(strings);
         System.out.println("You chose " + response);
-        // TODO: link to person and see what accounts they have... if no accounts open one?
     }
 
     private void selectActionTest(){
@@ -102,37 +101,22 @@ public class InputManager {
         System.out.println("Choose a type of transaction");
         String response = selectItem(strings);
         System.out.println("You chose " + response);
-        // TODO: link to the account and see what transactions the account can do
-        //  (NOTE: array of choices of transaction depends on the account)
-        // TODO: make more individual functions (cases) for each class? call more functions?
-    }
+    }*/
 
     public void mainLoop(){
         // Login page
-        // TODO: Change the conditions in the while loops so that it tries to find the list of usernames and
-        //  corresponding password
         while(!exit) {
-            /*String a = "John";
-            String b = "123";*/
-            System.out.println("Type 'exit' to quit");
-            isUserClient();
-            /*String username = getInput("Enter username: ");
-            if(username.equalsIgnoreCase("exit")){
-                break;
-            }
-            String password = getInput("Enter password: ");
+            userIsClient = isUserClient();
+            ArrayList<Account> accounts = logIn(userIsClient);
+            // TODO: choose and account
+            // TODO: choose a transaction
+            // TODO: note that the bank manager has the option of adding people and doing other things normal users cant...
+            // TODO: continue/exit
 
-            // TODO: Read this
-            // Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
-            // if (optionalClient.isPresent()) {
-            //     Client retrivedClient = optionalClient.get();
-            //     // Do something with retrievedClient here
-            // }
-            if (username.equals(a) && password.equals(b)){
+           /* if (username.equals(a) && password.equals(b)){
                 System.out.println("Welcome!");
                 selectItemTest();
                 selectActionTest();
-                // TODO: when finished, add a "do you wish to continue?" option
                 System.out.println("Goodbye");
                 exit = true;
             } else {
@@ -140,9 +124,7 @@ public class InputManager {
             }*/
         }
     }
-
-    // TODO: sequence of inputs:
-    // 1) Ask whether a bank manager or client
+    // Display when there are multiple choices
     private String itemizeChoice(ArrayList<String> strings) {
         System.out.println("Please choose an option");
         String response = selectItem(strings);
@@ -150,8 +132,8 @@ public class InputManager {
         return response;
     }
 
-        // TODO: link to person and see what accounts they have... if no accounts open one?
-    private void isUserClient() {
+    // 1) Ask whether a bank manager or client
+    private boolean isUserClient() {
         ArrayList<String> users = new ArrayList<>(Arrays.asList(
                 "Bank Manager", "Client"
         ));
@@ -159,10 +141,10 @@ public class InputManager {
         if (u.equals("Bank Manager")) {
             userIsClient = false;
         }
-        logIn(userIsClient);
+        return userIsClient;
     }
-
-    private void logIn(boolean user) {
+    // 2) Verify if username and password exist and returns the accounts of the user.
+    private ArrayList<Account> logIn(boolean user) {
         while (!exit) {
             String username = getInput("Enter username: ");
             String password = getInput("Enter password: ");
@@ -171,7 +153,7 @@ public class InputManager {
                 if (optionalClient.isPresent()) {
                     System.out.println("Welcome!");
                     Client retrievedClient = optionalClient.get();
-                    //return retrievedClient.getClientsAccounts();
+                    return retrievedClient.getClientsAccounts();
                 } else {
                     System.out.println("Incorrect username/password");
                 }
@@ -180,7 +162,7 @@ public class InputManager {
                 if (optionalBankManager.isPresent()) {
                     System.out.println("Welcome!");
                     BankManager retrievedBankManager = optionalBankManager.get();
-                    //TODO: displays a list of names
+                    //TODO: displays a list of names THEN choose a user THEN find out what accounts they have and return array
                 }
             }
             if (username.equalsIgnoreCase("exit")) {
@@ -193,5 +175,6 @@ public class InputManager {
         // 4) OPTIONAL: confirmation?
         // 5) exit option
 
+        return null;
     }
 }
