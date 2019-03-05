@@ -44,7 +44,7 @@ public class BillManager {
      * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */
-    public boolean withdraw(int amount) {
+    public boolean withdrawBills(int amount) {
         int amountLeft = amount;
         if (amountLeft % 5 != 0){
             return false;

@@ -58,7 +58,7 @@ public class ChequingAccount extends AssetAccount {
         boolean canTransfer = canTransferOut(amount);
         boolean withdraw = false;
         if (canTransfer) {
-            withdraw = BankMachine.getBillManager().withdraw(amount);
+            withdraw = BankMachine.getBillManager().withdrawBills(amount);
         }
         return withdraw && transferOut(amount);
     }
