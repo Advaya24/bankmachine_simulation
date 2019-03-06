@@ -2,7 +2,6 @@ package bankmachine.FileManager;
 
 import bankmachine.*;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -22,6 +21,7 @@ public class Main {
 //
 //
         //Standard ReadFile test
+
         WriteFile out2 = new WriteFile("alerts.txt");
         String outputstuff = "ree";
         out2.writeData(outputstuff, true);
@@ -61,8 +61,9 @@ public class Main {
         // Setting up FileManager path
         final String fileManagerPath = BankMachine.fileManagerPath;
 
+        new DataLoader(fileManagerPath).loadData("/testObjectFile.ser");
         // Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>( fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         writer.clear();
@@ -92,40 +93,41 @@ public class Main {
 
 
         // Test UserManager functionality
-        UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
-        clientManager.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
+        UserManager clientManager = new UserManager(BankMachineUser.users);
+        new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
-        Optional<Client> optionalClient = clientManager.authenticate("abc", "def");
+        BankMachineUser optionalClient = clientManager.authenticate("abc", "def");
 
-        if (optionalClient.isPresent()) optionalClient.get().printAccountSummary();
-        else System.out.println("Client not found :(");
-
-        ArrayList<Client> clients = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            clients.add(new Client("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i));
+        if (optionalClient != null && optionalClient instanceof Client) {
+            ((Client) optionalClient).printAccountSummary();
         }
-        clientManager.clearData();
-        clientManager.addAll(clients);
+        else { System.out.println("Client not found :("); }
+        BankMachineUser.users.clear();
+        for (int i = 1; i <= 5; i++) {
+            new Client("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);
+        }
+
 
         optionalClient = clientManager.get("abc");
 
-        if (optionalClient.isPresent()) System.out.println("ABC didn't get deleted!");
+        if (optionalClient != null) System.out.println("ABC didn't get deleted!");
         else System.out.println("Successfully deleted ABC");
 
-        Optional<Client> testClient1 = clientManager.authenticate("Test username 1", "testPassword1");
-        if (testClient1.isPresent()) testClient1.get().printAccountSummary();
+        Client testClient1 = (Client) clientManager.authenticate("Test username 1", "testPassword1");
+        if (testClient1 != null) testClient1.printAccountSummary();
         else System.out.println("Client not found :(");
 
-        Optional<Client> testClient2 = clientManager.get("Test username 2");
-        if (testClient2.isPresent()) {
-            Client client = testClient2.get();
+        Client testClient2 = (Client) clientManager.get("Test username 2");
+        if (testClient2 != null) {
+            Client client = testClient2;
             client.printAccountSummary();
             client.setUserName("New username");
-            clientManager.updateFile();
         } else System.out.println("Client not found :(");
 
-        clientManager.runOnAll((Client c) -> {
-            c.printAccountSummary();
+        clientManager.runOnAll((BankMachineUser c) -> {
+            if (c instanceof Client) {
+                ((Client) c).printAccountSummary();
+            }
             return null;
         });
 

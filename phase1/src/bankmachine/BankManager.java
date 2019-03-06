@@ -1,20 +1,15 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
+import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**A Bank Manager within the system**/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
 public class BankManager extends BankMachineUser {
-    static List<BankManager> bankManagers = new ArrayList<>();
-    BankManager(String username, String password) {
+    BankManager(String username, String password) throws NameTakenException {
         super(username, password);
-        bankManagers.add(this);
     }
 
     /**
@@ -46,8 +41,9 @@ public class BankManager extends BankMachineUser {
         return true;
     }
 
-    public void createClient(String name, String email, String phoneNumber, String username, String default_password){
-        Client newClient = new Client(name, email, phoneNumber, username, default_password);
+    public void createClient(String name, String email, String phoneNumber, String username, String default_password)
+    throws NameTakenException {
+        new Client(name, email, phoneNumber, username, default_password);
         // UserManager<Client> clientUserManager = BankMachine.getClientManager();
         // clientUserManager.add(newClient);
     }

@@ -1,26 +1,35 @@
 package bankmachine;
 
+import bankmachine.Exceptions.NameTakenException;
+
 import java.io.Serializable;
+import java.util.HashMap;
 
 // managed by: Advaya
 public class BankMachineUser implements Serializable {
     private String userName;
     private String password;
-    static int num_users = 0;
     private int id;
+    public static HashMap<String, BankMachineUser> users;
 
-    public BankMachineUser(String userName, String password) {
+    public BankMachineUser(String userName, String password) throws NameTakenException {
+        if(users.containsKey(userName)){
+            throw new NameTakenException();
+        }
         this.userName = userName;
         this.password = password;
-        num_users++;
-        id = num_users;
+        id = getNumUsers();
     }
-
+    public int getNumUsers(){
+        return users.size();
+    }
     public String getUsername() { return userName; }
     public String getPassword() { return password; }
     public int getID(){ return id; }
     public void setUserName(String new_username) {
+        users.remove(userName);
         userName = new_username;
+        users.put(userName, this);
     }
     /**Allows the client to change their password if necessary**/
     // (UI should ask for old password to authenticate first, or should the client be logged in to access this? What if a bank manager loses their password?)

@@ -15,11 +15,7 @@ public class InputManager {
     // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
-    private UserManager<BankMachineUser> userManager;
-
-    // Initialize an userManager each for Clients and BankManagers separately:
-    private static UserManager<Client> clientAuthenticator;
-    private static UserManager<BankManager> bankManagerAuthenticator;
+    private UserManager userManager = new UserManager(BankMachineUser.users);
 
     //    final private UserManager<Client> clientManager = BankMachine.getClientManager();
 //    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
@@ -37,9 +33,6 @@ public class InputManager {
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearcher.getResult().get(0);
 
-        // Initialize the authenticators correctly
-        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
-        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
 
         new InputManager().mainLoop();
     }
@@ -112,8 +105,8 @@ public class InputManager {
     public void mainLoop(){
         // Login page
         while(!exit) {
-            userIsClient = isUserClient();
-            ArrayList<Account> accounts = logIn(userIsClient);
+            // userIsClient = isUserClient();
+            BankMachineUser user = logIn();
             // TODO: choose and account
             // TODO: choose a transaction
             // TODO: note that the bank manager has the option of adding people and doing other things normal users cant...
@@ -150,29 +143,15 @@ public class InputManager {
         return userIsClient;
     }
     // 2) Verify if username and password exist and returns the accounts of the user.
-    private ArrayList<Account> logIn(boolean user) {
+    private BankMachineUser logIn() {
         while (!exit) {
             String username = getInput("Enter username: ");
             String password = getInput("Enter password: ");
-            if (user) {
-                Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
-                if (optionalClient.isPresent()) {
-                    System.out.println("Welcome!");
-                    Client retrievedClient = optionalClient.get();
-                    return retrievedClient.getClientsAccounts();
-                } else {
-                    System.out.println("Incorrect username/password");
-                }
+            BankMachineUser user = userManager.authenticate(username, password);
+            if (user == null){
+                System.out.println("Incorrect username/password");
             } else {
-                Optional<BankManager> optionalBankManager = bankManagerAuthenticator.authenticate(username, password);
-                if (optionalBankManager.isPresent()) {
-                    System.out.println("Welcome!");
-                    BankManager retrievedBankManager = optionalBankManager.get();
-                    //TODO: displays a list of names THEN choose a user THEN find out what accounts they have and return array
-                }
-            }
-            if (username.equalsIgnoreCase("exit")) {
-                exit = true;
+                return user;
             }
         }
 

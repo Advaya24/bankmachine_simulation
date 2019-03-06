@@ -1,4 +1,5 @@
 package bankmachine;
+import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,9 @@ public class ClientTest {
     private Client testClient;
     @BeforeEach
     public void setUp(){
-        testClient = new Client("Test Client","testclient@trolldomain.com", "+16472074357", "testclient", "foobar");
+        try {
+            testClient = new Client("Test Client", "testclient@trolldomain.com", "+16472074357", "testclient", "foobar");
+        } catch (NameTakenException e){}
     }
     @Test
     public void testRecentTransaction(){

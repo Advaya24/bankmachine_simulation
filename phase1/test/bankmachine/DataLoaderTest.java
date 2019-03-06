@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 import org.junit.jupiter.api.*;
@@ -17,13 +18,18 @@ public class DataLoaderTest {
 
     @Test
     public void testReadWrite() {
-        Client client = new Client(
-                "Hakurei Reimu",
-                "hreimu@gensok.yo",
-                "1-800-669-6524",
-                "hreimu",
-                "SanaeSmellsLikeOldSocks"
-        );
+        Client client;
+        try {
+            client = new Client(
+                    "Hakurei Reimu",
+                    "hreimu@gensok.yo",
+                    "1-800-669-6524",
+                    "hreimu",
+                    "SanaeSmellsLikeOldSocks"
+            );
+        } catch(NameTakenException e){
+            assert false; return;
+        }
         List<Client> clients = new ArrayList<>();
         clients.add(client);
         new SavingsAccount(120, client, LocalDateTime.now());

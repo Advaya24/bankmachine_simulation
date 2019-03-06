@@ -15,14 +15,13 @@ public class DataLoader {
         rootPath = path;
     }
 
-    public void loadData(){
-        List<Client> clients = loadFile("/clientData.ser");
-        List<BankManager> bankManagers = loadFile("/bankManagerData.ser");
-        Client.clients = clients;
-        BankManager.bankManagers = bankManagers;
-        BankMachineUser.num_users += bankManagers.size() + clients.size();
-        for(Client client : clients){
-            Account.accounts.addAll(client.getClientsAccounts());
+    public void loadData(String file){
+        List<BankMachineUser> clients = loadFile(file);
+        for(BankMachineUser client : clients){
+            if(client instanceof Client) {
+                Account.accounts.addAll(((Client) client).getClientsAccounts());
+            }
+            BankMachineUser.users.put(client.getUsername(), client);
         }
         for(Account account : Account.accounts){
             for (Transaction t:account.getTransactions()){
@@ -32,6 +31,9 @@ public class DataLoader {
             }
         }
         Transaction.transactions.sort(new CompareByDate());
+    }
+    public void saveData(String file){
+        saveFile(file, new ArrayList<>(BankMachineUser.users.values()));
     }
     public <T extends Serializable> List<T> loadFile(String filename){
         filename = rootPath + filename;
@@ -53,7 +55,7 @@ public class DataLoader {
     }
 
     public static void main(String[] args){
-        new DataLoader(BankMachine.fileManagerPath).loadData();
+        new DataLoader(BankMachine.fileManagerPath).loadData("/userData.ser");
     }
 }
 

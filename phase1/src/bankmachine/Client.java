@@ -1,16 +1,14 @@
 package bankmachine;
 
+import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
 public class Client extends BankMachineUser {
-    static List<Client> clients = new ArrayList<>();
     /**Name of this Client**/
     private String name;
     /**All the accounts this Client has**/
@@ -20,12 +18,12 @@ public class Client extends BankMachineUser {
     /**This Client's Phone Number**/
     private String phoneNumber;
 
-    public Client(String name, String email, String phoneNumber, String username, String default_password){
+    public Client(String name, String email, String phoneNumber, String username, String default_password)
+    throws NameTakenException {
         super(username, default_password);
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-        clients.add(this);
 
     }
 

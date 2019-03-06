@@ -33,8 +33,7 @@ public class BankMachine {
     private static BillManager billManager;
 
     public static void main(String[] args) {
-        new DataLoader(fileManagerPath).loadData();
-        System.out.println(Client.clients.size());
+        new DataLoader(fileManagerPath).loadData("/userData.ser");
         billManager = new BillManager();
         executeEveryMonth();
 
