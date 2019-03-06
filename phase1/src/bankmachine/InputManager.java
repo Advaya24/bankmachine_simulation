@@ -109,6 +109,9 @@ public class InputManager {
     // 2) Verify if username and password exist and returns the accounts of the user.
     private Client logInClient() {
         boolean moveOn = true;
+
+        // TODO: Read this
+        // How do you get out of this loop if you don't know the password?
         while (moveOn) {
             //System.out.println("Type 'exit' to exit");
             String username = getInput("Enter username: ");
@@ -120,8 +123,9 @@ public class InputManager {
             if (optionalClient.isPresent()) {
                 System.out.println("Welcome!");
                 Client retrievedClient = optionalClient.get();
+                // TODO: Read this
+                // I don't think there's a string representation of client. Consider calling retrievedClient.printAccountSummary() instead?
                 System.out.println(retrievedClient);
-                moveOn = false;
                 return retrievedClient;
             } else {
                 System.out.println("Incorrect username/password");
@@ -138,14 +142,13 @@ public class InputManager {
             String username = getInput("Enter username: ");
             if (username.equalsIgnoreCase("exit")) {
                 exit = true;
+                moveOn = false;
             }
             String password = getInput("Enter password: ");
             Optional<BankManager> optionalBankManager = bankManagerUserManager.authenticate(username, password);
             if (optionalBankManager.isPresent()) {
                 System.out.println("Welcome!");
-                BankManager retrievedBankManager = optionalBankManager.get();
-                moveOn = false;
-                return retrievedBankManager;
+                return optionalBankManager.get();
                 // gets list of clients
                 //UserManager<Client> clientUserManager = BankMachine.getClientManager();
             }else {
