@@ -1,7 +1,7 @@
 package bankmachine;
 
-import bankmachine.FileManager.ObjectFileReader;
-import bankmachine.FileManager.ObjectFileWriter;
+import bankmachine.fileManager.ObjectFileReader;
+import bankmachine.fileManager.ObjectFileWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
+import bankmachine.fileManager.FileSearcher;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
