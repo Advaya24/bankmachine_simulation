@@ -59,11 +59,11 @@ public class BankMachine {
     public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
         final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
         fileSearcher.clearResults();
         fileSearcher.setFileNameToSearch("data");
-        fileSearcher.searchForDirectory(new File(FILE_MANAGER_PATH));
+        fileSearcher.searchForDirectoryIn(new File(FILE_MANAGER_PATH));
         return fileSearcher.getResult().get(0);
     }
 

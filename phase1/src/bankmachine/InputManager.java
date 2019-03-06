@@ -28,7 +28,7 @@ public class InputManager {
         // Initializes fileManagerLocation correctly
         /*final FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
         final String DATA_PATH = fileSearcher.getResult().get(0);*/
 
         // Initialize the authenticators correctly

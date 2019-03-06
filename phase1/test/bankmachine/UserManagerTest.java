@@ -28,7 +28,7 @@ public class UserManagerTest {
     public static void setFileName(){
         FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearcher.getResult().get(0);
         String fileName = fileManagerPath + "/testClientData.ser";
         clientManager = new UserManager<>(fileName);
