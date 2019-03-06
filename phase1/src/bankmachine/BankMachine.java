@@ -1,7 +1,7 @@
 package bankmachine;
 
-import bankmachine.fileManager.FileSearcher;
-import bankmachine.fileManager.TimeInfo;
+import bankmachine.FileManager.FileSearcher;
+import bankmachine.FileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 

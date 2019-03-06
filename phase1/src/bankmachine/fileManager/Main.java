@@ -1,4 +1,4 @@
-package bankmachine.fileManager;
+package bankmachine.FileManager;
 
 import bankmachine.BankMachine;
 import bankmachine.BankMachineUser;

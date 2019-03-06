@@ -1,4 +1,4 @@
-package bankmachine.fileManager;
+package bankmachine.FileManager;
 
 import bankmachine.BankMachine;
 
@@ -22,7 +22,7 @@ public class WriteFile implements FileManager {
     }
 
     //Getter for filename. Returns null if file is null.
-    @Override
+   // @Override
     public String getFileName() {
         String filename;
 
@@ -35,7 +35,7 @@ public class WriteFile implements FileManager {
     }
 
     //Getter for date and time when file was lasted edited (mm/dd/yyy HH:mm:ss)
-    @Override
+ //   @Override
     public String getLastUpdated() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         return sdf.format(file.lastModified());
