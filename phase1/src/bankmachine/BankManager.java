@@ -1,6 +1,5 @@
 package bankmachine;
 
-import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;

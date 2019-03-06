@@ -1,7 +1,5 @@
 package bankmachine;
 
-import bankmachine.Exceptions.NameTakenException;
-
 import java.util.*;
 import java.util.function.Function;
 
@@ -27,6 +25,11 @@ implements Observer{
         return c;
     }
 
+    /**
+     * Update username
+     * @param o BankMachineUser
+     * @param arg the old username
+     */
     @Override
     public void update(Observable o, Object arg) {
         String oldName = (String) arg;
@@ -37,6 +40,11 @@ implements Observer{
     public List<BankMachineUser> getInstances(){
         return new ArrayList<>(users.values());
     }
+
+    /**
+     * See superclass docs
+     * @param instances the instances to add
+     */
     public void extend(List<BankMachineUser> instances){
         for(BankMachineUser i:instances){
             users.put(i.getUsername(), i);
@@ -49,6 +57,11 @@ implements Observer{
         }
         this.nextID = max + 1;
     }
+
+    /**
+     * Add an instance of user to the thing
+     * @param user
+     */
     @Override
     public void addInstance(BankMachineUser user){
         users.put(user.getUsername(), user);
@@ -57,12 +70,22 @@ implements Observer{
     public HashMap<String, BankMachineUser> getMap(){
         return users;
     }
+
+    /**
+     * Maps a function over all users
+     * @param function
+     */
     public void runOnAll(Function<BankMachineUser, Void> function) {
         for (BankMachineUser user : users.values()) {
             function.apply(user);
         }
     }
 
+    /**
+     * Get users by username
+     * @param username the user's username
+     * @return the bankmachine user with the username
+     */
     public BankMachineUser get(String username){
         return users.get(username);
     }
@@ -72,7 +95,7 @@ implements Observer{
      *
      * @param username for this user
      * @param password for this user
-     * @return Optional containing the required user of type T if login successful, empty Optional otherwise
+     * @return The user if login successful, null otherwise
      */
     public BankMachineUser authenticate(String username, String password) {
         BankMachineUser user = users.get(username);

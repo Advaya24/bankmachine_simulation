@@ -16,6 +16,11 @@ public class TransactionFactory {
             return transaction.getDate().compareTo(t1.getDate());
         }
     }
+
+    /**
+     * Add transactions to the class
+     * @param transactions list of transactions to add
+     */
     public void extend(List<Transaction> transactions){
         for (Transaction t : transactions){
             if(!this.transactions.contains(t)){

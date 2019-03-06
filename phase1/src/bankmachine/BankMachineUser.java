@@ -1,6 +1,5 @@
 package bankmachine;
 
-import bankmachine.Exceptions.NameTakenException;
 import java.util.Observable;
 
 import java.io.Serializable;

@@ -1,5 +1,4 @@
 package bankmachine;
-import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.Account;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;

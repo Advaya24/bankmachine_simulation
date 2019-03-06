@@ -1,6 +1,5 @@
 package bankmachine;
 
-import bankmachine.Exceptions.NameTakenException;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 import org.junit.jupiter.api.*;
@@ -11,7 +10,6 @@ import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 public class DataLoaderTest {
     private DataLoader dataLoader = new DataLoader("./testFiles");
