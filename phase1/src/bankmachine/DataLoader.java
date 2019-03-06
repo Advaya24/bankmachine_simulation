@@ -1,7 +1,7 @@
 package bankmachine;
 
-import bankmachine.FileManager.ObjectFileReader;
-import bankmachine.FileManager.ObjectFileWriter;
+import bankmachine.fileManager.ObjectFileReader;
+import bankmachine.fileManager.ObjectFileWriter;
 import bankmachine.account.Account;
 
 import java.io.Serializable;
@@ -49,7 +49,7 @@ public class DataLoader {
     }
 
     public static void main(String[] args){
-        new DataLoader(BankMachine.fileManagerPath).loadData("/userData.ser");
+        new DataLoader(BankMachine.DATA_PATH).loadData("/userData.ser");
     }
 }
 

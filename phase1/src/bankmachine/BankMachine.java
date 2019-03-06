@@ -9,7 +9,7 @@ import bankmachine.account.SavingsAccount;
 import java.io.File;
 
 public class BankMachine {
-    final public static String fileManagerPath = findDataPath();
+    final public static String DATA_PATH = findDataPath();
     final public static TimeInfo timeInfo = new TimeInfo();
     final public static AccountFactory accFactory = new AccountFactory();
     final public static UserFactory userFactory = new UserFactory();
@@ -33,7 +33,7 @@ public class BankMachine {
     private static BillManager billManager;
 
     public static void main(String[] args) {
-        new DataLoader(fileManagerPath).loadData("/userData.ser");
+        new DataLoader(DATA_PATH).loadData("/userData.ser");
         billManager = new BillManager();
         executeEveryMonth();
 
