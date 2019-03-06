@@ -1,24 +1,22 @@
 package bankmachine;
 
 import bankmachine.FileManager.FileSearcher;
-import bankmachine.account.Account;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.io.File;
-import java.util.*;
 
 public class InputManager {
 
     // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
-    private UserManager userManager = new UserManager(BankMachineUser.users);
+    private Authenticator authenticator = new Authenticator(BankMachineUser.users);
 
-    //    final private UserManager<Client> clientManager = BankMachine.getClientManager();
-//    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
+    //    final private Authenticator<Client> clientManager = BankMachine.getClientManager();
+//    final private Authenticator<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
 
 
     // You should make fileManagerPath a private variable
@@ -147,7 +145,7 @@ public class InputManager {
         while (!exit) {
             String username = getInput("Enter username: ");
             String password = getInput("Enter password: ");
-            BankMachineUser user = userManager.authenticate(username, password);
+            BankMachineUser user = authenticator.authenticate(username, password);
             if (user == null){
                 System.out.println("Incorrect username/password");
             } else {

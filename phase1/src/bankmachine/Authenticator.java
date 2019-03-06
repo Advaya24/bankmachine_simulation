@@ -9,11 +9,11 @@ import java.util.function.Function;
 /**
  * Manages client login authentication for BillManager
  */
-public class UserManager {
+public class Authenticator {
     /* List of user instances registered for login */
     private HashMap<String, BankMachineUser> users;
 
-    public UserManager(HashMap<String, BankMachineUser> users) {
+    public Authenticator(HashMap<String, BankMachineUser> users) {
         this.users = users;
     }
     /**

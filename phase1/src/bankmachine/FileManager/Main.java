@@ -3,7 +3,6 @@ package bankmachine.FileManager;
 import bankmachine.*;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class Main {
 
@@ -92,8 +91,8 @@ public class Main {
         }
 
 
-        // Test UserManager functionality
-        UserManager clientManager = new UserManager(BankMachineUser.users);
+        // Test Authenticator functionality
+        Authenticator clientManager = new Authenticator(BankMachineUser.users);
         new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
         BankMachineUser optionalClient = clientManager.authenticate("abc", "def");

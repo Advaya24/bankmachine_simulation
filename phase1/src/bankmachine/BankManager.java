@@ -44,7 +44,7 @@ public class BankManager extends BankMachineUser {
     public void createClient(String name, String email, String phoneNumber, String username, String default_password)
     throws NameTakenException {
         new Client(name, email, phoneNumber, username, default_password);
-        // UserManager<Client> clientUserManager = BankMachine.getClientManager();
+        // Authenticator<Client> clientUserManager = BankMachine.getClientManager();
         // clientUserManager.add(newClient);
     }
 
