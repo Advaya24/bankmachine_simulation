@@ -1,6 +1,5 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
 import bankmachine.account.*;
 
 import java.util.Date;

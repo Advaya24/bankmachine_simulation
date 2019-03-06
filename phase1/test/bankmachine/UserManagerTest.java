@@ -1,6 +1,6 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
+import bankmachine.fileManager.FileSearcher;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
@@ -27,7 +27,7 @@ public class UserManagerTest {
     @BeforeAll
     public static void setFileName(){
         FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.setFileNameToSearch("fileManager");
         fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
         final String fileManagerPath = fileSearcher.getResult().get(0);
         String fileName = fileManagerPath + "/testClientData.ser";

@@ -1,4 +1,4 @@
-package bankmachine.FileManager;
+package bankmachine.fileManager;
 
 import java.io.File;
 import java.util.ArrayList;

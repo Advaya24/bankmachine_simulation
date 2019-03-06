@@ -1,7 +1,7 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
-import bankmachine.FileManager.TimeInfo;
+import bankmachine.fileManager.FileSearcher;
+import bankmachine.fileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 
@@ -58,7 +58,7 @@ public class BankMachine {
 
     public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
+        fileSearcher.setFileNameToSearch("fileManager");
         fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
         final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
         fileSearcher.clearResults();

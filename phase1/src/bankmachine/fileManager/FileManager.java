@@ -1,4 +1,4 @@
-package bankmachine.FileManager;
+package bankmachine.fileManager;
 
 public interface FileManager {
     String getFileName();
