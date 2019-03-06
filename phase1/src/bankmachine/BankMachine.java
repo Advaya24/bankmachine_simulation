@@ -11,11 +11,11 @@ public class BankMachine {
     final public static String fileManagerPath = findFileManagerPath();
     final public static UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/clientData.ser");
     final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
+    final public static TimeInfo timeInfo = new TimeInfo();
 
-    void executeEveryMonth() {
-        //TODO: WRITE TO FILE YAY
-        int oldmonth = 0;
-        int currmonth = 5;
+    private static void executeEveryMonth() {
+        int oldmonth = timeInfo.getLastMonth();
+        int currmonth = timeInfo.getCurrentMonth();
         if (currmonth != oldmonth) {
             for (Account a : accountManager.getAccounts()) {
                 if (a instanceof SavingsAccount) {
@@ -23,8 +23,7 @@ public class BankMachine {
                 }
             }
         }
-        oldmonth = currmonth;
-        //then write it to file
+        timeInfo.setLastMonth(currmonth);
     }
 
     void executeEveryDay() {
@@ -33,16 +32,16 @@ public class BankMachine {
     private static BillManager billManager;
     private static AccountManager accountManager;
     // static TransactionManager transactionManager
-    private static TimeInfo timeInfo;
-    private static InputManager inputManager;
 
     public static void main(String[] args) {
 
         billManager = new BillManager();
         accountManager = new AccountManager();
-        timeInfo = new TimeInfo();
-        inputManager = new InputManager();
+        executeEveryMonth();
+
+        InputManager inputManager = new InputManager();
         inputManager.mainLoop();
+
     }
 
     public static BillManager getBillManager() {

@@ -75,4 +75,8 @@ public class TimeInfo {
     public int getLastMonth(){
         return lastMonth;
     }
+    public void setLastMonth(int month){
+        lastMonth = month;
+        saveFile();
+    }
 }
