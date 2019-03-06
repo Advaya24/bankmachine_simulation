@@ -1,4 +1,4 @@
-package bankmachine.FileManager;
+package bankmachine.fileManager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class FileSearcher {
      *
      * @param file the file/directory in which to search
      */
-    public void searchForDirectory(File file) {
+    public void searchForDirectoryIn(File file) {
         if (file.isDirectory()) {
             //do you have permission to read this directory?
             if (file.canRead()) {
@@ -40,7 +40,7 @@ public class FileSearcher {
                             if (getFileNameToSearch().equalsIgnoreCase(temp.getName())) {
                                 result.add(temp.getAbsoluteFile().toString());
                             }
-                            searchForDirectory(temp);
+                            searchForDirectoryIn(temp);
                         }
                     }
                 }
@@ -50,5 +50,9 @@ public class FileSearcher {
                 System.out.println(file.getAbsoluteFile() + "Permission Denied");
             }
         }
+    }
+
+    public void clearResults() {
+        result.clear();
     }
 }

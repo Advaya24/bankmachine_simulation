@@ -1,4 +1,4 @@
-package bankmachine.FileManager;
+package bankmachine.fileManager;
 
 import bankmachine.*;
 
@@ -57,8 +57,8 @@ public class Main {
 //        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
 //        tf.getTime(); // Returns Date Object of ATM date + time
 
-        // Setting up FileManager path
-        final String fileManagerPath = BankMachine.fileManagerPath;
+        // Setting up fileManager path
+        final String fileManagerPath = BankMachine.DATA_PATH;
 
         new DataLoader(fileManagerPath).loadData("/testObjectFile.ser");
         // Test ObjectFileWriter and ObjectFileReader

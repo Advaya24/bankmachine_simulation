@@ -1,17 +1,15 @@
 package bankmachine;
 
-
-import bankmachine.FileManager.FileSearcher;
-import bankmachine.FileManager.TimeInfo;
+import bankmachine.fileManager.FileSearcher;
+import bankmachine.fileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.SavingsAccount;
 
 import java.io.File;
 
-
 public class BankMachine {
-    final public static String fileManagerPath = findFileManagerPath();
+    final public static String fileManagerPath = findDataPath();
     final public static TimeInfo timeInfo = new TimeInfo();
     final public static AccountFactory accFactory = new AccountFactory();
     final public static UserFactory userFactory = new UserFactory();
@@ -32,7 +30,6 @@ public class BankMachine {
     void executeEveryDay() {
     }
 
-
     private static BillManager billManager;
 
     public static void main(String[] args) {
@@ -51,10 +48,15 @@ public class BankMachine {
     public static TimeInfo getTimeInfo() {
         return timeInfo;
     }
-    public static String findFileManagerPath() {
+
+    public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        fileSearcher.setFileNameToSearch("fileManager");
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
+        final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
+        fileSearcher.clearResults();
+        fileSearcher.setFileNameToSearch("data");
+        fileSearcher.searchForDirectoryIn(new File(FILE_MANAGER_PATH));
         return fileSearcher.getResult().get(0);
     }
 }

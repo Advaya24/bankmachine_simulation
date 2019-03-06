@@ -1,12 +1,8 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
+import bankmachine.account.Account;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.io.File;
+import java.util.*;
 
 public class InputManager {
 
@@ -18,19 +14,11 @@ public class InputManager {
     //    final private Authenticator<Client> clientManager = BankMachine.getClientManager();
 //    final private Authenticator<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
 
-
-    // You should make fileManagerPath a private variable
+    // You should make DATA_PATH a private variable
     private String fileManagerPath;
     private Scanner input;
 
     public static void main(String[] args) {
-
-        // Initializes fileManagerLocation correctly
-        final FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
-
 
         new InputManager().mainLoop();
     }
@@ -81,25 +69,6 @@ public class InputManager {
         return items.get(index-1);
     }
 
-    /*//Choosing an account
-    private void selectItemTest(){
-        ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Credit Card Account", "Line of Credit Account", "Asset Account", "Savings Account"
-        ));
-        System.out.println("Choose an account");
-        String response = selectItem(strings);
-        System.out.println("You chose " + response);
-    }
-
-    private void selectActionTest(){
-        ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Withdraw", "Pay bills", "Deposit", "Transfer", "Undo Transaction"
-        ));
-        System.out.println("Choose a type of transaction");
-        String response = selectItem(strings);
-        System.out.println("You chose " + response);
-    }*/
-
     public void mainLoop(){
         // Login page
         while(!exit) {
@@ -144,6 +113,9 @@ public class InputManager {
     private BankMachineUser logIn() {
         while (!exit) {
             String username = getInput("Enter username: ");
+            if (username.equalsIgnoreCase("exit")) {
+                exit = true;
+            }
             String password = getInput("Enter password: ");
             BankMachineUser user = authenticator.authenticate(username, password);
             if (user == null){
@@ -160,4 +132,48 @@ public class InputManager {
 
         return null;
     }
+    private Account ChooseAccount(Client client){
+        ArrayList<Account> clientAccounts = client.getClientsAccounts();
+        // TODO: somehow get names of accounts
+        // response = itemize(clientAccounts); // must make sure they are strings though
+        // switch(response){
+            // case 1:
+                // this will be the first account
+                // task = itemize(transaction);
+                // call transaction
+            //case 2:
+                // this will be the second account
+                // do something account related
+
+        return null;
+    }
+
+    private void bankManagerTasks(BankManager bankManager){
+        ArrayList<String> tasks = new ArrayList<>(Arrays.asList(
+                "Change client information", "Create new user", "Restock machine"
+        )); //Change client info includes undoing most recent transaction, and anything that a user can do
+        String t = itemizeChoice(tasks);
+    }
+
+    private void clientInfo(Client c, Account a){
+        System.out.println("\n Client information:"
+                + "\n Name:" + c.getName()
+                + "\n Account balance:" + a.getBalance());
+    }
+
+    private void PerformTransaction(Account a){
+        // call methods from the specific account
+    }
+
+    private void chooseToExit(boolean b){
+        System.out.println("Would you like to continue to next transaction or exit?");
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList(
+                "Next transaction", "Exit"
+        ));
+        String choice = itemizeChoice(choices);
+        if (choice.equals("Exit")) {
+            exit = true;
+        }
+    }
+
 }
