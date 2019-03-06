@@ -1,6 +1,6 @@
 package bankmachine;
 
-import bankmachine.FileManager.WriteFile;
+import bankmachine.fileManager.WriteFile;
 
 import java.util.HashMap;
 
