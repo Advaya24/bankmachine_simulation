@@ -7,8 +7,8 @@ import java.util.Date;
 
 public class LineOfCreditAccount extends DebtAccount{
 
-    public LineOfCreditAccount(int balance, Client client, LocalDateTime creationDate) {
-        super(balance, client, creationDate);
+    public LineOfCreditAccount(int id, int balance, Client client, LocalDateTime creationDate) {
+        super(id, balance, client, creationDate);
     }
     public String toString(){
         String output = "";

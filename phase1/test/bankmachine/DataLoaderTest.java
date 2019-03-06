@@ -18,23 +18,19 @@ public class DataLoaderTest {
 
     @Test
     public void testReadWrite() {
-        Client client;
-        try {
-            client = new Client(
-                    "Hakurei Reimu",
-                    "hreimu@gensok.yo",
-                    "1-800-669-6524",
-                    "hreimu",
-                    "SanaeSmellsLikeOldSocks"
-            );
-        } catch(NameTakenException e){
-            assert false; return;
-        }
+        Client client = new Client(0,
+            "Hakurei Reimu",
+            "hreimu@gensok.yo",
+            "1-800-669-6524",
+            "hreimu",
+            "SanaeSmellsLikeOldSocks"
+        );
+
         List<Client> clients = new ArrayList<>();
         clients.add(client);
-        new SavingsAccount(120, client, LocalDateTime.now());
-        new SavingsAccount(100, client, LocalDateTime.now());
-        new SavingsAccount(50, client, LocalDateTime.now());
+        new SavingsAccount(0, 120, client, LocalDateTime.now());
+        new SavingsAccount(1, 100, client, LocalDateTime.now());
+        new SavingsAccount(2, 50, client, LocalDateTime.now());
         dataLoader.saveFile("/testClients.ser", clients);
         clients = dataLoader.loadFile("/testClients.ser");
         assertEquals(1, clients.size());

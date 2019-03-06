@@ -16,7 +16,7 @@ public class ChequingAccountTest {
     public ChequingAccountTest(){
         Client client = mock(Client.class);
         LocalDateTime creationDate = mock(LocalDateTime.class);
-        this.account = new ChequingAccount(0, client, creationDate);
+        this.account = new ChequingAccount(0, 0, client, creationDate);
     }
     @Test
     public void testSanity() {
@@ -42,7 +42,7 @@ public class ChequingAccountTest {
         public SavingsAccountTest(){
             Client client = mock(Client.class);
             LocalDateTime creationDate = mock(LocalDateTime.class);
-            this.account = new SavingsAccount(0, client, creationDate);
+            this.account = new SavingsAccount(0, 0, client, creationDate);
         }
         @Test
         public void testTransfer() {

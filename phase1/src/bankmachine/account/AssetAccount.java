@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public abstract class AssetAccount extends Account{
-    public AssetAccount(int balance, Client client, LocalDateTime creationDate) {
-        super(balance, client, creationDate);
+    public AssetAccount(int id, int balance, Client client, LocalDateTime creationDate) {
+        super(id, balance, client, creationDate);
     }
 }

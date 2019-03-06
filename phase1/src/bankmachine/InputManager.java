@@ -13,7 +13,7 @@ public class InputManager {
     // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
-    private Authenticator authenticator = new Authenticator(BankMachineUser.users);
+    private Authenticator authenticator = new Authenticator(BankMachine.userFactory.getMap());
 
     //    final private Authenticator<Client> clientManager = BankMachine.getClientManager();
 //    final private Authenticator<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();

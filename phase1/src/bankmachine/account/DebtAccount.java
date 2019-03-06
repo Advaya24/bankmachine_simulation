@@ -9,8 +9,8 @@ import java.util.Date;
  * An account which allows negative balance
  */
 public abstract class DebtAccount extends Account{
-    public DebtAccount(int balance, Client client, LocalDateTime creationDate) {
-        super(balance, client, creationDate);
+    public DebtAccount(int id, int balance, Client client, LocalDateTime creationDate) {
+        super(id, balance, client, creationDate);
     }
 
     /**

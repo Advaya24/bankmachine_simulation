@@ -18,9 +18,8 @@ public class Client extends BankMachineUser {
     /**This Client's Phone Number**/
     private String phoneNumber;
 
-    public Client(String name, String email, String phoneNumber, String username, String default_password)
-    throws NameTakenException {
-        super(username, default_password);
+    public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
+        super(id, username, default_password);
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;

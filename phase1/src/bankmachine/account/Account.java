@@ -1,6 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.Client;
+import bankmachine.Identifiable;
 import bankmachine.Transaction;
 
 import java.io.Serializable;
@@ -13,24 +14,19 @@ import java.util.List;
  * An account containing a balance
  */
 //TODO: Check Account class hierarchy and possibly move things out of Account
-public abstract class Account implements Serializable {
-    public static List<Account> accounts = new ArrayList<>();
+public abstract class Account implements Serializable, Identifiable {
     /* The current balance of the account, in cents*/
     protected int balance;
     private int id;
     protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
     protected LocalDateTime creationDate;
-    public Account(int balance, Client client, LocalDateTime creationDate){
+    public Account(int id, int balance, Client client, LocalDateTime creationDate){
         client.addAccount(this);
-        id = numAccounts();
+        this.id = id;
         this.client = client;
         this.balance = balance;
         this.creationDate = creationDate;
-        accounts.add(this);
-    }
-    public Account(Client client){
-        this(0, client, LocalDateTime.now());
     }
 
     /**
@@ -53,9 +49,6 @@ public abstract class Account implements Serializable {
             return false;
         }
         return true;
-    }
-    public static int numAccounts(){
-        return accounts.size();
     }
 
     public LocalDateTime getCreationDate(){

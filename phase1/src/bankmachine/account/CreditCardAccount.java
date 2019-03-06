@@ -10,8 +10,8 @@ import java.util.Date;
  * but it is possible to transfer in, withdraw an pay bills
  */
 public class CreditCardAccount extends DebtAccount{
-    public CreditCardAccount(int balance, Client client, LocalDateTime creationDate) {
-        super(balance, client, creationDate);
+    public CreditCardAccount(int id, int balance, Client client, LocalDateTime creationDate) {
+        super(id, balance, client, creationDate);
     }
 
 

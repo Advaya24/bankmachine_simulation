@@ -21,17 +21,12 @@ public class Transaction implements Serializable {
     /**The type of transaction made**/
     private TransactionType transactionType;
 
-    public static List<Transaction> transactions = new ArrayList<>();
-
-
-
     public Transaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
         this.amount=amount;
         transactionMadeFrom = from;
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
-        transactions.add(this);
     }
     /** All the getters**/
     public double getAmount(){

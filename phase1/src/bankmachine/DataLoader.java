@@ -6,7 +6,6 @@ import bankmachine.account.Account;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class DataLoader {
@@ -17,23 +16,18 @@ public class DataLoader {
 
     public void loadData(String file){
         List<BankMachineUser> clients = loadFile(file);
+        BankMachine.userFactory.extend(clients);
         for(BankMachineUser client : clients){
             if(client instanceof Client) {
-                Account.accounts.addAll(((Client) client).getClientsAccounts());
-            }
-            BankMachineUser.users.put(client.getUsername(), client);
-        }
-        for(Account account : Account.accounts){
-            for (Transaction t:account.getTransactions()){
-                if (!Transaction.transactions.contains(t)){
-                    Transaction.transactions.add(t);
-                }
+                BankMachine.accFactory.extend(((Client) client).getClientsAccounts());
             }
         }
-        Transaction.transactions.sort(new CompareByDate());
+        for(Account account : BankMachine.accFactory.getInstances()){
+            BankMachine.transFactory.extend(account.getTransactions());
+        }
     }
     public void saveData(String file){
-        saveFile(file, new ArrayList<>(BankMachineUser.users.values()));
+        saveFile(file, new ArrayList<>(BankMachine.userFactory.getInstances()));
     }
     public <T extends Serializable> List<T> loadFile(String filename){
         filename = rootPath + filename;
@@ -59,10 +53,3 @@ public class DataLoader {
     }
 }
 
-class CompareByDate implements Comparator<Transaction>{
-
-    @Override
-    public int compare(Transaction transaction, Transaction t1) {
-        return transaction.getDate().compareTo(t1.getDate());
-    }
-}

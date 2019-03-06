@@ -15,9 +15,7 @@ public class ClientTest {
     private Client testClient;
     @BeforeEach
     public void setUp(){
-        try {
-            testClient = new Client("Test Client", "testclient@trolldomain.com", "+16472074357", "testclient", "foobar");
-        } catch (NameTakenException e){}
+        testClient = new Client(0, "Test Client", "testclient@trolldomain.com", "+16472074357", "testclient", "foobar");
     }
     @Test
     public void testRecentTransaction(){

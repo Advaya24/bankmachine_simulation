@@ -10,8 +10,8 @@ public class SavingsAccount extends AssetAccount{
     /* The interest that is applied when applyInterest() is called */
     private double interestRate = 0.001;
 
-    public SavingsAccount(int balance, Client client, LocalDateTime creationDate) {
-        super(balance, client, creationDate);
+    public SavingsAccount(int id, int balance, Client client, LocalDateTime creationDate) {
+        super(id, balance, client, creationDate);
     }
 
     /**
