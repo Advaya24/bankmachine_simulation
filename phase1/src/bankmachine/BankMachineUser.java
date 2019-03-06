@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 // managed by: Advaya
 public class BankMachineUser implements Serializable {
+    /** Username of the BankMachineUser */
     private String userName;
+    /** Password of the BankMachineUser */
     private String password;
+    /** static variable used to get ids for all BankMachineUsers */
     static int num_users = 0;
+    /** The unique ID of this BankMachineUser */
     private int id;
 
     public BankMachineUser(String userName, String password) {
