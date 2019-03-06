@@ -61,10 +61,10 @@ public class Main {
 //        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up FileManager path
-        final String fileManagerPath = BankMachine.fileManagerPath;
+        final String fileManagerPath = BankMachine.DATA_PATH;
 
         // Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/data/testObjectFile.ser");
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
         BankMachineUser singleUser = new BankMachineUser("Test username 1", "testPassword");
 
         writer.clear();
@@ -87,14 +87,14 @@ public class Main {
 //        fileSearcher.searchDirectory(new File(System.getProperty("user.dir")), "testClientData.ser");
 
 
-        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(fileManagerPath + "/data/testObjectFile.ser");
+        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(fileManagerPath + "/testObjectFile.ser");
         for (BankMachineUser object : reader.read()) {
             System.out.println("From file: " + object.getUsername());
         }
 
 
         // Test UserManager functionality
-        UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/data/testClientData.ser");
+        UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/testClientData.ser");
         clientManager.add(new Client("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def"));
 
         Optional<Client> optionalClient = clientManager.authenticate("abc", "def");

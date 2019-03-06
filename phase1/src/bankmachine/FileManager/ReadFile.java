@@ -13,8 +13,8 @@ public class ReadFile implements FileManager {
     public ReadFile(String filename) throws Exception { // Constructor for ReadFile
 
         try {
-            //System.out.println(fileManagerPath + "/" + filename);
-            this.file = new File(BankMachine.fileManagerPath + "/" + filename); //
+            //System.out.println(DATA_PATH + "/" + filename);
+            this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
         } catch  (NullPointerException e){
             System.out.println("The file attempted to be read does not exist");
         }

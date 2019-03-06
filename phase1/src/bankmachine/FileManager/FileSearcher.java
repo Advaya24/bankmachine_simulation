@@ -51,4 +51,8 @@ public class FileSearcher {
             }
         }
     }
+
+    public void clearResults() {
+        result.clear();
+    }
 }

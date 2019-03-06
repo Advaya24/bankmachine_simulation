@@ -8,9 +8,9 @@ import bankmachine.account.SavingsAccount;
 import java.io.File;
 
 public class BankMachine {
-    final public static String fileManagerPath = findFileManagerPath();
-    final public static UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/data/clientData.ser");
-    final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(fileManagerPath + "/data/bankManagerData.ser");
+    final public static String DATA_PATH = findDataPath();
+    final public static UserManager<Client> clientManager = new UserManager<>(DATA_PATH + "/clientData.ser");
+    final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(DATA_PATH + "/bankManagerData.ser");
     final public static TimeInfo timeInfo = new TimeInfo();
 
     private static void executeEveryMonth() {
@@ -56,10 +56,14 @@ public class BankMachine {
         return timeInfo;
     }
 
-    public static String findFileManagerPath() {
+    public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
+        final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
+        fileSearcher.clearResults();
+        fileSearcher.setFileNameToSearch("data");
+        fileSearcher.searchForDirectory(new File(FILE_MANAGER_PATH));
         return fileSearcher.getResult().get(0);
     }
 

@@ -19,7 +19,7 @@ public class InputManager {
 //    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
 
 
-    // You should make fileManagerPath a private variable
+    // You should make DATA_PATH a private variable
     private String fileManagerPath;
     private Scanner input;
 
@@ -29,11 +29,11 @@ public class InputManager {
         /*final FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);*/
+        final String DATA_PATH = fileSearcher.getResult().get(0);*/
 
         // Initialize the authenticators correctly
-        //clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
-        //bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
+        //clientAuthenticator = new UserManager<>(DATA_PATH + "/clientData.ser");
+        //bankManagerAuthenticator = new UserManager<>(DATA_PATH + "/bankManagerData.ser");
 
         new InputManager().mainLoop();
     }

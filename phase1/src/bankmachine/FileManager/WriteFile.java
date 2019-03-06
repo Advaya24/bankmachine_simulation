@@ -13,8 +13,8 @@ public class WriteFile implements FileManager {
     // Constructor for WriteFile
     public WriteFile(String filename) {
         // Creates file with "filename" in the FileManager package
-        //System.out.println(fileManagerPath + "/" + filename);
-        this.file = new File(BankMachine.fileManagerPath + "/" + filename); //
+        //System.out.println(DATA_PATH + "/" + filename);
+        this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
     }
 
     public WriteFile() {
