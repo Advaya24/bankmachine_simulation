@@ -9,14 +9,9 @@ public class InputManager {
     // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
-    //private UserManager<BankMachineUser> userManager;
 
-    // Initialize an userManager each for Clients and BankManagers separately:
-    //private static UserManager<Client> clientAuthenticator;
-    //private static UserManager<BankManager> bankManagerAuthenticator;
-
-    //    final private UserManager<Client> clientManager = BankMachine.getClientManager();
-//    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
+    final private UserManager<Client> clientManager = BankMachine.getClientManager();
+    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
 
 
     // You should make DATA_PATH a private variable
@@ -24,16 +19,6 @@ public class InputManager {
     private Scanner input;
 
     public static void main(String[] args) {
-
-        // Initializes fileManagerLocation correctly
-        /*final FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("FileManager");
-        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
-        final String DATA_PATH = fileSearcher.getResult().get(0);*/
-
-        // Initialize the authenticators correctly
-        //clientAuthenticator = new UserManager<>(DATA_PATH + "/clientData.ser");
-        //bankManagerAuthenticator = new UserManager<>(DATA_PATH + "/bankManagerData.ser");
 
         new InputManager().mainLoop();
     }
@@ -131,7 +116,7 @@ public class InputManager {
             exit = true;
             }*/
             String password = getInput("Enter password: ");
-            Optional<Client> optionalClient = BankMachine.clientManager.authenticate(username, password);
+            Optional<Client> optionalClient = clientManager.authenticate(username, password);
             if (optionalClient.isPresent()) {
                 System.out.println("Welcome!");
                 Client retrievedClient = optionalClient.get();
@@ -155,7 +140,7 @@ public class InputManager {
                 exit = true;
             }
             String password = getInput("Enter password: ");
-            Optional<BankManager> optionalBankManager = BankMachine.bankManagerUserManager.authenticate(username, password);
+            Optional<BankManager> optionalBankManager = bankManagerUserManager.authenticate(username, password);
             if (optionalBankManager.isPresent()) {
                 System.out.println("Welcome!");
                 BankManager retrievedBankManager = optionalBankManager.get();
