@@ -125,11 +125,11 @@ public class InputManager {
     private Client logInClient() {
         boolean moveOn = true;
         while (moveOn) {
-            System.out.println("Type 'exit' to exit");
+            //System.out.println("Type 'exit' to exit");
             String username = getInput("Enter username: ");
-            if (username.equalsIgnoreCase("exit")) {
+            /*if (username.equalsIgnoreCase("exit")) {
             exit = true;
-            }
+            }*/
             String password = getInput("Enter password: ");
             Optional<Client> optionalClient = BankMachine.clientManager.authenticate(username, password);
             if (optionalClient.isPresent()) {
