@@ -3,7 +3,9 @@ package bankmachine;
 import bankmachine.Exceptions.NameTakenException;
 
 import java.util.*;
+import java.util.function.Function;
 
+// Rename to UserManager???
 public class UserFactory extends TrackingFactory<BankMachineUser>
 implements Observer{
     private HashMap<String, BankMachineUser> users = new HashMap<>();
@@ -54,5 +56,29 @@ implements Observer{
     }
     public HashMap<String, BankMachineUser> getMap(){
         return users;
+    }
+    public void runOnAll(Function<BankMachineUser, Void> function) {
+        for (BankMachineUser user : users.values()) {
+            function.apply(user);
+        }
+    }
+
+    public BankMachineUser get(String username){
+        return users.get(username);
+    }
+
+    /**
+     * Matches userName to password for login
+     *
+     * @param username for this user
+     * @param password for this user
+     * @return Optional containing the required user of type T if login successful, empty Optional otherwise
+     */
+    public BankMachineUser authenticate(String username, String password) {
+        BankMachineUser user = users.get(username);
+        if (user == null || !user.getPassword().equals(password)){
+            return null;
+        }
+        return user;
     }
 }

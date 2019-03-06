@@ -92,7 +92,7 @@ public class Main {
 
 
         // Test Authenticator functionality
-        Authenticator clientManager = new Authenticator(BankMachine.userFactory.getMap());
+        UserFactory clientManager = new UserFactory();
         new Client(0, "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
         BankMachineUser optionalClient = clientManager.authenticate("abc", "def");

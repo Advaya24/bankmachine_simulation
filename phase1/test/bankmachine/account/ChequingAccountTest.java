@@ -15,7 +15,7 @@ public class ChequingAccountTest {
     private ChequingAccount account;
     public ChequingAccountTest(){
         Client client = mock(Client.class);
-        LocalDateTime creationDate = mock(LocalDateTime.class);
+        LocalDateTime creationDate = LocalDateTime.now();
         this.account = new ChequingAccount(0, 0, client, creationDate);
     }
     @Test
@@ -41,7 +41,7 @@ public class ChequingAccountTest {
         private SavingsAccount account;
         public SavingsAccountTest(){
             Client client = mock(Client.class);
-            LocalDateTime creationDate = mock(LocalDateTime.class);
+            LocalDateTime creationDate = LocalDateTime.now();
             this.account = new SavingsAccount(0, 0, client, creationDate);
         }
         @Test
