@@ -1,13 +1,7 @@
 package bankmachine;
 
-import bankmachine.FileManager.FileSearcher;
 import bankmachine.account.Account;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import java.io.File;
 import java.util.*;
 
 public class InputManager {
@@ -15,11 +9,11 @@ public class InputManager {
     // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
-    private UserManager<BankMachineUser> userManager;
+    //private UserManager<BankMachineUser> userManager;
 
     // Initialize an userManager each for Clients and BankManagers separately:
-    private static UserManager<Client> clientAuthenticator;
-    private static UserManager<BankManager> bankManagerAuthenticator;
+    //private static UserManager<Client> clientAuthenticator;
+    //private static UserManager<BankManager> bankManagerAuthenticator;
 
     //    final private UserManager<Client> clientManager = BankMachine.getClientManager();
 //    final private UserManager<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
@@ -32,14 +26,14 @@ public class InputManager {
     public static void main(String[] args) {
 
         // Initializes fileManagerLocation correctly
-        final FileSearcher fileSearcher = new FileSearcher();
+        /*final FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("FileManager");
         fileSearcher.searchForDirectory(new File(System.getProperty("user.dir")));
-        final String fileManagerPath = fileSearcher.getResult().get(0);
+        final String fileManagerPath = fileSearcher.getResult().get(0);*/
 
         // Initialize the authenticators correctly
-        clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
-        bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
+        //clientAuthenticator = new UserManager<>(fileManagerPath + "/clientData.ser");
+        //bankManagerAuthenticator = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
 
         new InputManager().mainLoop();
     }
@@ -90,46 +84,24 @@ public class InputManager {
         return items.get(index-1);
     }
 
-    /*//Choosing an account
-    private void selectItemTest(){
-        ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Credit Card Account", "Line of Credit Account", "Asset Account", "Savings Account"
-        ));
-        System.out.println("Choose an account");
-        String response = selectItem(strings);
-        System.out.println("You chose " + response);
-    }
-
-    private void selectActionTest(){
-        ArrayList<String> strings = new ArrayList<>(Arrays.asList(
-                "Withdraw", "Pay bills", "Deposit", "Transfer", "Undo Transaction"
-        ));
-        System.out.println("Choose a type of transaction");
-        String response = selectItem(strings);
-        System.out.println("You chose " + response);
-    }*/
-
     public void mainLoop(){
         // Login page
         while(!exit) {
             userIsClient = isUserClient();
-            ArrayList<Account> accounts = logIn(userIsClient);
-            // TODO: choose and account
-            // TODO: choose a transaction
-            // TODO: note that the bank manager has the option of adding people and doing other things normal users cant...
-            // TODO: continue/exit
-
-           /* if (username.equals(a) && password.equals(b)){
-                System.out.println("Welcome!");
-                selectItemTest();
-                selectActionTest();
-                System.out.println("Goodbye");
-                exit = true;
+            if (userIsClient) {
+                Client client = logInClient(); // verifies login
+                while (!exit) {
+                    Account a = ChooseAccount(client); //gets an account that the client wants to do things to
+                    PerformTransaction(a); // takes an account and performs transactions
+                    chooseToExit(exit); //
+                }
             } else {
-                System.out.println("Incorrect username/password");
-            }*/
+                BankManager bankManager = logInBankManager(); // verifies login
+                bankManagerTasks(bankManager);
+            }
         }
     }
+
     // Display when there are multiple choices
     private String itemizeChoice(ArrayList<String> strings) {
         System.out.println("Please choose an option");
@@ -150,37 +122,96 @@ public class InputManager {
         return userIsClient;
     }
     // 2) Verify if username and password exist and returns the accounts of the user.
-    private ArrayList<Account> logIn(boolean user) {
-        while (!exit) {
+    private Client logInClient() {
+        boolean moveOn = true;
+        while (moveOn) {
+            System.out.println("Type 'exit' to exit");
             String username = getInput("Enter username: ");
-            String password = getInput("Enter password: ");
-            if (user) {
-                Optional<Client> optionalClient = clientAuthenticator.authenticate(username, password);
-                if (optionalClient.isPresent()) {
-                    System.out.println("Welcome!");
-                    Client retrievedClient = optionalClient.get();
-                    return retrievedClient.getClientsAccounts();
-                } else {
-                    System.out.println("Incorrect username/password");
-                }
-            } else {
-                Optional<BankManager> optionalBankManager = bankManagerAuthenticator.authenticate(username, password);
-                if (optionalBankManager.isPresent()) {
-                    System.out.println("Welcome!");
-                    BankManager retrievedBankManager = optionalBankManager.get();
-                    //TODO: displays a list of names THEN choose a user THEN find out what accounts they have and return array
-                }
+            if (username.equalsIgnoreCase("exit")) {
+            exit = true;
             }
+            String password = getInput("Enter password: ");
+            Optional<Client> optionalClient = BankMachine.clientManager.authenticate(username, password);
+            if (optionalClient.isPresent()) {
+                System.out.println("Welcome!");
+                Client retrievedClient = optionalClient.get();
+                System.out.println(retrievedClient);
+                moveOn = false;
+                return retrievedClient;
+            } else {
+                System.out.println("Incorrect username/password");
+            }
+
+        }
+        return null;
+    }
+
+    private BankManager logInBankManager() {
+        boolean moveOn = true;
+        while (moveOn) {
+            System.out.println("Type 'exit' to exit");
+            String username = getInput("Enter username: ");
             if (username.equalsIgnoreCase("exit")) {
                 exit = true;
             }
-        }
+            String password = getInput("Enter password: ");
+            Optional<BankManager> optionalBankManager = BankMachine.bankManagerUserManager.authenticate(username, password);
+            if (optionalBankManager.isPresent()) {
+                System.out.println("Welcome!");
+                BankManager retrievedBankManager = optionalBankManager.get();
+                moveOn = false;
+                return retrievedBankManager;
+                // gets list of clients
+                //UserManager<Client> clientUserManager = BankMachine.getClientManager();
+            }else {
+                System.out.println("Incorrect username/password");
+            }
 
-        // 2) ask which account they would like to access
-        // 3) ask what type of transaction would like to be performed or what they would like to see
-        // 4) OPTIONAL: confirmation?
-        // 5) exit option
+        }
+        return null;
+    }
+    private Account ChooseAccount(Client client){
+        ArrayList<Account> clientAccounts = client.getClientsAccounts();
+        // TODO: somehow get names of accounts
+        // response = itemize(clientAccounts); // must make sure they are strings though
+        // switch(response){
+            // case 1:
+                // this will be the first account
+                // task = itemize(transaction);
+                // call transaction
+            //case 2:
+                // this will be the second account
+                // do something account related
 
         return null;
     }
+
+    private void bankManagerTasks(BankManager bankManager){
+        ArrayList<String> tasks = new ArrayList<>(Arrays.asList(
+                "Change client information", "Create new user", "Restock machine"
+        )); //Change client info includes undoing most recent transaction, and anything that a user can do
+        String t = itemizeChoice(tasks);
+    }
+
+    private void clientInfo(Client c, Account a){
+        System.out.println("\n Client information:"
+                + "\n Name:" + c.getName()
+                + "\n Account balance:" + a.getBalance());
+    }
+
+    private void PerformTransaction(Account a){
+        // call methods from the specific account
+    }
+
+    private void chooseToExit(boolean b){
+        System.out.println("Would you like to continue to next transaction or exit?");
+        ArrayList<String> choices = new ArrayList<>(Arrays.asList(
+                "Next transaction", "Exit"
+        ));
+        String choice = itemizeChoice(choices);
+        if (choice.equals("Exit")) {
+            exit = true;
+        }
+    }
+
 }
