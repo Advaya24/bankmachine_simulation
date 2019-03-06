@@ -9,8 +9,8 @@ import java.io.File;
 
 public class BankMachine {
     final public static String fileManagerPath = findFileManagerPath();
-    final public static UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/clientData.ser");
-    final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(fileManagerPath + "/bankManagerData.ser");
+    final public static UserManager<Client> clientManager = new UserManager<>(fileManagerPath + "/data/clientData.ser");
+    final public static UserManager<BankManager> bankManagerUserManager = new UserManager<>(fileManagerPath + "/data/bankManagerData.ser");
     final public static TimeInfo timeInfo = new TimeInfo();
 
     private static void executeEveryMonth() {
