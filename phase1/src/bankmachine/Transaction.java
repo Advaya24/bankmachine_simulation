@@ -15,6 +15,10 @@ public class Transaction {
     private Date transactionDate;
     /**The type of transaction made**/
     private TransactionType transactionType;
+    /**A static field to allow us to give unique IDS to all transactions within the system.**/
+    static int numTransactions = 0;
+    /** The unique ID of this transaction **/
+    private int ID;
 
      public Transaction(double amount, Account from, Account to, Date datetime, TransactionType type){
         this.amount=amount;
@@ -22,6 +26,8 @@ public class Transaction {
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
+        numTransactions++;
+        ID = numTransactions;
     }
     /** All the getters**/
     public double getAmount(){
@@ -38,6 +44,9 @@ public class Transaction {
     }
     public TransactionType getType(){
         return transactionType;
+    }
+    public int getID(){
+        return ID;
     }
 
     /** All the setters **/
