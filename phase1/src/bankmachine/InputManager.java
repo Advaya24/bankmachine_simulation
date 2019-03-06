@@ -110,8 +110,6 @@ public class InputManager {
     private Client logInClient() {
         boolean moveOn = true;
 
-        // TODO: Read this
-        // How do you get out of this loop if you don't know the password?
         while (moveOn) {
             //System.out.println("Type 'exit' to exit");
             String username = getInput("Enter username: ");
@@ -125,8 +123,8 @@ public class InputManager {
                 System.out.println("Welcome!");
                 Client retrievedClient = optionalClient.get();
                 // TODO: Read this
-                // I don't think there's a string representation of client. Consider calling retrievedClient.printAccountSummary() instead?
-                //System.out.println(retrievedClient);
+                // Consider calling retrievedClient.printAccountSummary() instead?
+
                 return retrievedClient;
             } else {
                 System.out.println("Incorrect username/password");
