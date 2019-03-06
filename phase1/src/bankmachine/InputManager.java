@@ -115,9 +115,10 @@ public class InputManager {
         while (moveOn) {
             //System.out.println("Type 'exit' to exit");
             String username = getInput("Enter username: ");
-            /*if (username.equalsIgnoreCase("exit")) {
+            if (username.equalsIgnoreCase("exit")) {
             exit = true;
-            }*/
+            moveOn = false;
+            }
             String password = getInput("Enter password: ");
             Optional<Client> optionalClient = clientManager.authenticate(username, password);
             if (optionalClient.isPresent()) {
@@ -125,7 +126,7 @@ public class InputManager {
                 Client retrievedClient = optionalClient.get();
                 // TODO: Read this
                 // I don't think there's a string representation of client. Consider calling retrievedClient.printAccountSummary() instead?
-                System.out.println(retrievedClient);
+                //System.out.println(retrievedClient);
                 return retrievedClient;
             } else {
                 System.out.println("Incorrect username/password");
