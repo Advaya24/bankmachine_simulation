@@ -1,7 +1,7 @@
 package bankmachine;
 
-import bankmachine.FileManager.ObjectFileReader;
-import bankmachine.FileManager.ObjectFileWriter;
+import bankmachine.fileManager.ObjectFileReader;
+import bankmachine.fileManager.ObjectFileWriter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,11 +16,11 @@ import java.util.function.Function;
  * @param <T> a BankMachineUser type
  */
 public class UserManager<T extends BankMachineUser> {
-    /* List of user instances registered for login */
+    /** List of user instances registered for login */
     private ArrayList<T> loginData;
-    /* HashMap of user instances */
+    /** HashMap of user instances */
     private HashMap<Integer, T> loginHashMap;
-    /* File writer for this authenticator */
+    /** File writer for this authenticator */
     private ObjectFileWriter<T> writer;
 
     public UserManager(String fileName) {
