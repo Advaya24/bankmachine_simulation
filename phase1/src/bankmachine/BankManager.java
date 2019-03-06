@@ -73,10 +73,10 @@ public class BankManager extends BankMachineUser {
     }
 
     /**
-     * Allows the
-     * @param denomination
-     * @param amount
-     * @throws Exception
+     * Allows the Manager to add bills of a certain denomination to the ATM
+     * @param denomination the denomination of the bills being added
+     * @param amount the number of bills being added.
+     * @throws Exception //TODO: Help?
      */
     public void addBills(int denomination, int amount) throws Exception {
         BankMachine.getBillManager().addBills(denomination, amount);

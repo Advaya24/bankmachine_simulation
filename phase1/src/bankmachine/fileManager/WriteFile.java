@@ -34,15 +34,21 @@ public class WriteFile implements FileManager {
         return filename;
     }
 
-    //Getter for date and time when file was lasted edited (mm/dd/yyy HH:mm:ss)
+    /**
+     * Getter for date and time when file was lasted edited (mm/dd/yyy HH:mm:ss)
+     */
     @Override
     public String getLastUpdated() {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         return sdf.format(file.lastModified());
     }
 
-    // Main Method for writing target data into file. Appends file instead of overwriting existing.
-    // Data: data to be written  && append: boolean whether to append to existing data (true) or overwrite (false)
+    /**
+     * Main Method for writing target data into file. Appends file instead of overwriting existing.
+     * @param data data to be written
+     * @param append boolean whether to append to existing data (true) or overwrite (false)
+     * @throws Exception
+     */
     public void writeData(String data, Boolean append) throws Exception {
         FileOutputStream output_stream = new FileOutputStream(file, append);
         output_stream.write(data.getBytes());

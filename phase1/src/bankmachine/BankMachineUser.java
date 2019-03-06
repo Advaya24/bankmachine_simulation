@@ -15,7 +15,7 @@ public class BankMachineUser implements Serializable {
         num_users++;
         id = num_users;
     }
-
+    /**All getters for the various attributes */
     public String getUsername() { return userName; }
     public String getPassword() { return password; }
     public int getID(){ return id; }

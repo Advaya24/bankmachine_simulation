@@ -28,8 +28,9 @@ public class BankMachine {
 
     void executeEveryDay() {
     }
-
+    /** A Manager Object for all the bills of the various denominations within the system.*/
     private static BillManager billManager;
+    /** A Manager Object for all the accounts within the system.*/
     private static AccountManager accountManager;
     // static TransactionManager transactionManager
 
