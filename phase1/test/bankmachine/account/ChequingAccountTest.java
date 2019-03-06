@@ -3,6 +3,7 @@ package bankmachine.account;
 import bankmachine.Client;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -14,7 +15,7 @@ public class ChequingAccountTest {
     private ChequingAccount account;
     public ChequingAccountTest(){
         Client client = mock(Client.class);
-        Date creationDate = mock(Date.class);
+        LocalDateTime creationDate = mock(LocalDateTime.class);
         this.account = new ChequingAccount(0, client, creationDate);
     }
     @Test
@@ -40,7 +41,7 @@ public class ChequingAccountTest {
         private SavingsAccount account;
         public SavingsAccountTest(){
             Client client = mock(Client.class);
-            Date creationDate = mock(Date.class);
+            LocalDateTime creationDate = mock(LocalDateTime.class);
             this.account = new SavingsAccount(0, client, creationDate);
         }
         @Test

@@ -2,12 +2,15 @@ package bankmachine;
 
 import bankmachine.account.*;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
 public class Client extends BankMachineUser {
+    static List<Client> clients = new ArrayList<>();
     /**Name of this Client**/
     private String name;
     /**All the accounts this Client has**/
@@ -22,6 +25,7 @@ public class Client extends BankMachineUser {
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        clients.add(this);
 
     }
 
@@ -56,7 +60,7 @@ public class Client extends BankMachineUser {
      */
     public void addAccount(Account newAccount){
         clientsAccounts.add(newAccount);
-        AccountManager.addAccount(newAccount);
+        //AccountManager.addAccount(newAccount);
     }
 
 
@@ -82,7 +86,7 @@ public class Client extends BankMachineUser {
      * @param account the account that we want the creation date of.
      * @return the creation date of the account parameter.
      */
-    public Date getAccountCreationDate(Account account){
+    public LocalDateTime getAccountCreationDate(Account account){
         if (clientsAccounts.contains(account)){
             return account.getCreationDate();
         }

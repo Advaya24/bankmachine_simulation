@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -23,9 +23,9 @@ public class ClientTest {
         Transaction t1 = mock(Transaction.class);
         Transaction t2 = mock(Transaction.class);
         //Transaction t3 = mock(Transaction.class);
-        Date d1= new Date(System.currentTimeMillis());
-        Date d2= new Date(System.currentTimeMillis()+500);
-//        Date d3= new Date(System.currentTimeMillis()+1000);
+       LocalDateTime d1= LocalDateTime.now();
+       LocalDateTime d2= LocalDateTime.now().plusNanos(500000000);
+//       LocalDateTime d3= newLocalDateTime(System.currentTimeMillis()+1000);
         when(t1.getDate()).thenReturn(d1);
         when(t2.getDate()).thenReturn(d2);
         //when(t3.getDate()).thenReturn(d3);

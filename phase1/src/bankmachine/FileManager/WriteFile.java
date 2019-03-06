@@ -1,6 +1,8 @@
 package bankmachine.FileManager;
 
 import bankmachine.BankMachine;
+import bankmachine.BankManager;
+import bankmachine.DataLoader;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -1,27 +1,37 @@
 package bankmachine;
 import bankmachine.account.Account;
-import java.util.Date;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.util.List;
+
 /** Represents a Transaction within the system.
  * This class does not actually have any methods; it just is a container for information.**/
 // Person working on this: Varun
-public class Transaction {
+public class Transaction implements Serializable {
     /**The amount of money involve in this transaction**/
     private double amount;
     /**The account this transaction was made from**/
     private Account transactionMadeFrom;
     /**The account this transaction was made to**/
     private Account transactionMadeTo;
-    /**The Date this transaction was made**/
-    private Date transactionDate;
+    /**The LocalDateTime this transaction was made**/
+    private LocalDateTime transactionDate;
     /**The type of transaction made**/
     private TransactionType transactionType;
 
-     public Transaction(double amount, Account from, Account to, Date datetime, TransactionType type){
+    public static List<Transaction> transactions = new ArrayList<>();
+
+
+
+    public Transaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
         this.amount=amount;
         transactionMadeFrom = from;
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
+        transactions.add(this);
     }
     /** All the getters**/
     public double getAmount(){
@@ -33,7 +43,7 @@ public class Transaction {
     public Account getTo(){
         return transactionMadeTo;
     }
-    public Date getDate(){
+    public LocalDateTime getDate(){
         return transactionDate;
     }
     public TransactionType getType(){
@@ -50,7 +60,7 @@ public class Transaction {
     public void setTo(Account new_to){
         transactionMadeTo = new_to;
     }
-    public void setDate(Date new_date){
+    public void setLocalDateTime(LocalDateTime new_date){
         transactionDate = new_date;
     }
     public void setType(TransactionType new_type){

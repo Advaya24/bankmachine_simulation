@@ -5,7 +5,9 @@ import bankmachine.Client;
 
 
 import bankmachine.BillManager;
+import org.mockito.cglib.core.Local;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,11 +20,11 @@ public class ChequingAccount extends AssetAccount {
     private int overdrawLimit = 100;
 
 
-    public ChequingAccount(boolean primary, int amount, Client client, Date creationDate){
+    public ChequingAccount(boolean primary, int amount, Client client, LocalDateTime creationDate){
         super(amount, client, creationDate);
         this.primary = primary;
     }
-    public ChequingAccount(int amount, Client client, Date creationDate){
+    public ChequingAccount(int amount, Client client, LocalDateTime creationDate){
         super(amount, client, creationDate);
         this.primary = false;
     }

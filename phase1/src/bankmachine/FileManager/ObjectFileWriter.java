@@ -4,6 +4,7 @@ package bankmachine.FileManager;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 // Managed by: Advaya
 
@@ -56,12 +57,12 @@ public class ObjectFileWriter<T extends Serializable> {
      * @param arrayList of objects
      * @return true if write was successful, false otherwise
      */
-    public boolean writeAll(ArrayList<T> arrayList) {
+    public boolean writeAll(List<T> arrayList) {
         try {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
 
-            ArrayList<T> oldArrayList = (ArrayList<T>) inputStream.readObject();
+            List<T> oldArrayList = (ArrayList<T>) inputStream.readObject();
 
             inputStream.close();
             fileIn.close();

@@ -1,14 +1,16 @@
 package bankmachine.account;
 
 import bankmachine.Client;
+import org.mockito.cglib.core.Local;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
  * An account which allows negative balance
  */
 public abstract class DebtAccount extends Account{
-    public DebtAccount(int balance, Client client,Date creationDate) {
+    public DebtAccount(int balance, Client client, LocalDateTime creationDate) {
         super(balance, client, creationDate);
     }
 

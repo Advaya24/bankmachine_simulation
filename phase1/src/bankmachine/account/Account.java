@@ -2,32 +2,36 @@ package bankmachine.account;
 
 import bankmachine.Client;
 import bankmachine.Transaction;
+import org.mockito.cglib.core.Local;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * An account containing a balance
  */
 //TODO: Check Account class hierarchy and possibly move things out of Account
 public abstract class Account implements Serializable {
-    static int numAccounts = 0;
+    public static List<Account> accounts = new ArrayList<>();
     /* The current balance of the account, in cents*/
     protected int balance;
     private int id;
     protected Client client;
     ArrayList<Transaction> transactions = new ArrayList<>();
-    protected Date creationDate;
-    public Account(int balance, Client client, Date creationDate){
-        numAccounts++;
-        id = numAccounts;
+    protected LocalDateTime creationDate;
+    public Account(int balance, Client client, LocalDateTime creationDate){
+        client.addAccount(this);
+        id = numAccounts();
         this.client = client;
         this.balance = balance;
         this.creationDate = creationDate;
+        accounts.add(this);
     }
     public Account(Client client){
-        this.client = client;
+        this(0, client, LocalDateTime.now());
     }
 
     /**
@@ -51,7 +55,11 @@ public abstract class Account implements Serializable {
         }
         return true;
     }
-    public Date getCreationDate(){
+    public static int numAccounts(){
+        return accounts.size();
+    }
+
+    public LocalDateTime getCreationDate(){
         return this.creationDate;
     }
     /**

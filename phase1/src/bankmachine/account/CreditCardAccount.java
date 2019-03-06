@@ -2,6 +2,7 @@ package bankmachine.account;
 
 import bankmachine.Client;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Date;
  * but it is possible to transfer in, withdraw an pay bills
  */
 public class CreditCardAccount extends DebtAccount{
-    public CreditCardAccount(int balance, Client client, Date creationDate) {
+    public CreditCardAccount(int balance, Client client, LocalDateTime creationDate) {
         super(balance, client, creationDate);
     }
 
