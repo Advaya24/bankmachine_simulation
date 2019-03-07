@@ -2,9 +2,11 @@ package bankmachine;
 
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
+import bankmachine.fileManager.FileSearcher;
 import org.junit.jupiter.api.*;
 
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserManagerTest {
-    private static UserManager manager = new UserManager("./testFiles");
+    private UserManager manager;
 
+    @BeforeEach
+    public void instantiateManager(){
+        FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("test");
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
+        final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
+        fileSearcher.clearResults();
+        fileSearcher.setFileNameToSearch("data");
+        fileSearcher.searchForDirectoryIn(new File(FILE_MANAGER_PATH));
+        manager = new UserManager(fileSearcher.getResult().get(0));
+    }
 
     @Test
     public void testAuthenticate() {
