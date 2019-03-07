@@ -6,11 +6,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 
+/** File Writing class for the output to txt files (e.g. outgoing.txt)
+ * Used by other classes that handle the respective methods.
+ */
+
 public class WriteFile implements FileManager {
 
     private File file;
 
-    // Constructor for WriteFile
+    /** Constructor for WriteFile class. Obtains filename attribute and sets file to the file in that path.
+     *
+     * @param filename Target filename for writing
+     * @throws Exception throws NullPointerException if file in directory points to null
+     */
     public WriteFile(String filename) {
         // Creates file with "filename" in the fileManager package
         //System.out.println(DATA_PATH + "/" + filename);
@@ -21,7 +29,9 @@ public class WriteFile implements FileManager {
         this.file = null;
     }
 
-    //Getter for filename. Returns null if file is null.
+    /** Getter that returns filename.
+     * @return String filename
+     */
     @Override
     public String getFileName() {
         String filename;
