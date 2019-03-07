@@ -92,7 +92,7 @@ public class Main {
 
         // Test Authenticator functionality
         UserManager clientManager = new UserManager(BankMachine.DATA_PATH);
-        new Client(0, "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
+        clientManager.newClient("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
         BankMachineUser optionalClient = clientManager.authenticate("abc", "def");
 
@@ -100,17 +100,17 @@ public class Main {
             ((Client) optionalClient).printAccountSummary();
         }
         else { System.out.println("Client not found :("); }
-        BankMachine.USER_MANAGER.getMap().clear();
+        //BankMachine.USER_MANAGER.getMap().clear();
         for (int i = 1; i <= 5; i++) {
-            BankMachine.USER_MANAGER.newClient("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);
+            clientManager.newClient("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);
         }
-
-
+        // We shouldn't delete clients
+        /*
         optionalClient = clientManager.get("abc");
 
         if (optionalClient != null) System.out.println("ABC didn't get deleted!");
         else System.out.println("Successfully deleted ABC");
-
+        */
         Client testClient1 = (Client) clientManager.authenticate("Test username 1", "testPassword1");
         if (testClient1 != null) testClient1.printAccountSummary();
         else System.out.println("Client not found :(");
