@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**A Client within this system.**/
 // Person working on this: Varun
+    //TODO: Yeet everything up to BankMachineUser
 public class Client extends BankMachineUser {
     /**Name of this Client**/
     private String name;

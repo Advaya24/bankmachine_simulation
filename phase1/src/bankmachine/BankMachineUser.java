@@ -6,7 +6,9 @@ import java.io.Serializable;
 
 // managed by: Advaya
 public class BankMachineUser extends Observable implements Serializable, Identifiable{
+    /** Username of the BankMachineUser */
     private String userName;
+    /** Password of the BankMachineUser */
     private String password;
     private int id;
 
@@ -15,7 +17,7 @@ public class BankMachineUser extends Observable implements Serializable, Identif
         this.password = password;
         this.id = id;
     }
-
+    /**All getters for the various attributes */
     public String getUsername() { return userName; }
     public String getPassword() { return password; }
     public int getID(){ return id; }

@@ -29,7 +29,7 @@ public class BankMachine {
 
     void executeEveryDay() {
     }
-
+    /** A Manager Object for all the bills of the various denominations within the system.*/
     private static BillManager billManager;
 
     public static void main(String[] args) {

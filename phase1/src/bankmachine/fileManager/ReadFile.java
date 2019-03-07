@@ -1,22 +1,29 @@
 package bankmachine.fileManager;
-
 import bankmachine.BankMachine;
-
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
+
+/** File Reading class for the standardized text files (alerts.txt, outgoing.txt, deposits.txt
+ * Used by other classes that handle the respective methods.
+ */
 
 public class ReadFile implements FileManager {
 
     private File file; // Sets private file as java.io.File type.
 
-    public ReadFile(String filename) throws Exception { // Constructor for ReadFile
+    /** Constructor for ReadFile class. Obtains filename attribute and sets file to the file in that path.
+     *
+     * @param filename Target filename for reading
+     * @throws Exception throws NullPointerException if file in directory points to null
+     */
+    public ReadFile(String filename) throws NullPointerException { // Constructor for ReadFile
 
         try {
-            //System.out.println(DATA_PATH + "/" + filename);
             this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
         } catch  (NullPointerException e){
-            System.out.println("The file attempted to be read does not exist");
+            throw new NullPointerException("File not found!");
         }
 
     }
@@ -26,6 +33,9 @@ public class ReadFile implements FileManager {
         this.file = null;
     }
 
+    /** Getter that returns filename.
+     * @return String filename
+     */
     @Override
     public String getFileName() { // Method for returning file name in system
         String filename;
@@ -38,27 +48,28 @@ public class ReadFile implements FileManager {
         return filename;
     }
 
+    /** Gets system time of when file was last updated.
+     * @return String of system time in format: MM/dd/yyyy HH:mm:ss
+     */
     @Override
     public String getLastUpdated() { // Method for returning system time of when file was last last modified
 
         if(file == null){
-            return null;
         }
         //Declares last_modified as a SDF object
         SimpleDateFormat last_modified = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         return last_modified.format(file.lastModified());
     }
 
+    /** Method that obtains data in target file.
+     * @return Returns data as string.
+     * @throws Exception FileNotFoundException if file does not exist and method is called.
+     */
     public String getData() throws Exception {
 
         StringBuilder str = new StringBuilder(); // Initializes the output string for the data.
 
-        // If the file is null sets string equal to null and then for getData returns null
-        if(file == null){
-            str = null;
-
-        } else { // If file is not null
-
+        try{
             // Assigns file_reader variable to FileReader object of target file
             FileReader file_reader = new FileReader(file);
 
@@ -73,8 +84,11 @@ public class ReadFile implements FileManager {
             }
             // Closes file (important)
             file_reader.close();
+            return str.toString();
+        } catch (FileNotFoundException e) {
+            throw new FileNotFoundException("File not found!");
         }
-        return str.toString();
+
 
 
     }

@@ -4,11 +4,10 @@ import bankmachine.account.Account;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
 
-import java.io.Serializable;
+import java.io.Serializable;;
 import java.util.*;
 import java.util.function.Function;
 
-// Rename to UserManager???
 public class UserManager extends TrackingFactory<BankMachineUser>
 implements Observer{
     private String rootPath;

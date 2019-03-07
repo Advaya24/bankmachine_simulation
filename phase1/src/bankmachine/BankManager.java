@@ -41,12 +41,25 @@ public class BankManager extends BankMachineUser {
         return true;
     }
 
+    /**
+     * Creates a new Client for the Bank
+     * @param name name of the client
+     * @param email email address of the client
+     * @param phoneNumber phone number of the client
+     * @param username username of the client
+     * @param default_password default password of the client
+     */
     public Client createClient(String name, String email, String phoneNumber, String username, String default_password){
         return BankMachine.USER_MANAGER.newClient(name, email, phoneNumber, username, default_password);
         // Authenticator<Client> clientUserManager = BankMachine.getClientManager();
         // clientUserManager.add(newClient);
     }
 
+    /**
+     * Allows the Manager to undo the most recent transaction on any account, except for Bill Payments.
+     * @param transaction the Transaction that needs to be undone.
+     * @return whether the action was successful or not.
+     */
     public boolean undoRecentTransaction(Transaction transaction){
 
         // TODO: handle corner case where one of the accounts does not have enough balance
@@ -59,6 +72,13 @@ public class BankManager extends BankMachineUser {
             return true;
         }
     }
+
+    /**
+     * Allows the Manager to add bills of a certain denomination to the ATM
+     * @param denomination the denomination of the bills being added
+     * @param amount the number of bills being added.
+     * @throws Exception //TODO: Help?
+     */
     public void addBills(int denomination, int amount) throws Exception {
         BankMachine.getBillManager().addBills(denomination, amount);
     }
