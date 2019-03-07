@@ -2,9 +2,11 @@ package bankmachine;
 
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
+import bankmachine.fileManager.FileSearcher;
 import org.junit.jupiter.api.*;
 
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,16 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserManagerTest {
-    private static UserManager manager = new UserManager("./testFiles");
+    private static UserManager manager;
 
+    @BeforeAll
+    public static void setUp() {
+        FileSearcher fileSearcher = new FileSearcher();
+        fileSearcher.setFileNameToSearch("testFiles");
+        fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
+        assertNotEquals(null, fileSearcher.getResult().get(0));
+        manager = new UserManager(fileSearcher.getResult().get(0));
+    }
 
     @Test
     public void testAuthenticate() {
@@ -22,8 +32,8 @@ public class UserManagerTest {
         when(marisa.getUsername()).thenReturn("mkirisame");
         when(marisa.getPassword()).thenReturn("da ze!");
         manager.addInstance(marisa);
-        assertEquals(null, manager.authenticate("Sanae", "bleh"));
-        assertEquals(null, manager.authenticate("mkirisame", "sneaky sneak"));
+        assertNull(manager.authenticate("Sanae", "bleh"));
+        assertNull(manager.authenticate("mkirisame", "sneaky sneak"));
         assertNotEquals(null, manager.authenticate("mkirisame", "da ze!"));
         assertEquals(marisa, manager.authenticate("mkirisame", "da ze!"));
     }

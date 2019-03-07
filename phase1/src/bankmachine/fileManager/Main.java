@@ -62,7 +62,7 @@ public class Main {
 
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>( fileManagerPath + "/testObjectFile.ser");
-        BankMachineUser singleUser = new BankMachineUser(0, "Test username 1", "testPassword");
+        BankMachineUser singleUser = new BankMachineUser(0, "Test username 1", "testPassword1");
 
         writer.clear();
         if (writer.write(singleUser)) {
@@ -92,11 +92,12 @@ public class Main {
 
         // Test Authenticator functionality
         UserManager clientManager = new UserManager(BankMachine.DATA_PATH);
+        clientManager.newClient( "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
         new Client(0, "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
         BankMachineUser optionalClient = clientManager.authenticate("abc", "def");
 
-        if (optionalClient != null && optionalClient instanceof Client) {
+        if (optionalClient instanceof Client) {
             ((Client) optionalClient).printAccountSummary();
         }
         else { System.out.println("Client not found :("); }
@@ -117,9 +118,8 @@ public class Main {
 
         Client testClient2 = (Client) clientManager.get("Test username 2");
         if (testClient2 != null) {
-            Client client = testClient2;
-            client.printAccountSummary();
-            client.setUserName("New username");
+            testClient2.printAccountSummary();
+            testClient2.setUserName("New username");
         } else System.out.println("Client not found :(");
 
         clientManager.runOnAll((BankMachineUser c) -> {
