@@ -1,6 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.Account;
+import bankmachine.account.AccountFactory;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,6 +10,12 @@ import java.util.List;
 
 public class TransactionFactory {
     List<Transaction> transactions = new ArrayList<>();
+
+    public TransactionFactory(AccountFactory accounts){
+        for(Account account : accounts.getInstances()){
+            this.extend(account.getTransactions());
+        }
+    }
 
     static class CompareByDate implements Comparator<Transaction> {
         @Override

@@ -11,9 +11,9 @@ import java.io.File;
 public class BankMachine {
     final public static String DATA_PATH = findDataPath();
     final public static TimeInfo timeInfo = new TimeInfo();
-    final public static AccountFactory accFactory = new AccountFactory();
-    final public static UserFactory userFactory = new UserFactory();
-    final public static TransactionFactory transFactory = new TransactionFactory();
+    final public static UserManager USER_MANAGER = new UserManager("/clientData.ser");
+    final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
+    final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
     private static void executeEveryMonth() {
         int oldmonth = timeInfo.getLastMonth();
         int currmonth = timeInfo.getCurrentMonth();
@@ -33,7 +33,6 @@ public class BankMachine {
     private static BillManager billManager;
 
     public static void main(String[] args) {
-        new DataLoader(DATA_PATH).loadData("/userData.ser");
         billManager = new BillManager();
         executeEveryMonth();
 

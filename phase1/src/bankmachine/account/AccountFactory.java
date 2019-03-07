@@ -1,11 +1,18 @@
 package bankmachine.account;
 
-import bankmachine.Client;
-import bankmachine.TrackingFactory;
+import bankmachine.*;
 
 import java.time.LocalDateTime;
 
 public class AccountFactory extends TrackingFactory<Account> {
+    public AccountFactory(UserManager users){
+        for(BankMachineUser client : users.getInstances()){
+            if(client instanceof Client) {
+                this.extend(((Client) client).getClientsAccounts());
+            }
+        }
+    }
+
     public ChequingAccount newCqAccount(int amount, Client client, LocalDateTime creationDate){
         return newCqAccount(false, amount, client, creationDate);
     }

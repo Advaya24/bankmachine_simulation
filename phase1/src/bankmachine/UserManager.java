@@ -1,12 +1,24 @@
 package bankmachine;
 
+import bankmachine.account.Account;
+import bankmachine.fileManager.ObjectFileReader;
+import bankmachine.fileManager.ObjectFileWriter;
+
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Function;
 
 // Rename to UserManager???
-public class UserFactory extends TrackingFactory<BankMachineUser>
+public class UserManager extends TrackingFactory<BankMachineUser>
 implements Observer{
+    private String rootPath;
+
     private HashMap<String, BankMachineUser> users = new HashMap<>();
+
+    public UserManager(String path){
+        this.rootPath = path;
+    }
+
     public Client newClient(String name, String email, String phoneNumber, String username, String default_password){
         Client c = new Client(nextID, name, email, phoneNumber, username, default_password);
         if(users.containsKey(c.getUsername())){
@@ -103,5 +115,35 @@ implements Observer{
             return null;
         }
         return user;
+    }
+
+    /**
+     * Loads data from a serialized file
+     * @param file the file to load from
+     */
+    public void loadData(String file){
+        List<BankMachineUser> clients = loadFile(file);
+        this.extend(clients);
+    }
+    public void saveData(String file){
+        saveFile(file, new ArrayList<>(BankMachine.USER_MANAGER.getInstances()));
+    }
+    public <T extends Serializable> List<T> loadFile(String filename){
+        filename = rootPath + filename;
+        ObjectFileReader<T> reader = new ObjectFileReader<>(filename);
+        ArrayList<T> objects;
+        try {
+            objects = reader.read();
+        } catch (Exception e) {
+            objects = new ArrayList<>();
+        }
+        return objects;
+    }
+
+    public <T extends Serializable> void saveFile(String filename, List<T> data){
+        filename = rootPath + filename;
+        ObjectFileWriter<T> writer = new ObjectFileWriter<>(filename);
+        writer.clear();
+        writer.writeAll(data);
     }
 }

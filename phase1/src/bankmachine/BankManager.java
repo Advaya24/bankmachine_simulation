@@ -42,7 +42,7 @@ public class BankManager extends BankMachineUser {
     }
 
     public Client createClient(String name, String email, String phoneNumber, String username, String default_password){
-        return BankMachine.userFactory.newClient(name, email, phoneNumber, username, default_password);
+        return BankMachine.USER_MANAGER.newClient(name, email, phoneNumber, username, default_password);
         // Authenticator<Client> clientUserManager = BankMachine.getClientManager();
         // clientUserManager.add(newClient);
     }
