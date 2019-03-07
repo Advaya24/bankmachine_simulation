@@ -15,14 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class UserManagerTest {
-    private static UserManager manager;
+    private UserManager manager;
 
-    @BeforeAll
-    public static void setUp() {
+    @BeforeEach
+    public void instantiateManager(){
         FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("testFiles");
+        fileSearcher.setFileNameToSearch("test");
         fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
-        assertNotEquals(null, fileSearcher.getResult().get(0));
+        final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
+        fileSearcher.clearResults();
+        fileSearcher.setFileNameToSearch("data");
+        fileSearcher.searchForDirectoryIn(new File(FILE_MANAGER_PATH));
         manager = new UserManager(fileSearcher.getResult().get(0));
     }
 
@@ -32,8 +35,8 @@ public class UserManagerTest {
         when(marisa.getUsername()).thenReturn("mkirisame");
         when(marisa.getPassword()).thenReturn("da ze!");
         manager.addInstance(marisa);
-        assertNull(manager.authenticate("Sanae", "bleh"));
-        assertNull(manager.authenticate("mkirisame", "sneaky sneak"));
+        assertEquals(null, manager.authenticate("Sanae", "bleh"));
+        assertEquals(null, manager.authenticate("mkirisame", "sneaky sneak"));
         assertNotEquals(null, manager.authenticate("mkirisame", "da ze!"));
         assertEquals(marisa, manager.authenticate("mkirisame", "da ze!"));
     }

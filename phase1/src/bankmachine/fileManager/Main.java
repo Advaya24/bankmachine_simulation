@@ -62,7 +62,7 @@ public class Main {
 
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>( fileManagerPath + "/testObjectFile.ser");
-        BankMachineUser singleUser = new BankMachineUser(0, "Test username 1", "testPassword1");
+        BankMachineUser singleUser = new BankMachineUser(0, "Test username 1", "testPassword");
 
         writer.clear();
         if (writer.write(singleUser)) {
@@ -92,34 +92,34 @@ public class Main {
 
         // Test Authenticator functionality
         UserManager clientManager = new UserManager(BankMachine.DATA_PATH);
-        clientManager.newClient( "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
-        new Client(0, "ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
+        clientManager.newClient("ABC XYZ", "abc.xyz@gmail.com", "6661231234", "abc", "def");
 
         BankMachineUser optionalClient = clientManager.authenticate("abc", "def");
 
-        if (optionalClient instanceof Client) {
+        if (optionalClient != null && optionalClient instanceof Client) {
             ((Client) optionalClient).printAccountSummary();
         }
         else { System.out.println("Client not found :("); }
-        BankMachine.USER_MANAGER.getMap().clear();
+        //BankMachine.USER_MANAGER.getMap().clear();
         for (int i = 1; i <= 5; i++) {
-            BankMachine.USER_MANAGER.newClient("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);
+            clientManager.newClient("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);
         }
-
-
+        // We shouldn't delete clients
+        /*
         optionalClient = clientManager.get("abc");
 
         if (optionalClient != null) System.out.println("ABC didn't get deleted!");
         else System.out.println("Successfully deleted ABC");
-
+        */
         Client testClient1 = (Client) clientManager.authenticate("Test username 1", "testPassword1");
         if (testClient1 != null) testClient1.printAccountSummary();
         else System.out.println("Client not found :(");
 
         Client testClient2 = (Client) clientManager.get("Test username 2");
         if (testClient2 != null) {
-            testClient2.printAccountSummary();
-            testClient2.setUserName("New username");
+            Client client = testClient2;
+            client.printAccountSummary();
+            client.setUserName("New username");
         } else System.out.println("Client not found :(");
 
         clientManager.runOnAll((BankMachineUser c) -> {
