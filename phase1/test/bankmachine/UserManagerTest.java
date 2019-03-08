@@ -22,10 +22,10 @@ public class UserManagerTest {
         FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("test");
         fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
-        final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
+        final String TEST_PATH = fileSearcher.getResult().get(0);
         fileSearcher.clearResults();
         fileSearcher.setFileNameToSearch("data");
-        fileSearcher.searchForDirectoryIn(new File(FILE_MANAGER_PATH));
+        fileSearcher.searchForDirectoryIn(new File(TEST_PATH));
         manager = new UserManager(fileSearcher.getResult().get(0));
     }
 
