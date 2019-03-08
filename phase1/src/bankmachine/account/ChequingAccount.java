@@ -67,6 +67,16 @@ public class ChequingAccount extends AssetAccount {
     public String toString(){
         String output = "";
         output += "ID: " + getID() +" Type: Chequing Account Balance: " + balance;
+        if (isPrimary()){
+            output += " [Primary]";
+        }
         return output;
+    }
+
+    public boolean isPrimary(){
+        return primary;
+    }
+    public void setPrimary(boolean primary){
+        this.primary = primary;
     }
 }

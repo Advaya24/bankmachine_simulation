@@ -57,6 +57,21 @@ public class Client extends BankMachineUser {
      */
     public void addAccount(Account newAccount){
         clientsAccounts.add(newAccount);
+        if (!(newAccount instanceof ChequingAccount)){
+            return;
+        }
+        for (Account a : clientsAccounts){
+            if (a instanceof ChequingAccount && ((ChequingAccount) a).isPrimary()){
+                return;
+            }
+        }
+        for (Account a : clientsAccounts){
+            if (a instanceof ChequingAccount){
+                ((ChequingAccount) a).setPrimary(true);
+                return;
+            }
+        }
+
         //AccountManager.addAccount(newAccount);
     }
 
