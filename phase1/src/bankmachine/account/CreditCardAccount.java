@@ -43,7 +43,7 @@ public class CreditCardAccount extends DebtAccount{
     public boolean transferOut(int amount){ return false; }
     public String toString(){
         String output = "";
-        output += "ID: " + getID() +" Type: Credit Card Account Balance: " + balance;
+        output += "ID: " + getID() +" Type: Credit Card Account Balance: $" + getDoubleBalance();
         return output;
     }
 }
