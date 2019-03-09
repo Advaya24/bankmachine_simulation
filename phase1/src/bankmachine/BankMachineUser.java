@@ -5,7 +5,8 @@ import java.util.Observable;
 import java.io.Serializable;
 
 // managed by: Advaya
-public class BankMachineUser extends Observable implements Serializable, Identifiable{
+public abstract class BankMachineUser extends Observable
+        implements Serializable, Identifiable, Inputtable{
     /** Username of the BankMachineUser */
     private String userName;
     /** Password of the BankMachineUser */

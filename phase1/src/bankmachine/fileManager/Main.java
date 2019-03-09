@@ -63,7 +63,7 @@ public class Main {
 
         // Test ObjectFileWriter and ObjectFileReader
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>( fileManagerPath + "/testObjectFile.ser");
-        BankMachineUser singleUser = new BankMachineUser(0, "Test username 1", "testPassword");
+        BankMachineUser singleUser = new BankManager(0, "Test username 1", "testPassword");
 
         writer.clear();
         if (writer.write(singleUser)) {
@@ -73,7 +73,7 @@ public class Main {
         }
         ArrayList<BankMachineUser> users = new ArrayList<>();
         for (int i = 2; i <= 5; i++) {
-            users.add(new BankMachineUser(0, "Test username " + i, "testPassword" + i));
+            users.add(new BankManager(0, "Test username " + i, "testPassword" + i));
         }
         if (writer.writeAll(users)) {
             System.out.println("Wrote array list to file");

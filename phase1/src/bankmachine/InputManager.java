@@ -26,7 +26,7 @@ public class InputManager {
     }
 
     // Prompts for input
-    private String getInput(String s) {
+    public String getInput(String s) {
         System.out.print(s);
         return input.next();
     }
@@ -41,7 +41,7 @@ public class InputManager {
         }
     }
 
-    private <T> T selectItem(List<T> items){
+    <T> T selectItem(List<T> items){
         if(items.size() == 0){ return null; }
         else if(items.size() == 1){ return items.get(0); }
 
@@ -67,69 +67,8 @@ public class InputManager {
         return items.get(index-1);
     }
 
-    private void managerScreen(BankManager manager){
-        System.out.println("Logged in as manager!");
-        //TODO: complete this method
-    }
-
     private void accountScreen(Account account){
         //TODO: complete this method
-    }
-    private void managerSettings(BankManager manager){
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Password", "Exit"
-        ));
-        System.out.println("Select an option");
-        String action = selectItem(options);
-        if(action.equals("Exit")){
-            return;
-        }
-        String value = getInput("Specify a new "+action);
-        switch (action){
-            case "Password": manager.setPassword(value); break;
-        }
-        System.out.println("Set new "+action+" to "+value);
-    }
-
-    private void clientSettings(Client client){
-        List<String> options = new ArrayList<>(Arrays.asList(
-            "Phone Number", "Email", "Password", "Exit"
-        ));
-        System.out.println("Select an option");
-        String action = selectItem(options);
-        if(action.equals("Exit")){
-            return;
-        }
-        String value = getInput("Specify a new "+action);
-        switch (action){
-            case "Phone Number": client.setPhoneNumber(value); break;
-            case "Email": client.setEmail(value); break;
-            case "Password": client.setPassword(value); break;
-        }
-        System.out.println("Set new "+action+" to "+value);
-    }
-
-    private void clientScreen(Client client){
-        System.out.println("Logged in as "+client.getName());
-        while (true){
-            System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList(
-                "Accounts", "Settings", "Exit"
-            ));
-            String action = selectItem(options);
-            switch (action){
-                case "Exit": return;
-                case "Settings": clientSettings(client); break;
-                case "Accounts":
-                default:
-                    Account account = selectItem(client.getClientsAccounts());
-                    if (account != null) {
-                        accountScreen(account);
-                    }
-                    break;
-            }
-
-        }
     }
 
     public void mainLoop(){
@@ -137,11 +76,7 @@ public class InputManager {
         while(!exit) {
             // userIsClient = isUserClient();
             BankMachineUser user = logIn();
-            if (user instanceof BankManager){
-                managerScreen((BankManager) user);
-            } else if(user instanceof Client){
-                clientScreen((Client) user);
-            }
+            user.handleInput(this);
         }
     }
     // Display when there are multiple choices
