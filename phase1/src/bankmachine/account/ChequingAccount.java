@@ -53,9 +53,7 @@ public class ChequingAccount extends AssetAccount {
                 || this.balance - amount < -100*overdrawLimit));
     }
 
-    public boolean payBill (int amount){ return transferOut(amount); }
-
-    public boolean withdraw(int amount) throws Exception{
+    public boolean withdraw(int amount) {
         boolean canTransfer = canTransferOut(amount);
         boolean withdraw = false;
         if (canTransfer) {

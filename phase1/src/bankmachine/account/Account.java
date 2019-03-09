@@ -3,6 +3,7 @@ package bankmachine.account;
 import bankmachine.Client;
 import bankmachine.Identifiable;
 import bankmachine.Transaction;
+import bankmachine.fileManager.WriteFile;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -81,12 +82,34 @@ public abstract class Account implements Serializable, Identifiable {
      * @return always true
      */
     public abstract boolean transferOut(int amount);
-    public boolean payBill(int amount) { return transferOut(amount); }
+    public boolean payBill(int amount) {
+        boolean status = transferOut(amount);
+        if (!status){ return false; }
+
+        WriteFile out = new WriteFile("outgoing.txt");
+        out.writeData(
+            client.getName() + " paid a bill of $" + (amount/100),
+            true
+        );
+        return true;
+    }
+    public boolean deposit(int amount) {
+        boolean status = transferIn(amount);
+        if (!status){ return false; }
+
+        WriteFile out = new WriteFile("deposits.txt");
+        out.writeData(
+            client.getName() + " deposited $" + (amount/100),
+            true
+        );
+        return true;
+    }
     //TODO: decide if we want the withdraw method here or only in chequing
     //public boolean withdraw(int amount){ return transferOut(amount); }
     abstract public String toString();
 
-    public boolean payBill(double amount) { return transferOut((int)(amount*100)); }
+    public boolean payBill(double amount) { return payBill((int)(amount*100)); }
+    public boolean deposit(double amount) { return deposit((int)(amount*100)); }
     //public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
 
     public boolean transferIn(Account acc, double amount){
