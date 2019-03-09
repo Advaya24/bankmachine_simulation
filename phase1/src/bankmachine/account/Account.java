@@ -120,7 +120,8 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     public boolean payBill(double amount) { return payBill((int)(amount*100)); }
     public boolean deposit(double amount) { return deposit((int)(amount*100)); }
     public boolean withdraw(double amount){ return withdraw((int)(amount*100)); }
-    abstract boolean canTransferOut(int amount);
+    public boolean canTransferOut(double amount){ return canTransferOut((int)(amount*100));}
+    abstract public boolean canTransferOut(int amount);
     public boolean transferIn(Account acc, double amount){
         return this.transferIn(acc, (int)(amount*100));
     }

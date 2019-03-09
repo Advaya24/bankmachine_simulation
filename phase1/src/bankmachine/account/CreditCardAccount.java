@@ -17,7 +17,7 @@ public class CreditCardAccount extends DebtAccount{
     }
 
     @Override
-    boolean canTransferOut(int amount) { return false; }
+    public boolean canTransferOut(int amount) { return false; }
 
     @Override
     public boolean payBill(int amount) {

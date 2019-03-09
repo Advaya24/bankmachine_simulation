@@ -48,7 +48,7 @@ public class ChequingAccount extends AssetAccount {
      * @param amount to be transferred
      * @return true if and only if amount can be withdrawn
      */
-    boolean canTransferOut(int amount) {
+    public boolean canTransferOut(int amount) {
         return (!(amount < 0 || this.balance < 0
                 || this.balance - amount < -100*overdrawLimit));
     }

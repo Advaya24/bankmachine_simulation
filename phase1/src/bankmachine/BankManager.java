@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.Exceptions.TransactionIsBillPaymentException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
@@ -63,16 +64,27 @@ public class BankManager extends BankMachineUser {
      * @param transaction the Transaction that needs to be undone.
      * @return whether the action was successful or not.
      */
-    public boolean undoRecentTransaction(Transaction transaction){
-
-        // TODO: handle corner case where one of the accounts does not have enough balance
-        if(transaction.getType()==TransactionType.BILL) {
+    public boolean undoRecentTransaction(Transaction transaction) {
+        if (transaction.getType() == TransactionType.BILL) {
+            System.out.println("Error, you cannot undo a Bill Payment.");
             return false;
         }
         else {
-            transaction.getFrom().transferIn(transaction.getAmount());
-            transaction.getTo().transferOut(transaction.getAmount());
-            return true;
+            if (!transaction.getTo().canTransferOut(transaction.getAmount())) {
+                System.out.println("You cannot undo this transaction; the account doesn't have enough money!");
+                return false;
+            }
+            if (transaction.getTo() instanceof CreditCardAccount) {
+                System.out.println("You cannot undo this transaction; it was made to a Credit Card Account");
+                return false;
+            }
+            else {
+                transaction.getFrom().transferIn(transaction.getAmount());
+                transaction.getTo().transferOut(transaction.getAmount());
+                transaction.getFrom().getTransactions().remove(transaction);
+                transaction.getTo().getTransactions().remove(transaction);
+                return true;
+            }
         }
     }
 
