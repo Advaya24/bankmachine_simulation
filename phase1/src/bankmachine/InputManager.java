@@ -53,7 +53,7 @@ public class InputManager {
         int index;
         while(true){
             String number = getInput(new Object[]{
-                    "Enter a number from 1 to ", items.size(), ": "
+                "Enter a number from 1 to ", items.size(), ": "
             });
             try{
                 index = Integer.parseInt(number);
@@ -72,9 +72,64 @@ public class InputManager {
         //TODO: complete this method
     }
 
-    private void clientScreen(Client client){
-        System.out.println("Logged in as client!");
+    private void accountScreen(Account account){
         //TODO: complete this method
+    }
+    private void managerSettings(BankManager manager){
+        List<String> options = new ArrayList<>(Arrays.asList(
+                "Password", "Exit"
+        ));
+        System.out.println("Select an option");
+        String action = selectItem(options);
+        if(action.equals("Exit")){
+            return;
+        }
+        String value = getInput("Specify a new "+action);
+        switch (action){
+            case "Password": manager.setPassword(value); break;
+        }
+        System.out.println("Set new "+action+" to "+value);
+    }
+
+    private void clientSettings(Client client){
+        List<String> options = new ArrayList<>(Arrays.asList(
+            "Phone Number", "Email", "Password", "Exit"
+        ));
+        System.out.println("Select an option");
+        String action = selectItem(options);
+        if(action.equals("Exit")){
+            return;
+        }
+        String value = getInput("Specify a new "+action);
+        switch (action){
+            case "Phone Number": client.setPhoneNumber(value); break;
+            case "Email": client.setEmail(value); break;
+            case "Password": client.setPassword(value); break;
+        }
+        System.out.println("Set new "+action+" to "+value);
+    }
+
+    private void clientScreen(Client client){
+        System.out.println("Logged in as "+client.getName());
+        while (true){
+            System.out.println("Select an action");
+            List<String> options = new ArrayList<>(Arrays.asList(
+                "Accounts", "Settings", "Exit"
+            ));
+            String action = selectItem(options);
+            switch (action){
+                case "Exit": return;
+                case "Settings": clientSettings(client); break;
+                case "Accounts":
+                default:
+                    Account account = selectItem(client.getClientsAccounts());
+                    if (account != null) {
+                        accountScreen(account);
+                    }
+                    break;
+            }
+
+        }
     }
 
     public void mainLoop(){
