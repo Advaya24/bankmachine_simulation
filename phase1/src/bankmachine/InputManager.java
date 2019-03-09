@@ -19,7 +19,6 @@ public class InputManager {
     private Scanner input;
 
     public static void main(String[] args) {
-
         new InputManager().mainLoop();
     }
 
@@ -69,25 +68,26 @@ public class InputManager {
         return items.get(index-1);
     }
 
+    private void managerScreen(BankManager manager){
+        System.out.println("Logged in as manager!");
+        //TODO: complete this method
+    }
+
+    private void clientScreen(Client client){
+        System.out.println("Logged in as client!");
+        //TODO: complete this method
+    }
+
     public void mainLoop(){
         // Login page
         while(!exit) {
             // userIsClient = isUserClient();
             BankMachineUser user = logIn();
-            // TODO: choose and account
-            // TODO: choose a transaction
-            // TODO: note that the bank manager has the option of adding people and doing other things normal users cant...
-            // TODO: continue/exit
-
-           /* if (username.equals(a) && password.equals(b)){
-                System.out.println("Welcome!");
-                selectItemTest();
-                selectActionTest();
-                System.out.println("Goodbye");
-                exit = true;
-            } else {
-                System.out.println("Incorrect username/password");
-            }*/
+            if (user instanceof BankManager){
+                managerScreen((BankManager) user);
+            } else if(user instanceof Client){
+                clientScreen((Client) user);
+            }
         }
     }
     // Display when there are multiple choices
