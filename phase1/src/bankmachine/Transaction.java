@@ -9,7 +9,7 @@ import java.util.List;
 /** Represents a Transaction within the system.
  * This class does not actually have any methods; it just is a container for information.**/
 // Person working on this: Varun
-public class Transaction implements Serializable {
+public class Transaction implements Serializable, Identifiable {
     /**The amount of money involve in this transaction**/
     private double amount;
     /**The account this transaction was made from**/
@@ -20,19 +20,16 @@ public class Transaction implements Serializable {
     private LocalDateTime transactionDate;
     /**The type of transaction made**/
     private TransactionType transactionType;
-    /**A static field to allow us to give unique IDS to all transactions within the system.**/
-    static int numTransactions = 0;
-    /** The unique ID of this transaction **/
-    private int ID;
+    /**The id of this transaction**/
+    private int id;
 
-    public Transaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
+    public Transaction(int id, double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
         this.amount=amount;
         transactionMadeFrom = from;
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
-        numTransactions++;
-        ID = numTransactions;
+        this.id = id;
     }
     /** All the getters**/
     public double getAmount(){
@@ -51,7 +48,7 @@ public class Transaction implements Serializable {
         return transactionType;
     }
     public int getID(){
-        return ID;
+        return id;
     }
 
     /** All the setters **/

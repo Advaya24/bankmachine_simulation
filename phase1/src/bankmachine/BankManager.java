@@ -1,6 +1,6 @@
 package bankmachine;
 
-import bankmachine.Exceptions.TransactionIsBillPaymentException;
+import bankmachine.exceptions.TransactionIsBillPaymentException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
