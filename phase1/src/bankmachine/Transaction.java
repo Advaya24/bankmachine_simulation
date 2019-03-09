@@ -1,10 +1,9 @@
 package bankmachine;
 import bankmachine.account.Account;
+import bankmachine.account.CreditCardAccount;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /** Represents a Transaction within the system.
  * This class does not actually have any methods; it just is a container for information.**/
@@ -66,5 +65,25 @@ public class Transaction implements Serializable, Identifiable {
     }
     public void setType(TransactionType new_type){
         transactionType = new_type;
+    }
+
+    /**
+     * Performs the transaction between the two Accounts
+     * @return true iff the transaction is successful
+     */
+    public boolean performTransaction(){
+        if (!getFrom().canTransferOut(getAmount())) {
+            System.out.println("You cannot do this transaction; the account doesn't have enough money!");
+            return false;
+        }
+        if (getFrom() instanceof CreditCardAccount) {
+            System.out.println("You cannot do this transaction; it was made from a Credit Card Account");
+            return false;
+        }
+        else {
+            getTo().transferIn(getAmount());
+            getFrom().transferOut(getAmount());
+            return true;
+        }
     }
 }
