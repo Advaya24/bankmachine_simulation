@@ -11,28 +11,29 @@ import java.time.*;
 public class TimeInfo {
 
     private long offset;
-    /* Last monthyl execution */
+    /* Last monthly execution */
     private int lastMonth;
 
-    private static final String file = "time.txt";
+    /* The filename for the file where the data for time is stored */
+    private static final String filename = "time.txt";
 
     public TimeInfo(){
-        String file_data;
+        String dataFileName;
         try{
-            ReadFile time_input = new ReadFile(file);
-            file_data = time_input.getData();
+            ReadFile time_input = new ReadFile(filename);
+            dataFileName = time_input.getData();
         } catch(IOException e){
             offset = lastMonth = 0;
             return;
         }
-        String[] split_times = file_data.split("\n");
+        String[] splitTimes = dataFileName.split("\n");
         try{
-            offset = Long.parseLong(split_times[0]);
+            offset = Long.parseLong(splitTimes[0]);
         } catch (NumberFormatException e){
             offset = 0;
         }
         try{
-            lastMonth = Integer.parseInt(split_times[1]);
+            lastMonth = Integer.parseInt(splitTimes[1]);
         } catch (NumberFormatException e){
             lastMonth = 0;
         }
@@ -44,8 +45,8 @@ public class TimeInfo {
     }
 
     public void saveFile(){
-        WriteFile output_date = new WriteFile(file);
-        output_date.writeData(getSavableString(), false);
+        WriteFile outputDate = new WriteFile(filename);
+        outputDate.writeData(getSavableString(), false);
     }
 
     //Set Time method. Only used once -> when Bank Manager sets initial time of ATM.
