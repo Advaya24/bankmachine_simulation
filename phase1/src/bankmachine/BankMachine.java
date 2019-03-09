@@ -27,8 +27,6 @@ public class BankMachine {
         timeInfo.setLastMonth(currMonth);
     }
 
-    void executeEveryDay() {
-    }
     /** A Manager Object for all the bills of the various denominations within the system.*/
     private static BillManager billManager;
 
