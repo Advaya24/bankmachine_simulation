@@ -11,7 +11,7 @@ import java.time.*;
 public class TimeInfo {
 
     private long offset;
-    /* Last monthyl execution */
+    /* Last monthly execution */
     private int lastMonth;
 
     private static final String file = "time.txt";
