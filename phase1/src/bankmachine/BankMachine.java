@@ -11,13 +11,14 @@ import java.io.File;
 public class BankMachine {
     final public static String DATA_PATH = findDataPath();
     final public static TimeInfo timeInfo = new TimeInfo();
-    final public static UserManager USER_MANAGER = new UserManager(DATA_PATH+"/clientData.ser");
+    final public static UserManager USER_MANAGER = new UserManager(DATA_PATH + "/clientData.ser");
     final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
     final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
+
     private static void executeEveryMonth() {
         int oldmonth = timeInfo.getLastMonth();
         int currmonth = timeInfo.getCurrentMonth();
-        if (currmonth != oldmonth && timeInfo.getTime().getDayOfMonth()==1) {
+        if (currmonth != oldmonth && timeInfo.getTime().getDayOfMonth() == 1) {
             for (Account a : accFactory.getInstances()) {
                 if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
@@ -27,9 +28,9 @@ public class BankMachine {
         timeInfo.setLastMonth(currmonth);
     }
 
-    void executeEveryDay() {
-    }
-    /** A Manager Object for all the bills of the various denominations within the system.*/
+    /**
+     * A Manager Object for all the bills of the various denominations within the system.
+     */
     private static BillManager billManager;
 
     public static void main(String[] args) {
@@ -47,10 +48,16 @@ public class BankMachine {
     public static BillManager getBillManager() {
         return billManager;
     }
+
     public static TimeInfo getTimeInfo() {
         return timeInfo;
     }
 
+    /**
+     * Finds the absolute location of the data directory inside fileManager
+     *
+     * @return the absolute path for the data directory
+     */
     public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
         fileSearcher.setFileNameToSearch("fileManager");
