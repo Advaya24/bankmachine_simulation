@@ -17,7 +17,7 @@ public class BankMachine {
     private static void executeEveryMonth() {
         int oldmonth = timeInfo.getLastMonth();
         int currmonth = timeInfo.getCurrentMonth();
-        if (currmonth != oldmonth) {
+        if (currmonth != oldmonth && timeInfo.getTime().getDayOfMonth()==1) {
             for (Account a : accFactory.getInstances()) {
                 if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
