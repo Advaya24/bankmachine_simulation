@@ -14,7 +14,7 @@ public class InputManager {
         "^[a-zA-Z0-9.\\-_]+@[a-zA-Z0-9.\\-_]+\\.[a-zA-Z]{2,3}$"
     );
     private Pattern phoneRe = Pattern.compile(
-        "^\\(?^\\d{3}$\\)?-\\d{3}-\\d{4}$"
+        "^\\(?\\d{3}\\)?-\\d{3}-\\d{4}$"
     );
     private Pattern doubleRe = Pattern.compile(
         "^\\d+\\.\\d{2}$"
@@ -74,12 +74,12 @@ public class InputManager {
     // Prompts for input
     public String getInput(String s) {
         System.out.print(s);
-        return input.next();
+        return input.nextLine();
     }
 
     private String getInput(Object[] objects){
         printObjects(objects);
-        return input.next();
+        return input.nextLine();
     }
     private void printObjects(Object[] objects){
         for (Object o:objects){

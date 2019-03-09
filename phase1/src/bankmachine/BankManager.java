@@ -113,6 +113,10 @@ public class BankManager extends BankMachineUser {
             }
         }
         System.out.println("Select a client");
+        if(clients.size() == 0){
+            System.out.println("There are no clients!");
+            return;
+        }
         Client client = m.selectItem(clients);
         List<String> accTypes = new ArrayList<>(Arrays.asList(
                 "Chequing account", "Credit card account",
@@ -133,12 +137,12 @@ public class BankManager extends BankMachineUser {
      *
      * @param m the input manager handling this
      */
-    private void inputCreateClient(InputManager m) {
-        String name = m.getInput("Enter a name");
-        String username = m.getInput("Enter a username");
+    private void inputCreateClient(InputManager m){
+        String name = m.getInput("Enter a name: ");
+        String username = m.getInput("Enter a username: ");
         String phone = m.getPhone();
         String email = m.getEmail();
-        String pwd = m.getInput("Enter a password");
+        String pwd = m.getInput("Enter a password: ");
         BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
     }
 
