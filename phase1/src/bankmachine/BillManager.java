@@ -16,11 +16,9 @@ public class BillManager {
             put(20, 0);
             put(50, 0);
         }
-
     };
 
-    public BillManager(){
-    }
+    public BillManager(){}
 
     public HashMap<Integer, Integer> getBills() {
         return bills;
@@ -57,6 +55,7 @@ public class BillManager {
         for (int i : bills.keySet()) {
             temporaryBills.put(i, bills.get(i));
         }
+
         int[] denominations = {50, 20, 10, 5};
         //Cycle through denominations in decreasing order.
         for (int i : denominations) {
@@ -94,6 +93,5 @@ public class BillManager {
         } else {
             out.writeData("This bank machine has enough bills of each denomination.", false);
         }
-
     }
 }
