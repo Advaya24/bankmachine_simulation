@@ -96,6 +96,11 @@ public abstract class BankMachineUser extends Observable implements Serializable
         password = new_password;
     }
 
+    /**
+     * Presents setting options for the user
+     *
+     * @param m the input manager that handles this
+     */
     protected void userSettings(InputManager m) {
         List<String> options = new ArrayList<>(Arrays.asList(
                 "Phone Number", "Email", "Password", "Exit"
