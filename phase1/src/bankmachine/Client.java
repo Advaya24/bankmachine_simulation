@@ -114,10 +114,10 @@ public class Client extends BankMachineUser {
         double asset =0;
         for (Account a: clientsAccounts){
             if(a instanceof DebtAccount){
-                debt+=a.getBalance();
+                debt+=a.getDoubleBalance();
             }
             else if(a instanceof AssetAccount){
-                asset+=a.getBalance();
+                asset+=a.getDoubleBalance();
             }
         }
         return asset-debt;

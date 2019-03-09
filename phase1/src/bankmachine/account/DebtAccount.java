@@ -23,4 +23,14 @@ public abstract class DebtAccount extends Account{
         this.balance -= amount;
         return true;
     }
+
+    @Override
+    public int getBalance(){
+        return -balance;
+    }
+
+    @Override
+    public double getDoubleBalance(){
+        return -balance/100.0;
+    }
 }
