@@ -127,13 +127,21 @@ public class BankManager extends BankMachineUser {
         BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
     }
 
+    private void inputAddBills(InputManager m){
+        int denominations[] = {5, 10, 20, 50};
+        for(int i:denominations){
+            int quantity = m.getInteger("How many "+i+"s? ");
+            BankMachine.getBillManager().addBills(i, quantity);
+        }
+    }
+
     @Override
     public void handleInput(InputManager m) {
         System.out.println("Logged in as manager "+getName());
         while (true){
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
-                    "Create Account", "Create Client", "Settings", "Exit"
+                    "Create Account", "Create Client", "Add Bills", "Settings", "Exit"
             ));
             String action = m.selectItem(options);
             switch (action){
@@ -141,6 +149,7 @@ public class BankManager extends BankMachineUser {
                 case "Settings": userSettings(m); break;
                 case "Create Account": inputCreateAccount(m); break;
                 case "Create Client": inputCreateClient(m); break;
+                case "Add Bills": inputAddBills(m); break;
                 default: break;
             }
         }
