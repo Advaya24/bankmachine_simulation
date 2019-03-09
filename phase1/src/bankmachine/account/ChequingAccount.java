@@ -48,18 +48,9 @@ public class ChequingAccount extends AssetAccount {
      * @param amount to be transferred
      * @return true if and only if amount can be withdrawn
      */
-    private boolean canTransferOut(int amount) {
+    boolean canTransferOut(int amount) {
         return (!(amount < 0 || this.balance < 0
                 || this.balance - amount < -100*overdrawLimit));
-    }
-
-    public boolean withdraw(int amount) {
-        boolean canTransfer = canTransferOut(amount);
-        boolean withdraw = false;
-        if (canTransfer) {
-            withdraw = BankMachine.getBillManager().withdrawBills(amount);
-        }
-        return withdraw && transferOut(amount);
     }
 
     public String toString(){

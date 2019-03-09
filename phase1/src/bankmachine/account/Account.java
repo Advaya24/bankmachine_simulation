@@ -1,5 +1,6 @@
 package bankmachine.account;
 
+import bankmachine.BankMachine;
 import bankmachine.Client;
 import bankmachine.Identifiable;
 import bankmachine.Transaction;
@@ -14,7 +15,6 @@ import java.util.List;
 /**
  * An account containing a balance
  */
-//TODO: Check Account class hierarchy and possibly move things out of Account
 public abstract class Account implements Serializable, Identifiable {
     /* The current balance of the account, in cents*/
     protected int balance;
@@ -81,7 +81,13 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount to remove
      * @return always true
      */
-    public abstract boolean transferOut(int amount);
+    public boolean transferOut(int amount){
+        if (canTransferOut(amount)){
+            balance -= amount;
+            return true;
+        }
+        return false;
+    };
     public boolean payBill(int amount) {
         boolean status = transferOut(amount);
         if (!status){ return false; }
@@ -104,23 +110,27 @@ public abstract class Account implements Serializable, Identifiable {
         );
         return true;
     }
-    //TODO: decide if we want the withdraw method here or only in chequing
-    //public boolean withdraw(int amount){ return transferOut(amount); }
+    public boolean withdraw(int amount) {
+        boolean canTransfer = canTransferOut(amount);
+        boolean withdraw = false;
+        if (canTransfer) {
+            withdraw = BankMachine.getBillManager().withdrawBills(amount);
+        }
+        return withdraw && transferOut(amount);
+    }
     abstract public String toString();
 
     public boolean payBill(double amount) { return payBill((int)(amount*100)); }
     public boolean deposit(double amount) { return deposit((int)(amount*100)); }
-    //public boolean withdraw(double amount){ return transferOut((int)(amount*100)); }
-
+    public boolean withdraw(double amount){ return withdraw((int)(amount*100)); }
+    abstract boolean canTransferOut(int amount);
     public boolean transferIn(Account acc, double amount){
         return this.transferIn(acc, (int)(amount*100));
     }
     public boolean transferIn(double amount){
         return this.transferIn((int)(amount*100));
     }
-    public boolean transferOut(Account acc, double amount){
-        return this.transferOut(acc, (int)(amount*100));
-    }
+    public boolean transferOut(Account acc, double amount){ return this.transferOut(acc, (int)(amount*100)); }
     public boolean transferOut(double amount){
         return this.transferOut((int)(amount*100));
     }
@@ -130,7 +140,6 @@ public abstract class Account implements Serializable, Identifiable {
     public double getDoubleBalance() {
         return balance/100.0;
     }
-    //TODO: Make a getTransactionList class
     public ArrayList<Transaction> getTransactions(){
         return transactions;
     }
