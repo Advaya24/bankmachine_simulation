@@ -11,4 +11,4 @@ TODOS for today:
 [ ] Finalise UML diagram
 [Lorenzo] Check specification one more time
 [Hans] Input and output
-[Hans] Remove the static member fields in Account and Transaction
+[X] Remove the static member fields in Account and Transaction
