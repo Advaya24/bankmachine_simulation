@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class TransactionFactory {
+public class TransactionFactory extends TrackingFactory<Transaction>{
     List<Transaction> transactions = new ArrayList<>();
 
     public TransactionFactory(AccountFactory accounts){
@@ -29,16 +29,12 @@ public class TransactionFactory {
      * @param transactions list of transactions to add
      */
     public void extend(List<Transaction> transactions){
-        for (Transaction t : transactions){
-            if(!this.transactions.contains(t)){
-                this.transactions.add(t);
-            }
-        }
+        super.extend(transactions);
         this.transactions.sort(new CompareByDate());
     }
     public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
-        Transaction t = new Transaction(amount, from, to, datetime, type);
-        transactions.add(t);
+        Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
+        addInstance(t);
         return t;
     }
 }

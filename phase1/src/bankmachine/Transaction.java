@@ -1,15 +1,14 @@
 package bankmachine;
 import bankmachine.account.Account;
+import bankmachine.account.CreditCardAccount;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /** Represents a Transaction within the system.
  * This class does not actually have any methods; it just is a container for information.**/
 // Person working on this: Varun
-public class Transaction implements Serializable {
+public class Transaction implements Serializable, Identifiable {
     /**The amount of money involve in this transaction**/
     private double amount;
     /**The account this transaction was made from**/
@@ -20,19 +19,16 @@ public class Transaction implements Serializable {
     private LocalDateTime transactionDate;
     /**The type of transaction made**/
     private TransactionType transactionType;
-    /**A static field to allow us to give unique IDS to all transactions within the system.**/
-    static int numTransactions = 0;
-    /** The unique ID of this transaction **/
-    private int ID;
+    /**The id of this transaction**/
+    private int id;
 
-    public Transaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
+    public Transaction(int id, double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
         this.amount=amount;
         transactionMadeFrom = from;
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
-        numTransactions++;
-        ID = numTransactions;
+        this.id = id;
     }
     /** All the getters**/
     public double getAmount(){
@@ -51,7 +47,7 @@ public class Transaction implements Serializable {
         return transactionType;
     }
     public int getID(){
-        return ID;
+        return id;
     }
 
     /** All the setters **/
@@ -69,5 +65,25 @@ public class Transaction implements Serializable {
     }
     public void setType(TransactionType new_type){
         transactionType = new_type;
+    }
+
+    /**
+     * Performs the transaction between the two Accounts
+     * @return true iff the transaction is successful
+     */
+    public boolean performTransaction(){
+        if (!getFrom().canTransferOut(getAmount())) {
+            System.out.println("You cannot do this transaction; the account doesn't have enough money!");
+            return false;
+        }
+        if (getFrom() instanceof CreditCardAccount) {
+            System.out.println("You cannot do this transaction; it was made from a Credit Card Account");
+            return false;
+        }
+        else {
+            getTo().transferIn(getAmount());
+            getFrom().transferOut(getAmount());
+            return true;
+        }
     }
 }
