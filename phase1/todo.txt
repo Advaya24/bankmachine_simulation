@@ -2,7 +2,7 @@
 
 TODOS for today:
 [X] Make undoTransaction work properly
-[ ] Let all accounts owned by a user be displayed
+[X] Let all accounts owned by a user be displayed
 [ ] Finalise what each account does
 [Phase 2] Add a notification system so that Bank Managers can create accounts for users (requestAccountCreation)
 [X] See that deposits.txt has the required functionality
