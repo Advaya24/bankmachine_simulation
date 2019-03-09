@@ -6,9 +6,13 @@ import java.util.List;
 
 public class FileSearcher {
 
-    /* Name of the file to search */
+    /**
+     * Name of the file to search
+     */
     private String fileNameToSearch;
-    /* List of strings giving paths for the required file */
+    /**
+     * List of strings giving paths for the required file
+     */
     private List<String> result = new ArrayList<>(1);
 
     public String getFileNameToSearch() {

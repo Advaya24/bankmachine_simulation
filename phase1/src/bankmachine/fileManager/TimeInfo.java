@@ -11,10 +11,14 @@ import java.time.*;
 public class TimeInfo {
 
     private long offset;
-    /* Last monthly execution */
+    /**
+     * Last monthly execution
+     */
     private int lastMonth;
 
-    /* The filename for the file where the data for time is stored */
+    /**
+     * The filename for the file where the data for time is stored
+     */
     private static final String filename = "time.txt";
 
     public TimeInfo() {
