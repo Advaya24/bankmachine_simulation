@@ -2,13 +2,13 @@
 
 TODOS for today:
 [X] Make undoTransaction work properly
-[ ] Let all accounts owned by a user be displayed
+[X] Let all accounts owned by a user be displayed
 [ ] Finalise what each account does
 [Phase 2] Add a notification system so that Bank Managers can create accounts for users (requestAccountCreation)
 [X] See that deposits.txt has the required functionality
 [Phase 2] Maybe add a logging system?
 [Advaya] Document everything properly
 [ ] Finalise UML diagram
-[ ] Check specification one more time
+[Lorenzo] Check specification one more time
 [Hans] Input and output
 [Hans] Remove the static member fields in Account and Transaction

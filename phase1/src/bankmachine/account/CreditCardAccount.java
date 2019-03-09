@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * A credit card account where it is not possible to transfer out
- * but it is possible to transfer in, withdraw an pay bills
+ * but it is possible to transfer in, withdraw and pay bills
  */
 public class CreditCardAccount extends DebtAccount{
     public CreditCardAccount(int id, int balance, Client client, LocalDateTime creationDate) {
