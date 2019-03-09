@@ -2,6 +2,7 @@ package bankmachine.fileManager;
 
 import bankmachine.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Main {
@@ -10,7 +11,7 @@ public class Main {
         // Auto-constructor added for good practice
     }
 
-    public static void main(String[] args) throws Exception { //Main method to test read / write of files
+    public static void main(String[] args) throws IOException{ //Main method to test read / write of files
 
         //File does not exist exception test
 //        String exception_test = "DNE.txt";

@@ -79,7 +79,7 @@ public class BankManager extends BankMachineUser {
      * @param amount the number of bills being added.
      * @throws Exception //TODO: Help?
      */
-    public void addBills(int denomination, int amount) throws Exception {
+    public void addBills(int denomination, int amount) {
         BankMachine.getBillManager().addBills(denomination, amount);
     }
 }

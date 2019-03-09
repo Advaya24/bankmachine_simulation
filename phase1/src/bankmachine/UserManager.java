@@ -133,7 +133,7 @@ implements Observer{
         ArrayList<T> objects;
         try {
             objects = reader.read();
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             objects = new ArrayList<>();
         }
         return objects;

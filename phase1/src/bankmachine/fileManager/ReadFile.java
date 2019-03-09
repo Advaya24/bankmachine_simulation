@@ -2,6 +2,7 @@ package bankmachine.fileManager;
 import bankmachine.BankMachine;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.io.FileReader;
 
@@ -16,16 +17,10 @@ public class ReadFile implements FileManager {
     /** Constructor for ReadFile class. Obtains filename attribute and sets file to the file in that path.
      *
      * @param filename Target filename for reading
-     * @throws Exception throws NullPointerException if file in directory points to null
+     * @throws NullPointerException throws NullPointerException if file in directory points to null
      */
-    public ReadFile(String filename) throws NullPointerException { // Constructor for ReadFile
-
-        try {
-            this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
-        } catch  (NullPointerException e){
-            throw new NullPointerException("File not found!");
-        }
-
+    public ReadFile(String filename)  { // Constructor for ReadFile
+        this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
     }
 
     public ReadFile() { // Alternate Constructor for ReadFile if no filename is passed in sets file to null
@@ -63,17 +58,13 @@ public class ReadFile implements FileManager {
 
     /** Method that obtains data in target file.
      * @return Returns data as string.
-     * @throws Exception FileNotFoundException if file does not exist and method is called.
+     * @throws IOException if file does not exist and method is called.
      */
-    public String getData() throws Exception {
+    public String getData() throws IOException {
 
         StringBuilder str = new StringBuilder(); // Initializes the output string for the data.
-
-        try{
-            // Assigns file_reader variable to FileReader object of target file
-            FileReader file_reader = new FileReader(file);
-
-            // Variable needed to cycle through stream of characters (=0)
+        // Assigns file_reader variable to FileReader object of target file
+        try (FileReader file_reader = new FileReader(file)) {// Variable needed to cycle through stream of characters (=0)
             int end_of_stream;
 
             // Loop to cycle through array of characters from file. End of file is reached when read() returns -1.
@@ -83,14 +74,8 @@ public class ReadFile implements FileManager {
 
             }
             // Closes file (important)
-            file_reader.close();
+
             return str.toString();
-        } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("File not found!");
         }
-
-
-
     }
-
 }

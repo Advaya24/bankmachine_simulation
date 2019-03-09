@@ -13,7 +13,7 @@ public class BillManagerTest {
     private BillManager billManager;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp(){
         this.billManager = new BillManager();
         //BillManager bankMachine = new BillManager();
         billManager.addBills(50, 20);
@@ -32,7 +32,7 @@ public class BillManagerTest {
     }
 
     @Test
-    public void testWithdrawBills() throws Exception {
+    public void testWithdrawBills() {
         billManager.withdrawBills(80);
         //noinspection unchecked
         bills = billManager.getBills();

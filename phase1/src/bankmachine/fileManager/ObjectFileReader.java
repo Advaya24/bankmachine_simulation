@@ -40,7 +40,7 @@ public class ObjectFileReader<T extends Serializable> {
                     inputStream.close();
                 }
                 fileIn.close();
-            } catch (IOException | NullPointerException e) {
+            } catch (IOException e) {
                 return new ArrayList<>();
             }
             return arrayList;

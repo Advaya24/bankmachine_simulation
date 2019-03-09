@@ -1,6 +1,9 @@
 package bankmachine.fileManager;
 
 
+import org.mockito.internal.matchers.Null;
+
+import java.io.IOException;
 import java.time.temporal.ChronoUnit;
 import java.time.*;
 
@@ -18,19 +21,19 @@ public class TimeInfo {
         try{
             ReadFile time_input = new ReadFile(file);
             file_data = time_input.getData();
-        } catch(Exception e){
+        } catch(IOException e){
             offset = lastMonth = 0;
             return;
         }
         String[] split_times = file_data.split("\n");
         try{
             offset = Long.parseLong(split_times[0]);
-        } catch (Exception e){
+        } catch (NumberFormatException e){
             offset = 0;
         }
         try{
             lastMonth = Integer.parseInt(split_times[1]);
-        } catch (Exception e){
+        } catch (NumberFormatException e){
             lastMonth = 0;
         }
         saveFile();
@@ -41,12 +44,8 @@ public class TimeInfo {
     }
 
     public void saveFile(){
-        try {
-            WriteFile output_date = new WriteFile(file);
-            output_date.writeData(getSavableString(), false);
-        } catch (Exception e){
-            return;
-        }
+        WriteFile output_date = new WriteFile(file);
+        output_date.writeData(getSavableString(), false);
     }
 
     //Set Time method. Only used once -> when Bank Manager sets initial time of ATM.

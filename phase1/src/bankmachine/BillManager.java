@@ -31,7 +31,7 @@ public class BillManager {
      * @param billType which denomination to add
      * @param quantity how many bills to add
      */
-    public void addBills(int billType, int quantity) throws Exception {
+    public void addBills(int billType, int quantity) {
         if (bills.containsKey(billType)) {
             bills.put(billType, bills.get(billType) + quantity);
         } else {
@@ -46,7 +46,7 @@ public class BillManager {
      * @param amount amount to be withdrawn.
      * @return true if and only if the amount was withdrawn.
      */
-    public boolean withdrawBills(int amount) throws Exception {
+    public boolean withdrawBills(int amount) {
         int amountLeft = amount;
         //Any withdrawal should be a multiple of 5.
         if (amountLeft % 5 != 0){
@@ -76,9 +76,8 @@ public class BillManager {
 
     /**
      * Function that writes to the alerts.txt file regarding whether the bank machine needs to be re-stocked.
-     * @throws Exception depending on WriteFile.
      */
-    private void updateAlert() throws Exception {
+    private void updateAlert() {
         StringBuilder warningMessage = new StringBuilder("WARNING: This bank machine currently has less than 20 bills of at least one denomination: \n");
         boolean hasChanged = false;
         for (int denomination : bills.keySet()) {
