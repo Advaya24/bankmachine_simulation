@@ -6,7 +6,6 @@ import java.util.*;
 
 public class InputManager {
 
-    // TODO: use static user managers
     private boolean exit = false;
     private boolean userIsClient = true;
     private UserManager authenticator = BankMachine.USER_MANAGER;

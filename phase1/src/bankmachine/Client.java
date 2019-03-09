@@ -91,8 +91,6 @@ public class Client extends BankMachineUser {
         }
     }
 
-    //TODO: method to request BankManager to create a new account
-
     /**
      * Returns the creation date of an account, if this user owns that account
      * @param account the account that we want the creation date of.
