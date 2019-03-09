@@ -11,7 +11,7 @@ import java.io.File;
 public class BankMachine {
     final public static String DATA_PATH = findDataPath();
     final public static TimeInfo timeInfo = new TimeInfo();
-    final public static UserManager USER_MANAGER = new UserManager("/clientData.ser");
+    final public static UserManager USER_MANAGER = new UserManager(DATA_PATH+"/clientData.ser");
     final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
     final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
     private static void executeEveryMonth() {

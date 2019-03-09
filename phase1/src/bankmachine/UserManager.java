@@ -16,6 +16,11 @@ implements Observer{
 
     public UserManager(String path){
         this.rootPath = path;
+        this.loadData();
+        if(this.users.size() == 0){
+            this.newManager("admin", "admin");
+            this.saveData();
+        }
     }
 
     public Client newClient(String name, String email, String phoneNumber, String username, String default_password){
@@ -120,17 +125,13 @@ implements Observer{
      * Loads data from a serialized file
      * @param file the file to load from
      */
-    public void loadData(String file){
-        List<BankMachineUser> clients = loadFile(file);
+    public void loadData(){
+        List<BankMachineUser> clients = loadFile();
         this.extend(clients);
     }
-    public void saveData(String file){
-        saveFile(file, new ArrayList<>(BankMachine.USER_MANAGER.getInstances()));
-    }
-    public <T extends Serializable> List<T> loadFile(String filename){
-        filename = rootPath + filename;
-        ObjectFileReader<T> reader = new ObjectFileReader<>(filename);
-        ArrayList<T> objects;
+    public List<BankMachineUser> loadFile(){
+        ObjectFileReader<BankMachineUser> reader = new ObjectFileReader<>(rootPath);
+        ArrayList<BankMachineUser> objects;
         try {
             objects = reader.read();
         } catch (RuntimeException e) {
@@ -139,10 +140,9 @@ implements Observer{
         return objects;
     }
 
-    public <T extends Serializable> void saveFile(String filename, List<T> data){
-        filename = rootPath + filename;
-        ObjectFileWriter<T> writer = new ObjectFileWriter<>(filename);
+    public void saveData(){
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(rootPath);
         writer.clear();
-        writer.writeAll(data);
+        writer.writeAll(this.getInstances());
     }
 }

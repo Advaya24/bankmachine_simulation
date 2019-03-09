@@ -26,7 +26,7 @@ public class UserManagerTest {
         fileSearcher.clearResults();
         fileSearcher.setFileNameToSearch("data");
         fileSearcher.searchForDirectoryIn(new File(TEST_PATH));
-        manager = new UserManager(fileSearcher.getResult().get(0));
+        manager = new UserManager(fileSearcher.getResult().get(0)+"/testClients.ser");
     }
 
     @Test
@@ -51,16 +51,22 @@ public class UserManagerTest {
                 "SanaeSmellsLikeOldSocks"
         );
 
-        List<Client> clients = new ArrayList<>();
+        List<BankMachineUser> clients = new ArrayList<>();
         clients.add(client);
         new SavingsAccount(0, 120, client, LocalDateTime.now());
         new SavingsAccount(1, 100, client, LocalDateTime.now());
         new SavingsAccount(2, 50, client, LocalDateTime.now());
-        manager.saveFile("/testClients.ser", clients);
-        clients = manager.loadFile("/testClients.ser");
+        manager.extend(clients);
+        manager.saveData();
+        clients = new ArrayList<>();
+        for(BankMachineUser b:manager.loadFile()){
+            if (b instanceof Client){
+                clients.add(b);
+            }
+        }
         assertEquals(1, clients.size());
 
-        List<Account> accounts = clients.get(0).getClientsAccounts();
+        List<Account> accounts = ((Client) clients.get(0)).getClientsAccounts();
         assertEquals(3, accounts.size());
         assertEquals(120, accounts.get(0).getBalance());
     }
