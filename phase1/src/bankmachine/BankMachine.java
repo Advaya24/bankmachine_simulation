@@ -42,7 +42,6 @@ public class BankMachine {
         } finally {
             USER_MANAGER.saveData();
         }
-
     }
 
     public static BillManager getBillManager() {
