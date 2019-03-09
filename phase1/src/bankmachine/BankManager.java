@@ -1,17 +1,13 @@
 package bankmachine;
-
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**A Bank Manager within the system**/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
 public class BankManager extends BankMachineUser {
-    public BankManager(int id, String username, String password) {
-        super(id, username, password);
+    public BankManager(int id, String name, String email, String phoneNumber, String username, String default_password) {
+        super(id,name,email, phoneNumber, username, default_password);
     }
 
     /**
@@ -63,16 +59,27 @@ public class BankManager extends BankMachineUser {
      * @param transaction the Transaction that needs to be undone.
      * @return whether the action was successful or not.
      */
-    public boolean undoRecentTransaction(Transaction transaction){
-
-        // TODO: handle corner case where one of the accounts does not have enough balance
-        if(transaction.getType()==TransactionType.BILL) {
+    public boolean undoRecentTransaction(Transaction transaction) {
+        if (transaction.getType() == TransactionType.BILL) {
+            System.out.println("Error, you cannot undo a Bill Payment.");
             return false;
         }
         else {
-            transaction.getFrom().transferIn(transaction.getAmount());
-            transaction.getTo().transferOut(transaction.getAmount());
-            return true;
+            if (!transaction.getTo().canTransferOut(transaction.getAmount())) {
+                System.out.println("You cannot undo this transaction; the account doesn't have enough money!");
+                return false;
+            }
+            if (transaction.getTo() instanceof CreditCardAccount) {
+                System.out.println("You cannot undo this transaction; it was made to a Credit Card Account");
+                return false;
+            }
+            else {
+                transaction.getFrom().transferIn(transaction.getAmount());
+                transaction.getTo().transferOut(transaction.getAmount());
+                transaction.getFrom().getTransactions().remove(transaction);
+                transaction.getTo().getTransactions().remove(transaction);
+                return true;
+            }
         }
     }
 
@@ -87,22 +94,8 @@ public class BankManager extends BankMachineUser {
 
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Logged in as manager!");
+        System.out.println("Logged in as manager");
         //TODO: complete this method
-    }
-    private void managerSettings(InputManager m){
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Password", "Exit"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
-        if(action.equals("Exit")){
-            return;
-        }
-        String value = m.getInput("Specify a new "+action);
-        switch (action){
-            case "Password": setPassword(value); break;
-        }
-        System.out.println("Set new "+action+" to "+value);
+
     }
 }

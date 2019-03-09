@@ -3,15 +3,49 @@ package bankmachine;
 import bankmachine.account.Account;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class InputManager {
 
     private boolean exit = false;
     private boolean userIsClient = true;
     private UserManager authenticator = BankMachine.USER_MANAGER;
+    private Pattern emailRe = Pattern.compile(
+        "^[a-zA-Z0-9.\\-_]+@[a-zA-Z0-9.\\-_]+\\.[a-zA-Z]{2,3}$"
+    );
+    private Pattern phoneRe = Pattern.compile(
+        "^\\(?^\\d{3}$\\)?-\\d{3}-\\d{4}$"
+    );
+    private Pattern doubleRe = Pattern.compile(
+        "^\\d+\\.\\d{2}$"
+    );
 
-    //    final private Authenticator<Client> clientManager = BankMachine.getClientManager();
-//    final private Authenticator<BankManager> bankManagerUserManager = BankMachine.getBankManagerUserManager();
+    private String getValue(Pattern p, String name){
+        while (true) {
+            String email = getInput("Please enter an "+name+": ");
+            if(p.matcher(email).matches()){
+                return email;
+            }
+            System.out.println("Invalid "+name);
+        }
+    }
+    public String getEmail() {
+        return getValue(emailRe, "email");
+    }
+    public String getPhone(){
+        return getValue(phoneRe, "phone number");
+    }
+    public double getMoney(){
+        while(true) {
+            String s = getValue(doubleRe, "amount");
+            try{
+                return Double.parseDouble(s);
+            } catch (NumberFormatException e){
+                System.out.println("Invalid amount");
+            }
+        }
+    }
+
 
     // You should make DATA_PATH a private variable
     private String fileManagerPath;
@@ -65,10 +99,6 @@ public class InputManager {
             }
         }
         return items.get(index-1);
-    }
-
-    private void accountScreen(Account account){
-        //TODO: complete this method
     }
 
     public void mainLoop(){
