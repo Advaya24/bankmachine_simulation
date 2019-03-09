@@ -6,8 +6,6 @@ import bankmachine.fileManager.WriteFile;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * An account containing a balance
@@ -15,10 +13,15 @@ import java.util.List;
 public abstract class Account implements Serializable, Identifiable, Inputtable {
     /* The current balance of the account, in cents*/
     protected int balance;
-    private int id;
+    /* The unique id for this account */
+    private final int id;
+    /* The client whose account this is */
     protected Client client;
+    /* The list of transactions made on this account */
     ArrayList<Transaction> transactions = new ArrayList<>();
+    /* The date of creation of this account */
     protected LocalDateTime creationDate;
+
     public Account(int id, int balance, Client client, LocalDateTime creationDate){
         client.addAccount(this);
         this.id = id;
@@ -65,7 +68,7 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     /**
      * Transfer money in
      * @param amount amount to add to balance
-     * @return always true
+     * @return true, if and only if amount is non-negative
      */
     boolean transferIn(int amount){
         if (amount < 0) { return false; }
@@ -84,7 +87,13 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
             return true;
         }
         return false;
-    };
+    }
+
+    /**
+     * Pays the bill using this account
+     * @param amount the amount to be payed
+     * @return
+     */
     public boolean payBill(int amount) {
         boolean status = transferOut(amount);
         if (!status){ return false; }
