@@ -15,16 +15,16 @@ public class BankMachine {
     final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
     final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
     private static void executeEveryMonth() {
-        int oldmonth = timeInfo.getLastMonth();
-        int currmonth = timeInfo.getCurrentMonth();
-        if (currmonth != oldmonth) {
+        int oldMonth = timeInfo.getLastMonth();
+        int currMonth = timeInfo.getCurrentMonth();
+        if (currMonth != oldMonth) {
             for (Account a : accFactory.getInstances()) {
                 if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
                 }
             }
         }
-        timeInfo.setLastMonth(currmonth);
+        timeInfo.setLastMonth(currMonth);
     }
 
     void executeEveryDay() {
