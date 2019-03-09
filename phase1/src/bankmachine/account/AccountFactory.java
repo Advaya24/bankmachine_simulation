@@ -4,7 +4,9 @@ import bankmachine.*;
 
 import java.time.LocalDateTime;
 
-/* Creates and stores accounts */
+/**
+ *  Creates and stores accounts
+ */
 public class AccountFactory extends TrackingFactory<Account> {
     public AccountFactory(UserManager users){
         for(BankMachineUser client : users.getInstances()){

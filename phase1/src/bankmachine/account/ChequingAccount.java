@@ -42,11 +42,10 @@ public class ChequingAccount extends AssetAccount {
         return true;
     }
 
-    // I had to add this method so that withdraw works nicely ~ Lorenzo
     /**
-     * Return whether it is possible to transfer money equivalent to amount out.
-     * @param amount to be transferred
-     * @return true if and only if amount can be withdrawn
+     * Indicates whether this account can transfer out the given amount
+     * @param amount the amount to be transferred out
+     * @return true iff this account can transfer out this amount
      */
     public boolean canTransferOut(int amount) {
         return (!(amount < 0 || this.balance < 0
@@ -62,6 +61,10 @@ public class ChequingAccount extends AssetAccount {
         return output;
     }
 
+    /**
+     * Indicates whether this is a primary account
+     * @return true iff this is a primary account
+     */
     public boolean isPrimary(){
         return primary;
     }
