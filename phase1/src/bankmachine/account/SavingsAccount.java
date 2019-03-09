@@ -8,7 +8,9 @@ import java.util.Date;
 
 /* Most behaviour is the same as account atm */
 public class SavingsAccount extends AssetAccount {
-    /* The interest that is applied when applyInterest() is called */
+    /**
+     * The interest that is applied when applyInterest() is called
+     */
     private double interestRate = 0.001;
 
     public SavingsAccount(int id, int balance, Client client, LocalDateTime creationDate) {

@@ -13,9 +13,13 @@ import java.util.Date;
  * An account for withdrawals and deposits
  */
 public class ChequingAccount extends AssetAccount {
-    /* Whether this is a primary account. Unused but here for now */
+    /**
+     * Whether this is a primary account. Unused but here for now
+     */
     private boolean primary = false;
-    /* Overdraw limit in dollars, currently fixed at 100, may change */
+    /**
+     * Overdraw limit in dollars, currently fixed at 100, may change
+     */
     private int overdrawLimit = 100;
 
 
