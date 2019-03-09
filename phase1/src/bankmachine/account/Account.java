@@ -11,15 +11,25 @@ import java.util.ArrayList;
  * An account containing a balance
  */
 public abstract class Account implements Serializable, Identifiable, Inputtable {
-    /* The current balance of the account, in cents*/
+    /**
+     * The current balance of the account, in cents
+     */
     protected int balance;
-    /* The unique id for this account */
+    /**
+     * The unique id for this account
+     */
     private final int id;
-    /* The client whose account this is */
+    /**
+     * The client whose account this is
+     */
     protected Client client;
-    /* The list of transactions made on this account */
+    /**
+     * The list of transactions made on this account
+     */
     ArrayList<Transaction> transactions = new ArrayList<>();
-    /* The date of creation of this account */
+    /**
+     * The date of creation of this account
+     */
     protected LocalDateTime creationDate;
 
     public Account(int id, int balance, Client client, LocalDateTime creationDate) {

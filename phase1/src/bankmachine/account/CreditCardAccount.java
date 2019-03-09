@@ -54,8 +54,14 @@ public class CreditCardAccount extends DebtAccount {
      */
     @Override
     public boolean withdraw(int amount) {
+        if (amount < 0){ return false; }
         boolean withdraw = BankMachine.getBillManager().withdrawBills(amount);
-        return withdraw && transferOut(amount);
+        if(withdraw){
+            changeBalance(-amount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**

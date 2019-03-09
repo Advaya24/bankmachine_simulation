@@ -45,7 +45,19 @@ public class InputManager {
             }
         }
     }
-
+    public int getInteger(String prompt){
+        while(true) {
+            int i;
+            try{
+                i = Integer.parseInt(getInput(prompt));
+            } catch (NumberFormatException e){
+                System.out.println("Invalid integer");
+                continue;
+            }
+            if (i<0) { System.out.println("Positive numbers only please"); }
+            else { return i; }
+        }
+    }
 
     // You should make DATA_PATH a private variable
     private String fileManagerPath;

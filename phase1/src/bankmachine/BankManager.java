@@ -2,6 +2,9 @@ package bankmachine;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**A Bank Manager within the system**/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
@@ -92,10 +95,64 @@ public class BankManager extends BankMachineUser {
         BankMachine.getBillManager().addBills(denomination, amount);
     }
 
+    private void inputCreateAccount(InputManager m){
+        List<Client> clients = new ArrayList<>();
+        for(BankMachineUser b:BankMachine.USER_MANAGER.getInstances()){
+            if(b instanceof Client){
+                clients.add((Client) b);
+            }
+        }
+        System.out.println("Select a client");
+        Client client = m.selectItem(clients);
+        List<String> accTypes = new ArrayList<>(Arrays.asList(
+            "Chequing account", "Credit card account",
+            "Line of credit account", "Savings account"
+        ));
+
+        while (true){
+            String selection = m.selectItem(accTypes);
+            if(createAccount(client, selection, LocalDateTime.now())){
+                System.out.println("Account created successfully");
+                return;
+            }
+        }
+    }
+
+    private void inputCreateClient(InputManager m){
+        String name = m.getInput("Enter a name");
+        String username = m.getInput("Enter a username");
+        String phone = m.getPhone();
+        String email = m.getEmail();
+        String pwd = m.getInput("Enter a password");
+        BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
+    }
+
+    private void inputAddBills(InputManager m){
+        int denominations[] = {5, 10, 20, 50};
+        for(int i:denominations){
+            int quantity = m.getInteger("How many "+i+"s? ");
+            BankMachine.getBillManager().addBills(i, quantity);
+        }
+    }
+
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Logged in as manager");
-        //TODO: complete this method
+        System.out.println("Logged in as manager "+getName());
+        while (true){
+            System.out.println("Select an action");
+            List<String> options = new ArrayList<>(Arrays.asList(
+                    "Create Account", "Create Client", "Add Bills", "Settings", "Exit"
+            ));
+            String action = m.selectItem(options);
+            switch (action){
+                case "Exit": return;
+                case "Settings": userSettings(m); break;
+                case "Create Account": inputCreateAccount(m); break;
+                case "Create Client": inputCreateClient(m); break;
+                case "Add Bills": inputAddBills(m); break;
+                default: break;
+            }
+        }
 
     }
 }

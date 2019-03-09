@@ -108,7 +108,7 @@ public class Client extends BankMachineUser {
 
     @Override
     public void handleInput(InputManager m){
-        System.out.println("Logged in as "+getName());
+        System.out.println("Logged in as client "+getName());
         while (true){
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
@@ -117,32 +117,16 @@ public class Client extends BankMachineUser {
             String action = m.selectItem(options);
             switch (action){
                 case "Exit": return;
-                case "Settings": clientSettings(m); break;
-                case "Accounts": printAccountSummary();
+                case "Settings": userSettings(m); break;
+                case "Accounts":
                 default:
+                    printAccountSummary();
                     Account account = m.selectItem(getClientsAccounts());
                     account.handleInput(m);
                     break;
             }
-
         }
     }
 
-    private void clientSettings(InputManager m){
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Phone Number", "Email", "Password", "Exit"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
-        if(action.equals("Exit")){
-            return;
-        }
-        String value = m.getInput("Specify a new "+action);
-        switch (action){
-            case "Phone Number": setPhoneNumber(value); break;
-            case "Email": setEmail(value); break;
-            case "Password": setPassword(value); break;
-        }
-        System.out.println("Set new "+action+" to "+value);
-    }
+
 }
