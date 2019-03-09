@@ -11,46 +11,16 @@ import java.util.List;
 // Person working on this: Varun
     //TODO: Yeet everything up to BankMachineUser
 public class Client extends BankMachineUser {
-    /**Name of this Client**/
-    private String name;
     /**All the accounts this Client has**/
     private ArrayList<Account> clientsAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
-    /**Primary email address of this Client**/
-    private String email;
-    /**This Client's Phone Number**/
-    private String phoneNumber;
-
     public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
-        super(id, username, default_password);
-        this.name = name;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-
+        super(id,name,email, phoneNumber, username, default_password);
     }
 
     /**All the getters for this class' private variables:**/
-    public String getName(){
-        return name;
-    }
+
     public ArrayList<Account> getClientsAccounts(){
         return clientsAccounts;
-    }
-    public String getEmail(){
-        return email;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    /**All the setters for this class' private variables:**/
-    public void setName(String new_name){
-        name = new_name;
-    }
-    public void setEmail(String new_email){
-        email = new_email;
-    }
-    public void setPhoneNumber(String new_phoneNumber) {
-        phoneNumber = new_phoneNumber;
     }
 
     /**
@@ -148,7 +118,7 @@ public class Client extends BankMachineUser {
             switch (action){
                 case "Exit": return;
                 case "Settings": clientSettings(m); break;
-                case "Accounts": printAccountSummary();
+                case "Accounts":
                 default:
                     Account account = m.selectItem(getClientsAccounts());
                     account.handleInput(m);

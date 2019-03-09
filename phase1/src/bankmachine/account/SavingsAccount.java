@@ -14,7 +14,7 @@ public class SavingsAccount extends AssetAccount{
     public SavingsAccount(int id, int balance, Client client, LocalDateTime creationDate) {
         super(id, balance, client, creationDate);
     }
-    public boolean canTransferOut(int amount){
+    boolean canTransferOut(int amount){
         return amount < balance && amount > 0;
     }
     /**

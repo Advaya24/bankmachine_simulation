@@ -18,7 +18,7 @@ implements Observer{
         this.rootPath = path;
         this.loadData();
         if(this.users.size() == 0){
-            this.newManager("admin", "admin");
+            this.newManager("Brad","brad@hi.com","01231","admin", "admin");
             this.saveData();
         }
     }
@@ -32,8 +32,8 @@ implements Observer{
         return c;
     }
 
-    public BankManager newManager(String username, String password){
-        BankManager c = new BankManager(nextID, username, password);
+    public BankManager newManager(String name, String email, String phoneNumber, String username, String password){
+        BankManager c = new BankManager(nextID, name,email,phoneNumber, username, password);
         if(users.containsKey(c.getUsername())){
             return null;
         }
