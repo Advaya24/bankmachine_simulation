@@ -207,7 +207,11 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
      * @param amount the amount to be transferred out
      * @return true iff this account can transfer out this amount
      */
-    abstract boolean canTransferOut(int amount);
+    public abstract boolean canTransferOut(int amount);
+
+    public boolean canTransferOut(double amount) {
+        return canTransferOut((int)(100*amount));
+    }
 
     /* Getters */
     public int getBalance(){ return balance; }
