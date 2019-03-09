@@ -118,7 +118,7 @@ public class Client extends BankMachineUser {
             switch (action){
                 case "Exit": return;
                 case "Settings": clientSettings(m); break;
-                case "Accounts":
+                case "Accounts": printAccountSummary();
                 default:
                     Account account = m.selectItem(getClientsAccounts());
                     account.handleInput(m);

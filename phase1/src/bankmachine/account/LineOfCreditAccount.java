@@ -11,7 +11,7 @@ public class LineOfCreditAccount extends DebtAccount{
         super(id, balance, client, creationDate);
     }
     @Override
-    boolean canTransferOut(int amount){
+    public boolean canTransferOut(int amount){
         return true;
     }
 
