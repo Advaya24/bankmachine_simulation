@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class TransactionFactory extends TrackingFactory<Transaction>{
+public class TransactionFactory extends TrackingFactory<Transaction> {
     List<Transaction> transactions = new ArrayList<>();
 
-    public TransactionFactory(AccountFactory accounts){
-        for(Account account : accounts.getInstances()){
+    public TransactionFactory(AccountFactory accounts) {
+        for (Account account : accounts.getInstances()) {
             this.extend(account.getTransactions());
         }
     }
@@ -26,13 +26,25 @@ public class TransactionFactory extends TrackingFactory<Transaction>{
 
     /**
      * Add transactions to the class
+     *
      * @param transactions list of transactions to add
      */
-    public void extend(List<Transaction> transactions){
+    public void extend(List<Transaction> transactions) {
         super.extend(transactions);
         this.transactions.sort(new CompareByDate());
     }
-    public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
+
+    /**
+     * Creates a new transaction
+     *
+     * @param amount   the amount transferred
+     * @param from     the account from which the money is transferred out
+     * @param to       the account to which the money is transferred in
+     * @param datetime the timestamp for the transaction
+     * @param type     the type for this transaction
+     * @return the new transaction
+     */
+    public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
         addInstance(t);
         return t;
