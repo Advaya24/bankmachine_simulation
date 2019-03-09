@@ -14,58 +14,65 @@ import java.util.Date;
  */
 public class ChequingAccount extends AssetAccount {
     /* Whether this is a primary account. Unused but here for now */
-    boolean primary = false;
+    private boolean primary = false;
     /* Overdraw limit in dollars, currently fixed at 100, may change */
     private int overdrawLimit = 100;
 
 
-    public ChequingAccount(boolean primary, int id, int amount, Client client, LocalDateTime creationDate){
+    public ChequingAccount(boolean primary, int id, int amount, Client client, LocalDateTime creationDate) {
         super(id, amount, client, creationDate);
         this.primary = primary;
     }
-    public ChequingAccount(int id, int amount, Client client, LocalDateTime creationDate){
+
+    public ChequingAccount(int id, int amount, Client client, LocalDateTime creationDate) {
         super(id, amount, client, creationDate);
         this.primary = false;
     }
 
     /**
-     * Transfer money out. Can overdraw up to $100
-     * @param amount to remove
-     * @return see superclass
+     * Transfer money out. Returns false if account doesn't have enough money
+     *
+     * @param amount the amount to transfer
+     * @return true iff transfer was successful
      */
-    public boolean transferOut(int amount){
-        if (amount < 0 || this.balance < 0
-                || this.balance - amount < -100*overdrawLimit){
+    public boolean transferOut(int amount) {
+        if (!canTransferOut(amount)) {
             return false;
         }
         balance -= amount;
         return true;
     }
 
-    // I had to add this method so that withdraw works nicely ~ Lorenzo
     /**
-     * Return whether it is possible to transfer money equivalent to amount out.
-     * @param amount to be transferred
-     * @return true if and only if amount can be withdrawn
+     * Indicates whether this account can transfer out the given amount
+     *
+     * @param amount the amount to be transferred out
+     * @return true iff this account can transfer out this amount
      */
     public boolean canTransferOut(int amount) {
         return (!(amount < 0 || this.balance < 0
-                || this.balance - amount < -100*overdrawLimit));
+                || this.balance - amount < -100 * overdrawLimit));
     }
 
-    public String toString(){
+    public String toString() {
         String output = "";
-        output += "ID: " + getID() +" Type: Chequing Account Balance: $" + getDoubleBalance();
-        if (isPrimary()){
+        output += "ID: " + getID() + " Type: Chequing Account Balance: $" + getDoubleBalance();
+        if (isPrimary()) {
             output += " [Primary]";
         }
         return output;
     }
 
-    public boolean isPrimary(){
+    /**
+     * Indicates whether this is a primary account
+     *
+     * @return true iff this is a primary account
+     */
+    public boolean isPrimary() {
         return primary;
     }
-    public void setPrimary(boolean primary){
+
+    public void setPrimary(boolean primary) {
         this.primary = primary;
     }
 }
