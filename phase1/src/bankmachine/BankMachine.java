@@ -37,7 +37,11 @@ public class BankMachine {
         executeEveryMonth();
 
         InputManager inputManager = new InputManager();
-        inputManager.mainLoop();
+        try {
+            inputManager.mainLoop();
+        } finally {
+            USER_MANAGER.saveData();
+        }
 
     }
 

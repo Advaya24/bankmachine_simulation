@@ -1,9 +1,6 @@
 package bankmachine.account;
 
-import bankmachine.BankMachine;
-import bankmachine.Client;
-import bankmachine.Identifiable;
-import bankmachine.Transaction;
+import bankmachine.*;
 import bankmachine.fileManager.WriteFile;
 
 import java.io.Serializable;
@@ -15,7 +12,7 @@ import java.util.List;
 /**
  * An account containing a balance
  */
-public abstract class Account implements Serializable, Identifiable {
+public abstract class Account implements Serializable, Identifiable, Inputtable {
     /* The current balance of the account, in cents*/
     protected int balance;
     private int id;
@@ -149,5 +146,10 @@ public abstract class Account implements Serializable, Identifiable {
 
     public void changeBalance(int amount){
         this.balance += amount;
+    }
+
+    @Override
+    public void handleInput(InputManager m){
+        //TODO: Implement this and in subclasses
     }
 }

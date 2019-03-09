@@ -4,6 +4,8 @@ import bankmachine.account.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
@@ -134,4 +136,43 @@ public class Client extends BankMachineUser {
         System.out.println("Net total: "+getNetTotal());
     }
 
+    @Override
+    public void handleInput(InputManager m){
+        System.out.println("Logged in as "+getName());
+        while (true){
+            System.out.println("Select an action");
+            List<String> options = new ArrayList<>(Arrays.asList(
+                    "Accounts", "Settings", "Exit"
+            ));
+            String action = m.selectItem(options);
+            switch (action){
+                case "Exit": return;
+                case "Settings": clientSettings(m); break;
+                case "Accounts":
+                default:
+                    Account account = m.selectItem(getClientsAccounts());
+                    account.handleInput(m);
+                    break;
+            }
+
+        }
+    }
+
+    private void clientSettings(InputManager m){
+        List<String> options = new ArrayList<>(Arrays.asList(
+                "Phone Number", "Email", "Password", "Exit"
+        ));
+        System.out.println("Select an option");
+        String action = m.selectItem(options);
+        if(action.equals("Exit")){
+            return;
+        }
+        String value = m.getInput("Specify a new "+action);
+        switch (action){
+            case "Phone Number": setPhoneNumber(value); break;
+            case "Email": setEmail(value); break;
+            case "Password": setPassword(value); break;
+        }
+        System.out.println("Set new "+action+" to "+value);
+    }
 }

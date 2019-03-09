@@ -26,7 +26,7 @@ public class InputManager {
     }
 
     // Prompts for input
-    private String getInput(String s) {
+    public String getInput(String s) {
         System.out.print(s);
         return input.next();
     }
@@ -41,7 +41,7 @@ public class InputManager {
         }
     }
 
-    private <T> T selectItem(List<T> items){
+    <T> T selectItem(List<T> items){
         if(items.size() == 0){ return null; }
         else if(items.size() == 1){ return items.get(0); }
 
@@ -53,7 +53,7 @@ public class InputManager {
         int index;
         while(true){
             String number = getInput(new Object[]{
-                    "Enter a number from 1 to ", items.size(), ": "
+                "Enter a number from 1 to ", items.size(), ": "
             });
             try{
                 index = Integer.parseInt(number);
@@ -67,13 +67,7 @@ public class InputManager {
         return items.get(index-1);
     }
 
-    private void managerScreen(BankManager manager){
-        System.out.println("Logged in as manager!");
-        //TODO: complete this method
-    }
-
-    private void clientScreen(Client client){
-        System.out.println("Logged in as client!");
+    private void accountScreen(Account account){
         //TODO: complete this method
     }
 
@@ -82,11 +76,7 @@ public class InputManager {
         while(!exit) {
             // userIsClient = isUserClient();
             BankMachineUser user = logIn();
-            if (user instanceof BankManager){
-                managerScreen((BankManager) user);
-            } else if(user instanceof Client){
-                clientScreen((Client) user);
-            }
+            user.handleInput(this);
         }
     }
     // Display when there are multiple choices
