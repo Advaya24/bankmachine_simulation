@@ -12,8 +12,8 @@ public class BankManager extends BankMachineUser {
 
     /**
      * Create a new account for client of type accountType. Return true if the account was created.
-     * @param client
-     * @param accountType
+     * @param client the client for whom the account needs to be created
+     * @param accountType the type of account to create
      * @return whether account creation succeeded
      */
     public boolean createAccount(Client client, String accountType, LocalDateTime creationDate) {
