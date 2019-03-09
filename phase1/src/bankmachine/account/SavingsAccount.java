@@ -27,7 +27,7 @@ public class SavingsAccount extends AssetAccount{
 
     public String toString(){
         String output = "";
-        output += "ID: " + getID() +" Type: Savings Account Balance: " + balance;
+        output += "ID: " + getID() +" Type: Savings Account Balance: $" + getDoubleBalance();
         return output;
     }
 }
