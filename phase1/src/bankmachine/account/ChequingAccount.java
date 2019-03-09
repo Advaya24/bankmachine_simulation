@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class ChequingAccount extends AssetAccount {
     /* Whether this is a primary account. Unused but here for now */
-    boolean primary = false;
+    private boolean primary = false;
     /* Overdraw limit in dollars, currently fixed at 100, may change */
     private int overdrawLimit = 100;
 
@@ -29,13 +29,12 @@ public class ChequingAccount extends AssetAccount {
     }
 
     /**
-     * Transfer money out. Can overdraw up to $100
-     * @param amount to remove
-     * @return see superclass
+     * Transfer money out. Returns false if account doesn't have enough money
+     * @param amount the amount to transfer
+     * @return true iff transfer was successful
      */
     public boolean transferOut(int amount){
-        if (amount < 0 || this.balance < 0
-                || this.balance - amount < -100*overdrawLimit){
+        if (!canTransferOut(amount)){
             return false;
         }
         balance -= amount;
