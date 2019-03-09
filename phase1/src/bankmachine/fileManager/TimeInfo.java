@@ -17,39 +17,52 @@ public class TimeInfo {
     /* The filename for the file where the data for time is stored */
     private static final String filename = "time.txt";
 
-    public TimeInfo(){
+    public TimeInfo() {
         String dataFileName;
-        try{
+        try {
             ReadFile time_input = new ReadFile(filename);
             dataFileName = time_input.getData();
-        } catch(IOException e){
+        } catch (IOException e) {
             offset = lastMonth = 0;
             return;
         }
         String[] splitTimes = dataFileName.split("\n");
-        try{
+        try {
             offset = Long.parseLong(splitTimes[0]);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             offset = 0;
         }
-        try{
+        try {
             lastMonth = Integer.parseInt(splitTimes[1]);
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             lastMonth = 0;
         }
         saveFile();
     }
 
-    public String getSavableString(){
+    /**
+     * Get a savable format for the time info
+     *
+     * @return a string suitable for saving
+     */
+    public String getSavableString() {
         return Long.toString(offset) + "\n" + Integer.toString(lastMonth);
     }
 
-    public void saveFile(){
+    /**
+     * Write time info data to the file
+     */
+    public void saveFile() {
         WriteFile outputDate = new WriteFile(filename);
         outputDate.writeData(getSavableString(), false);
     }
 
-    //Set Time method. Only used once -> when Bank Manager sets initial time of ATM.
+
+    /**
+     * Set Time method. Only used once, when Bank Manager sets initial time of ATM.
+     *
+     * @param date the current date
+     */
     public void setTime(LocalDateTime date) {
         offset = ChronoUnit.SECONDS.between(date, LocalDateTime.now());
         saveFile();
@@ -59,23 +72,28 @@ public class TimeInfo {
         setTime(LocalDateTime.parse(date));
     }
 
-    public String toString(){ // toString method - not used for now.
+    public String toString() { // toString method - not used for now.
         return getTime().toString();
     }
 
-    //Method where actual time of ATM is returned. Updated as of calling of method.
-    public LocalDateTime getTime()  {
+    /**
+     * Method where actual time of ATM is returned. Updated as of calling of method.
+     *
+     * @return actual time of ATM
+     */
+    public LocalDateTime getTime() {
         return LocalDateTime.now().plusSeconds(offset);
     }
 
-    public int getCurrentMonth(){
+    public int getCurrentMonth() {
         return getTime().getMonthValue();
     }
 
-    public int getLastMonth(){
+    public int getLastMonth() {
         return lastMonth;
     }
-    public void setLastMonth(int month){
+
+    public void setLastMonth(int month) {
         lastMonth = month;
         saveFile();
     }
