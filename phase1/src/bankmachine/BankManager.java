@@ -1,18 +1,13 @@
 package bankmachine;
-
-import bankmachine.Exceptions.TransactionIsBillPaymentException;
 import bankmachine.account.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**A Bank Manager within the system**/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
 public class BankManager extends BankMachineUser {
-    public BankManager(int id, String username, String password) {
-        super(id, username, password);
+    public BankManager(int id, String name, String email, String phoneNumber, String username, String default_password) {
+        super(id,name,email, phoneNumber, username, default_password);
     }
 
     /**
@@ -99,22 +94,8 @@ public class BankManager extends BankMachineUser {
 
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Logged in as manager!");
+        System.out.println("Logged in as manager");
         //TODO: complete this method
-    }
-    private void managerSettings(InputManager m){
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Password", "Exit"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
-        if(action.equals("Exit")){
-            return;
-        }
-        String value = m.getInput("Specify a new "+action);
-        switch (action){
-            case "Password": setPassword(value); break;
-        }
-        System.out.println("Set new "+action+" to "+value);
+
     }
 }
