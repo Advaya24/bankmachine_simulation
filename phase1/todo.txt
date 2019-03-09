@@ -1,12 +1,12 @@
 1. When undoing a transaction, we cant transfer money out of a credit card account. How would this work?
 
 TODOS for today:
- - Make undoTransaction work properly
+ - Make undoTransaction work properly : Varun
  - Let all accounts owned by a user be displayed
  - Finalise what each account does
- - Add a notification system so that Bank Managers can create accounts for users (requestAccountCreation)
+ - Add a notification system so that Bank Managers can create accounts for users (requestAccountCreation) - nvm Phase 2
  - See that deposits.txt has the required functionality
- - Maybe add a logging system?
+ - Maybe add a logging system? - phase 2
  - Document everything properly
  - Finalise UML diagram
  - Check specification one more time
