@@ -33,7 +33,7 @@ public class TransactionFactory extends TrackingFactory<Transaction>{
         this.transactions.sort(new CompareByDate());
     }
     public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type){
-        Transaction t = new Transaction(nextID, amount, from, to, datetime, type);
+        Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
         addInstance(t);
         return t;
     }

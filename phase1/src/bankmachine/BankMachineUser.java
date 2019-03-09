@@ -64,7 +64,7 @@ public abstract class BankMachineUser extends Observable implements Serializable
         password = new_password;
     }
 
-    private void bankMachineUserSettings(InputManager m){
+    protected void userSettings(InputManager m){
         List<String> options = new ArrayList<>(Arrays.asList(
                 "Phone Number", "Email", "Password", "Exit"
         ));
@@ -73,11 +73,22 @@ public abstract class BankMachineUser extends Observable implements Serializable
         if(action.equals("Exit")){
             return;
         }
-        String value = m.getInput("Specify a new "+action);
+        String value;
         switch (action){
-            case "Phone Number": setPhoneNumber(value); break;
-            case "Email": setEmail(value); break;
-            case "Password": setPassword(value); break;
+            case "Phone Number":
+                value = m.getPhone();
+                setPhoneNumber(value);
+                break;
+            case "Email":
+                value = m.getEmail();
+                setEmail(value);
+                break;
+            case "Password":
+                value = m.getInput("Enter a new password");
+                setPassword(value);
+                break;
+            default:
+                return;
         }
         System.out.println("Set new "+action+" to "+value);
     }
