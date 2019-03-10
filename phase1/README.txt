@@ -6,6 +6,8 @@ Users only interact with the ATM (no physical bank). They may perform actions on
 
 ## System Start-up
 
+We used JUnit 5.3 for testing, with mockito 1.10.19 (you might need to install these for the code to compile).
+
 Run BankMachine.main, this is the main method for the entire program.
 Upon the first start, the entire database of clients and accounts will be empty.
 The only way to make the first login is through the standard BankManager, with username: admin, password: admin.
