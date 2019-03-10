@@ -24,8 +24,8 @@ public class TimeInfo {
     public TimeInfo() {
         String dataFileName;
         try {
-            ReadFile time_input = new ReadFile(filename);
-            dataFileName = time_input.getData();
+            ReadFile timeInput = new ReadFile(filename);
+            dataFileName = timeInput.getData();
         } catch (IOException e) {
             offset = lastMonth = 0;
             return;
