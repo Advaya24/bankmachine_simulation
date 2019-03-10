@@ -16,12 +16,12 @@ public class CreditCardAccount extends DebtAccount {
         super(id, balance, client, creationDate);
     }
 
-    @Override
     /**
      * Indicates whether this account can transfer out the given amount
      * @param amount the amount to be transferred out
      * @return false always
      */
+    @Override
     public boolean canTransferOut(int amount) {
         return false;
     }
