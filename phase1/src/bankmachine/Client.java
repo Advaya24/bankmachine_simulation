@@ -105,6 +105,10 @@ public class Client extends BankMachineUser {
         }
         System.out.println("Net total: "+getNetTotal());
     }
+    @Override
+    public String toString(){
+        return "Client "+getName();
+    }
 
     @Override
     public void handleInput(InputManager m){
