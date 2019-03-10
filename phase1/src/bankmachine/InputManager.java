@@ -166,22 +166,6 @@ public class InputManager {
         // 5) exit option
 
     }
-    @Nullable
-    private Account ChooseAccount(Client client){
-        ArrayList<Account> clientAccounts = client.getClientsAccounts();
-        // TODO: somehow get names of accounts
-        // response = itemize(clientAccounts); // must make sure they are strings though
-        // switch(response){
-            // case 1:
-                // this will be the first account
-                // task = itemize(transaction);
-                // call transaction
-            //case 2:
-                // this will be the second account
-                // do something account related
-
-        return null;
-    }
 
     private void bankManagerTasks(BankManager bankManager){
         ArrayList<String> tasks = new ArrayList<>(Arrays.asList(
