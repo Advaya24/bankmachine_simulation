@@ -25,6 +25,7 @@ The Bank Manager has several special abilities:
     * Viewing account creation requests issued by the user (this appears simply as text), which the manager can then go
     to create (or not).
     * Undo most recent transaction - cancels the most recent transaction of a specific account.
+    * Set time - this can be done anytime the manager is logged in. It may be done as many times as wished.
 
 The user can do the following when logged in:
     *
