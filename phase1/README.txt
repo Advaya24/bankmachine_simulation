@@ -46,3 +46,4 @@ NOTE: If the deposit goes through, the contents of deposits.txt will be erased (
 ## Sidenotes
 
 FileManager.main should never be run (it was created by us for testing purposes).
+
