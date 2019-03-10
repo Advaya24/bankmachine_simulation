@@ -4,6 +4,8 @@ import bankmachine.account.Account;
 import bankmachine.exception.ShutdownException;
 import com.sun.istack.internal.Nullable;
 
+import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -110,6 +112,20 @@ public class InputManager {
     private void printObjects(Object[] objects) {
         for (Object o : objects) {
             System.out.print(o);
+        }
+    }
+
+    public LocalDateTime getDate(){
+        LocalDateTime datetime;
+        while (true){
+            int year = getInteger("Enter the year: ");
+            int month = getInteger("Enter the month (1-12): ");
+            int day = getInteger("Enter the day (1-31): ");
+            try {
+                return LocalDateTime.of(year, month, day, 0, 0);
+            } catch (DateTimeException e){
+                System.out.println("Invalid date");
+            }
         }
     }
 

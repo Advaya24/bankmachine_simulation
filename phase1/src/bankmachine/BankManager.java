@@ -183,6 +183,10 @@ public class BankManager extends BankMachineUser {
         }
     }
 
+    private void inputSetTime(InputManager m){
+        BankMachine.getTimeInfo().setTime(m.getDate());
+    }
+
     /**
      * Handles the input from the bank manager
      *
@@ -193,11 +197,13 @@ public class BankManager extends BankMachineUser {
         System.out.println("Welcome, " + getName()+"!");
         while (true) {
             System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList("View Account Creation Requests", "Remove Completed Creation Requests",
-                    "Create Account", "Create Client", "Undo a Transaction", "Add Bills", "Settings", "Exit",
-                    "Shutdown"
+            List<String> options = new ArrayList<>(Arrays.asList(
+                    "View Account Creation Requests", "Remove Completed Creation Requests",
+                    "Create Account", "Create Client", "Set Time", "Undo a Transaction", "Add Bills",
+                    "Settings", "Exit", "Shutdown"
             ));
             String action = m.selectItem(options);
+            // Options for bankmanager
             switch (action) {
                 case "Shutdown":
                     throw new ShutdownException();
@@ -210,7 +216,9 @@ public class BankManager extends BankMachineUser {
                     inputCreateAccount(m);
                     break;
                 case "Undo a Transaction":
-                    inputUndoTransaction(m);
+                    inputUndoTransaction(m); break;
+                case "Set Time":
+                    inputSetTime(m);
                 case "Create Client":
                     inputCreateClient(m);
                     break;
