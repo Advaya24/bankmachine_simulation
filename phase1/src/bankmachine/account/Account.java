@@ -288,8 +288,19 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
         this.balance += amount;
     }
 
+
     public boolean inputTransfer(InputManager m, double amount){
-        Client client = m.selectItem(BankMachine.USER_MANAGER.getAllClients());
+        String username =  m.getInput("Please input the username of the client." +
+                " If you would like to transfer between your accounts, enter your own username.");
+        Client client;
+        if(BankMachine.USER_MANAGER.get(username) instanceof BankManager ||
+                BankMachine.USER_MANAGER.get(username) == null){
+            System.out.println("This is not the username of one of our clients.");
+            return false;
+        }
+        else {
+            client = (Client)BankMachine.USER_MANAGER.get(username);
+        }
         Account a;
         if(client.equals(this.client)){
             a = m.selectItem(client.getClientsAccounts());
