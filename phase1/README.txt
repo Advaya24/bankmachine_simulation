@@ -33,6 +33,8 @@ Deposits are made using cheques or cash bills using the following syntax in the 
     * Cheques - write the amount to be deposited in the first line.
         E.g. a deposit of $250 made by a cheque:
         250
+        E.g. another deposit of $250 made by a cheque:
+        250.00
     * Cash - write only in the first four lines the amount of bills of each denomination in ascending order.
         E.g. a deposit of $250 by 3 bills of $50, 4 bills of $20, 2 bills of $10 and 0 bills of $5:
         0
@@ -43,7 +45,7 @@ After writing to deposits.txt, the user then selects the account to be deposited
 NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users' privacy).
 
 
-## Sidenotes
+## Side-notes
 
 FileManager.main should never be run (it was created by us for testing purposes).
 
