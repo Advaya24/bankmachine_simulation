@@ -34,6 +34,11 @@ public class BankMachine {
     private static BillManager billManager;
 
     public static void main(String[] args) {
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                USER_MANAGER.saveData();
+            }
+        }, "Shutdown-thread"));
         billManager = new BillManager();
         executeEveryMonth();
 

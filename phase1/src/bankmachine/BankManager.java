@@ -147,6 +147,10 @@ public class BankManager extends BankMachineUser {
         BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
     }
 
+    public String toString(){
+        return "Manager "+getName();
+    }
+
     /**
      * Displays options for adding bills to the bankmachine
      *
