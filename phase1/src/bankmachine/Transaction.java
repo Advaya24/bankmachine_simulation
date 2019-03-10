@@ -96,6 +96,12 @@ public class Transaction implements Serializable, Identifiable {
         transactionType = new_type;
     }
 
+    public String toString(){
+        String output = "Transaction between " + getFrom().getClient().getUsername() + " and " +
+                getTo().getClient().getUsername() + " of $" + getAmount();
+        return output;
+    }
+
     /**
      * Performs the transaction between the two Accounts
      *

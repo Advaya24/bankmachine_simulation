@@ -202,12 +202,6 @@ public class InputManager {
                 return user;
             }
         }
-
-        // 2) ask which account they would like to access
-        // 3) ask what type of transaction would like to be performed or what they would like to see
-        // 4) OPTIONAL: confirmation?
-        // 5) exit option
-
     }
 
     private void bankManagerTasks(BankManager bankManager) {
