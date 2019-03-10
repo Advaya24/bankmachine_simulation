@@ -190,8 +190,7 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
      * @return true iff deposit is made
      */
     public boolean deposit() {
-        String path = BankMachine.DATA_PATH+"/deposits.txt";
-        ReadFile reader = new ReadFile(path);
+        ReadFile reader = new ReadFile("/deposits.txt");
         String contents;
         try{
             contents = reader.getData();
@@ -224,7 +223,7 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
-        WriteFile writer = new WriteFile(path);
+        WriteFile writer = new WriteFile("/deposits.txt");
         writer.clearData();
         return transferIn(balance);
     }
