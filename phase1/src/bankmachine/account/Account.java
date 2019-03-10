@@ -220,15 +220,11 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
                 quantities[i] = quantity;
                 balance += quantity*denominations[i];
             }
-            boolean status = transferIn(balance);
-            if(!status){
-                return false;
-            }
             for (int i=0; i<4; i++){
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
-        return true;
+        return transferIn(balance);
     }
 
     /**
@@ -308,14 +304,14 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     }
 
 
-    public boolean inputTransfer(InputManager m, double amount){
+    public Account inputTransfer(InputManager m, double amount){
         String username =  m.getInput("Please input the username of the client." +
                 " If you would like to transfer between your accounts, enter your own username.");
         Client client;
         if(BankMachine.USER_MANAGER.get(username) instanceof BankManager ||
                 BankMachine.USER_MANAGER.get(username) == null){
             System.out.println("This is not the username of one of our clients.");
-            return false;
+            return null;
         }
         else {
             client = (Client)BankMachine.USER_MANAGER.get(username);
@@ -327,9 +323,13 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
             a = client.getPrimaryAccount();
         }
         if (a == null){
-            return false;
+            return null;
         }
-        return this.transferOut(a, amount);
+        if(this.transferOut(a, amount)){
+            return a;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -342,16 +342,32 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
         if (action.equals("Cancel")) {
             return;
         }
-        //TODO: Create transactions
+        TransactionType type = null;
         boolean status = false;
         if (action.equals("Deposit")){
             status = deposit();
         } else {
             double amount = m.getMoney();
+            Account destination = null;
             switch(action){
-                case "Withdraw": status = withdraw(amount); break;
-                case "Pay Bill": status = payBill(amount); break;
-                case "Transfer": status = inputTransfer(m, amount);
+                case "Withdraw":
+                    type = TransactionType.WITHDRAW;
+                    status = withdraw(amount);
+                    break;
+                case "Pay Bill":
+                    type = TransactionType.BILL;
+                    status = payBill(amount);
+                    break;
+                case "Transfer":
+                    type = TransactionType.TRANSFER;
+                    destination = inputTransfer(m, amount);
+                    status = destination != null;
+                    break;
+            }
+            if (status){
+                BankMachine.transFactory.newTransaction(
+                    amount, this, destination, LocalDateTime.now(), type
+                );
             }
         }
         if(status){

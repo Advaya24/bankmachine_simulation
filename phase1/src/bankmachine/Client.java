@@ -111,17 +111,34 @@ public class Client extends BankMachineUser {
         return "Client "+getName();
     }
 
+    public void newAccountCreationInput(InputManager m){
+        System.out.println("Choose a type of account:");
+        List<String> accTypes = new ArrayList<>(Arrays.asList(
+                "Chequing account", "Credit card account",
+                "Line of credit account", "Savings account", "Cancel"
+        ));
+        String selection = m.selectItem(accTypes);
+        if (selection.equals("Cancel")){
+            return;
+        }
+        BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);
+        manager.addCreationRequest(getUsername() + " requests a " + selection);
+    }
+
     @Override
     public void handleInput(InputManager m){
         System.out.println("Welcome, "+getName()+"!");
         while (true){
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
-                    "Accounts", "Settings", "Exit"
+                    "Accounts","Request creation of a new account", "Settings", "Exit"
             ));
             String action = m.selectItem(options);
             switch (action){
                 case "Exit": return;
+                case "Request creation of a new account":
+                    newAccountCreationInput(m);
+                    break;
                 case "Settings": userSettings(m); break;
                 case "Accounts":
                     printAccountSummary();
