@@ -124,13 +124,14 @@ public class Client extends BankMachineUser {
                 case "Exit": return;
                 case "Settings": userSettings(m); break;
                 case "Accounts":
-                default:
                     printAccountSummary();
                     Account account = m.selectItem(getClientsAccounts());
                     if(account==null){
                         break;
                     }
                     account.handleInput(m);
+                    break;
+                default:
                     break;
             }
         }
