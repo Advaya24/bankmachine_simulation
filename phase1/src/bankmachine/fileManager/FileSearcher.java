@@ -35,7 +35,6 @@ public class FileSearcher {
      */
     public void searchForDirectoryIn(File file) {
         if (file.isDirectory()) {
-            //do you have permission to read this directory?
             if (file.canRead()) {
                 File[] listFiles = file.listFiles();
                 if (listFiles != null) {

@@ -30,7 +30,7 @@ public abstract class TrackingFactory<T extends Identifiable> {
     /**
      * Add an instance to be tracked and increment the ID
      *
-     * @param instance
+     * @param instance the instance to be added
      */
     protected void addInstance(T instance) {
         this.instances.add(instance);
@@ -45,7 +45,7 @@ public abstract class TrackingFactory<T extends Identifiable> {
      * Test if the factory is storing an instance
      *
      * @param instance the instance to test
-     * @return
+     * @return whether the factory stores the instance
      */
     public boolean contains(T instance) {
         return instances.contains(instance);

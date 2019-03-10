@@ -91,7 +91,6 @@ public abstract class BankMachineUser extends Observable implements Serializable
     /**
      * Allows the client to change their password if necessary
      **/
-    // (UI should ask for old password to authenticate first, or should the client be logged in to access this? What if a bank manager loses their password?)
     public void setPassword(String new_password) {
         password = new_password;
     }

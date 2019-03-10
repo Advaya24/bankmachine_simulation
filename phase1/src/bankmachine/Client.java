@@ -43,8 +43,6 @@ public class Client extends BankMachineUser {
                 return;
             }
         }
-
-        //AccountManager.addAccount(newAccount);
     }
 
 
@@ -60,21 +58,6 @@ public class Client extends BankMachineUser {
         }
         else {
             return a1.getTransactions().get(a1.getTransactions().size() - 1);
-        }
-    }
-
-    /**
-     * Returns the creation date of an account, if this user owns that account
-     * @param account the account that we want the creation date of.
-     * @return the creation date of the account parameter.
-     */
-    @Nullable
-    public LocalDateTime getAccountCreationDate(Account account){
-        if (clientsAccounts.contains(account)){
-            return account.getCreationDate();
-        }
-        else{
-            return null;
         }
     }
 

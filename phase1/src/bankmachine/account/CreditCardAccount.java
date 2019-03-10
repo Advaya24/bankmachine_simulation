@@ -5,7 +5,6 @@ import bankmachine.Client;
 import bankmachine.fileManager.WriteFile;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * A credit card account where it is not possible to transfer out

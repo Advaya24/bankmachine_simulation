@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class TransactionFactory extends TrackingFactory<Transaction> {
-    List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> transactions = new ArrayList<>();
 
     public TransactionFactory(AccountFactory accounts) {
         for (Account account : accounts.getInstances()) {
@@ -42,16 +42,9 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
      * @param to       the account to which the money is transferred in
      * @param datetime the timestamp for the transaction
      * @param type     the type for this transaction
-     * @return the new transaction if the transaction is successful, otherwise null
      */
     public void newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
-        // boolean status = t.performTransaction();
-        // if (!status){ return null; }
         addInstance(t);
-        // t.getFrom().getTransactions().add(t);
-        // if(t.getTo() != null){
-        //     t.getTo().getTransactions().add(t);
-        // }
     }
 }

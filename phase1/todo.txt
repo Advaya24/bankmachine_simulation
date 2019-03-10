@@ -16,3 +16,4 @@ TODOS for today:
 [currently working again! more testing required] Withdraw action: Checking account cannot withdraw; line of credit account can only withdraw 1-3 dollars
 [Phase 2] Enter password twice!
 [Phase 2] Add a way that each client has their own Bank Manager
+[Phase 2] GUI?

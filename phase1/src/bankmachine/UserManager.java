@@ -50,7 +50,6 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param phoneNumber the phone number of the manager
      * @param username    the username of the manager
      * @param password    the password for this manager's login
-     * @return the new bank manager if successful, null otherwise
      */
     @Nullable
     public void newManager(String name, String email, String phoneNumber, String username, String password) {
@@ -181,19 +180,6 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(rootPath);
         writer.clear();
         writer.writeAll(this.getInstances());
-    }
-
-    /**
-     * Get all clients
-     */
-    public List<Client> getAllClients(){
-        List<Client> clients = new ArrayList<>();
-        for(BankMachineUser c:getInstances()){
-            if(c instanceof Client){
-                clients.add((Client) c);
-            }
-        }
-        return clients;
     }
 
     /**

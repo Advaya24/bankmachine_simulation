@@ -40,7 +40,7 @@ public class InputManager {
      */
     private Pattern doubleRe = Pattern.compile(
             "^\\d+(.\\d\\d?)?$"
-    ); // removed "^\\d+\\.\\d{2}$"
+    );
 
     private String getValue(Pattern p, String name) {
         while (true) {
@@ -170,7 +170,6 @@ public class InputManager {
     public void mainLoop() {
         // Login page
         while (!exit) {
-            // userIsClient = isUserClient();
             BankMachineUser user = logIn();
             try {
                 user.handleInput(this);
@@ -194,19 +193,7 @@ public class InputManager {
         return response;
     }
 
-    // 1) Ask whether a bank manager or client
-    private boolean isUserClient() {
-        ArrayList<String> users = new ArrayList<>(Arrays.asList(
-                "Bank Manager", "Client"
-        ));
-        String u = itemizeChoice(users);
-        if (u.equals("Bank Manager")) {
-            userIsClient = false;
-        }
-        return userIsClient;
-    }
-
-    // 2) Verify if username and password exist and returns the accounts of the user.
+    //Verify if username and password exist and returns the accounts of the user.
     private BankMachineUser logIn() {
         while (true) {
             String username = getInput("Enter username: ");
@@ -220,32 +207,8 @@ public class InputManager {
         }
     }
 
-    private void bankManagerTasks(BankManager bankManager) {
-        ArrayList<String> tasks = new ArrayList<>(Arrays.asList(
-                "Change client information", "Create new user", "Restock machine"
-        )); //Change client info includes undoing most recent transaction, and anything that a user can do
-        String t = itemizeChoice(tasks);
-    }
-
-    private void clientInfo(Client c, Account a) {
-        System.out.println("\n Client information:"
-                + "\n Name:" + c.getName()
-                + "\n Account balance:" + a.getBalance());
-    }
-
-    private void PerformTransaction(Account a) {
-        // call methods from the specific account
-    }
-
-    private void chooseToExit(boolean b) {
-        System.out.println("Would you like to continue to next transaction or exit?");
-        ArrayList<String> choices = new ArrayList<>(Arrays.asList(
-                "Next transaction", "Exit"
-        ));
-        String choice = itemizeChoice(choices);
-        if (choice.equals("Exit")) {
-            exit = true;
-        }
-    }
-
+    // Following method kept for future use:
+//    private void PerformTransaction(Account a) {
+//        // call methods from the specific account
+//    }
 }

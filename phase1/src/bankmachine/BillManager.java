@@ -4,7 +4,6 @@ import bankmachine.fileManager.WriteFile;
 
 import java.util.HashMap;
 
-// Rename/move to BillManager?
 public class BillManager {
 
     /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
@@ -17,8 +16,6 @@ public class BillManager {
             put(50, 0);
         }
     };
-
-    public BillManager(){}
 
     public HashMap<Integer, Integer> getBills() {
         return bills;
