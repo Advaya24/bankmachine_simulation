@@ -230,6 +230,11 @@ public class BankManager extends BankMachineUser {
 
     }
 
+    /**
+     * Displays all clients and allows the manager to select a client
+     * @param m the input manager handling this
+     * @return returns the selected client, null if there are no clients
+     */
     @Nullable
     private Client inputGetClient(InputManager m) {
         List<Client> clients = new ArrayList<>();
@@ -246,10 +251,17 @@ public class BankManager extends BankMachineUser {
         return m.selectItem(clients);
     }
 
+    /**
+     * Adds an account creation request to the list of creation requests
+     * @param newRequest the description for the creation request
+     */
     public void addCreationRequest(String newRequest) {
         outstandingCreationRequests.add(newRequest);
     }
 
+    /**
+     * Displays the outstanding account creation requests
+     */
     private void viewAccountCreationRequests() {
         if (outstandingCreationRequests.size() == 0) {
             System.out.println("No pending creation requests");
@@ -259,6 +271,10 @@ public class BankManager extends BankMachineUser {
         }
     }
 
+    /**
+     * Displays outstanding account creation requests and allows manager to choose one to remove
+     * @param m the input manager handling this
+     */
     private void removeCompletedRequests(InputManager m) {
         if (outstandingCreationRequests.size() == 0) {
             System.out.println("No pending creation requests");
