@@ -24,6 +24,10 @@ The Bank Manager has several special abilities:
     must run the main method (file-writing only occurs when Shutdown is called)
     * Viewing account creation requests issued by the user (this appears simply as text), which the manager can then go
     to create (or not).
+    * Undo most recent transaction - cancels the most recent transaction of a specific account.
+
+The user can do the following when logged in:
+    *
 
 Depositing money: TODO: finish this part
     To make a deposit, you must write to the deposits.txt file. When the deposit method is called, it reads
