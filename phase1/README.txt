@@ -22,17 +22,22 @@ Once logged in, the Bank Manager may add a new client for the bank, inputting th
 The Bank Manager has several special abilities:
     * The Shutdown option stops the system, everything that was done is saved in the files, but to get it running again you
     must run the main method (file-writing only occurs when Shutdown is called)
-    * Viewing account creation requests issued by the user (this appears simply as text), which the manager can then go
+    * Viewing account creation requests - these are issued by the users (appear simply as text), which the manager can then go
     to create (or not).
     * Undo most recent transaction - cancels the most recent transaction of a specific account.
     * Set time - this can be done anytime the manager is logged in. It may be done as many times as wished.
 
-The user can do the following when logged in:
-    *
-
-Depositing money: TODO: finish this part
-    To make a deposit, you must write to the deposits.txt file. When the deposit method is called, it reads
-    deposits.txt and applies the changes to the accounts.
-
-
+Depositing money:
+Deposits are made using cheques or cash bills using the following syntax in the deposits.txt file:
+    * Cheques - write the amount to be deposited in the first line.
+        E.g. a deposit of $250 made by a cheque:
+        250
+    * Cash - write only in the first four lines the amount of bills of each denomination in ascending order.
+        E.g. a deposit of $250 by 3 bills of $50, 4 bills of $20, 2 bills of $10 and 0 bills of $5:
+        0
+        2
+        4
+        3
+After writing to deposits.txt, the user then selects the account to be deposited to, and the deposit option.
+NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users' privacy).
 
