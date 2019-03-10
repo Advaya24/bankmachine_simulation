@@ -1,9 +1,10 @@
 package bankmachine.account;
 
 import bankmachine.*;
+import bankmachine.fileManager.ReadFile;
 import bankmachine.fileManager.WriteFile;
 
-import java.io.Serializable;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -183,33 +184,51 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     }
 
     /**
-     * Deposit money into this account if possible
+     * Deposit money into this account if possible.
+     * If deposits.txt is one line,
      *
-     * @param amount the amount of money to deposit
      * @return true iff deposit is made
      */
-    public boolean deposit(int amount) {
-        boolean status = transferIn(amount);
-        if (!status) {
+    public boolean deposit() {
+        String path = BankMachine.DATA_PATH+"/deposits.txt";
+        ReadFile reader = new ReadFile(path);
+        String contents;
+        try{
+            contents = reader.getData();
+        } catch (IOException e){
             return false;
         }
-
-        WriteFile out = new WriteFile("deposits.txt");
-        out.writeData(
-                client.getName() + " deposited $" + (amount / 100),
-                true
-        );
+        String[] lines = contents.split("\\r?\\n");
+        if(lines.length == 0){ return false; }
+        double balance = 0.0;
+        if (lines.length < 4){
+            try{
+                balance = Double.parseDouble(lines[0]);
+            } catch (NumberFormatException e){
+                return false;
+            }
+        } else {
+            int[] denominations = {5, 10, 20, 50};
+            int[] quantities = {0, 0, 0, 0};
+            for(int i=0; i<4; i++){
+                int quantity;
+                try {
+                    quantity = Integer.parseInt(lines[i]);
+                } catch (NumberFormatException e){
+                    return false;
+                }
+                quantities[i] = quantity;
+                balance += quantity*denominations[i];
+            }
+            boolean status = transferIn(balance);
+            if(!status){
+                return false;
+            }
+            for (int i=0; i<4; i++){
+                BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
+            }
+        }
         return true;
-    }
-
-    /**
-     * Deposit money into this account if possible
-     *
-     * @param amount the amount of money to deposit
-     * @return true iff deposit is made
-     */
-    public boolean deposit(double amount) {
-        return deposit((int) (amount * 100));
     }
 
     /**
@@ -316,20 +335,24 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     @Override
     public void handleInput(InputManager m) {
         List<String> options = new ArrayList<>(Arrays.asList(
-            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Exit"
+            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Cancel"
         ));
         System.out.println("Select an option");
         String action = m.selectItem(options);
-        if (action.equals("Exit")) {
+        if (action.equals("Cancel")) {
             return;
         }
-        double amount = m.getMoney();
+        //TODO: Create transactions
         boolean status = false;
-        switch(action){
-            case "Withdraw": status = withdraw(amount); break;
-            case "Deposit": status = deposit(amount); break;
-            case "Pay Bill": status = payBill(amount); break;
-            case "Transfer": status = inputTransfer(m, amount);
+        if (action.equals("Deposit")){
+            status = deposit();
+        } else {
+            double amount = m.getMoney();
+            switch(action){
+                case "Withdraw": status = withdraw(amount); break;
+                case "Pay Bill": status = payBill(amount); break;
+                case "Transfer": status = inputTransfer(m, amount);
+            }
         }
         if(status){
             System.out.println(action+" successful");

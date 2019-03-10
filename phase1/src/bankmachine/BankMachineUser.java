@@ -103,11 +103,11 @@ public abstract class BankMachineUser extends Observable implements Serializable
      */
     protected void userSettings(InputManager m) {
         List<String> options = new ArrayList<>(Arrays.asList(
-                "Phone Number", "Email", "Password", "Exit"
+                "Phone Number", "Email", "Password", "Cancel"
         ));
         System.out.println("Select an option");
         String action = m.selectItem(options);
-        if (action.equals("Exit")) {
+        if (action.equals("Cancel")) {
             return;
         }
         String value;

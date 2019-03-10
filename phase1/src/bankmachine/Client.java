@@ -113,7 +113,7 @@ public class Client extends BankMachineUser {
 
     @Override
     public void handleInput(InputManager m){
-        System.out.println("Logged in as client "+getName());
+        System.out.println("Welcome, "+getName()+"!");
         while (true){
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(

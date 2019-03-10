@@ -14,6 +14,8 @@ import java.util.List;
  **/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
 public class BankManager extends BankMachineUser {
+    final private ArrayList<String> outstandingCreationRequests = new ArrayList<>();
+
     public BankManager(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id, name, email, phoneNumber, username, default_password);
     }
@@ -113,11 +115,14 @@ public class BankManager extends BankMachineUser {
         }
         List<String> accTypes = new ArrayList<>(Arrays.asList(
                 "Chequing account", "Credit card account",
-                "Line of credit account", "Savings account"
+                "Line of credit account", "Savings account", "Cancel"
         ));
 
         while (true) {
             String selection = m.selectItem(accTypes);
+            if (selection.equals("Cancel")){
+                return;
+            }
             if (createAccount(client, selection, LocalDateTime.now())) {
                 System.out.println("Account created successfully");
                 return;
@@ -190,10 +195,10 @@ public class BankManager extends BankMachineUser {
      */
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Logged in as manager " + getName());
+        System.out.println("Welcome, " + getName()+"!");
         while (true) {
             System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList(
+            List<String> options = new ArrayList<>(Arrays.asList("View Account Creation Requests", "Remove Completed Creation Requests",
                     "Create Account", "Create Client", "Undo a Transaction", "Add Bills", "Settings", "Exit",
                     "Shutdown"
             ));
@@ -217,6 +222,12 @@ public class BankManager extends BankMachineUser {
                 case "Add Bills":
                     inputAddBills(m);
                     break;
+                case "View Account Creation Requests":
+                    viewAccountCreationRequests();
+                    break;
+                case "Remove Completed Creation Requests":
+                    removeCompletedRequests(m);
+                    break;
                 default:
                     break;
             }
@@ -224,6 +235,11 @@ public class BankManager extends BankMachineUser {
 
     }
 
+    /**
+     * Displays all clients and allows the manager to select a client
+     * @param m the input manager handling this
+     * @return returns the selected client, null if there are no clients
+     */
     @Nullable
     private Client inputGetClient(InputManager m) {
         List<Client> clients = new ArrayList<>();
@@ -238,5 +254,37 @@ public class BankManager extends BankMachineUser {
         }
         System.out.println("Select a client");
         return m.selectItem(clients);
+    }
+
+    /**
+     * Adds an account creation request to the list of creation requests
+     * @param newRequest the description for the creation request
+     */
+    public void addCreationRequest(String newRequest) {
+        outstandingCreationRequests.add(newRequest);
+    }
+
+    /**
+     * Displays the outstanding account creation requests
+     */
+    private void viewAccountCreationRequests() {
+        if (outstandingCreationRequests.size() == 0) {
+            System.out.println("No pending creation requests");
+        }
+        for(String request: outstandingCreationRequests) {
+            System.out.println(request);
+        }
+    }
+
+    /**
+     * Displays outstanding account creation requests and allows manager to choose one to remove
+     * @param m the input manager handling this
+     */
+    private void removeCompletedRequests(InputManager m) {
+        if (outstandingCreationRequests.size() == 0) {
+            System.out.println("No pending creation requests");
+        } else {
+            outstandingCreationRequests.remove(m.selectItem(outstandingCreationRequests));
+        }
     }
 }
