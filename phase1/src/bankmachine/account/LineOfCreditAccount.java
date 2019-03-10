@@ -3,7 +3,6 @@ package bankmachine.account;
 import bankmachine.Client;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class LineOfCreditAccount extends DebtAccount {
 

@@ -1,12 +1,9 @@
 package bankmachine.account;
 
 import bankmachine.Client;
-import bankmachine.InputManager;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
-/* Most behaviour is the same as account atm */
 public class SavingsAccount extends AssetAccount {
     /**
      * The interest that is applied when applyInterest() is called

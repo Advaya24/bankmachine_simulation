@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * A Bank Manager within the system
  **/
-//Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
+//Working on: Varun
 public class BankManager extends BankMachineUser {
     final private ArrayList<String> outstandingCreationRequests = new ArrayList<>();
 
@@ -29,19 +29,18 @@ public class BankManager extends BankMachineUser {
      */
     public boolean createAccount(Client client, String accountType, LocalDateTime creationDate) {
         AccountFactory factory = BankMachine.accFactory;
-        Account account1;
         switch (accountType) {
             case "Chequing account":
-                account1 = factory.newCqAccount(0, client, creationDate);
+                factory.newCqAccount(0, client, creationDate);
                 break;
             case "Credit card account":
-                account1 = factory.newCCAccount(0, client, creationDate);
+                factory.newCCAccount(0, client, creationDate);
                 break;
             case "Line of credit account":
-                account1 = factory.newLOCAccount(0, client, creationDate);
+                factory.newLOCAccount(0, client, creationDate);
                 break;
             case "Savings account":
-                account1 = factory.newSavingsAccount(0, client, creationDate);
+                factory.newSavingsAccount(0, client, creationDate);
                 break;
             default:
                 System.out.println("Invalid account type. Please try again.");

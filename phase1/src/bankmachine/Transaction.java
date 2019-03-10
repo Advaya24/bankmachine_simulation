@@ -1,7 +1,6 @@
 package bankmachine;
 
 import bankmachine.account.Account;
-import bankmachine.account.CreditCardAccount;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -100,11 +99,11 @@ public class Transaction implements Serializable, Identifiable {
     }
 
     public String toString(){
-        String output = "Transaction between " + getFrom().getClient().getUsername() + " and " +
+        return "Transaction between " + getFrom().getClient().getUsername() + " and " +
                 getTo().getClient().getUsername() + " of $" + getAmount();
-        return output;
     }
 
+    //Following method kept here as a record
     /*
      * Performs the transaction between the two Accounts
      *

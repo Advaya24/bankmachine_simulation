@@ -24,7 +24,6 @@ public class WriteFile implements FileManager {
      */
     public WriteFile(String filename) {
         // Creates file with "filename" in the fileManager package
-        //System.out.println(DATA_PATH + "/" + filename);
         this.file = new File(BankMachine.DATA_PATH + "/" + filename); //
     }
 
@@ -68,6 +67,10 @@ public class WriteFile implements FileManager {
             output_stream.write(data.getBytes());
         } catch (IOException e) {
         }
+    }
+
+    public void clearData() {
+        writeData("", false);
     }
 
 }
