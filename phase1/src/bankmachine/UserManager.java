@@ -184,4 +184,17 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         writer.clear();
         writer.writeAll(this.getInstances());
     }
+
+    /**
+     * Get all clients
+     */
+    public List<Client> getAllClients(){
+        List<Client> clients = new ArrayList<>();
+        for(BankMachineUser c:getInstances()){
+            if(c instanceof Client){
+                clients.add((Client) c);
+            }
+        }
+        return clients;
+    }
 }
