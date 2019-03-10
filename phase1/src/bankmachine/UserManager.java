@@ -132,6 +132,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param username the user's username
      * @return the bankmachine user with the username
      */
+    @Nullable
     public BankMachineUser get(String username) {
         return users.get(username);
     }

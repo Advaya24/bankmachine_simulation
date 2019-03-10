@@ -35,9 +35,10 @@ public class InputManager {
     );
     /**
      * Pattern for double
+     * "^\\d+\\.\\d{2}$"
      */
     private Pattern doubleRe = Pattern.compile(
-            "^\\d+\\.\\d{2}$"
+            "\\d+(.\\d+)?"
     );
 
     private String getValue(Pattern p, String name) {
