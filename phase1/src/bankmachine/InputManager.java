@@ -121,7 +121,7 @@ public class InputManager {
      * @return item chosen
      */
     @Nullable
-    <T> T selectItem(List<T> items) {
+    public <T> T selectItem(List<T> items) {
         if (items.size() == 0) {
             return null;
         }

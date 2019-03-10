@@ -136,6 +136,17 @@ public class Client extends BankMachineUser {
             }
         }
     }
+    public Account getPrimaryAccount(){
+        for (Account a:this.clientsAccounts){
+            if (a instanceof ChequingAccount && ((ChequingAccount) a).isPrimary()){
+                return a;
+            }
+        }
+        if(this.clientsAccounts.size() == 0){
+            return null;
+        }
+        return this.clientsAccounts.get(0);
+    }
 
 
 }

@@ -6,6 +6,8 @@ import bankmachine.fileManager.WriteFile;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * An account containing a balance
@@ -286,8 +288,42 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
         this.balance += amount;
     }
 
+    public boolean inputTransfer(InputManager m, double amount){
+        Client client = m.selectItem(BankMachine.USER_MANAGER.getAllClients());
+        Account a;
+        if(client.equals(this.client)){
+            a = m.selectItem(client.getClientsAccounts());
+        } else {
+            a = client.getPrimaryAccount();
+        }
+        if (a == null){
+            return false;
+        }
+        return this.transferOut(a, amount);
+    }
+
     @Override
     public void handleInput(InputManager m) {
-        //TODO: Implement this and in subclasses
+        List<String> options = new ArrayList<>(Arrays.asList(
+            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Exit"
+        ));
+        System.out.println("Select an option");
+        String action = m.selectItem(options);
+        if (action.equals("Exit")) {
+            return;
+        }
+        double amount = m.getMoney();
+        boolean status = false;
+        switch(action){
+            case "Withdraw": status = withdraw(amount); break;
+            case "Deposit": status = deposit(amount); break;
+            case "Pay Bill": status = payBill(amount); break;
+            case "Transfer": status = inputTransfer(m, amount);
+        }
+        if(status){
+            System.out.println(action+" successful");
+        } else {
+            System.out.println(action+" unsuccessful");
+        }
     }
 }
