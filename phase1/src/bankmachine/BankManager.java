@@ -107,17 +107,6 @@ public class BankManager extends BankMachineUser {
      * @param m the input manager handling this
      */
     private void inputCreateAccount(InputManager m) {
-//        List<Client> clients = new ArrayList<>();
-//        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
-//            if (b instanceof Client) {
-//                clients.add((Client) b);
-//            }
-//        }
-//        if(clients.size() == 0){
-//            System.out.println("There are no clients!");
-//            return;
-//        }
-//        System.out.println("Select a client");
         Client client = inputGetClient(m);
         if (client == null) {
             return;
@@ -173,17 +162,6 @@ public class BankManager extends BankMachineUser {
     }
 
     private void inputUndoTransaction(InputManager m){
-//        List<Client> clients = new ArrayList<>();
-//        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
-//            if (b instanceof Client) {
-//                clients.add((Client) b);
-//            }
-//        }
-//        if(clients.size() == 0){
-//            System.out.println("There are no clients!");
-//            return;
-//        }
-//        System.out.println("Select a client");
         Client client = inputGetClient(m);
         if (client == null) {
             return;
