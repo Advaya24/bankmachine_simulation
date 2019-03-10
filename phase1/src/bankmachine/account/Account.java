@@ -224,6 +224,8 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
+        WriteFile writer = new WriteFile(path);
+        writer.clearData();
         return transferIn(balance);
     }
 

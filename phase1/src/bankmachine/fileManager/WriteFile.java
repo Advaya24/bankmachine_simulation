@@ -73,4 +73,8 @@ public class WriteFile implements FileManager {
         return true;
     }
 
+    public void clearData() {
+        writeData("", false);
+    }
+
 }
