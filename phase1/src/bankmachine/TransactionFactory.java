@@ -42,10 +42,12 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
      * @param to       the account to which the money is transferred in
      * @param datetime the timestamp for the transaction
      * @param type     the type for this transaction
-     * @return the new transaction
+     * @return the new transaction if the transaction is successful, otherwise null
      */
     public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
+        boolean status = t.performTransaction();
+        if (!status){ return null; }
         addInstance(t);
         return t;
     }
