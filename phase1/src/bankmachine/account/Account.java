@@ -316,11 +316,11 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     @Override
     public void handleInput(InputManager m) {
         List<String> options = new ArrayList<>(Arrays.asList(
-            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Exit"
+            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Cancel"
         ));
         System.out.println("Select an option");
         String action = m.selectItem(options);
-        if (action.equals("Exit")) {
+        if (action.equals("Cancel")) {
             return;
         }
         double amount = m.getMoney();
