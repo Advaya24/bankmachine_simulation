@@ -126,6 +126,7 @@ public class Client extends BankMachineUser {
                 case "Settings": userSettings(m); break;
                 case "Accounts":
                     printAccountSummary();
+                    System.out.println("Please select an account:");
                     Account account = m.selectItem(getClientsAccounts());
                     if(account==null){
                         break;
