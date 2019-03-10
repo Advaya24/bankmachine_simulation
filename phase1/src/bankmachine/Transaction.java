@@ -102,11 +102,11 @@ public class Transaction implements Serializable, Identifiable {
         return output;
     }
 
-    /**
+    /*
      * Performs the transaction between the two Accounts
      *
      * @return true iff the transaction is successful
-     */
+
     public boolean performTransaction() {
         if (!getFrom().canTransferOut(getAmount())) {
             System.out.println("You cannot do this transaction; the account doesn't have enough money!");
@@ -121,4 +121,5 @@ public class Transaction implements Serializable, Identifiable {
             return true;
         }
     }
+    */
 }

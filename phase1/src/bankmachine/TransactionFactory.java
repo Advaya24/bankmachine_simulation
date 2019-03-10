@@ -46,9 +46,13 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
      */
     public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
-        boolean status = t.performTransaction();
-        if (!status){ return null; }
+        // boolean status = t.performTransaction();
+        // if (!status){ return null; }
         addInstance(t);
+        // t.getFrom().getTransactions().add(t);
+        // if(t.getTo() != null){
+        //     t.getTo().getTransactions().add(t);
+        // }
         return t;
     }
 }
