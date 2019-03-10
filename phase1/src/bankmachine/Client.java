@@ -10,7 +10,6 @@ import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
-    //TODO: Yeet everything up to BankMachineUser
 public class Client extends BankMachineUser {
     /**All the accounts this Client has**/
     private ArrayList<Account> clientsAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
@@ -49,7 +48,6 @@ public class Client extends BankMachineUser {
     }
 
 
-    //TODO: Figure out whether most recent transaction is outgoing, both ways, or what
     /**
      * Returns the most recent transaction across all accounts .
      * @return the most recent transaction of this client

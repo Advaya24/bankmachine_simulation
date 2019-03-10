@@ -112,11 +112,11 @@ public class BankManager extends BankMachineUser {
                 clients.add((Client) b);
             }
         }
-        System.out.println("Select a client");
         if(clients.size() == 0){
             System.out.println("There are no clients!");
             return;
         }
+        System.out.println("Select a client");
         Client client = m.selectItem(clients);
         List<String> accTypes = new ArrayList<>(Arrays.asList(
                 "Chequing account", "Credit card account",
@@ -168,6 +168,36 @@ public class BankManager extends BankMachineUser {
         }
     }
 
+    private void inputUndoTransaction(InputManager m){
+        List<Client> clients = new ArrayList<>();
+        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
+            if (b instanceof Client) {
+                clients.add((Client) b);
+            }
+        }
+        if(clients.size() == 0){
+            System.out.println("There are no clients!");
+            return;
+        }
+        System.out.println("Select a client");
+        Client client = m.selectItem(clients);
+        if(client.getClientsAccounts().size()==0){
+            System.out.println("There are no accounts!");
+            return;
+        }
+        System.out.println("Select an account");
+        Account account = m.selectItem(client.getClientsAccounts());
+        if(account.getTransactions().size()==0){
+            System.out.println("There are no transactions!");
+            return;
+        }
+        System.out.println("Select a transaction");
+        Transaction transaction = m.selectItem(account.getTransactions());
+        if(undoRecentTransaction(transaction)){
+            System.out.println("Successful!");
+        }
+    }
+
     /**
      * Handles the input from the bank manager
      *
@@ -179,7 +209,7 @@ public class BankManager extends BankMachineUser {
         while (true) {
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
-                    "Create Account", "Create Client", "Add Bills", "Settings", "Exit",
+                    "Create Account", "Create Client", "Undo a Transaction", "Add Bills", "Settings", "Exit",
                     "Shutdown"
             ));
             String action = m.selectItem(options);
@@ -194,6 +224,8 @@ public class BankManager extends BankMachineUser {
                 case "Create Account":
                     inputCreateAccount(m);
                     break;
+                case "Undo a Transaction":
+                    inputUndoTransaction(m);
                 case "Create Client":
                     inputCreateClient(m);
                     break;
