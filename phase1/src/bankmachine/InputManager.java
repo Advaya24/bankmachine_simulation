@@ -2,6 +2,7 @@ package bankmachine;
 
 import bankmachine.account.Account;
 import bankmachine.exception.ShutdownException;
+import com.sun.istack.internal.Nullable;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -88,6 +89,7 @@ public class InputManager {
         }
     }
 
+    @Nullable
     <T> T selectItem(List<T> items){
         if(items.size() == 0){ return null; }
 
@@ -164,6 +166,7 @@ public class InputManager {
         // 5) exit option
 
     }
+    @Nullable
     private Account ChooseAccount(Client client){
         ArrayList<Account> clientAccounts = client.getClientsAccounts();
         // TODO: somehow get names of accounts
