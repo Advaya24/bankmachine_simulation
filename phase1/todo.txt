@@ -13,3 +13,4 @@ TODOS for today:
 [Hans] Input and output
 [X] Remove the static member fields in Account and Transaction
 [ ] How are we reading deposits.txt
+[ ] Withdraw action: Checking account cannot withdraw; line of credit account can only withdraw 1-3 dollars
