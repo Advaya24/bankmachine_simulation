@@ -16,7 +16,7 @@ The only way to make the first login is through the standard BankManager, with u
 Once logged in, the Bank Manager may add a new client for the bank, inputting the necessary information as below:
     * Phone numbers are of the form XXX-XXX-XXXX (with the hyphens).
     * Emails are of the form string1@string2.string3, where string1 and string2 being any two arbitrary strings
-      (containing [a-zA-Z], [-], and [0-9]), and string3 is a two or three character-long string of letters only.
+      (containing alphanumeric characters as well as . and -), and string3 is a two or three character-long string of letters only.
     * Currency must be added as a number to exactly two decimal places.
 
 The Bank Manager has several special abilities:
@@ -25,8 +25,7 @@ The Bank Manager has several special abilities:
     *
 
 Depositing money:
-    To make a deposit, you must write the deposits.txt file.
-
-
+    To make a deposit, you must write to the deposits.txt file. When the deposit method is called, it reads
+    deposits.txt and applies the changes to the accounts.
 
 
