@@ -113,11 +113,14 @@ public class BankManager extends BankMachineUser {
         }
         List<String> accTypes = new ArrayList<>(Arrays.asList(
                 "Chequing account", "Credit card account",
-                "Line of credit account", "Savings account"
+                "Line of credit account", "Savings account", "Cancel"
         ));
 
         while (true) {
             String selection = m.selectItem(accTypes);
+            if (selection.equals("Cancel")){
+                return;
+            }
             if (createAccount(client, selection, LocalDateTime.now())) {
                 System.out.println("Account created successfully");
                 return;
@@ -190,7 +193,7 @@ public class BankManager extends BankMachineUser {
      */
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Logged in as manager " + getName());
+        System.out.println("Welcome, " + getName()+"!");
         while (true) {
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(

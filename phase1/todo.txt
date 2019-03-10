@@ -13,3 +13,4 @@ TODOS for today:
 [Hans] Input and output
 [X] Remove the static member fields in Account and Transaction
 [ ] How are we reading deposits.txt
+[Phase 2] Enter password twice!
