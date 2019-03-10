@@ -147,11 +147,8 @@ public class InputManager {
     }
     // 2) Verify if username and password exist and returns the accounts of the user.
     private BankMachineUser logIn() {
-        while (!exit) {
+        while (true) {
             String username = getInput("Enter username: ");
-            if (username.equalsIgnoreCase("exit")) {
-                exit = true;
-            }
             String password = getInput("Enter password: ");
             BankMachineUser user = authenticator.authenticate(username, password);
             if (user == null){
@@ -166,7 +163,6 @@ public class InputManager {
         // 4) OPTIONAL: confirmation?
         // 5) exit option
 
-        return null;
     }
     private Account ChooseAccount(Client client){
         ArrayList<Account> clientAccounts = client.getClientsAccounts();
