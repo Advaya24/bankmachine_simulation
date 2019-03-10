@@ -106,6 +106,7 @@ public class BankManager extends BankMachineUser {
      *
      * @param m the input manager handling this
      */
+    @SuppressWarnings("Duplicates")
     private void inputCreateAccount(InputManager m) {
         Client client = inputGetClient(m);
         if (client == null) {
@@ -203,7 +204,7 @@ public class BankManager extends BankMachineUser {
                     "Settings", "Exit", "Shutdown"
             ));
             String action = m.selectItem(options);
-            // Options for bankmanager
+            // Options for bank manager
             switch (action) {
                 case "Shutdown":
                     throw new ShutdownException();

@@ -23,8 +23,8 @@ public class Main {
         //Standard ReadFile test
 
         WriteFile out2 = new WriteFile("alerts.txt");
-        String outputstuff = "ree";
-        out2.writeData(outputstuff, true);
+        String outputStuff = "ree";
+        out2.writeData(outputStuff, true);
         String path = System.getProperty("user.dir");
         System.out.println(path);
         String read_file = "input.txt";
@@ -118,9 +118,8 @@ public class Main {
 
         Client testClient2 = (Client) clientManager.get("Test username 2");
         if (testClient2 != null) {
-            Client client = testClient2;
-            client.printAccountSummary();
-            client.setUserName("New username");
+            testClient2.printAccountSummary();
+            testClient2.setUserName("New username");
         } else System.out.println("Client not found :(");
 
         clientManager.runOnAll((BankMachineUser c) -> {

@@ -1,11 +1,9 @@
 package bankmachine;
 
-import bankmachine.account.Account;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
 import com.sun.istack.internal.Nullable;
 
-import java.io.Serializable;;
 import java.util.*;
 import java.util.function.Function;
 
@@ -55,13 +53,12 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @return the new bank manager if successful, null otherwise
      */
     @Nullable
-    public BankManager newManager(String name, String email, String phoneNumber, String username, String password) {
+    public void newManager(String name, String email, String phoneNumber, String username, String password) {
         BankManager c = new BankManager(nextID, name, email, phoneNumber, username, password);
         if (users.containsKey(c.getUsername())) {
-            return null;
+            return;
         }
         addInstance(c);
-        return c;
     }
 
     /**

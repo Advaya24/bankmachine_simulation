@@ -50,7 +50,7 @@ public class TimeInfo {
      * @return a string suitable for saving
      */
     public String getSavableString() {
-        return Long.toString(offset) + "\n" + Integer.toString(lastMonth);
+        return offset + "\n" + lastMonth;
     }
 
     /**

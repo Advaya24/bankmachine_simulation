@@ -62,7 +62,7 @@ public class ObjectFileWriter<T extends Serializable> {
             FileInputStream fileIn = new FileInputStream(fileName);
             ObjectInputStream inputStream = new ObjectInputStream(fileIn);
 
-            List<T> oldArrayList = (ArrayList<T>) inputStream.readObject();
+            @SuppressWarnings("unchecked") List<T> oldArrayList = (ArrayList<T>) inputStream.readObject();
 
             inputStream.close();
             fileIn.close();

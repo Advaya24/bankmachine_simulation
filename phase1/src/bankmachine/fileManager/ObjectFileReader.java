@@ -31,6 +31,7 @@ public class ObjectFileReader<T extends Serializable> {
         try {
             fileIn = new FileInputStream(fileName);
             inputStream = new ObjectInputStream(fileIn);
+            //noinspection unchecked
             arrayList = (ArrayList<T>) inputStream.readObject();
             return arrayList;
 
