@@ -2,6 +2,7 @@ package bankmachine;
 
 import bankmachine.account.Account;
 import bankmachine.exception.ShutdownException;
+import com.sun.istack.internal.Nullable;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -88,6 +89,7 @@ public class InputManager {
         }
     }
 
+    @Nullable
     <T> T selectItem(List<T> items){
         if(items.size() == 0){ return null; }
 
@@ -157,27 +159,6 @@ public class InputManager {
                 return user;
             }
         }
-
-        // 2) ask which account they would like to access
-        // 3) ask what type of transaction would like to be performed or what they would like to see
-        // 4) OPTIONAL: confirmation?
-        // 5) exit option
-
-    }
-    private Account ChooseAccount(Client client){
-        ArrayList<Account> clientAccounts = client.getClientsAccounts();
-        // TODO: somehow get names of accounts
-        // response = itemize(clientAccounts); // must make sure they are strings though
-        // switch(response){
-            // case 1:
-                // this will be the first account
-                // task = itemize(transaction);
-                // call transaction
-            //case 2:
-                // this will be the second account
-                // do something account related
-
-        return null;
     }
 
     private void bankManagerTasks(BankManager bankManager){

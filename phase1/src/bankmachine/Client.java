@@ -1,6 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.*;
+import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class Client extends BankMachineUser {
      * Returns the most recent transaction across all accounts .
      * @return the most recent transaction of this client
      */
+    @Nullable
     public Transaction mostRecentTransaction(Account a1){
         if (!getClientsAccounts().contains(a1))
         {
@@ -68,6 +70,7 @@ public class Client extends BankMachineUser {
      * @param account the account that we want the creation date of.
      * @return the creation date of the account parameter.
      */
+    @Nullable
     public LocalDateTime getAccountCreationDate(Account account){
         if (clientsAccounts.contains(account)){
             return account.getCreationDate();

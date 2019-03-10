@@ -3,6 +3,7 @@ package bankmachine;
 import bankmachine.account.Account;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
+import com.sun.istack.internal.Nullable;
 
 import java.io.Serializable;;
 import java.util.*;
@@ -31,8 +32,9 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param phoneNumber     the phone number of the client
      * @param username        the username of the client
      * @param defaultPassword the default password for this client's login
-     * @return the new client
+     * @return the new client if successful, null otherwise
      */
+    @Nullable
     public Client newClient(String name, String email, String phoneNumber, String username, String defaultPassword) {
         Client c = new Client(nextID, name, email, phoneNumber, username, defaultPassword);
         if (users.containsKey(c.getUsername())) {
@@ -50,8 +52,9 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param phoneNumber the phone number of the manager
      * @param username    the username of the manager
      * @param password    the password for this manager's login
-     * @return the new bank manager
+     * @return the new bank manager if successful, null otherwise
      */
+    @Nullable
     public BankManager newManager(String name, String email, String phoneNumber, String username, String password) {
         BankManager c = new BankManager(nextID, name, email, phoneNumber, username, password);
         if (users.containsKey(c.getUsername())) {
@@ -140,6 +143,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param password for this user
      * @return The user if login successful, null otherwise
      */
+    @Nullable
     public BankMachineUser authenticate(String username, String password) {
         BankMachineUser user = users.get(username);
         if (user == null || !user.getPassword().equals(password)) {
