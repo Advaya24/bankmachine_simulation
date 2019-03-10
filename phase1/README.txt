@@ -41,7 +41,7 @@ Deposits are made using cheques or cash bills using the following syntax in the 
         2
         4
         3
-After writing to deposits.txt, the user then selects the account to be deposited to, and the deposit option.
+After writing to deposits.txt, the user then selects the account to be deposited to, and lastly the deposit option.
 NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users' privacy).
 
 
