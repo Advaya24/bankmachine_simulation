@@ -12,3 +12,4 @@ TODOS for today:
 [Lorenzo] Check specification one more time
 [Hans] Input and output
 [X] Remove the static member fields in Account and Transaction
+[ ] How are we reading deposits.txt
