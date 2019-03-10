@@ -12,7 +12,7 @@ import java.util.List;
 // Person working on this: Varun
 public class Client extends BankMachineUser {
     /**All the accounts this Client has**/
-    private ArrayList<Account> clientsAccounts = new ArrayList<>(); // Instead of initializing here, do this same thing in the constructor maybe? ~ Advaya
+    private ArrayList<Account> clientsAccounts = new ArrayList<>();
     public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id,name,email, phoneNumber, username, default_password);
     }
@@ -131,12 +131,12 @@ public class Client extends BankMachineUser {
         while (true){
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
-                    "Accounts","Request creation of a new account", "Settings", "Exit"
+                    "Accounts","Request Creation Of A New Account", "Settings", "Exit"
             ));
             String action = m.selectItem(options);
             switch (action){
                 case "Exit": return;
-                case "Request creation of a new account":
+                case "Request Creation Of A New Account":
                     newAccountCreationInput(m);
                     break;
                 case "Settings": userSettings(m); break;

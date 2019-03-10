@@ -335,7 +335,7 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
     @Override
     public void handleInput(InputManager m) {
         List<String> options = new ArrayList<>(Arrays.asList(
-            "Transfer", "Withdraw", "Deposit", "Pay Bill", "Cancel"
+            "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
         ));
         System.out.println("Select an option");
         String action = m.selectItem(options);
@@ -344,6 +344,9 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
         }
         TransactionType type = null;
         boolean status = false;
+        if (action.equals("See Creation Date")){
+            System.out.println(getCreationDate());
+        }
         if (action.equals("Deposit")){
             status = deposit();
         } else {
