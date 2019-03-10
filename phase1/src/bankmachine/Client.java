@@ -122,6 +122,9 @@ public class Client extends BankMachineUser {
                 default:
                     printAccountSummary();
                     Account account = m.selectItem(getClientsAccounts());
+                    if(account==null){
+                        break;
+                    }
                     account.handleInput(m);
                     break;
             }

@@ -1,6 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.Account;
+import bankmachine.exception.ShutdownException;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -89,7 +90,6 @@ public class InputManager {
 
     <T> T selectItem(List<T> items){
         if(items.size() == 0){ return null; }
-        else if(items.size() == 1){ return items.get(0); }
 
         for(int i=0; i<items.size(); i++){
             printObjects(new Object[]{"[", i+1, "] "});
@@ -118,7 +118,12 @@ public class InputManager {
         while(!exit) {
             // userIsClient = isUserClient();
             BankMachineUser user = logIn();
-            user.handleInput(this);
+            try {
+                user.handleInput(this);
+            } catch (ShutdownException e){
+                exit = true;
+                return;
+            }
         }
     }
     // Display when there are multiple choices
