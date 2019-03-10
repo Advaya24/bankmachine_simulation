@@ -1,6 +1,7 @@
 package bankmachine;
 
 import bankmachine.account.*;
+import bankmachine.exception.ShutdownException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -170,10 +171,13 @@ public class BankManager extends BankMachineUser {
         while (true) {
             System.out.println("Select an action");
             List<String> options = new ArrayList<>(Arrays.asList(
-                    "Create Account", "Create Client", "Add Bills", "Settings", "Exit"
+                    "Create Account", "Create Client", "Add Bills", "Settings", "Exit",
+                    "Shutdown"
             ));
             String action = m.selectItem(options);
             switch (action) {
+                case "Shutdown":
+                    throw new ShutdownException();
                 case "Exit":
                     return;
                 case "Settings":
