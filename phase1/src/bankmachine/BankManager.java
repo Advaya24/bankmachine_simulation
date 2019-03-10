@@ -2,6 +2,7 @@ package bankmachine;
 
 import bankmachine.account.*;
 import bankmachine.exception.ShutdownException;
+import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -106,18 +107,21 @@ public class BankManager extends BankMachineUser {
      * @param m the input manager handling this
      */
     private void inputCreateAccount(InputManager m) {
-        List<Client> clients = new ArrayList<>();
-        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
-            if (b instanceof Client) {
-                clients.add((Client) b);
-            }
-        }
-        if(clients.size() == 0){
-            System.out.println("There are no clients!");
+//        List<Client> clients = new ArrayList<>();
+//        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
+//            if (b instanceof Client) {
+//                clients.add((Client) b);
+//            }
+//        }
+//        if(clients.size() == 0){
+//            System.out.println("There are no clients!");
+//            return;
+//        }
+//        System.out.println("Select a client");
+        Client client = inputGetClient(m);
+        if (client == null) {
             return;
         }
-        System.out.println("Select a client");
-        Client client = m.selectItem(clients);
         List<String> accTypes = new ArrayList<>(Arrays.asList(
                 "Chequing account", "Credit card account",
                 "Line of credit account", "Savings account"
@@ -161,7 +165,7 @@ public class BankManager extends BankMachineUser {
      * @param m the input manager handling this
      */
     private void inputAddBills(InputManager m) {
-        int denominations[] = {5, 10, 20, 50};
+        int[] denominations = {5, 10, 20, 50};
         for (int i : denominations) {
             int quantity = m.getInteger("How many " + i + "s? ");
             BankMachine.getBillManager().addBills(i, quantity);
@@ -169,18 +173,21 @@ public class BankManager extends BankMachineUser {
     }
 
     private void inputUndoTransaction(InputManager m){
-        List<Client> clients = new ArrayList<>();
-        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
-            if (b instanceof Client) {
-                clients.add((Client) b);
-            }
-        }
-        if(clients.size() == 0){
-            System.out.println("There are no clients!");
+//        List<Client> clients = new ArrayList<>();
+//        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
+//            if (b instanceof Client) {
+//                clients.add((Client) b);
+//            }
+//        }
+//        if(clients.size() == 0){
+//            System.out.println("There are no clients!");
+//            return;
+//        }
+//        System.out.println("Select a client");
+        Client client = inputGetClient(m);
+        if (client == null) {
             return;
         }
-        System.out.println("Select a client");
-        Client client = m.selectItem(clients);
         if(client.getClientsAccounts().size()==0){
             System.out.println("There are no accounts!");
             return;
@@ -237,5 +244,21 @@ public class BankManager extends BankMachineUser {
             }
         }
 
+    }
+
+    @Nullable
+    private Client inputGetClient(InputManager m) {
+        List<Client> clients = new ArrayList<>();
+        for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
+            if (b instanceof Client) {
+                clients.add((Client) b);
+            }
+        }
+        if(clients.size() == 0){
+            System.out.println("There are no clients!");
+            return null;
+        }
+        System.out.println("Select a client");
+        return m.selectItem(clients);
     }
 }
