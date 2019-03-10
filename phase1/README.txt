@@ -43,4 +43,6 @@ After writing to deposits.txt, the user then selects the account to be deposited
 NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users' privacy).
 
 
+## Sidenotes
 
+FileManager.main should never be run (it was created by us for testing purposes).
