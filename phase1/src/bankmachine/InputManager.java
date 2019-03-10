@@ -44,7 +44,7 @@ public class InputManager {
 
     private String getValue(Pattern p, String name) {
         while (true) {
-            String email = getInput("Please enter an " + name + ": ");
+            String email = getInput("Please enter a(n) " + name + ": ");
             if (p.matcher(email).matches()) {
                 return email;
             }
