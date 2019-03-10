@@ -44,7 +44,6 @@ public class BankManager extends BankMachineUser {
                 System.out.println("Invalid account type. Please try again.");
                 return false;
         }
-        client.addAccount(account1);
         return true;
     }
 
@@ -144,7 +143,12 @@ public class BankManager extends BankMachineUser {
         String phone = m.getPhone();
         String email = m.getEmail();
         String pwd = m.getInput("Enter a password: ");
-        BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
+        Client client = BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
+        if(client == null){
+            System.out.println("A client with that username exists!");
+        } else {
+            System.out.println("Client created");
+        }
     }
 
     public String toString(){
