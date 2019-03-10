@@ -22,7 +22,8 @@ Once logged in, the Bank Manager may add a new client for the bank, inputting th
 The Bank Manager has several special abilities:
     * The Shutdown option stops the system, everything that was done is saved in the files, but to get it running again you
       must run the main method (file-writing only occurs when Shutdown is called)
-    *
+    * Viewing account creation requests issued by the user (this appears simply as text), which the manager can then go
+      to create (or not).
 
 Depositing money:
     To make a deposit, you must write to the deposits.txt file. When the deposit method is called, it reads
