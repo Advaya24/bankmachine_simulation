@@ -14,6 +14,4 @@ From there, you may add new clients (and then create accounts for those clients)
 User input:
     To select options from a menu, simply type the corresponding number and press enter.
 
-### Bank Manager
-A bank manager should start each day by reading the alerts first. If there is no money in the the ATM machine,
-select option [4] "Add Bills" to add the desired number of bills for each bill type.
+
