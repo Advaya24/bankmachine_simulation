@@ -44,7 +44,7 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
      * @param type     the type for this transaction
      * @return the new transaction if the transaction is successful, otherwise null
      */
-    public Transaction newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
+    public void newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
         // boolean status = t.performTransaction();
         // if (!status){ return null; }
@@ -53,6 +53,5 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
         // if(t.getTo() != null){
         //     t.getTo().getTransactions().add(t);
         // }
-        return t;
     }
 }

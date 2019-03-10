@@ -60,17 +60,14 @@ public class WriteFile implements FileManager {
 
     /**
      * Main Method for writing target data into file. Appends file instead of overwriting existing.
-     *
-     * @param data   data to be written
+     *  @param data   data to be written
      * @param append boolean whether to append to existing data (true) or overwrite (false)
      */
-    public boolean writeData(String data, Boolean append) {
+    public void writeData(String data, Boolean append) {
         try (FileOutputStream output_stream = new FileOutputStream(file, append)) {
             output_stream.write(data.getBytes());
         } catch (IOException e) {
-            return false;
         }
-        return true;
     }
 
 }

@@ -111,6 +111,7 @@ public class Client extends BankMachineUser {
         return "Client "+getName();
     }
 
+    @SuppressWarnings("Duplicates")
     public void newAccountCreationInput(InputManager m){
         System.out.println("Choose a type of account:");
         List<String> accTypes = new ArrayList<>(Arrays.asList(

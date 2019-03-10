@@ -25,7 +25,6 @@ public class BillManagerTest {
 
     @Test
     public void testAddBills() {
-        //noinspection unchecked
         bills = billManager.getBills();
         assertEquals(20, (int)bills.get(50));
         assertEquals(20, (int)bills.get(20));
@@ -34,7 +33,6 @@ public class BillManagerTest {
     @Test
     public void testWithdrawBills() {
         billManager.withdrawBills(80);
-        //noinspection unchecked
         bills = billManager.getBills();
         assertEquals(19, (int)bills.get(50));
         assertEquals(19, (int)bills.get(20));

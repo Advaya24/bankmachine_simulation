@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 public class UserManagerTest {
     private UserManager manager;
 
+    @SuppressWarnings("Duplicates")
     @BeforeEach
     public void instantiateManager(){
         FileSearcher fileSearcher = new FileSearcher();
