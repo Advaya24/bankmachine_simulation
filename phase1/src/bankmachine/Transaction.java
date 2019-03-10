@@ -43,6 +43,9 @@ public class Transaction implements Serializable, Identifiable {
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
+        if(type==TransactionType.BILL){
+            transactionMadeTo = null;
+        }
         this.id = id;
     }
 

@@ -198,4 +198,17 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         }
         return clients;
     }
+
+    /**
+     * Get all BankManagers
+     */
+    public List<BankManager> getBankManagers(){
+        List<BankManager> bankManagers = new ArrayList<>();
+        for(BankMachineUser c:getInstances()){
+            if(c instanceof BankManager){
+                bankManagers.add((BankManager) c);
+            }
+        }
+        return bankManagers;
+    }
 }

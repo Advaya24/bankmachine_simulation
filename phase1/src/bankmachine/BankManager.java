@@ -61,8 +61,6 @@ public class BankManager extends BankMachineUser {
      */
     public Client createClient(String name, String email, String phoneNumber, String username, String default_password) {
         return BankMachine.USER_MANAGER.newClient(name, email, phoneNumber, username, default_password);
-        // Authenticator<Client> clientUserManager = BankMachine.getClientManager();
-        // clientUserManager.add(newClient);
     }
 
     /**
@@ -118,15 +116,12 @@ public class BankManager extends BankMachineUser {
                 "Line of credit account", "Savings account", "Cancel"
         ));
 
-        while (true) {
-            String selection = m.selectItem(accTypes);
-            if (selection.equals("Cancel")){
-                return;
-            }
-            if (createAccount(client, selection, LocalDateTime.now())) {
-                System.out.println("Account created successfully");
-                return;
-            }
+        String selection = m.selectItem(accTypes);
+        if (selection.equals("Cancel")){
+            return;
+        }
+        if (createAccount(client, selection, LocalDateTime.now())) {
+            System.out.println("Account created successfully");
         }
     }
 
