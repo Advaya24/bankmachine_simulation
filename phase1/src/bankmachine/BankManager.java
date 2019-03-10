@@ -14,6 +14,8 @@ import java.util.List;
  **/
 //Working on: Varun (if that's okay with y'all, seeing that I'm working on Client and the two are kinda linked.
 public class BankManager extends BankMachineUser {
+    final private ArrayList<String> outstandingCreationRequests = new ArrayList<>();
+
     public BankManager(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id, name, email, phoneNumber, username, default_password);
     }
@@ -196,7 +198,7 @@ public class BankManager extends BankMachineUser {
         System.out.println("Welcome, " + getName()+"!");
         while (true) {
             System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList(
+            List<String> options = new ArrayList<>(Arrays.asList("View Account Creation Requests", "Remove Completed Creation Requests",
                     "Create Account", "Create Client", "Undo a Transaction", "Add Bills", "Settings", "Exit",
                     "Shutdown"
             ));
@@ -220,6 +222,12 @@ public class BankManager extends BankMachineUser {
                 case "Add Bills":
                     inputAddBills(m);
                     break;
+                case "View Account Creation Requests":
+                    viewAccountCreationRequests();
+                    break;
+                case "Remove Completed Creation Requests":
+                    removeCompletedRequests(m);
+                    break;
                 default:
                     break;
             }
@@ -241,5 +249,26 @@ public class BankManager extends BankMachineUser {
         }
         System.out.println("Select a client");
         return m.selectItem(clients);
+    }
+
+    public void addCreationRequest(String newRequest) {
+        outstandingCreationRequests.add(newRequest);
+    }
+
+    private void viewAccountCreationRequests() {
+        if (outstandingCreationRequests.size() == 0) {
+            System.out.println("No pending creation requests");
+        }
+        for(String request: outstandingCreationRequests) {
+            System.out.println(request);
+        }
+    }
+
+    private void removeCompletedRequests(InputManager m) {
+        if (outstandingCreationRequests.size() == 0) {
+            System.out.println("No pending creation requests");
+        } else {
+            outstandingCreationRequests.remove(m.selectItem(outstandingCreationRequests));
+        }
     }
 }
