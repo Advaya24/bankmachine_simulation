@@ -1,5 +1,7 @@
 package bankmachine;
 
+import bankmachine.gui.Inputtable;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.Observable;
 import java.io.Serializable;
 
 // managed by: Advaya
-public abstract class BankMachineUser extends Observable implements Serializable, Identifiable, Inputtable {
+public abstract class BankMachineUser extends Observable implements Serializable, Identifiable {
     /**
      * Name of this BankMachineUser
      */
@@ -95,37 +97,4 @@ public abstract class BankMachineUser extends Observable implements Serializable
         password = new_password;
     }
 
-    /**
-     * Presents setting options for the user
-     *
-     * @param m the input manager that handles this
-     */
-    protected void userSettings(InputManager m) {
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Phone Number", "Email", "Password", "Cancel"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
-        if (action.equals("Cancel")) {
-            return;
-        }
-        String value;
-        switch (action) {
-            case "Phone Number":
-                value = m.getPhone();
-                setPhoneNumber(value);
-                break;
-            case "Email":
-                value = m.getEmail();
-                setEmail(value);
-                break;
-            case "Password":
-                value = m.getInput("Enter a new password");
-                setPassword(value);
-                break;
-            default:
-                return;
-        }
-        System.out.println("Set new " + action + " to " + value);
-    }
 }

@@ -3,6 +3,7 @@ package bankmachine.account;
 import bankmachine.*;
 import bankmachine.fileManager.ReadFile;
 import bankmachine.fileManager.WriteFile;
+import bankmachine.gui.Inputtable;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * An account containing a balance
  */
-public abstract class Account implements Serializable, Identifiable, Inputtable {
+public abstract class Account implements Serializable, Identifiable {
     /**
      * The current balance of the account, in cents
      */
@@ -330,54 +331,6 @@ public abstract class Account implements Serializable, Identifiable, Inputtable 
             return a;
         } else {
             return null;
-        }
-    }
-
-    @Override
-    public void handleInput(InputManager m) {
-        List<String> options = new ArrayList<>(Arrays.asList(
-            "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
-        if (action.equals("Cancel")) {
-            return;
-        }
-        TransactionType type = null;
-        boolean status = false;
-        if (action.equals("See Creation Date")){
-            System.out.println(getCreationDate());
-        }
-        if (action.equals("Deposit")){
-            status = deposit();
-        } else {
-            double amount = m.getMoney();
-            Account destination = null;
-            switch(action){
-                case "Withdraw":
-                    type = TransactionType.WITHDRAW;
-                    status = withdraw(amount);
-                    break;
-                case "Pay Bill":
-                    type = TransactionType.BILL;
-                    status = payBill(amount);
-                    break;
-                case "Transfer":
-                    type = TransactionType.TRANSFER;
-                    destination = inputTransfer(m, amount);
-                    status = destination != null;
-                    break;
-            }
-            if (status){
-                BankMachine.transFactory.newTransaction(
-                    amount, this, destination, LocalDateTime.now(), type
-                );
-            }
-        }
-        if(status){
-            System.out.println(action+" successful");
-        } else {
-            System.out.println(action+" unsuccessful");
         }
     }
 }

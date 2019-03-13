@@ -2,6 +2,8 @@ package bankmachine;
 
 import bankmachine.account.Account;
 import bankmachine.exception.ShutdownException;
+import bankmachine.gui.BankManagerGUI;
+import bankmachine.gui.ClientGUI;
 import com.sun.istack.internal.Nullable;
 
 import java.time.DateTimeException;
@@ -172,7 +174,11 @@ public class InputManager {
         while (!exit) {
             BankMachineUser user = logIn();
             try {
-                user.handleInput(this);
+                if(user instanceof BankManager){
+                    new BankManagerGUI((BankManager) user).handleInput(this);
+                } else if (user instanceof Client){
+                    new ClientGUI((Client) user).handleInput(this);
+                }
             } catch (ShutdownException e) {
                 exit = true;
                 return;
