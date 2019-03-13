@@ -1,0 +1,19 @@
+1. When undoing a transaction, we cant transfer money out of a credit card account. How would this work?
+
+TODOS for today:
+[X] Make undoTransaction work properly
+[X] Let all accounts owned by a user be displayed
+[ ] Finalise what each account does
+[Phase 2] Add a notification system so that Bank Managers can create accounts for users (requestAccountCreation)
+[X] See that deposits.txt has the required functionality
+[Phase 2] Maybe add a logging system?
+[X] Document everything properly
+[Advaya] Finalise UML diagram
+[Lorenzo] Check specification one more time
+[Hans] Input and output
+[X] Remove the static member fields in Account and Transaction
+[ ] How are we reading deposits.txt
+[currently working again! more testing required] Withdraw action: Checking account cannot withdraw; line of credit account can only withdraw 1-3 dollars
+[Phase 2] Enter password twice!
+[Phase 2] Add a way that each client has their own Bank Manager
+[Phase 2] GUI?
