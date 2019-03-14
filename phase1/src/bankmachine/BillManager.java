@@ -3,7 +3,7 @@ package bankmachine;
 import bankmachine.fileManager.WriteFile;
 
 import java.util.HashMap;
-
+//hello
 public class BillManager {
 
     /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
