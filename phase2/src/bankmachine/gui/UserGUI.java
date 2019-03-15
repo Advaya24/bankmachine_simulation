@@ -1,7 +1,6 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachineUser;
-import bankmachine.InputManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;

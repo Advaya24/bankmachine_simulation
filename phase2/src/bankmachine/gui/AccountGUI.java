@@ -1,7 +1,6 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.InputManager;
 import bankmachine.TransactionType;
 import bankmachine.account.Account;
 

@@ -1,13 +1,10 @@
 package bankmachine;
 
 import bankmachine.account.*;
-import bankmachine.exception.ShutdownException;
-import com.sun.istack.internal.Nullable;
+import bankmachine.gui.InputManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A Bank Manager within the system

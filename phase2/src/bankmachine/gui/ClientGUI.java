@@ -3,7 +3,6 @@ package bankmachine.gui;
 import bankmachine.BankMachine;
 import bankmachine.BankManager;
 import bankmachine.Client;
-import bankmachine.InputManager;
 import bankmachine.account.Account;
 
 import java.util.ArrayList;

@@ -1,9 +1,7 @@
-package bankmachine;
+package bankmachine.gui;
 
-import bankmachine.account.Account;
+import bankmachine.*;
 import bankmachine.exception.ShutdownException;
-import bankmachine.gui.BankManagerGUI;
-import bankmachine.gui.ClientGUI;
 import com.sun.istack.internal.Nullable;
 
 import java.time.DateTimeException;

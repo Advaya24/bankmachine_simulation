@@ -3,13 +3,11 @@ package bankmachine.account;
 import bankmachine.*;
 import bankmachine.fileManager.ReadFile;
 import bankmachine.fileManager.WriteFile;
-import bankmachine.gui.Inputtable;
+import bankmachine.gui.InputManager;
 
 import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * An account containing a balance

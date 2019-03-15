@@ -5,6 +5,7 @@ import bankmachine.fileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.SavingsAccount;
+import bankmachine.gui.InputManager;
 
 import java.io.File;
 
