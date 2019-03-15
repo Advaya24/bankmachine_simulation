@@ -4,12 +4,15 @@ import bankmachine.*;
 import bankmachine.exception.ShutdownException;
 import com.sun.istack.internal.Nullable;
 
+import javax.swing.*;
+import java.awt.*;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.List;
 import java.util.regex.Pattern;
 
-public class InputManager {
+public class InputManager extends JFrame{
 
     /**
      * Flag to check if mainLoop should be exited
@@ -96,6 +99,8 @@ public class InputManager {
 
     public InputManager() {
         input = new Scanner(System.in);
+        this.setSize(new Dimension(1024, 768));
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     // Prompts for input
@@ -168,7 +173,10 @@ public class InputManager {
      * Entry point for log in and all other actions
      */
     public void mainLoop() {
-        // Login page
+        this.getContentPane().add(new LoginForm().getMainPanel(), BorderLayout.CENTER);
+        //this.pack();
+        this.setVisible(true);
+        /* Login page
         while (!exit) {
             BankMachineUser user = logIn();
             try {
@@ -181,7 +189,7 @@ public class InputManager {
                 exit = true;
                 return;
             }
-        }
+        }*/
     }
 
     /**

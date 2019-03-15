@@ -6,5 +6,8 @@ public class LoginForm {
     private JPanel panel1;
     private JTextField usernameTextField;
     private JPasswordField passwordPasswordField;
+    public JPanel getMainPanel() {
+        return panel1;
+    }
 
 }
