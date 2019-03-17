@@ -1,6 +1,8 @@
 package bankmachine.gui;
 
 
+import bankmachine.BankMachine;
+
 import javax.swing.*;
 import java.awt.*;
 import java.time.DateTimeException;
@@ -131,6 +133,11 @@ public class InputManager extends JFrame{
      */
     public void mainLoop() {
         new LoginGUI().handleInput(this);
+    }
+
+    public void exit(){
+        BankMachine.USER_MANAGER.saveData();
+        this.dispose();
     }
 
     public <T> T selectItem(List<T> x){

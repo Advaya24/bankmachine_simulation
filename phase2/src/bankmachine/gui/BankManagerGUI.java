@@ -2,7 +2,6 @@ package bankmachine.gui;
 
 import bankmachine.*;
 import bankmachine.account.Account;
-import bankmachine.exception.ShutdownException;
 import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;
@@ -122,6 +121,33 @@ public class BankManagerGUI implements Inputtable {
         }
     }
 
+    public void handleSelection(InputManager m, String s){
+        switch (s) {
+            case "Shutdown":
+                m.exit(); return;
+            case "Exit":
+                m.mainLoop(); return;
+            case "Settings":
+                new UserGUI(manager).handleInput(m); break;
+            case "Create Account":
+                inputCreateAccount(m); break;
+            case "Undo a Transaction":
+                inputUndoTransaction(m); break;
+            case "Set Time":
+                inputSetTime(m); break;
+            case "Create Client":
+                inputCreateClient(m); break;
+            case "Add Bills":
+                inputAddBills(m); break;
+            case "View Account Creation Requests":
+                manager.viewAccountCreationRequests(); break;
+            case "Remove Completed Creation Requests":
+                manager.removeCompletedRequests(m); break;
+            default: break;
+        }
+        handleInput(m);
+    }
+
     /**
      * Handles the input from the bank manager
      *
@@ -130,46 +156,17 @@ public class BankManagerGUI implements Inputtable {
     @Override
     public void handleInput(InputManager m) {
         System.out.println("Welcome, " + manager.getName()+"!");
-        while (true) {
-            System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList(
-                    "View Account Creation Requests", "Remove Completed Creation Requests",
-                    "Create Account", "Create Client", "Set Time", "Undo a Transaction", "Add Bills",
-                    "Settings", "Exit", "Shutdown"
-            ));
-            String action = m.selectItem(options);
-            // Options for bank manager
-            switch (action) {
-                case "Shutdown":
-                    throw new ShutdownException();
-                case "Exit":
-                    return;
-                case "Settings":
-                    new UserGUI(manager).handleInput(m);
-                    break;
-                case "Create Account":
-                    inputCreateAccount(m);
-                    break;
-                case "Undo a Transaction":
-                    inputUndoTransaction(m); break;
-                case "Set Time":
-                    inputSetTime(m);
-                case "Create Client":
-                    inputCreateClient(m);
-                    break;
-                case "Add Bills":
-                    inputAddBills(m);
-                    break;
-                case "View Account Creation Requests":
-                    manager.viewAccountCreationRequests();
-                    break;
-                case "Remove Completed Creation Requests":
-                    manager.removeCompletedRequests(m);
-                    break;
-                default:
-                    break;
+        String[] options = {
+            "View Account Creation Requests", "Remove Completed Creation Requests",
+            "Create Account", "Create Client", "Set Time", "Undo a Transaction", "Add Bills",
+            "Settings", "Exit", "Shutdown"
+        };
+        m.setPanel(new OptionsForm<String>(options) {
+            @Override
+            public void onSelection(String s) {
+                handleSelection(m, s);
             }
-        }
+        });
 
     }
 }
