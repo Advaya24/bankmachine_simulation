@@ -5,7 +5,6 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import com.google.gson.*;
-import com.google.gson.annotations.SerializedName;
 
 import java.net.URLConnection;
 import java.util.*;
