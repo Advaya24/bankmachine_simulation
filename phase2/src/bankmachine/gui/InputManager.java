@@ -175,7 +175,12 @@ public class InputManager extends JFrame{
         if (user == null) {
             form.displayInvalid();
         } else {
-            setPanel(new OptionsForm());
+            setPanel(new OptionsForm<String>(new String[]{"a", "b", "c"}){
+                @Override
+                public void onSelection(String s) {
+                    System.out.println("Selected "+s);
+                }
+            });
         }
     }
 
