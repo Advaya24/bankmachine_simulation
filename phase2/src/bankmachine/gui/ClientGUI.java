@@ -12,7 +12,7 @@ import java.util.List;
 public class ClientGUI implements Inputtable {
     private Client client;
     public ClientGUI(Client c){
-        this.client = client;
+        this.client = c;
     }
 
     public void newAccountCreationInput(InputManager m){
@@ -29,33 +29,41 @@ public class ClientGUI implements Inputtable {
         manager.addCreationRequest(client.getUsername() + " requests a " + selection);
     }
 
+    public void handleSelection(InputManager m, String s){
+        switch (s){
+            case "Exit": m.mainLoop(); return;
+            case "Request Creation Of A New Account":
+                newAccountCreationInput(m);
+                break;
+            case "Settings": new UserGUI(client).handleInput(m); break;
+            case "Accounts":
+                client.printAccountSummary();
+                System.out.println("Please select an account:");
+                Account account = m.selectItem(client.getClientsAccounts());
+                if(account==null){
+                    break;
+                }
+                new AccountGUI(account).handleInput(m);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public void handleInput(InputManager m){
         System.out.println("Welcome, "+client.getName()+"!");
         while (true){
             System.out.println("Select an action");
-            List<String> options = new ArrayList<>(Arrays.asList(
-                    "Accounts","Request Creation Of A New Account", "Settings", "Exit"
-            ));
-            String action = m.selectItem(options);
-            switch (action){
-                case "Exit": return;
-                case "Request Creation Of A New Account":
-                    newAccountCreationInput(m);
-                    break;
-                case "Settings": new UserGUI(client).handleInput(m); break;
-                case "Accounts":
-                    client.printAccountSummary();
-                    System.out.println("Please select an account:");
-                    Account account = m.selectItem(client.getClientsAccounts());
-                    if(account==null){
-                        break;
-                    }
-                    new AccountGUI(account).handleInput(m);
-                    break;
-                default:
-                    break;
-            }
+            String[] options = {
+                "Accounts", "Request Creation Of A New Account", "Settings", "Exit"
+            };
+            m.setPanel(new OptionsForm<String>(options) {
+                @Override
+                public void onSelection(String s) {
+                    handleSelection(m, s);
+                }
+            });
         }
     }
 }
