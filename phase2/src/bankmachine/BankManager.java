@@ -123,15 +123,7 @@ public class BankManager extends BankMachineUser {
         }
     }
 
-    /**
-     * Displays outstanding account creation requests and allows manager to choose one to remove
-     * @param m the input manager handling this
-     */
-    public void removeCompletedRequests(InputManager m) {
-        if (outstandingCreationRequests.size() == 0) {
-            System.out.println("No pending creation requests");
-        } else {
-            outstandingCreationRequests.remove(m.selectItem(outstandingCreationRequests));
-        }
+    public ArrayList<String> getCreationRequests() {
+        return outstandingCreationRequests;
     }
 }
