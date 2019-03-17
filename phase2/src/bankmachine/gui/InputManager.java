@@ -1,8 +1,5 @@
 package bankmachine.gui;
 
-import bankmachine.*;
-import bankmachine.exception.ShutdownException;
-import com.sun.istack.internal.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,12 +11,6 @@ import java.util.regex.Pattern;
 
 public class InputManager extends JFrame{
 
-    /** Flag to check if mainLoop should be exited */
-    private boolean exit = false;
-    /**
-     * Alias of static user manager from bankmachine
-     */
-    private UserManager userManager = BankMachine.USER_MANAGER;
     /**
      * Pattern for emails
      */
@@ -115,7 +106,6 @@ public class InputManager extends JFrame{
     }
 
     public LocalDateTime getDate(){
-        LocalDateTime datetime;
         while (true){
             int year = getInteger("Enter the year: ");
             int month = getInteger("Enter the month (1-12): ");
@@ -128,40 +118,6 @@ public class InputManager extends JFrame{
         }
     }
 
-    /**
-     * Displays menu of items to choose from, takes input and returns the chosen item
-     *
-     * @param items the list of options
-     * @param <T>   the type of the options
-     * @return item chosen
-     */
-    @Nullable
-    public <T> T selectItem(List<T> items) {
-        if (items.size() == 0) {
-            return null;
-        }
-
-        for (int i = 0; i < items.size(); i++) {
-            printObjects(new Object[]{"[", i + 1, "] "});
-            System.out.println(items.get(i).toString());
-        }
-
-        int index;
-        while (true) {
-            String number = getInput(new Object[]{
-                    "Enter a number from 1 to ", items.size(), ": "
-            });
-            try {
-                index = Integer.parseInt(number);
-            } catch (NumberFormatException e) {
-                continue;
-            }
-            if (0 < index && index <= items.size()) {
-                break;
-            }
-        }
-        return items.get(index - 1);
-    }
 
     public void setPanel(Form form){
         this.getContentPane().removeAll();
@@ -170,57 +126,15 @@ public class InputManager extends JFrame{
         this.setVisible(true);
     }
 
-    private void attemptLogin(LoginForm form, String uname, String pass){
-        BankMachineUser user = userManager.authenticate(uname, pass);
-        if (user == null) {
-            form.displayInvalid();
-        } else {
-            setPanel(new OptionsForm<String>(new String[]{"a", "b", "c"}){
-                @Override
-                public void onSelection(String s) {
-                    System.out.println("Selected "+s);
-                }
-            });
-        }
-    }
-
     /**
      * Entry point for log in and all other actions
      */
     public void mainLoop() {
-        this.setPanel(new LoginForm(){
-            @Override
-            public void onLogin() {
-                attemptLogin(this, getName(), getPass());
-            }
-        });
+        new LoginGUI().handleInput(this);
     }
 
-    /**
-     * Display when there are multiple choices
-     *
-     * @param strings the strings to itemize
-     * @return the response from the user
-     */
-    private String itemizeChoice(ArrayList<String> strings) {
-        System.out.println("Please choose an option");
-        String response = selectItem(strings);
-        System.out.println("You chose " + response);
-        return response;
-    }
-
-    //Verify if username and password exist and returns the accounts of the user.
-    private BankMachineUser logIn() {
-        while (true) {
-            String username = getInput("Enter username: ");
-            String password = getInput("Enter password: ");
-            BankMachineUser user = userManager.authenticate(username, password);
-            if (user == null) {
-                System.out.println("Incorrect username/password");
-            } else {
-                return user;
-            }
-        }
+    public <T> T selectItem(List<T> x){
+        return x.get(0);
     }
 
     // Following method kept for future use:

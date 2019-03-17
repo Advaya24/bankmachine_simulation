@@ -3,23 +3,21 @@ package bankmachine;
 import bankmachine.account.*;
 import com.sun.istack.internal.Nullable;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
 public class Client extends BankMachineUser {
     /**All the accounts this Client has**/
-    private ArrayList<Account> clientsAccounts = new ArrayList<>();
+    private List<Account> clientsAccounts = new ArrayList<>();
     public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id,name,email, phoneNumber, username, default_password);
     }
 
     /**All the getters for this class' private variables:**/
 
-    public ArrayList<Account> getClientsAccounts(){
+    public List<Account> getClientsAccounts(){
         return clientsAccounts;
     }
 

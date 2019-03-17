@@ -1,6 +1,8 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
+import bankmachine.BankManager;
+import bankmachine.Client;
 import bankmachine.TransactionType;
 import bankmachine.account.Account;
 
@@ -13,6 +15,34 @@ public class AccountGUI implements Inputtable {
     private Account account;
     public AccountGUI(Account a){
         account = a;
+    }
+
+    public Account inputTransfer(InputManager m, double amount){
+        String username =  m.getInput("Please input the username of the client." +
+                " If you would like to transfer between your accounts, enter your own username.");
+        Client client;
+        if(BankMachine.USER_MANAGER.get(username) instanceof BankManager ||
+                BankMachine.USER_MANAGER.get(username) == null){
+            System.out.println("This is not the username of one of our clients.");
+            return null;
+        }
+        else {
+            client = (Client)BankMachine.USER_MANAGER.get(username);
+        }
+        Account a;
+        if(client.equals(this.account.getClient())){
+            a = m.selectItem(client.getClientsAccounts());
+        } else {
+            a = client.getPrimaryAccount();
+        }
+        if (a == null){
+            return null;
+        }
+        if(this.account.transferOut(a, amount)){
+            return a;
+        } else {
+            return null;
+        }
     }
 
     @Override
@@ -46,7 +76,7 @@ public class AccountGUI implements Inputtable {
                     break;
                 case "Transfer":
                     type = TransactionType.TRANSFER;
-                    destination = account.inputTransfer(m, amount);
+                    destination = this.inputTransfer(m, amount);
                     status = destination != null;
                     break;
             }

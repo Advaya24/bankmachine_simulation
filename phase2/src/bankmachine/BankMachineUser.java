@@ -1,10 +1,5 @@
 package bankmachine;
 
-import bankmachine.gui.Inputtable;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Observable;
 
 import java.io.Serializable;
