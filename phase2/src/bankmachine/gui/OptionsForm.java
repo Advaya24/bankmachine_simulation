@@ -2,7 +2,7 @@ package bankmachine.gui;
 
 import javax.swing.*;
 
-public class OptionsForm extends JPanel {
+public class OptionsForm implements Form {
     private JButton option1Button;
     private JButton option2Button;
     private JButton option3Button;

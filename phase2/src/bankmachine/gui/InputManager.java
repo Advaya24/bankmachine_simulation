@@ -14,14 +14,8 @@ import java.util.regex.Pattern;
 
 public class InputManager extends JFrame{
 
-    /**
-     * Flag to check if mainLoop should be exited
-     */
+    /** Flag to check if mainLoop should be exited */
     private boolean exit = false;
-    /**
-     * Flag to check if the user is a client
-     */
-    private boolean userIsClient = true;
     /**
      * Alias of static user manager from bankmachine
      */
@@ -99,7 +93,7 @@ public class InputManager extends JFrame{
 
     public InputManager() {
         input = new Scanner(System.in);
-        this.setSize(new Dimension(1024, 768));
+        this.setSize(new Dimension(640, 480));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -169,27 +163,32 @@ public class InputManager extends JFrame{
         return items.get(index - 1);
     }
 
+    public void setPanel(Form form){
+        this.getContentPane().removeAll();
+        this.repaint();
+        this.getContentPane().add(form.getMainPanel(), BorderLayout.CENTER);
+        this.setVisible(true);
+    }
+
+    private void attemptLogin(LoginForm form, String uname, String pass){
+        BankMachineUser user = userManager.authenticate(uname, pass);
+        if (user == null) {
+            form.displayInvalid();
+        } else {
+            setPanel(new OptionsForm());
+        }
+    }
+
     /**
      * Entry point for log in and all other actions
      */
     public void mainLoop() {
-        this.getContentPane().add(new LoginForm().getMainPanel(), BorderLayout.CENTER);
-        //this.pack();
-        this.setVisible(true);
-        /* Login page
-        while (!exit) {
-            BankMachineUser user = logIn();
-            try {
-                if(user instanceof BankManager){
-                    new BankManagerGUI((BankManager) user).handleInput(this);
-                } else if (user instanceof Client){
-                    new ClientGUI((Client) user).handleInput(this);
-                }
-            } catch (ShutdownException e) {
-                exit = true;
-                return;
+        this.setPanel(new LoginForm(){
+            @Override
+            public void onLogin() {
+                attemptLogin(this, getName(), getPass());
             }
-        }*/
+        });
     }
 
     /**
