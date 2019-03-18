@@ -2,8 +2,14 @@ package bankmachine.stocks;
 import java.io.IOException;
 import java.util.*;
 
+/*** Class that handles stock information from external API - Uses JsonManager Class to Parse Data
+ * API Information: https://www.alphavantage.co/documentation/
+ */
 
 public class StockManager {
+
+    /** Global Variables used to handle Stock data
+     */
 
     private String stockdate;
     private String stockinfo;
@@ -13,21 +19,36 @@ public class StockManager {
     private String close;
     private String volume;
 
+    /**
+     * Constructor for StockManager - takes in stock code (e.g. AAPL or MSFT) as parameter
+     * @param stockcode NASDAQ Stock Code abbreviation (e.g. AAPL = Apple)
+     * @throws IOException Throws Exception for JSON Manager
+     */
+
     public StockManager(String stockcode) throws IOException {
+
+        // Initializes Json Manager class, passing in stock code and data type (stock)
         JsonManager s1 = new JsonManager(stockcode, "stock");
+
+        // Json Manager Class Returns linked list of data
         LinkedList data = s1.data();
 
         stockdate = (String)data.get(0);
         stockinfo = (String)data.get(1);
 
+        // Automatic Formatter - needed to format JSON hierarchy
         formatter();
 
     }
 
+    // Formatter Class for formatting JSON API output (stock specific)
     public void formatter(){
+
+        // Replaces JSON { and } root and node symbols
         stockinfo = stockinfo.replace("{", "");
         stockinfo = stockinfo.replace("}", "");
 
+        // Sets global variables of interest
         List<String> items = Arrays.asList(stockinfo.split("\\s*,\\s*"));
         open = ((items.get(0)).split(":")[1]).replace("\"", "");
         high = ((items.get(1)).split(":")[1]).replace("\"", "");
