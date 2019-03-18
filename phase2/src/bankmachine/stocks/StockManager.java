@@ -35,13 +35,34 @@ public class StockManager {
         close = ((items.get(3)).split(":")[1]).replace("\"", "");
         volume = ((items.get(4)).split(":")[1]).replace("\"", "");
 
-        System.out.println("Open: "+open+" High: "+high+" Low: "+low+" Close: "+close+" Volume: "+volume);
+    }
 
-
+    public String getTime(){
+        return stockdate;
     }
 
     public double getOpen(){
         return Double.parseDouble(open);
+    }
+
+    public double getHigh(){
+        return Double.parseDouble(high);
+    }
+
+    public double getLow(){
+        return Double.parseDouble(low);
+    }
+
+    public double getClose(){
+        return Double.parseDouble(close);
+    }
+
+    public Integer getVolume(){
+        return Integer.parseInt(volume);
+    }
+
+    public String getAll() {
+        return ("Open: " + open + " High: " + high + " Low: " + low + " Close: " + close + " Volume: " + volume);
     }
 
 
