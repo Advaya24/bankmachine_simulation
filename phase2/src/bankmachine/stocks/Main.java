@@ -24,6 +24,8 @@ public class Main {
         System.out.println(all2);
 
         ExchangeManager cm2 = new ExchangeManager("USD", "CNY");
+        String all4 = cm2.getAll();
+        System.out.println(all4);
 
     }
 
