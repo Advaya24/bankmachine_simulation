@@ -19,10 +19,11 @@ public class Main {
         System.out.println(time);
 
 
+        ExchangeManager cm = new ExchangeManager("BTC", "USD");
+        String all2 = cm.getAll();
+        System.out.println(all2);
 
-        CryptoManager cm = new CryptoManager("BTC");
-       String all2 = cm.getAll();
-       System.out.println(all2);
+        ExchangeManager cm2 = new ExchangeManager("USD", "CNY");
 
     }
 

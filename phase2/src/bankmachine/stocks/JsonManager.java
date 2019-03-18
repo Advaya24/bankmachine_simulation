@@ -18,14 +18,16 @@ public class JsonManager {
     JsonElement root;
     JsonObject rootobj;
 
-    String code;
+    String input;
+    String input2;
     String type;
     String header;
 
     JsonObject jsonheader;
 
-    public JsonManager(String code, String type) {
-        this.code = code;
+    public JsonManager(String input, String input2, String type) {
+        this.input = input;
+        this.input2 = input2;
         this.type = type;
 
 
@@ -33,11 +35,11 @@ public class JsonManager {
 
     public LinkedList data() throws IOException {
         if (type.equals("stock")) {
-            sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + code + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
+            sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + input + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
             header = "Time Series (5min)";
         }
-        if (type.equals("crypto")) {
-            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + code + "&to_currency=USD&apikey=MSOJPA23LLK8HUOQ";
+        if (type.equals("exchange")) {
+            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + input + "&to_currency="+input2+"&apikey=MSOJPA23LLK8HUOQ";
             header = "Realtime Currency Exchange Rate";
 
         }
@@ -55,7 +57,7 @@ public class JsonManager {
             jsonheader = rootobj.getAsJsonObject(header);
         }
 
-        if(type.equals("crypto")){
+        if(type.equals("exchange")){
             jsonheader = rootobj;
         }
 

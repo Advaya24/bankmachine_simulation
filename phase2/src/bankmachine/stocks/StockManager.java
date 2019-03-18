@@ -28,7 +28,8 @@ public class StockManager {
     public StockManager(String stockcode) throws IOException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
-        JsonManager s1 = new JsonManager(stockcode, "stock");
+
+        JsonManager s1 = new JsonManager(stockcode, null,"stock");
 
         // Json Manager Class Returns linked list of data
         LinkedList data = s1.data();

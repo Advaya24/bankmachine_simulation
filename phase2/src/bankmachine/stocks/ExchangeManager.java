@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class CryptoManager {
+public class ExchangeManager {
 
     String cryptodata;
     String from_code;
@@ -18,10 +18,10 @@ public class CryptoManager {
 
 
 
-    public CryptoManager(String cryptocode) throws IOException {
+    public ExchangeManager(String inputcurrency, String outputcurrency) throws IOException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
-        JsonManager s1 = new JsonManager(cryptocode, "crypto");
+        JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
 
         // Json Manager Class Returns linked list of data
         LinkedList data = s1.data();
