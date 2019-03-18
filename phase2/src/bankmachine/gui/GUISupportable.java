@@ -1,5 +1,5 @@
 package bankmachine.gui;
 
 public interface GUISupportable {
-    void buttonClicked(String o);
+    void buttonClicked(String s);
 }

@@ -25,7 +25,7 @@ public class Main {
     }
 
     public static void action() {
-        System.out.println(sampleChoices.indexOf(((GUISupportableDemo) listener).getSelectedString()));
+        System.out.println("Main says: Selected option with index " + sampleChoices.indexOf(((GUISupportableDemo) listener).getSelectedString()));
         frame.dispose(); // Removes frame
     }
 

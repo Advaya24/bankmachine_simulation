@@ -11,8 +11,7 @@ public class GUISupportableDemo implements GUISupportable {
     }
     @Override
     public void buttonClicked(String s) {
-        System.out.println("Selected " + s);
-        System.out.println(s.getClass());
+        System.out.println("GUISupportableDemo says: Selected " + s);
         selectedString = s;
         function.apply(null);
     }
