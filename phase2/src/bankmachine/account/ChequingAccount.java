@@ -1,13 +1,9 @@
 package bankmachine.account;
 
-import bankmachine.BankMachine;
-import bankmachine.Client;
+import bankmachine.users.Client;
 
-
-import bankmachine.BillManager;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * An account for withdrawals and deposits

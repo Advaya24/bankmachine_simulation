@@ -1,15 +1,12 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.BankManager;
-import bankmachine.Client;
-import bankmachine.TransactionType;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
+import bankmachine.transaction.TransactionType;
 import bankmachine.account.Account;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AccountGUI implements Inputtable {
     private Account account;
@@ -45,13 +42,7 @@ public class AccountGUI implements Inputtable {
         }
     }
 
-    @Override
-    public void handleInput(InputManager m) {
-        List<String> options = new ArrayList<>(Arrays.asList(
-                "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
-        ));
-        System.out.println("Select an option");
-        String action = m.selectItem(options);
+    private void handleSelection(InputManager m, String action){
         if (action.equals("Cancel")) {
             return;
         }
@@ -91,5 +82,19 @@ public class AccountGUI implements Inputtable {
         } else {
             System.out.println(action+" unsuccessful");
         }
+    }
+
+    @Override
+    public void handleInput(InputManager m) {
+        String[] options = {
+            "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
+        };
+        m.setPanel(new OptionsForm<String>(options) {
+            @Override
+            public void onSelection(String s) {
+                handleSelection(m, s);
+            }
+        });
+
     }
 }

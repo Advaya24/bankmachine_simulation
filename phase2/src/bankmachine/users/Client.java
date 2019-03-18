@@ -1,5 +1,6 @@
-package bankmachine;
+package bankmachine.users;
 
+import bankmachine.transaction.Transaction;
 import bankmachine.account.*;
 import com.sun.istack.internal.Nullable;
 

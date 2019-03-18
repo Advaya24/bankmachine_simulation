@@ -1,7 +1,11 @@
-package bankmachine;
+package bankmachine.users;
 
+import bankmachine.TrackingFactory;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
 import java.util.*;
@@ -190,6 +194,19 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         for(BankMachineUser c:getInstances()){
             if(c instanceof BankManager){
                 bankManagers.add((BankManager) c);
+            }
+        }
+        return bankManagers;
+    }
+
+    /**
+     * Get all BankManagers
+     */
+    public List<Client> getClients(){
+        List<Client> bankManagers = new ArrayList<>();
+        for(BankMachineUser c:getInstances()){
+            if(c instanceof Client){
+                bankManagers.add((Client) c);
             }
         }
         return bankManagers;

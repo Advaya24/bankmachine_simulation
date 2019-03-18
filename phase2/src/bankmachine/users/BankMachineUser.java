@@ -1,4 +1,6 @@
-package bankmachine;
+package bankmachine.users;
+
+import bankmachine.Identifiable;
 
 import java.util.Observable;
 

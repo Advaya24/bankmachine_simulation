@@ -1,6 +1,10 @@
 package bankmachine.gui;
 
 import bankmachine.*;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
+import bankmachine.users.UserManager;
 
 public class LoginGUI implements Inputtable {
     private UserManager userManager = BankMachine.USER_MANAGER;

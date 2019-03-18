@@ -1,8 +1,8 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.BankManager;
-import bankmachine.Client;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
 import bankmachine.account.Account;
 
 import java.util.ArrayList;
@@ -37,17 +37,17 @@ public class ClientGUI implements Inputtable {
                 break;
             case "Settings": new UserGUI(client).handleInput(m); break;
             case "Accounts":
-                client.printAccountSummary();
-                System.out.println("Please select an account:");
-                Account account = m.selectItem(client.getClientsAccounts());
-                if(account==null){
-                    break;
-                }
-                new AccountGUI(account).handleInput(m);
+                m.setPanel(new OptionsForm<Account>((Account[])client.getClientsAccounts().toArray()) {
+                    @Override
+                    public void onSelection(Account account) {
+                        new AccountGUI(account).handleInput(m);
+                    }
+                });
                 break;
             default:
                 break;
         }
+        handleInput(m);
     }
 
     @Override

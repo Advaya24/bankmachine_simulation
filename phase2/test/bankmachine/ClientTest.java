@@ -1,5 +1,7 @@
 package bankmachine;
 import bankmachine.account.Account;
+import bankmachine.transaction.Transaction;
+import bankmachine.users.Client;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 

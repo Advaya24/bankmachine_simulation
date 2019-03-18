@@ -1,7 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.BankMachine;
-import bankmachine.Client;
+import bankmachine.users.Client;
 import bankmachine.fileManager.WriteFile;
 
 import java.time.LocalDateTime;

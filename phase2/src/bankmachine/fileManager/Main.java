@@ -1,6 +1,10 @@
 package bankmachine.fileManager;
 
 import bankmachine.*;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
+import bankmachine.users.UserManager;
 
 import java.io.IOException;
 import java.util.ArrayList;

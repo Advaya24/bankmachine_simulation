@@ -2,6 +2,10 @@ package bankmachine.gui;
 
 import bankmachine.*;
 import bankmachine.account.Account;
+import bankmachine.transaction.Transaction;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;
@@ -101,6 +105,17 @@ public class BankManagerGUI implements Inputtable {
             System.out.println("Account created successfully");
         }
     }
+    /**
+     * Displays outstanding account creation requests and allows manager to choose one to remove
+     * @param m the input manager handling this
+     */
+    public void removeCompletedRequests(InputManager m) {
+        if (manager.getCreationRequests().size() == 0) {
+            System.out.println("No pending creation requests");
+        } else {
+            manager.getCreationRequests().remove(m.selectItem(manager.getCreationRequests()));
+        }
+    }
 
     /**
      * Displays options for creating a new client
@@ -121,7 +136,7 @@ public class BankManagerGUI implements Inputtable {
         }
     }
 
-    public void handleSelection(InputManager m, String s){
+    private void handleSelection(InputManager m, String s){
         switch (s) {
             case "Shutdown":
                 m.exit(); return;
@@ -142,7 +157,7 @@ public class BankManagerGUI implements Inputtable {
             case "View Account Creation Requests":
                 manager.viewAccountCreationRequests(); break;
             case "Remove Completed Creation Requests":
-                manager.removeCompletedRequests(m); break;
+                removeCompletedRequests(m); break;
             default: break;
         }
         handleInput(m);

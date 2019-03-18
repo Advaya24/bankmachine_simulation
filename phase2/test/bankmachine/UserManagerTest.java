@@ -3,6 +3,9 @@ package bankmachine;
 import bankmachine.account.Account;
 import bankmachine.account.SavingsAccount;
 import bankmachine.fileManager.FileSearcher;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.Client;
+import bankmachine.users.UserManager;
 import org.junit.jupiter.api.*;
 
 
