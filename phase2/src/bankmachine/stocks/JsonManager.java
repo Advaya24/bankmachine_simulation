@@ -37,8 +37,8 @@ public class JsonManager {
             header = "Time Series (5min)";
         }
         if (type.equals("crypto")) {
-            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + code + "&to_currency=CNY&apikey=MSOJPA23LLK8HUOQ";
-            jsonheader = rootobj.getAsJsonObject("Time Series (5min)");
+            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + code + "&to_currency=USD&apikey=MSOJPA23LLK8HUOQ";
+            header = "Realtime Currency Exchange Rate";
 
         }
 
@@ -50,7 +50,14 @@ public class JsonManager {
         root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
         rootobj = root.getAsJsonObject(); //May be an array, may be an object.
 
-        jsonheader = rootobj.getAsJsonObject(header);
+        if(type.equals("stock")) {
+
+            jsonheader = rootobj.getAsJsonObject(header);
+        }
+
+        if(type.equals("crypto")){
+            jsonheader = rootobj;
+        }
 
         LinkedList<String> linkedlist = new LinkedList<String>();
 

@@ -17,6 +17,13 @@ public class Main {
 
         String time = sm.getTime();
         System.out.println(time);
+
+
+
+        CryptoManager cm = new CryptoManager("BTC");
+       String all2 = cm.getAll();
+       System.out.println(all2);
+
     }
 
 
