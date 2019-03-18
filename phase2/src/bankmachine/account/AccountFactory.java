@@ -26,8 +26,8 @@ public class AccountFactory extends TrackingFactory<Account> {
      * @param client       the client whose account this is
      * @param creationDate the date of creation for this account
      */
-    public void newCqAccount(int amount, Client client, LocalDateTime creationDate) {
-        newCqAccount(false, amount, client, creationDate);
+    public void newChequingAccount(int amount, Client client, LocalDateTime creationDate) {
+        newChequingAccount(false, amount, client, creationDate);
     }
 
     /**
@@ -38,7 +38,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * @param client       the client whose account this is
      * @param creationDate the date of creation for this account
      */
-    public void newCqAccount(boolean primary, int amount, Client client, LocalDateTime creationDate) {
+    public void newChequingAccount(boolean primary, int amount, Client client, LocalDateTime creationDate) {
         ChequingAccount a = new ChequingAccount(getNextID(), amount, client, creationDate);
         addInstance(a);
     }
@@ -50,7 +50,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * @param client       the client whose account this is
      * @param creationDate the date of creation for this account
      */
-    public void newCCAccount(int balance, Client client, LocalDateTime creationDate) {
+    public void newCreditCardAccount(int balance, Client client, LocalDateTime creationDate) {
         CreditCardAccount a = new CreditCardAccount(getNextID(), balance, client, creationDate);
         addInstance(a);
     }
@@ -62,7 +62,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * @param client       the client whose account this is
      * @param creationDate the date of creation for this account
      */
-    public void newLOCAccount(int balance, Client client, LocalDateTime creationDate) {
+    public void newLineOfCreditAccount(int balance, Client client, LocalDateTime creationDate) {
         LineOfCreditAccount a = new LineOfCreditAccount(getNextID(), balance, client, creationDate);
         addInstance(a);
     }

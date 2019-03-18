@@ -1,7 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.*;
-import bankmachine.fileManager.ReadFile;
+import bankmachine.fileManager.DepositReader;
 import bankmachine.fileManager.WriteFile;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.Client;
@@ -14,25 +14,15 @@ import java.util.ArrayList;
  * An account containing a balance
  */
 public abstract class Account implements Serializable, Identifiable {
-    /**
-     * The current balance of the account, in cents
-     */
+    /** The current balance of the account, in cents */
     protected int balance;
-    /**
-     * The unique id for this account
-     */
+    /** The unique id for this account */
     private final int id;
-    /**
-     * The client whose account this is
-     */
+    /** The client whose account this is */
     protected Client client;
-    /**
-     * The list of transactions made on this account
-     */
+    /** The list of transactions made on this account */
     ArrayList<Transaction> transactions = new ArrayList<>();
-    /**
-     * The date of creation of this account
-     */
+    /** The date of creation of this account */
     protected LocalDateTime creationDate;
 
     public Account(int id, int balance, Client client, LocalDateTime creationDate) {
@@ -67,9 +57,8 @@ public abstract class Account implements Serializable, Identifiable {
         }
         return true;
     }
-
-    public LocalDateTime getCreationDate() {
-        return this.creationDate;
+    public boolean transferIn(Account acc, double amount) {
+        return this.transferIn(acc, (int) (amount * 100));
     }
 
     /**
@@ -149,9 +138,6 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount amount to add to balance
      * @return true, iff amount is non-negative
      */
-    public boolean transferIn(Account acc, double amount) {
-        return this.transferIn(acc, (int) (amount * 100));
-    }
 
     /**
      * Pays the bill using this account, logs to outgoing.txt file
@@ -186,46 +172,17 @@ public abstract class Account implements Serializable, Identifiable {
     /**
      * Deposit money into this account if possible.
      * If deposits.txt is one line,
-     *
-     * @return true iff deposit is made
      */
-    public boolean deposit() {
-        ReadFile reader = new ReadFile("/deposits.txt");
-        String contents;
-        try{
-            contents = reader.getData();
-        } catch (IOException e){
-            return false;
-        }
-        String[] lines = contents.split("\\r?\\n");
-        if(lines.length == 0){ return false; }
-        double balance = 0.0;
-        if (lines.length < 4){
-            try{
-                balance = Double.parseDouble(lines[0]);
-            } catch (NumberFormatException e){
-                return false;
-            }
-        } else {
-            int[] denominations = {5, 10, 20, 50};
-            int[] quantities = {0, 0, 0, 0};
-            for(int i=0; i<4; i++){
-                int quantity;
-                try {
-                    quantity = Integer.parseInt(lines[i]);
-                } catch (NumberFormatException e){
-                    return false;
-                }
-                quantities[i] = quantity;
-                balance += quantity*denominations[i];
-            }
+    public void deposit() {
+        DepositReader deposit = new DepositReader("/deposits.txt");
+        this.transferIn(deposit.getQuantity());
+        if(!deposit.isCheque()){
+            int denominations[] = BillManager.DENOMINATIONS;
+            int quantities[] = deposit.getBillCounts();
             for (int i=0; i<4; i++){
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
-        WriteFile writer = new WriteFile("/deposits.txt");
-        writer.clearData();
-        return transferIn(balance);
     }
 
     /**
@@ -253,7 +210,6 @@ public abstract class Account implements Serializable, Identifiable {
         return withdraw((int) (amount * 100));
     }
 
-    /* Makes sure subclasses implement a toString */
     abstract public String toString();
 
     /**
@@ -263,13 +219,6 @@ public abstract class Account implements Serializable, Identifiable {
      * @return true iff this account can transfer out this amount
      */
     public abstract boolean canTransferOut(int amount);
-
-    /**
-     * Indicates whether this account can transfer out the given amount
-     *
-     * @param amount the amount to be transferred out
-     * @return true iff this account can transfer out this amount
-     */
     public boolean canTransferOut(double amount) {
         return canTransferOut((int) (100 * amount));
     }
@@ -278,21 +227,20 @@ public abstract class Account implements Serializable, Identifiable {
     public int getBalance() {
         return balance;
     }
-
     public int getID() {
         return id;
     }
-
     public double getDoubleBalance() {
         return balance / 100.0;
     }
-
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
-
     public Client getClient() {
         return client;
+    }
+    public LocalDateTime getCreationDate() {
+        return this.creationDate;
     }
 
     /**
@@ -303,7 +251,5 @@ public abstract class Account implements Serializable, Identifiable {
     public void changeBalance(int amount) {
         this.balance += amount;
     }
-
-
 
 }

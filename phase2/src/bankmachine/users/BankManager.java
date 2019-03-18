@@ -30,13 +30,13 @@ public class BankManager extends BankEmployee {
         AccountFactory factory = BankMachine.accFactory;
         switch (accountType) {
             case "Chequing account":
-                factory.newCqAccount(0, client, creationDate);
+                factory.newChequingAccount(0, client, creationDate);
                 break;
             case "Credit card account":
-                factory.newCCAccount(0, client, creationDate);
+                factory.newCreditCardAccount(0, client, creationDate);
                 break;
             case "Line of credit account":
-                factory.newLOCAccount(0, client, creationDate);
+                factory.newLineOfCreditAccount(0, client, creationDate);
                 break;
             case "Savings account":
                 factory.newSavingsAccount(0, client, creationDate);

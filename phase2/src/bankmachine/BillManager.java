@@ -6,6 +6,8 @@ import java.util.HashMap;
 
 public class BillManager {
 
+    public static final int DENOMINATIONS[] = {5, 10, 20, 50};
+
     /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
     private HashMap<Integer, Integer> bills = new HashMap<Integer, Integer>() {

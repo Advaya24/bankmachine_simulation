@@ -19,11 +19,6 @@ public class ChequingAccount extends AssetAccount {
     private int overdrawLimit = 100;
 
 
-    public ChequingAccount(boolean primary, int id, int amount, Client client, LocalDateTime creationDate) {
-        super(id, amount, client, creationDate);
-        this.primary = primary;
-    }
-
     public ChequingAccount(int id, int amount, Client client, LocalDateTime creationDate) {
         super(id, amount, client, creationDate);
         this.primary = false;
