@@ -1,7 +1,7 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.Client;
+import bankmachine.users.Client;
 import bankmachine.account.Account;
 
 import javax.swing.*;

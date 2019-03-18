@@ -1,15 +1,12 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.BankManager;
-import bankmachine.Client;
-import bankmachine.TransactionType;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
+import bankmachine.transaction.TransactionType;
 import bankmachine.account.Account;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class AccountGUI implements Inputtable {
     private Account account;

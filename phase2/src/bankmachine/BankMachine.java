@@ -6,6 +6,8 @@ import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.SavingsAccount;
 import bankmachine.gui.InputManager;
+import bankmachine.transaction.TransactionFactory;
+import bankmachine.users.UserManager;
 
 import java.io.File;
 

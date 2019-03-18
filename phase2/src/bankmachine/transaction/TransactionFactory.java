@@ -1,5 +1,6 @@
-package bankmachine;
+package bankmachine.transaction;
 
+import bankmachine.TrackingFactory;
 import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 

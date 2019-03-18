@@ -3,6 +3,8 @@ package bankmachine.account;
 import bankmachine.*;
 import bankmachine.fileManager.ReadFile;
 import bankmachine.fileManager.WriteFile;
+import bankmachine.transaction.Transaction;
+import bankmachine.users.Client;
 
 import java.io.*;
 import java.time.LocalDateTime;

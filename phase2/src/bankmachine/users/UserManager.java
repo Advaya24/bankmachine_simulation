@@ -1,7 +1,11 @@
-package bankmachine;
+package bankmachine.users;
 
+import bankmachine.TrackingFactory;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
 import java.util.*;

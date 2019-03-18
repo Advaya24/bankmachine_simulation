@@ -1,6 +1,6 @@
 package bankmachine.account;
 
-import bankmachine.Client;
+import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
 

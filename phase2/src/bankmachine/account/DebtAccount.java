@@ -1,9 +1,8 @@
 package bankmachine.account;
 
-import bankmachine.Client;
+import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * An account which allows negative balance

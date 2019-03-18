@@ -1,5 +1,6 @@
-package bankmachine;
+package bankmachine.transaction;
 
+import bankmachine.Identifiable;
 import bankmachine.account.Account;
 
 import java.io.Serializable;

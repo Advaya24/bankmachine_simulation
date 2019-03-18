@@ -1,7 +1,9 @@
-package bankmachine;
+package bankmachine.users;
 
+import bankmachine.BankMachine;
+import bankmachine.transaction.Transaction;
+import bankmachine.transaction.TransactionType;
 import bankmachine.account.*;
-import bankmachine.gui.InputManager;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

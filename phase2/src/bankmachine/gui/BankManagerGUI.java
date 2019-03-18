@@ -2,6 +2,10 @@ package bankmachine.gui;
 
 import bankmachine.*;
 import bankmachine.account.Account;
+import bankmachine.transaction.Transaction;
+import bankmachine.users.BankMachineUser;
+import bankmachine.users.BankManager;
+import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;
