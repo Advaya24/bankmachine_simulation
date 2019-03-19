@@ -31,7 +31,7 @@ public class Exchange {
     public String makeExchange() {
         ExchangeManager em = new ExchangeManager(from_currency, to_currency);
         Double exchangerate = em.getExchange();
-        return  (exchangerate * amount) + " " + em.getCurrencyName();
+        return amount + " " + from_currency + " is equal to " + (exchangerate * amount) + " " + em.getCurrencyName();
     }
 
 
