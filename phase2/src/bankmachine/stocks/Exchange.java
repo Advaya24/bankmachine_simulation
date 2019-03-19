@@ -1,12 +1,21 @@
 package bankmachine.stocks;
 
+
+/***
+ * Class that handles Exchanges across currencies (including Crypto currencies)
+ */
+
 public class Exchange {
     String from_currency;
     String to_currency;
     Double amount;
 
-    String papa;
-
+    /***
+     * Constructor for Exchange Class
+     * @param from_currency String of initial currency (e.g. USD)
+     * @param to_currency String of target currency (e.g. CNY)
+     * @param amount Double amount of currency to exchange
+     */
 
     public Exchange(String from_currency, String to_currency, Double amount){
         this.from_currency = from_currency;
@@ -15,16 +24,14 @@ public class Exchange {
 
     }
 
+    /**
+     * Method that returns String representation of exchange amount (with target currency name)
+     * @return String of value and currency name
+     */
     public String makeExchange() {
-        try {
-            ExchangeManager em = new ExchangeManager(from_currency, to_currency);
-            Double exchangerate = em.getExchange();
-            papa = (exchangerate * amount) + " " + em.getCurrencyName();
-        } catch (Exception e) {
-            System.out.println("ERROR");
-            papa = null;
-        }
-        return papa;
+        ExchangeManager em = new ExchangeManager(from_currency, to_currency);
+        Double exchangerate = em.getExchange();
+        return  (exchangerate * amount) + " " + em.getCurrencyName();
     }
 
 

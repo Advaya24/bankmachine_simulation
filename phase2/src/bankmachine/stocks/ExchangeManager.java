@@ -27,17 +27,22 @@ public class ExchangeManager {
      * @throws IOException
      */
 
-    public ExchangeManager(String inputcurrency, String outputcurrency) throws IOException {
+    public ExchangeManager(String inputcurrency, String outputcurrency){
         // Initializes Json Manager class, passing in stock code and data type (stock)
-        JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
 
-        // Json Manager Class Returns linked list of data
-        LinkedList data = s1.data();
+        try {
+            JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
 
-        cryptodata = (String) data.get(1);
+            // Json Manager Class Returns linked list of data
+            LinkedList data = s1.data();
 
-        // Automatic Formatter - needed to format JSON hierarchy
-        formatter();
+            cryptodata = (String) data.get(1);
+
+            // Automatic Formatter - needed to format JSON hierarchy
+            formatter();
+        } catch (IOException e){
+            System.out.println("IOException Error!");
+        }
 
     }
 
