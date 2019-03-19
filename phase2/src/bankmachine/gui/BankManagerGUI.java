@@ -1,6 +1,6 @@
 package bankmachine.gui;
 
-import bankmachine.*;
+import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.BankMachineUser;
@@ -123,17 +123,35 @@ public class BankManagerGUI implements Inputtable {
      * @param m the input manager handling this
      */
     private void inputCreateClient(InputManager m){
-        String name = m.getInput("Enter a name: ");
-        String username = m.getInput("Enter a username: ");
-        String phone = m.getPhone();
-        String email = m.getEmail();
-        String pwd = m.getInput("Enter a password: ");
-        Client client = BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
-        if(client == null){
-            System.out.println("A client with that username exists!");
-        } else {
-            System.out.println("Client created");
-        }
+//        String name = m.getInput("Enter a name: ");
+//        String username = m.getInput("Enter a username: ");
+//        String phone = m.getPhone();
+//        String email = m.getEmail();
+//        String pwd = m.getInput("Enter a password: ");
+//        Client client = BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
+//        if(client == null){
+//            System.out.println("A client with that username exists!");
+//        } else {
+//            System.out.println("Client created");
+//        }
+        String[] attributes = {"Name", "Email", "Phone", "Username", "Password", "Confirm Password"};
+        m.setPanel(new ClientCreationForm("Create new client", attributes) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+
+            @Override
+            public void onOk(String[] strings) {
+                Client client1 = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                if(client1 == null){
+                    System.out.println("A client with that username exists!");
+                } else {
+                    System.out.println("Client created");
+                }
+                handleInput(m);
+            }
+        });
     }
 
     private void handleSelection(InputManager m, String s){
@@ -145,13 +163,13 @@ public class BankManagerGUI implements Inputtable {
             case "Settings":
                 new UserGUI(manager).handleInput(m); break;
             case "Create Account":
-                inputCreateAccount(m); break;
+                inputCreateAccount(m); return;
             case "Undo a Transaction":
                 inputUndoTransaction(m); break;
             case "Set Time":
                 inputSetTime(m); break;
             case "Create Client":
-                inputCreateClient(m); break;
+                inputCreateClient(m); return;
             case "Add Bills":
                 inputAddBills(m); break;
             case "View Account Creation Requests":

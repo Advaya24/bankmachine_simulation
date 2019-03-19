@@ -1,9 +1,9 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
+import bankmachine.account.Account;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
-import bankmachine.account.Account;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,23 +37,40 @@ public class ClientGUI implements Inputtable {
                 break;
             case "Settings": new UserGUI(client).handleInput(m); break;
             case "Accounts":
-                m.setPanel(new OptionsForm<Account>((Account[])client.getClientsAccounts().toArray()) {
+                client.printAccountSummary();
+                m.setPanel(new AccountSummaryForm(client.getAccountSummary(), new OptionsForm<Object>(client.getClientsAccounts().toArray()){
                     @Override
-                    public void onSelection(Account account) {
-                        new AccountGUI(account).handleInput(m);
+                    public void onSelection(Object obj) {
+                        handleAccount(m, (Account)obj);
+                    }
+                }.getMainPanel()) {
+                    @Override
+                    public void onCancel() {
+                        handleInput(m);
                     }
                 });
-                break;
+//                System.out.println("Please select an account:");
+//                Account account = m.selectItem(client.getClientsAccounts());
+
+                return;
             default:
                 break;
         }
         handleInput(m);
     }
 
+    private void handleAccount(InputManager m, Account account) {
+        if(account==null){
+            return;
+        }
+        new AccountGUI(account).handleInput(m);
+    }
+
+
     @Override
     public void handleInput(InputManager m){
         System.out.println("Welcome, "+client.getName()+"!");
-        while (true){
+//        while (true){ // Commented loop out because it caused an infinite loop
             System.out.println("Select an action");
             String[] options = {
                 "Accounts", "Request Creation Of A New Account", "Settings", "Exit"
@@ -64,6 +81,6 @@ public class ClientGUI implements Inputtable {
                     handleSelection(m, s);
                 }
             });
-        }
+//        }
     }
 }

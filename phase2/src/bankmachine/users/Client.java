@@ -105,6 +105,15 @@ public class Client extends BankMachineUser {
         }
         return this.clientsAccounts.get(0);
     }
+    public String[] getAccountSummary() {
+        String[] summaryStrings = new String[clientsAccounts.size()+2];
+        summaryStrings[0] = "Account summary for username: " + getUsername();
+        for (int i = 0; i < clientsAccounts.size(); i++) {
+            summaryStrings[i+1] = clientsAccounts.get(i).toString();
+        }
+        summaryStrings[clientsAccounts.size()+1] = "Net total: "+getNetTotal();
+        return summaryStrings;
+    }
 
 
 }
