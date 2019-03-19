@@ -44,14 +44,14 @@ public class ChequingAccount extends AssetAccount {
      * @param amount the amount to be transferred out
      * @return true iff this account can transfer out this amount
      */
-    public boolean canTransferOut(int amount) {
+    public boolean canTransferOut(double amount) {
         return (!(amount < 0 || this.balance < 0
-                || this.balance - amount < -100 * overdrawLimit));
+                || this.balance - amount < -overdrawLimit));
     }
 
     public String toString() {
         String output = "";
-        output += "ID: " + getID() + " Type: Chequing Account Balance: $" + getDoubleBalance();
+        output += "ID: " + getID() + " Type: Chequing Account Balance: $" + getBalance();
         if (isPrimary()) {
             output += " [Primary]";
         }

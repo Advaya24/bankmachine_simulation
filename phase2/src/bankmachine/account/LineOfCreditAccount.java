@@ -17,13 +17,13 @@ public class LineOfCreditAccount extends DebtAccount {
      * @return true iff transfer was successful
      */
     @Override
-    public boolean canTransferOut(int amount) {
+    public boolean canTransferOut(double amount) {
         return true;
     }
 
     public String toString() {
         String output = "";
-        output += "ID: " + getID() + " Type: Line of Credit Account Balance: $" + getDoubleBalance();
+        output += "ID: " + getID() + " Type: Line of Credit Account Balance: $" + getBalance();
         return output;
     }
 }

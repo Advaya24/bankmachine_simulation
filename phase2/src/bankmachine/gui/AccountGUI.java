@@ -52,7 +52,8 @@ public class AccountGUI implements Inputtable {
             System.out.println(account.getCreationDate());
         }
         if (action.equals("Deposit")){
-            status = account.deposit();
+            account.deposit();
+            status = true;
         } else {
             double amount = m.getMoney();
             Account destination = null;

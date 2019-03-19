@@ -27,12 +27,7 @@ public abstract class DebtAccount extends Account {
     }
 
     @Override
-    public int getBalance() {
+    public double getBalance() {
         return -balance;
-    }
-
-    @Override
-    public double getDoubleBalance() {
-        return -balance / 100.0;
     }
 }

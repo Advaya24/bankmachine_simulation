@@ -21,7 +21,7 @@ public class SavingsAccount extends AssetAccount {
      * @return true iff transfer was successful
      */
     @Override
-    public boolean canTransferOut(int amount) {
+    public boolean canTransferOut(double amount) {
         return amount < balance && amount > 0;
     }
 
@@ -30,12 +30,12 @@ public class SavingsAccount extends AssetAccount {
      */
     public void applyInterest() {
         double newBalance = this.balance * (1 + this.interestRate);
-        this.balance = (int) Math.round(newBalance);
+        this.balance = Math.round(newBalance*100)/100.0;
     }
 
     public String toString() {
         String output = "";
-        output += "ID: " + getID() + " Type: Savings Account Balance: $" + getDoubleBalance();
+        output += "ID: " + getID() + " Type: Savings Account Balance: $" + getBalance();
         return output;
     }
 }

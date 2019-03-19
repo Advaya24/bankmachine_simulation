@@ -14,8 +14,8 @@ import java.util.ArrayList;
  * An account containing a balance
  */
 public abstract class Account implements Serializable, Identifiable {
-    /** The current balance of the account, in cents */
-    protected int balance;
+    /** The current balance of the account, in dollars */
+    protected double balance;
     /** The unique id for this account */
     private final int id;
     /** The client whose account this is */
@@ -25,7 +25,7 @@ public abstract class Account implements Serializable, Identifiable {
     /** The date of creation of this account */
     protected LocalDateTime creationDate;
 
-    public Account(int id, int balance, Client client, LocalDateTime creationDate) {
+    public Account(int id, double balance, Client client, LocalDateTime creationDate) {
         client.addAccount(this);
         this.id = id;
         this.client = client;
@@ -40,7 +40,7 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to transfer
      * @return whether the transaction succeeded
      */
-    public boolean transferIn(Account other, int amount) {
+    public boolean transferIn(Account other, double amount) {
         if (amount < 0) {
             return false;
         }
@@ -57,9 +57,6 @@ public abstract class Account implements Serializable, Identifiable {
         }
         return true;
     }
-    public boolean transferIn(Account acc, double amount) {
-        return this.transferIn(acc, (int) (amount * 100));
-    }
 
     /**
      * Transfer money out of this account. see transferIn
@@ -68,33 +65,8 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to transfer
      * @return true iff transaction was successful
      */
-    public boolean transferOut(Account other, int amount) {
+    public boolean transferOut(Account other, double amount) {
         return other.transferIn(this, amount);
-    }
-
-    /**
-     * Transfer money out of this account. see transferIn
-     *
-     * @param acc    the account to transfer into
-     * @param amount the amount to transfer
-     * @return true iff transaction was successful
-     */
-    public boolean transferOut(Account acc, double amount) {
-        return this.transferOut(acc, (int) (amount * 100));
-    }
-
-    /**
-     * Transfer money out. Returns false if account doesn't have enough money
-     *
-     * @param amount the amount to transfer
-     * @return true iff transfer was successful
-     */
-    public boolean transferOut(int amount) {
-        if (canTransferOut(amount)) {
-            balance -= amount;
-            return true;
-        }
-        return false;
     }
 
     /**
@@ -104,21 +76,11 @@ public abstract class Account implements Serializable, Identifiable {
      * @return true iff transfer was successful
      */
     public boolean transferOut(double amount) {
-        return this.transferOut((int) (amount * 100));
-    }
-
-    /**
-     * Transfer money in
-     *
-     * @param amount amount to add to balance
-     * @return true, if and only if amount is non-negative
-     */
-    boolean transferIn(int amount) {
-        if (amount < 0) {
-            return false;
+        if (canTransferOut(amount)) {
+            balance -= amount;
+            return true;
         }
-        balance += amount;
-        return true;
+        return false;
     }
 
     /**
@@ -128,34 +90,10 @@ public abstract class Account implements Serializable, Identifiable {
      * @return true, if and only if amount is non-negative
      */
     public boolean transferIn(double amount) {
-        return this.transferIn((int) (amount * 100));
-    }
-
-    /**
-     * Transfer money in
-     *
-     * @param acc    the account to transfer in from
-     * @param amount amount to add to balance
-     * @return true, iff amount is non-negative
-     */
-
-    /**
-     * Pays the bill using this account, logs to outgoing.txt file
-     *
-     * @param amount the amount to be payed
-     * @return true iff transaction was successful
-     */
-    public boolean payBill(int amount) {
-        boolean status = transferOut(amount);
-        if (!status) {
+        if (amount < 0) {
             return false;
         }
-
-        WriteFile out = new WriteFile("outgoing.txt");
-        out.writeData(
-                client.getName() + " paid a bill of $" + (amount / 100),
-                true
-        );
+        balance += amount;
         return true;
     }
 
@@ -166,7 +104,16 @@ public abstract class Account implements Serializable, Identifiable {
      * @return true iff transaction was successful
      */
     public boolean payBill(double amount) {
-        return payBill((int) (amount * 100));
+        boolean status = transferOut(amount);
+        if (!status) {
+            return false;
+        }
+        WriteFile out = new WriteFile("outgoing.txt");
+        out.writeData(
+                client.getName() + " paid a bill of $" + (amount / 100),
+                true
+        );
+        return true;
     }
 
     /**
@@ -191,23 +138,16 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to withdraw
      * @return true iff withdraw was successful
      */
-    public boolean withdraw(int amount) {
+    public boolean withdraw(double amount) {
         boolean canTransfer = canTransferOut(amount);
         boolean withdraw = false;
+        if(amount%1!=0){
+            return false;
+        }
         if (canTransfer) {
-            withdraw = BankMachine.getBillManager().withdrawBills(amount);
+            withdraw = BankMachine.getBillManager().withdrawBills((int)amount);
         }
         return withdraw && transferOut(amount);
-    }
-
-    /**
-     * Withdraw specified amount, if possible
-     *
-     * @param amount the amount to withdraw
-     * @return true iff withdraw was successful
-     */
-    public boolean withdraw(double amount) {
-        return withdraw((int) (amount * 100));
     }
 
     abstract public String toString();
@@ -218,20 +158,14 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to be transferred out
      * @return true iff this account can transfer out this amount
      */
-    public abstract boolean canTransferOut(int amount);
-    public boolean canTransferOut(double amount) {
-        return canTransferOut((int) (100 * amount));
-    }
+    public abstract boolean canTransferOut(double amount);
 
     /* Getters */
-    public int getBalance() {
-        return balance;
-    }
     public int getID() {
         return id;
     }
-    public double getDoubleBalance() {
-        return balance / 100.0;
+    public double getBalance() {
+        return ((double)Math.round(100*balance))/100.0;
     }
     public ArrayList<Transaction> getTransactions() {
         return transactions;
@@ -248,7 +182,7 @@ public abstract class Account implements Serializable, Identifiable {
      *
      * @param amount the amount to change the balance by
      */
-    public void changeBalance(int amount) {
+    public void changeBalance(double amount) {
         this.balance += amount;
     }
 

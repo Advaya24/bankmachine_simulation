@@ -21,7 +21,7 @@ public class CreditCardAccount extends DebtAccount {
      * @return false always
      */
     @Override
-    public boolean canTransferOut(int amount) {
+    public boolean canTransferOut(double amount) {
         return false;
     }
 
@@ -32,14 +32,14 @@ public class CreditCardAccount extends DebtAccount {
      * @return true iff transaction was successful
      */
     @Override
-    public boolean payBill(int amount) {
+    public boolean payBill(double amount) {
         if (amount < 0) {
             return false;
         }
         changeBalance(-amount);
         WriteFile out = new WriteFile("outgoing.txt");
         out.writeData(
-                client.getName() + " paid a bill of $" + (amount / 100),
+                client.getName() + " paid a bill of $" + amount,
                 true
         );
         return true;
@@ -52,15 +52,16 @@ public class CreditCardAccount extends DebtAccount {
      * @return true iff withdraw was successful
      */
     @Override
-    public boolean withdraw(int amount) {
+    public boolean withdraw(double amount) {
         if (amount < 0){ return false; }
-        boolean withdraw = BankMachine.getBillManager().withdrawBills(amount);
-        if(withdraw){
-            changeBalance(-amount);
-            return true;
-        } else {
+        if (amount%1!=0){
             return false;
         }
+        boolean withdraw = BankMachine.getBillManager().withdrawBills((int)amount);
+        if(withdraw) {
+            changeBalance(-amount);
+        }
+        return withdraw;
     }
 
     /**
@@ -74,7 +75,6 @@ public class CreditCardAccount extends DebtAccount {
 
     public String toString() {
         String output = "";
-        output += "ID: " + getID() + " Type: Credit Card Account Balance: $" + getDoubleBalance();
         return output;
     }
 }

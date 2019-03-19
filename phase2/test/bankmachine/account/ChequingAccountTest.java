@@ -27,7 +27,7 @@ public class ChequingAccountTest {
         when(otherAccount.transferOut(anyInt())).thenReturn(true);
         boolean status = account.transferIn(otherAccount, 10.0);
         assertTrue(status);
-        assertEquals(10.0, account.getDoubleBalance());
+        assertEquals(10.0, account.getBalance());
         status = account.transferOut(-200.0);
         assertFalse(status);
         status = account.transferOut(100.0);
@@ -48,7 +48,7 @@ public class ChequingAccountTest {
             assertFalse(account.transferOut(1));
             account.transferIn(100.0);
             account.applyInterest();
-            assertEquals(10010, account.getBalance());
+            assertEquals(100.10, account.getBalance());
 
         }
     }
