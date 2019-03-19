@@ -41,6 +41,9 @@ public class Main {
         Exchange emm = new Exchange("USD", "CNY", 100.0);
         System.out.println(emm.makeExchange());
 
+        MortgageCalculator mc = new MortgageCalculator(100000.0, 0.005, 180);
+        System.out.println(mc.getMortgage());
+
 
     }
 
