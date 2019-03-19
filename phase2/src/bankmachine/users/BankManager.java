@@ -15,7 +15,7 @@ import java.util.ArrayList;
  **/
 //Working on: Varun
 public class BankManager extends BankEmployee {
-    final private ArrayList<String> outstandingCreationRequests = new ArrayList<>();
+
 
     public BankManager(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id, name, email, phoneNumber, username, default_password);

@@ -13,7 +13,7 @@ public abstract class BankEmployee extends BankMachineUser {
 
     /**
      * Abstract class to describe a bank employee.
-     * Any bank employee can undo the most recent transaction of a client.
+     * Any bank employee can refill the ATM with more bills, and add and create new account requests.
      *
      */
 
