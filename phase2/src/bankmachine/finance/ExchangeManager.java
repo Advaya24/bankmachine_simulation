@@ -1,4 +1,4 @@
-package bankmachine.stocks;
+package bankmachine.finance;
 
 import java.io.IOException;
 import java.util.Arrays;
