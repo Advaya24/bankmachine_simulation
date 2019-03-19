@@ -1,6 +1,8 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 import bankmachine.transaction.TransactionType;
@@ -14,7 +16,7 @@ public class AccountGUI implements Inputtable {
         account = a;
     }
 
-    public Account inputTransfer(InputManager m, double amount){
+    public Account inputTransfer(InputManager m, double amount) throws BankMachineException {
         String username =  m.getInput("Please input the username of the client." +
                 " If you would like to transfer between your accounts, enter your own username.");
         Client client;
@@ -35,14 +37,11 @@ public class AccountGUI implements Inputtable {
         if (a == null){
             return null;
         }
-        if(this.account.transferOut(a, amount)){
-            return a;
-        } else {
-            return null;
-        }
+        this.account.transferOut(a, amount);
+        return a;
     }
 
-    private void handleSelection(InputManager m, String action){
+    private void handleSelection(InputManager m, String action) throws BankMachineException{
         if (action.equals("Cancel")) {
             return;
         }
@@ -53,18 +52,17 @@ public class AccountGUI implements Inputtable {
         }
         if (action.equals("Deposit")){
             account.deposit();
-            status = true;
         } else {
             double amount = m.getMoney();
             Account destination = null;
             switch(action){
                 case "Withdraw":
                     type = TransactionType.WITHDRAW;
-                    status = account.withdraw(amount);
+                    account.withdraw(amount);
                     break;
                 case "Pay Bill":
                     type = TransactionType.BILL;
-                    status = account.payBill(amount);
+                    account.payBill(amount);
                     break;
                 case "Transfer":
                     type = TransactionType.TRANSFER;
@@ -78,11 +76,6 @@ public class AccountGUI implements Inputtable {
                 );
             }
         }
-        if(status){
-            System.out.println(action+" successful");
-        } else {
-            System.out.println(action+" unsuccessful");
-        }
     }
 
     @Override
@@ -93,7 +86,12 @@ public class AccountGUI implements Inputtable {
         m.setPanel(new OptionsForm<String>(options) {
             @Override
             public void onSelection(String s) {
-                handleSelection(m, s);
+                try {
+                    handleSelection(m, s);
+                } catch (BankMachineException e){
+                    System.out.println(e.toString());
+                    // TODO: exception handling
+                }
             }
         });
 

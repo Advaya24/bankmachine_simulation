@@ -1,5 +1,8 @@
 package bankmachine.account;
 
+import bankmachine.exception.NegativeQuantityException;
+import bankmachine.exception.NotEnoughMoneyException;
+import bankmachine.exception.TransferException;
 import bankmachine.users.Client;
 
 
@@ -28,14 +31,15 @@ public class ChequingAccount extends AssetAccount {
      * Transfer money out. Returns false if account doesn't have enough money
      *
      * @param amount the amount to transfer
-     * @return true iff transfer was successful
      */
-    public boolean transferOut(int amount) {
+    public void transferOut(int amount) throws TransferException {
+        if (amount < 1){
+            throw new NegativeQuantityException();
+        }
         if (!canTransferOut(amount)) {
-            return false;
+            throw new NotEnoughMoneyException(this);
         }
         balance -= amount;
-        return true;
     }
 
     /**

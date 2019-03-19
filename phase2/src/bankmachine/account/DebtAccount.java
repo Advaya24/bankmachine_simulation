@@ -1,5 +1,7 @@
 package bankmachine.account;
 
+import bankmachine.exception.NegativeQuantityException;
+import bankmachine.exception.TransferException;
 import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
@@ -16,14 +18,12 @@ public abstract class DebtAccount extends Account {
      * Subtracts from the balance, balance can go negative
      *
      * @param amount amount to subtract
-     * @return always true
      */
-    public boolean transferOut(int amount) {
+    public void transferOut(int amount) throws TransferException {
         if (amount < 0) {
-            return false;
+            throw new NegativeQuantityException();
         }
         this.balance -= amount;
-        return true;
     }
 
     @Override

@@ -41,6 +41,7 @@ public class AccountFactory extends TrackingFactory<Account> {
     public void newChequingAccount(boolean primary, int amount, Client client, LocalDateTime creationDate) {
         ChequingAccount a = new ChequingAccount(getNextID(), amount, client, creationDate);
         addInstance(a);
+        a.setPrimary(primary);
     }
 
     /**

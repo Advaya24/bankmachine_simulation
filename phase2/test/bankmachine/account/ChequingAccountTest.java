@@ -1,16 +1,18 @@
 package bankmachine.account;
 
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NegativeQuantityException;
+import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.users.Client;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class ChequingAccountTest {
+
     private ChequingAccount account;
     public ChequingAccountTest(){
         Client client = mock(Client.class);
@@ -22,18 +24,19 @@ public class ChequingAccountTest {
         assertEquals(1.0, 1);
     }
     @Test
-    public void testTransfer() {
+    public void testTransfer() throws BankMachineException{
         Account otherAccount = mock(Account.class);
-        when(otherAccount.transferOut(anyInt())).thenReturn(true);
-        boolean status = account.transferIn(otherAccount, 10.0);
-        assertTrue(status);
+        account.transferIn(otherAccount, 10.0);
         assertEquals(10.0, account.getBalance());
-        status = account.transferOut(-200.0);
-        assertFalse(status);
-        status = account.transferOut(100.0);
-        assertTrue(status);
-        status = account.payBill(1);
-        assertFalse(status);
+        assertThrows(
+                NegativeQuantityException.class,
+                () -> account.transferOut(-200)
+        );
+        account.transferOut(100.0);
+        assertThrows(
+                NotEnoughMoneyException.class,
+                () -> account.payBill(1)
+        );
     }
 
     public static class SavingsAccountTest {
@@ -44,8 +47,11 @@ public class ChequingAccountTest {
             this.account = new SavingsAccount(0, 0, client, creationDate);
         }
         @Test
-        public void testTransfer() {
-            assertFalse(account.transferOut(1));
+        public void testTransfer() throws BankMachineException {
+            assertThrows(
+                NotEnoughMoneyException.class,
+                () -> account.transferOut(1)
+            );
             account.transferIn(100.0);
             account.applyInterest();
             assertEquals(100.10, account.getBalance());

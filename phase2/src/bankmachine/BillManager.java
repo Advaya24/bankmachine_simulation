@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.exception.NotEnoughBillsException;
 import bankmachine.fileManager.WriteFile;
 
 import java.util.HashMap;
@@ -41,20 +42,17 @@ public class BillManager {
     /**
      * Withdraw amount from this BillManager.
      * @param amount amount to be withdrawn.
-     * @return true if and only if the amount was withdrawn.
      */
-    public boolean withdrawBills(int amount) {
-        int amountLeft = amount;
-        //Any withdrawal should be a multiple of 5.
-        if (amountLeft % 5 != 0){
-            return false;
+    public void withdrawBills(double amount) throws NotEnoughBillsException {
+        if (amount % 5 != 0){
+            throw new NotEnoughBillsException("Withdraw amount must be a whole multiple of $5");
         }
+        int amountLeft = (int) amount;
         // Create a copy of the bills HashMap.
         HashMap<Integer, Integer> temporaryBills = new HashMap<>();
         for (int i : bills.keySet()) {
             temporaryBills.put(i, bills.get(i));
         }
-
         int[] denominations = {50, 20, 10, 5};
         //Cycle through denominations in decreasing order.
         for (int i : denominations) {
@@ -67,9 +65,9 @@ public class BillManager {
         if (amountLeft == 0) {
             bills = temporaryBills;
             updateAlert();
-            return true;
+        } else {
+            throw new NotEnoughBillsException(this);
         }
-        return false;
     }
 
     /**

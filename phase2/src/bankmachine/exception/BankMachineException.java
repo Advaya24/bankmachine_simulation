@@ -5,7 +5,7 @@ package bankmachine.exception;
  * Should only instantiate subclasses
  */
 public abstract class BankMachineException extends Throwable {
-    private String info;
+    protected String info;
     public BankMachineException(String info){
         this.info = info;
     }

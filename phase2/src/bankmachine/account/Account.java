@@ -1,6 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.*;
+import bankmachine.exception.*;
 import bankmachine.fileManager.DepositReader;
 import bankmachine.fileManager.WriteFile;
 import bankmachine.transaction.Transaction;
@@ -38,24 +39,13 @@ public abstract class Account implements Serializable, Identifiable {
      *
      * @param other  the other account
      * @param amount the amount to transfer
-     * @return whether the transaction succeeded
      */
-    public boolean transferIn(Account other, double amount) {
+    public void transferIn(Account other, double amount) throws BankMachineException{
         if (amount < 0) {
-            return false;
+            throw new NegativeQuantityException();
         }
-        boolean status = other.transferOut(amount);
-        if (!status) {
-            return false;
-        }
-        status = this.transferIn(amount);
-        if (!status) {
-            // Attempt to give money back if we cannot receive
-            status = other.transferIn(amount);
-            assert status; // Transfer back should always succeed
-            return false;
-        }
-        return true;
+        other.transferOut(amount);
+        this.transferIn(amount);
     }
 
     /**
@@ -63,64 +53,57 @@ public abstract class Account implements Serializable, Identifiable {
      *
      * @param other  the account to transfer into
      * @param amount the amount to transfer
-     * @return true iff transaction was successful
      */
-    public boolean transferOut(Account other, double amount) {
-        return other.transferIn(this, amount);
+    public void transferOut(Account other, double amount) throws BankMachineException {
+        other.transferIn(this, amount);
     }
 
     /**
      * Transfer money out. Returns false if account doesn't have enough money
      *
      * @param amount the amount to transfer
-     * @return true iff transfer was successful
      */
-    public boolean transferOut(double amount) {
-        if (canTransferOut(amount)) {
-            balance -= amount;
-            return true;
+    public void transferOut(double amount) throws TransferException {
+        if (amount < 0) {
+            throw new NegativeQuantityException();
         }
-        return false;
+        if (!canTransferOut(amount)) {
+            throw new NotEnoughMoneyException(this);
+        }
+        balance -= amount;
     }
 
     /**
      * Transfer money in
      *
      * @param amount amount to add to balance
-     * @return true, if and only if amount is non-negative
      */
-    public boolean transferIn(double amount) {
+    public void transferIn(double amount) throws NegativeQuantityException {
         if (amount < 0) {
-            return false;
+            throw new NegativeQuantityException();
         }
         balance += amount;
-        return true;
     }
 
     /**
      * Pays the bill using this account, logs to outgoing.txt file
      *
      * @param amount the amount to be payed
-     * @return true iff transaction was successful
      */
-    public boolean payBill(double amount) {
-        boolean status = transferOut(amount);
-        if (!status) {
-            return false;
-        }
+    public void payBill(double amount) throws TransferException {
+        transferOut(amount);
         WriteFile out = new WriteFile("outgoing.txt");
         out.writeData(
                 client.getName() + " paid a bill of $" + (amount / 100),
                 true
         );
-        return true;
     }
 
     /**
      * Deposit money into this account if possible.
      * If deposits.txt is one line,
      */
-    public void deposit() {
+    public void deposit() throws NegativeQuantityException {
         DepositReader deposit = new DepositReader("/deposits.txt");
         this.transferIn(deposit.getQuantity());
         if(!deposit.isCheque()){
@@ -136,18 +119,13 @@ public abstract class Account implements Serializable, Identifiable {
      * Withdraw specified amount, if possible
      *
      * @param amount the amount to withdraw
-     * @return true iff withdraw was successful
      */
-    public boolean withdraw(double amount) {
-        boolean canTransfer = canTransferOut(amount);
-        boolean withdraw = false;
-        if(amount%1!=0){
-            return false;
+    public void withdraw(double amount) throws BankMachineException {
+        if(!canTransferOut(amount)){
+            throw new NotEnoughMoneyException(this);
         }
-        if (canTransfer) {
-            withdraw = BankMachine.getBillManager().withdrawBills((int)amount);
-        }
-        return withdraw && transferOut(amount);
+        BankMachine.getBillManager().withdrawBills(amount);
+        transferOut(amount);
     }
 
     abstract public String toString();

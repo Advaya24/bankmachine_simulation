@@ -2,6 +2,8 @@ package bankmachine.gui;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.TransactionUndoException;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
@@ -33,7 +35,7 @@ public class BankManagerGUI implements Inputtable {
         }
     }
 
-    private void inputUndoTransaction(InputManager m){
+    private void inputUndoTransaction(InputManager m) throws BankMachineException {
         Client client = inputGetClient(m);
         if (client == null) {
             return;
@@ -50,9 +52,8 @@ public class BankManagerGUI implements Inputtable {
         }
         System.out.println("Select a transaction");
         Transaction transaction = m.selectItem(account.getTransactions());
-        if(manager.undoRecentTransaction(transaction)){
-            System.out.println("Successful!");
-        }
+        manager.undoRecentTransaction(transaction);
+        System.out.println("Successful!");
     }
 
     private void inputSetTime(InputManager m){
@@ -154,7 +155,7 @@ public class BankManagerGUI implements Inputtable {
         });
     }
 
-    private void handleSelection(InputManager m, String s){
+    private void handleSelection(InputManager m, String s) throws BankMachineException {
         switch (s) {
             case "Shutdown":
                 m.exit(); return;
@@ -197,7 +198,12 @@ public class BankManagerGUI implements Inputtable {
         m.setPanel(new OptionsForm<String>(options) {
             @Override
             public void onSelection(String s) {
-                handleSelection(m, s);
+                try {
+                    handleSelection(m, s);
+                } catch (BankMachineException e){
+                    System.out.println(e.toString());
+                    //TODO: handle exception
+                }
             }
         });
 

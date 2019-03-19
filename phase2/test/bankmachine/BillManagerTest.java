@@ -1,8 +1,11 @@
 package bankmachine;
 
 import java.util.HashMap;
+
+import bankmachine.exception.NotEnoughBillsException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +34,7 @@ public class BillManagerTest {
     }
 
     @Test
-    public void testWithdrawBills() {
+    public void testWithdrawBills() throws NotEnoughBillsException{
         billManager.withdrawBills(80);
         bills = billManager.getBills();
         assertEquals(19, (int)bills.get(50));
@@ -39,8 +42,14 @@ public class BillManagerTest {
         assertEquals(19, (int)bills.get(10));
         assertEquals(20, (int)bills.get(5));
 
-        assertTrue(!billManager.withdrawBills(1000000));
-        assertTrue(!billManager.withdrawBills(1));
+        assertThrows(
+            NotEnoughBillsException.class,
+            () -> billManager.withdrawBills(1000000)
+        );
+        assertThrows(
+            NotEnoughBillsException.class,
+            () -> billManager.withdrawBills(1)
+        );
 
 
     }

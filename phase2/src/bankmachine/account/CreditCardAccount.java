@@ -1,6 +1,9 @@
 package bankmachine.account;
 
 import bankmachine.BankMachine;
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NegativeQuantityException;
+import bankmachine.exception.TransferException;
 import bankmachine.users.Client;
 import bankmachine.fileManager.WriteFile;
 
@@ -29,12 +32,11 @@ public class CreditCardAccount extends DebtAccount {
      * Pays the bill using this account, logs to outgoing.txt file
      *
      * @param amount the amount to be payed
-     * @return true iff transaction was successful
      */
     @Override
-    public boolean payBill(double amount) {
+    public void payBill(double amount) throws TransferException {
         if (amount < 0) {
-            return false;
+            throw new NegativeQuantityException();
         }
         changeBalance(-amount);
         WriteFile out = new WriteFile("outgoing.txt");
@@ -42,35 +44,24 @@ public class CreditCardAccount extends DebtAccount {
                 client.getName() + " paid a bill of $" + amount,
                 true
         );
-        return true;
     }
 
     /**
      * Withdraw specified amount, if possible
      *
      * @param amount the amount to withdraw
-     * @return true iff withdraw was successful
      */
     @Override
-    public boolean withdraw(double amount) {
-        if (amount < 0){ return false; }
-        if (amount%1!=0){
-            return false;
-        }
-        boolean withdraw = BankMachine.getBillManager().withdrawBills((int)amount);
-        if(withdraw) {
-            changeBalance(-amount);
-        }
-        return withdraw;
+    public void withdraw(double amount) throws BankMachineException {
+        BankMachine.getBillManager().withdrawBills(amount);
+        changeBalance(-amount);
     }
 
     /**
      * Cannot transfer out
-     *
-     * @return always false
      */
-    public boolean transferOut(int amount) {
-        return false;
+    public void transferOut(int amount) throws TransferException {
+        throw new TransferException("Cannot transfer out of a credit card account.");
     }
 
     public String toString() {

@@ -1,6 +1,8 @@
 package bankmachine.users;
 
 import bankmachine.account.CreditCardAccount;
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.TransactionUndoException;
 import bankmachine.transaction.Transaction;
 import bankmachine.transaction.TransactionType;
 
@@ -22,26 +24,21 @@ public abstract class BankEmployee extends BankMachineUser {
      * Allows the Manager to undo the most recent transaction on any account, except for Bill Payments.
      *
      * @param transaction the Transaction that needs to be undone.
-     * @return whether the action was successful or not.
      */
-    public boolean undoRecentTransaction(Transaction transaction) {
+    public void undoRecentTransaction(Transaction transaction) throws BankMachineException{
         if (transaction.getType() == TransactionType.BILL) {
-            System.out.println("Error, you cannot undo a Bill Payment.");
-            return false;
+            throw new TransactionUndoException("Error, you cannot undo a Bill Payment.");
         } else {
             if (!transaction.getTo().canTransferOut(transaction.getAmount())) {
-                System.out.println("You cannot undo this transaction; the account doesn't have enough money!");
-                return false;
+                throw new TransactionUndoException("You cannot undo this transaction; the account doesn't have enough money!");
             }
             if (transaction.getTo() instanceof CreditCardAccount) {
-                System.out.println("You cannot undo this transaction; it was made to a Credit Card Account");
-                return false;
+                throw new TransactionUndoException("You cannot undo this transaction; it was made to a Credit Card Account");
             } else {
                 transaction.getFrom().transferIn(transaction.getAmount());
                 transaction.getTo().transferOut(transaction.getAmount());
                 transaction.getFrom().getTransactions().remove(transaction);
                 transaction.getTo().getTransactions().remove(transaction);
-                return true;
             }
         }
     }
