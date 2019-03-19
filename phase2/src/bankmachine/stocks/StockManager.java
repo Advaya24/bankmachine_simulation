@@ -28,7 +28,7 @@ public class StockManager {
     public StockManager(String stockcode) throws IOException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
-
+        // Second parameter is null as this parameter is only needed for conversion of two currencies
         JsonManager s1 = new JsonManager(stockcode, null,"stock");
 
         // Json Manager Class Returns linked list of data

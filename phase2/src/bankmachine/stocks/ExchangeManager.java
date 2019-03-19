@@ -5,6 +5,10 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/***
+ * Exchange Manager class - responsible for conversion between one currency and another (includes crypto currency)
+ */
+
 public class ExchangeManager {
 
     String cryptodata;
@@ -16,10 +20,14 @@ public class ExchangeManager {
     String datetime;
 
 
-
+    /***
+     * Constructor for Exchange Class - takes in input currency and output (target) currency
+     * @param inputcurrency
+     * @param outputcurrency
+     * @throws IOException
+     */
 
     public ExchangeManager(String inputcurrency, String outputcurrency) throws IOException {
-
         // Initializes Json Manager class, passing in stock code and data type (stock)
         JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
 
@@ -46,7 +54,7 @@ public class ExchangeManager {
         to_currcode = ((items.get(2)).split(":")[1]).replace("\"", "");
         to_currency = ((items.get(3)).split(":")[1]).replace("\"", "");
         exchange = ((items.get(4)).split(":")[1]).replace("\"", "");
-        datetime = ((items.get(4)).split(":")[1]).replace("\"", "");
+        datetime = ((items.get(5)).split(":")[1]).replace("\"", "");
 
 
     }

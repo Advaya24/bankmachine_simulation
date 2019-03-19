@@ -38,6 +38,10 @@ public class Main {
         String all4 = cm2.getAll();
         System.out.println(all4);
 
+        Exchange emm = new Exchange("USD", "CNY", 100.0);
+        System.out.println(emm.makeExchange());
+
+
     }
 
 
