@@ -184,12 +184,21 @@ public class BankManagerGUI implements Inputtable {
             @Override
             public void onOk(String[] strings) {
                 Client client1 = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                String alertMessage;
                 if (client1 == null) {
                     System.out.println("A client with that username exists!");
+                    alertMessage = "A client with that username exists!";
+
                 } else {
                     System.out.println("Client created");
+                    alertMessage = "Client created";
                 }
-                handleInput(m);
+                m.setPanel(new AlertMessageForm(alertMessage) {
+                    @Override
+                    public void onOK() {
+                        handleInput(m);
+                    }
+                });
             }
         });
     }
