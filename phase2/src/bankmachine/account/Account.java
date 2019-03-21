@@ -161,6 +161,7 @@ public abstract class Account implements Serializable, Identifiable {
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
+    //TODO: Rename this to getPrimaryClient OR refactor AccountGUI
     public Client getClient() {
         return primaryClient;
     }
