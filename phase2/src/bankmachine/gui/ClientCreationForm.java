@@ -16,10 +16,16 @@ public abstract class ClientCreationForm implements Form {
     private JButton cancelButton;
     private JLabel promptLabel;
     private String prompt;
+    private int numPasswordFields;
+    private JPasswordField[] passwordFields;
 
     public ClientCreationForm(String prompt, String[] attributes) {
-        this.attributes = attributes;
+        this(prompt, attributes, 0);
+    }
+    public ClientCreationForm(String prompt, String[] attributes, int numPasswordFields) {
         this.prompt = prompt;
+        this.attributes = attributes;
+        this.numPasswordFields = numPasswordFields;
     }
 
     @Override
@@ -34,24 +40,34 @@ public abstract class ClientCreationForm implements Form {
         okButton = new JButton("OK");
         cancelButton = new JButton("Cancel");
 
-        textFields = new JTextField[attributes.length];
         labels = new JLabel[attributes.length];
+        textFields = new JTextField[attributes.length - numPasswordFields];
+        passwordFields = new JPasswordField[numPasswordFields];
         promptLabel = new JLabel(prompt);
 
         inputGrid.add(promptLabel);
 
-        for (int i = 0; i < attributes.length; i++) {
+        for (int i = 0; i < attributes.length-numPasswordFields; i++) {
             labels[i] = new JLabel(attributes[i]);
             textFields[i] = new JTextField();
             inputGrid.add(labels[i]);
             inputGrid.add(textFields[i]);
         }
+        for (int i = attributes.length-numPasswordFields, j = 0; i < attributes.length; i++, j++) {
+            labels[i] = new JLabel(attributes[i]);
+            passwordFields[j] = new JPasswordField();
+            inputGrid.add(labels[i]);
+            inputGrid.add(passwordFields[j]);
+        }
 
 //        panel.add(inputGrid, BorderLayout.CENTER);
         okButton.addActionListener(e -> {
-            String[] inputStrings = new String[textFields.length];
+            String[] inputStrings = new String[attributes.length];
             for (int i = 0; i < textFields.length; i++) {
                 inputStrings[i] = textFields[i].getText();
+            }
+            for (int i = textFields.length, j = 0; i < attributes.length; i++, j++) {
+                inputStrings[i] = String.valueOf(passwordFields[j].getPassword());
             }
             onOk(inputStrings);
         });

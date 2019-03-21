@@ -305,7 +305,7 @@ public class BankManagerGUI implements Inputtable {
 //            System.out.println("Client created");
 //        }
         String[] attributes = {"Name", "Email", "Phone", "Username", "Password", "Confirm Password"};
-        m.setPanel(new ClientCreationForm("Create new client", attributes) {
+        m.setPanel(new ClientCreationForm("Create new client", attributes, 2) {
             @Override
             public void onCancel() {
                 handleInput(m);
