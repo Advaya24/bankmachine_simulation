@@ -39,7 +39,9 @@ public abstract class AccountSummaryForm implements Form {
         }
 
         panel.add(labelGrid, BorderLayout.NORTH);
-        panel.add(accountsPanel, BorderLayout.CENTER);
+        if (accountsPanel != null) {
+            panel.add(accountsPanel, BorderLayout.CENTER);
+        }
         panel.add(cancelButton, BorderLayout.SOUTH);
     }
 

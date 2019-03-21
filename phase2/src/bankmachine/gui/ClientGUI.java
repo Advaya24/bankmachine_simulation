@@ -5,6 +5,7 @@ import bankmachine.account.Account;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,12 +39,24 @@ public class ClientGUI implements Inputtable {
             case "Settings": new UserGUI(client).handleInput(m); break;
             case "Accounts":
                 client.printAccountSummary();
-                m.setPanel(new AccountSummaryForm(client.getAccountSummary(), new OptionsForm<Object>(client.getClientsAccounts().toArray(), ""){
-                    @Override
-                    public void onSelection(Object obj) {
-                        handleAccount(m, (Account)obj);
+                JPanel panel = null;
+                String[] accountSummary = client.getAccountSummary().clone();
+                if (client.getClientsAccounts().size() > 0) {
+                    panel = new OptionsForm<Object>(client.getClientsAccounts().toArray(), ""){
+                        @Override
+                        public void onSelection(Object obj) {
+                            handleAccount(m, (Account)obj);
+                        }
+                    }.getMainPanel();
+                } else {
+                    String[] tempAccountSummary = new String[accountSummary.length + 1];
+                    for (int i = 0; i < accountSummary.length; i++) {
+                        tempAccountSummary[i] = accountSummary[i];
                     }
-                }.getMainPanel()) {
+                    tempAccountSummary[accountSummary.length] = "No accounts to show";
+                    accountSummary = tempAccountSummary;
+                }
+                m.setPanel(new AccountSummaryForm(accountSummary, panel) {
                     @Override
                     public void onCancel() {
                         handleInput(m);

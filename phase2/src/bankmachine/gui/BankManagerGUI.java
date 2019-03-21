@@ -39,7 +39,7 @@ public class BankManagerGUI implements Inputtable {
         for (int i = 0; i < denominations.length; i++) {
             attributes[i] =  denominations[i] + "s";
         }
-        m.setPanel(new ClientCreationForm("How many of each?", attributes) {
+        m.setPanel(new TextInputForm("How many of each?", attributes) {
             @Override
             public void onCancel() {
                 handleInput(m);
@@ -128,7 +128,7 @@ public class BankManagerGUI implements Inputtable {
 
     private void getDate(InputManager m) {
         String[] attributes = {"Year (YYYY):", "Month (1-12)", "Day (1-31)"};
-        m.setPanel(new ClientCreationForm("Time settings", attributes) {
+        m.setPanel(new TextInputForm("Time settings", attributes) {
             @Override
             public void onCancel() {
                 handleInput(m);
@@ -305,7 +305,7 @@ public class BankManagerGUI implements Inputtable {
 //            System.out.println("Client created");
 //        }
         String[] attributes = {"Name", "Email", "Phone", "Username", "Password", "Confirm Password"};
-        m.setPanel(new ClientCreationForm("Create new client", attributes) {
+        m.setPanel(new TextInputForm("Create new client", attributes, 2) {
             @Override
             public void onCancel() {
                 handleInput(m);
