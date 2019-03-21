@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public abstract class ClientCreationForm implements Form {
+public abstract class TextInputForm implements Form {
     private JPanel panel;
     private JPanel inputGrid;
     private JPanel buttonGrid;
@@ -19,10 +19,10 @@ public abstract class ClientCreationForm implements Form {
     private int numPasswordFields;
     private JPasswordField[] passwordFields;
 
-    public ClientCreationForm(String prompt, String[] attributes) {
+    public TextInputForm(String prompt, String[] attributes) {
         this(prompt, attributes, 0);
     }
-    public ClientCreationForm(String prompt, String[] attributes, int numPasswordFields) {
+    public TextInputForm(String prompt, String[] attributes, int numPasswordFields) {
         this.prompt = prompt;
         this.attributes = attributes;
         this.numPasswordFields = numPasswordFields;
