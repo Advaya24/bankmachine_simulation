@@ -7,9 +7,9 @@ import bankmachine.transaction.Transaction;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
-import com.sun.istack.internal.Nullable;
 
 import javax.swing.*;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,25 +31,63 @@ public class BankManagerGUI implements Inputtable {
      */
     private void inputAddBills(InputManager m) {
         int[] denominations = {5, 10, 20, 50};
-        for (int i : denominations) {
-            int quantity = m.getInteger("How many " + i + "s? ");
-            BankMachine.getBillManager().addBills(i, quantity);
+//        for (int i : denominations) {
+//            int quantity = m.getInteger("How many " + i + "s? ");
+//            BankMachine.getBillManager().addBills(i, quantity);
+//        }
+        String[] attributes = new String[denominations.length];
+        for (int i = 0; i < denominations.length; i++) {
+            attributes[i] =  denominations[i] + "s";
         }
+        m.setPanel(new ClientCreationForm("How many of each?", attributes) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+
+            @Override
+            public void onOk(String[] strings) {
+                int[] arrayNumBillsToAdd = new int[strings.length];
+                for (int i = 0; i < strings.length; i++) {
+                    try {
+                        int numBills = Integer.parseInt(strings[i]);
+                        if (numBills > 0) {
+                            arrayNumBillsToAdd[i] = numBills;
+                        } else {
+                            throw new NumberFormatException();
+                        }
+                    } catch (NumberFormatException e) {
+                        m.setPanel(new AlertMessageForm("Invalid input for at least one denomination!") {
+                            @Override
+                            public void onOK() {
+                                inputAddBills(m);
+                            }
+                        });
+                        return;
+                    }
+                }
+                for (int i = 0; i < arrayNumBillsToAdd.length; i++) {
+                    BankMachine.getBillManager().addBills(denominations[i], arrayNumBillsToAdd[i]);
+                }
+                m.setPanel(new AlertMessageForm("Success!") {
+                    @Override
+                    public void onOK() {
+                        handleInput(m);
+                    }
+                });
+            }
+        });
     }
 
     private void inputUndoTransaction(InputManager m) {
         inputGetClient(m, (Client client) -> {
-            try {
-                undoTransactionsForClient(client, m);
-            } catch (BankMachineException e) {
-                e.printStackTrace();
-            }
+            undoTransactionsForClient(client, m);
             return null;
         });
 
     }
 
-    private void undoTransactionsForClient(Client client, InputManager m) throws BankMachineException {
+    private void undoTransactionsForClient(Client client, InputManager m) {
         if (client.getClientsAccounts().size() == 0) {
             System.out.println("There are no accounts!");
             m.setPanel(new AlertMessageForm("There are no accounts") {
@@ -84,8 +122,42 @@ public class BankManagerGUI implements Inputtable {
 //        System.out.println("Successful!");
     }
 
-    private void inputSetTime(InputManager m) {
-        BankMachine.getTimeInfo().setTime(m.getDate());
+    private void inputGetTime(InputManager m) {
+        getDate(m);
+    }
+
+    private void getDate(InputManager m) {
+        String[] attributes = {"Year (YYYY):", "Month (1-12)", "Day (1-31)"};
+        m.setPanel(new ClientCreationForm("Time settings", attributes) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+
+            @Override
+            public void onOk(String[] strings) {
+                try {
+                    setTime(LocalDateTime.of(Integer.parseInt(strings[0]), Integer.parseInt(strings[1]), Integer.parseInt(strings[2]), 0, 0));
+                    m.setPanel(new AlertMessageForm("Success!") {
+                        @Override
+                        public void onOK() {
+                            handleInput(m);
+                        }
+                    });
+                } catch (DateTimeException | NumberFormatException e) {
+                    m.setPanel(new AlertMessageForm("Invalid Date") {
+                        @Override
+                        public void onOK() {
+                            getDate(m);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void setTime(LocalDateTime localDateTime) {
+        BankMachine.getTimeInfo().setTime(localDateTime);
     }
 
     private void inputGetTransactionFor(Account account, InputManager m) {
@@ -279,14 +351,14 @@ public class BankManagerGUI implements Inputtable {
                 inputUndoTransaction(m);
                 return;
             case "Set Time":
-                inputSetTime(m);
-                break;
+                inputGetTime(m);
+                return;
             case "Create Client":
                 inputCreateClient(m);
                 return;
             case "Add Bills":
                 inputAddBills(m);
-                break;
+                return;
             case "View Account Creation Requests":
                 manager.viewAccountCreationRequests();
                 break;

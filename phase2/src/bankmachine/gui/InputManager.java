@@ -108,6 +108,7 @@ public class InputManager extends JFrame{
     }
 
     public LocalDateTime getDate(){
+
         while (true){
             int year = getInteger("Enter the year: ");
             int month = getInteger("Enter the month (1-12): ");
