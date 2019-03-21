@@ -3,7 +3,6 @@ package bankmachine.gui;
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
-import bankmachine.exception.TransactionUndoException;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
@@ -13,9 +12,10 @@ import com.sun.istack.internal.Nullable;
 import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
+@SuppressWarnings("Duplicates")
 public class BankManagerGUI implements Inputtable {
     private BankManager manager;
 
@@ -37,40 +37,105 @@ public class BankManagerGUI implements Inputtable {
         }
     }
 
-    private void inputUndoTransaction(InputManager m) throws BankMachineException {
-        Client client = inputGetClient(m);
-        if (client == null) {
-            return;
-        }
+    private void inputUndoTransaction(InputManager m) {
+        inputGetClient(m, (Client client) -> {
+            try {
+                undoTransactionsForClient(client, m);
+            } catch (BankMachineException e) {
+                e.printStackTrace();
+            }
+            return null;
+        });
+
+    }
+
+    private void undoTransactionsForClient(Client client, InputManager m) throws BankMachineException {
         if (client.getClientsAccounts().size() == 0) {
             System.out.println("There are no accounts!");
-            return;
+            m.setPanel(new AlertMessageForm("There are no accounts") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
+        } else {
+            System.out.println("Select an account");
+//        Account account = m.selectItem(client.getClientsAccounts());
+            m.setPanel(new SearchForm("Select an account", new OptionsForm<Object>(client.getClientsAccounts().toArray(), "") {
+                @Override
+                public void onSelection(Object object) {
+                    inputGetTransactionFor((Account) object, m);
+                }
+            }.getMainPanel()) {
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
         }
-        System.out.println("Select an account");
-        Account account = m.selectItem(client.getClientsAccounts());
-        if (account.getTransactions().size() == 0) {
-            System.out.println("There are no transactions!");
-            return;
-        }
-        System.out.println("Select a transaction");
-        Transaction transaction = m.selectItem(account.getTransactions());
-        manager.undoRecentTransaction(transaction);
-        System.out.println("Successful!");
+
+//        if (account.getTransactions().size() == 0) {
+//            System.out.println("There are no transactions!");
+//            return;
+//        }
+//        System.out.println("Select a transaction");
+//        Transaction transaction = m.selectItem(account.getTransactions());
+//        manager.undoRecentTransaction(transaction);
+//        System.out.println("Successful!");
     }
 
     private void inputSetTime(InputManager m) {
         BankMachine.getTimeInfo().setTime(m.getDate());
     }
 
+    private void inputGetTransactionFor(Account account, InputManager m) {
+        if (account.getTransactions().size() == 0) {
+            m.setPanel(new AlertMessageForm("There are no transactions!") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
+        } else {
+            m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Object>(account.getTransactions().toArray(), "") {
+                @Override
+                public void onSelection(Object o) {
+                    try {
+                        manager.undoRecentTransaction((Transaction) o);
+                        m.setPanel(new AlertMessageForm("Success!") {
+                            @Override
+                            public void onOK() {
+                                handleInput(m);
+                            }
+                        });
+                    } catch (BankMachineException e) {
+                        e.printStackTrace();
+                        m.setPanel(new AlertMessageForm("Failure!") {
+                            @Override
+                            public void onOK() {
+                                handleInput(m);
+                            }
+                        });
+                    }
+                }
+            }.getMainPanel()) {
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
+        }
+
+    }
 
     /**
      * Displays all clients and allows the manager to select a client
      *
      * @param m the input manager handling this
+     * @param function a function which takes a Client and returns nothing
      * @return returns the selected client, null if there are no clients
      */
-    @Nullable
-    private Client inputGetClient(InputManager m) {
+    private void inputGetClient(InputManager m, Function<Client, Void> function) {
         List<Client> clients = new ArrayList<>();
         for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
             if (b instanceof Client) {
@@ -80,31 +145,31 @@ public class BankManagerGUI implements Inputtable {
         String prompt;
         JPanel panel = null;
         if (clients.size() == 0) {
-            System.out.println("There are no clients!");
             prompt = "There are no clients!";
-
-//            return null;
         } else {
             prompt = "Select a client";
-            OptionsForm<Object> optionsForm = new OptionsForm<Object>(clients.toArray()) {
+            OptionsForm<Object> optionsForm = new OptionsForm<Object>(clients.toArray(), "") {
                 @Override
                 public void onSelection(Object object) {
-                    createAccountFor(m, (Client) object);
+                    function.apply((Client) object);
                 }
             };
             panel = optionsForm.getMainPanel();
         }
-        System.out.println("Select a client");
-        m.setPanel(new ClientSearchForm(prompt, panel));
-        return null;
+        m.setPanel(new SearchForm(prompt, panel) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+        });
     }
 
-    private void createAccountFor(InputManager m, Client client) {
-        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account", "Cancel"};
-        m.setPanel(new OptionsForm<String>(accountTypes) {
+    private void createAccountFor(Client client, InputManager m) {
+        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account"};
+        m.setPanel(new SearchForm("Select the type of account:", new OptionsForm<String>(accountTypes, "") {
             @Override
             public void onSelection(String s) {
-                String alertMessage = "";
+                String alertMessage;
                 if (manager.createAccount(client, s, LocalDateTime.now())) {
                     alertMessage = "Account created.";
                 } else {
@@ -117,6 +182,11 @@ public class BankManagerGUI implements Inputtable {
                     }
                 });
             }
+        }.getMainPanel()) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
         });
     }
 
@@ -126,22 +196,10 @@ public class BankManagerGUI implements Inputtable {
      * @param m the input manager handling this
      */
     private void inputCreateAccount(InputManager m) {
-        Client client = inputGetClient(m);
-        if (client == null) {
-            return;
-        }
-        List<String> accTypes = new ArrayList<>(Arrays.asList(
-                "Chequing account", "Credit card account",
-                "Line of credit account", "Savings account", "Cancel"
-        ));
-
-        String selection = m.selectItem(accTypes);
-        if (selection.equals("Cancel")) {
-            return;
-        }
-        if (manager.createAccount(client, selection, LocalDateTime.now())) {
-            System.out.println("Account created successfully");
-        }
+        inputGetClient(m, (Client client1) -> {
+            createAccountFor(client1, m);
+            return null;
+        });
     }
 
     /**
@@ -219,7 +277,7 @@ public class BankManagerGUI implements Inputtable {
                 return;
             case "Undo a Transaction":
                 inputUndoTransaction(m);
-                break;
+                return;
             case "Set Time":
                 inputSetTime(m);
                 break;
@@ -254,7 +312,7 @@ public class BankManagerGUI implements Inputtable {
                 "Create Account", "Create Client", "Set Time", "Undo a Transaction", "Add Bills",
                 "Settings", "Exit", "Shutdown"
         };
-        m.setPanel(new OptionsForm<String>(options) {
+        m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
             @Override
             public void onSelection(String s) {
                 try {

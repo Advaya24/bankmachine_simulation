@@ -38,7 +38,7 @@ public class ClientGUI implements Inputtable {
             case "Settings": new UserGUI(client).handleInput(m); break;
             case "Accounts":
                 client.printAccountSummary();
-                m.setPanel(new AccountSummaryForm(client.getAccountSummary(), new OptionsForm<Object>(client.getClientsAccounts().toArray()){
+                m.setPanel(new AccountSummaryForm(client.getAccountSummary(), new OptionsForm<Object>(client.getClientsAccounts().toArray(), ""){
                     @Override
                     public void onSelection(Object obj) {
                         handleAccount(m, (Account)obj);
@@ -75,7 +75,7 @@ public class ClientGUI implements Inputtable {
             String[] options = {
                 "Accounts", "Request Creation Of A New Account", "Settings", "Exit"
             };
-            m.setPanel(new OptionsForm<String>(options) {
+            m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
                 @Override
                 public void onSelection(String s) {
                     handleSelection(m, s);

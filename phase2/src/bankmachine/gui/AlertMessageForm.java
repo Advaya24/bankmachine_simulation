@@ -20,12 +20,7 @@ public abstract class AlertMessageForm implements Form {
         alertLabel = new JLabel(alertMessage);
         alertLabel.setHorizontalAlignment(SwingConstants.CENTER);
         okButton = new JButton("OK");
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        okButton.addActionListener(e -> onOK());
         okButton.setContentAreaFilled(false);
         panel.add(alertLabel, BorderLayout.CENTER);
         panel.add(okButton, BorderLayout.SOUTH);

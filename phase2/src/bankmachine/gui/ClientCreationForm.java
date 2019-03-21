@@ -48,15 +48,12 @@ public abstract class ClientCreationForm implements Form {
         }
 
 //        panel.add(inputGrid, BorderLayout.CENTER);
-        okButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String[] inputStrings = new String[textFields.length];
-                for (int i = 0; i < textFields.length; i++) {
-                    inputStrings[i] = textFields[i].getText();
-                }
-                onOk(inputStrings);
+        okButton.addActionListener(e -> {
+            String[] inputStrings = new String[textFields.length];
+            for (int i = 0; i < textFields.length; i++) {
+                inputStrings[i] = textFields[i].getText();
             }
+            onOk(inputStrings);
         });
         cancelButton.addActionListener(new ActionListener() {
             @Override

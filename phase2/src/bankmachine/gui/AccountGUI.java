@@ -83,7 +83,7 @@ public class AccountGUI implements Inputtable {
         String[] options = {
             "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
         };
-        m.setPanel(new OptionsForm<String>(options) {
+        m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
             @Override
             public void onSelection(String s) {
                 try {

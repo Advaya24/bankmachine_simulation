@@ -29,12 +29,7 @@ public abstract class AccountSummaryForm implements Form {
         cancelButton = new JButton("Cancel");
         cancelButton.setContentAreaFilled(false);
         cancelButton.setHorizontalAlignment(SwingConstants.CENTER);
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        cancelButton.addActionListener(e -> onCancel());
 
         labels = new JLabel[messages.length];
         for (int i = 0; i < messages.length; i++) {
