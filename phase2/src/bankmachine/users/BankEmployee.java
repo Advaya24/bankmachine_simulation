@@ -9,7 +9,7 @@ import bankmachine.transaction.TransactionType;
 
 import java.util.ArrayList;
 
-public abstract class BankEmployee extends BankMachineUser {
+public abstract class BankEmployee extends Client {
 
     /**
      * Abstract class to describe a bank employee.
