@@ -1,5 +1,6 @@
 package bankmachine.users;
 
+import bankmachine.BankMachine;
 import bankmachine.transaction.Transaction;
 import bankmachine.account.*;
 import com.sun.istack.internal.Nullable;
@@ -105,6 +106,27 @@ public class Client extends BankMachineUser {
         }
         return this.clientsAccounts.get(0);
     }
+
+    /**
+     * Add a secondary owner for an account for which this client is the primary client.
+     * @param account to add secondary owner.
+     * @param username who will also own the account.
+     */
+    public void addSecondaryClient(Account account, String username) {
+        if  (account.getClient() != this) {
+            System.out.println("You are not the primary owner of the selected account.");
+            return;
+        }
+        if(BankMachine.USER_MANAGER.get(username) == null){
+            System.out.println("This is not the username of one of our clients.");
+            return;
+        }
+        Client secondaryClient = (Client)BankMachine.USER_MANAGER.get(username);
+        secondaryClient.addAccount(account);
+        account.addSecondaryClient(secondaryClient);
+    }
+
+
     public String[] getAccountSummary() {
         String[] summaryStrings = new String[clientsAccounts.size()+2];
         summaryStrings[0] = "Account summary for username: " + getUsername();

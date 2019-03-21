@@ -119,6 +119,15 @@ public abstract class Account implements Serializable, Identifiable {
         }
     }
 
+
+    /**
+     * Add a secondary client to this account.
+     * @param client to be added.
+     */
+    public void addSecondaryClient(Client client) {
+        this.clients.add(client);
+    }
+
     /**
      * Withdraw specified amount, if possible
      *
@@ -154,6 +163,9 @@ public abstract class Account implements Serializable, Identifiable {
     }
     public Client getClient() {
         return primaryClient;
+    }
+    public ArrayList<Client> getClients() {
+        return clients;
     }
     public LocalDateTime getCreationDate() {
         return this.creationDate;
