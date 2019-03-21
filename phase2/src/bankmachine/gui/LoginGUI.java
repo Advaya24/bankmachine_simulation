@@ -13,10 +13,10 @@ public class LoginGUI implements Inputtable {
         if (user == null) {
             form.displayInvalid();
         } else {
-            if(user instanceof Client){
-                new ClientGUI((Client) user).handleInput(m);
-            } else if (user instanceof BankManager){
+            if (user instanceof BankManager){
                 new BankManagerGUI((BankManager) user).handleInput(m);
+            } else if(user instanceof Client){
+                new ClientGUI((Client) user).handleInput(m);
             }
         }
     }
