@@ -20,8 +20,7 @@ public class AccountGUI implements Inputtable {
         String username =  m.getInput("Please input the username of the client." +
                 " If you would like to transfer between your accounts, enter your own username.");
         Client client;
-        if(BankMachine.USER_MANAGER.get(username) instanceof BankManager ||
-                BankMachine.USER_MANAGER.get(username) == null){
+        if(BankMachine.USER_MANAGER.get(username) == null){
             System.out.println("This is not the username of one of our clients.");
             return null;
         }
