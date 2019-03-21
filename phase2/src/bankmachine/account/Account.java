@@ -20,7 +20,9 @@ public abstract class Account implements Serializable, Identifiable {
     /** The unique id for this account */
     private final int id;
     /** The client whose account this is */
-    protected Client client;
+    protected Client primaryClient;
+    /** The multiple owners of this account*/
+    private ArrayList<Client> clients;
     /** The list of transactions made on this account */
     ArrayList<Transaction> transactions = new ArrayList<>();
     /** The date of creation of this account */
@@ -29,7 +31,9 @@ public abstract class Account implements Serializable, Identifiable {
     public Account(int id, double balance, Client client, LocalDateTime creationDate) {
         client.addAccount(this);
         this.id = id;
-        this.client = client;
+        this.primaryClient = client;
+        this.clients = new ArrayList<>();
+        this.clients.add(client);
         this.balance = balance;
         this.creationDate = creationDate;
     }
@@ -94,7 +98,7 @@ public abstract class Account implements Serializable, Identifiable {
         transferOut(amount);
         WriteFile out = new WriteFile("outgoing.txt");
         out.writeData(
-                client.getName() + " paid a bill of $" + (amount / 100),
+                primaryClient.getName() + " paid a bill of $" + (amount / 100),
                 true
         );
     }
@@ -149,7 +153,7 @@ public abstract class Account implements Serializable, Identifiable {
         return transactions;
     }
     public Client getClient() {
-        return client;
+        return primaryClient;
     }
     public LocalDateTime getCreationDate() {
         return this.creationDate;
