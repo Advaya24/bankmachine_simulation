@@ -313,24 +313,61 @@ public class BankManagerGUI implements Inputtable {
 
             @Override
             public void onOk(String[] strings) {
-                Client client1 = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
-                String alertMessage;
-                if (client1 == null) {
-                    System.out.println("A client with that username exists!");
-                    alertMessage = "A client with that username exists!";
-
+                if (!strings[4].equals(strings[5])) {
+                    m.setPanel(new AlertMessageForm("Passwords didn't match!") {
+                        @Override
+                        public void onOK() {
+                            inputCreateClient(m);
+                        }
+                    });
+                } else if (strings[0].equals("") || strings[1].equals("") || strings[2].equals("") || strings[3].equals("") || strings[4].equals("")){
+                    m.setPanel(new AlertMessageForm("Can't leave any field empty!") {
+                        @Override
+                        public void onOK() {
+                            inputCreateClient(m);
+                        }
+                    });
                 } else {
-                    System.out.println("Client created");
-                    alertMessage = "Client created";
-                }
-                m.setPanel(new AlertMessageForm(alertMessage) {
-                    @Override
-                    public void onOK() {
-                        handleInput(m);
+                    Client client1 = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
+
+                    String alertMessage;
+                    if (client1 == null) {
+                        System.out.println("A client with that username exists!");
+                        alertMessage = "A client with that username exists!";
+
+                    } else {
+                        System.out.println("Client created");
+                        alertMessage = "Client created";
                     }
-                });
+                    m.setPanel(new AlertMessageForm(alertMessage) {
+                        @Override
+                        public void onOK() {
+                            handleInput(m);
+                        }
+                    });
+                }
             }
         });
+    }
+
+    private void showCreationRequests(InputManager m) {
+
+        if (manager.getAccountCreationRequests().length == 0) {
+            m.setPanel(new AlertMessageForm("No Pending Requests!") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
+        } else {
+            m.setPanel(new AccountSummaryForm(manager.getAccountCreationRequests(), new JPanel()) {
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
+        }
+
     }
 
     private void handleSelection(InputManager m, String s) throws BankMachineException {
@@ -361,7 +398,8 @@ public class BankManagerGUI implements Inputtable {
                 return;
             case "View Account Creation Requests":
                 manager.viewAccountCreationRequests();
-                break;
+                showCreationRequests(m);
+                return;
             case "Remove Completed Creation Requests":
                 removeCompletedRequests(m);
                 break;

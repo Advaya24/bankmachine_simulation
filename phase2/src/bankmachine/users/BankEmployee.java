@@ -58,6 +58,13 @@ public abstract class BankEmployee extends Client {
         }
     }
 
+    public String[] getAccountCreationRequests() {
+        String[] arrayOutstandingCreationRequests = new String[outstandingCreationRequests.size()];
+        for (int i = 0; i < outstandingCreationRequests.size(); i++) {
+            arrayOutstandingCreationRequests[i] = "Request " + (i+1) + ": " + outstandingCreationRequests.get(i);
+        }
+        return arrayOutstandingCreationRequests;
+    }
 
     public ArrayList<String> getCreationRequests() {
         return outstandingCreationRequests;
