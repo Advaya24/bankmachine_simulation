@@ -41,7 +41,7 @@ public class CreditCardAccount extends DebtAccount {
         changeBalance(-amount);
         WriteFile out = new WriteFile("outgoing.txt");
         out.writeData(
-                client.getName() + " paid a bill of $" + amount,
+                primaryClient.getName() + " paid a bill of $" + amount,
                 true
         );
     }
