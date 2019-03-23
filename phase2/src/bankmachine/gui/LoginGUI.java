@@ -3,9 +3,6 @@ package bankmachine.gui;
 import bankmachine.*;
 import bankmachine.users.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LoginGUI implements Inputtable {
     private UserManager userManager = BankMachine.USER_MANAGER;
     private void attemptLogin(InputManager m, LoginForm form, String uname, String pass){
@@ -16,7 +13,7 @@ public class LoginGUI implements Inputtable {
             if(user instanceof BankEmployee) {
                 new EmployeeChoiceGUI((BankEmployee)user).handleInput(m);
             } else {
-                new ClientGUI((Client) user).handleInput(m);
+                new PersonalGUI((Client) user).handleInput(m);
             }
         }
     }

@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ClientGUI implements Inputtable {
+public class PersonalGUI implements Inputtable {
     private Client client;
-    public ClientGUI(Client c){
+    public PersonalGUI(Client c){
         this.client = c;
     }
 

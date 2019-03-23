@@ -17,7 +17,7 @@ public class EmployeeChoiceGUI implements Inputtable {
             @Override
             public void onSelection(String s) {
                 if (s.equals("Personal")) {
-                    new ClientGUI(employee).handleInput(m);
+                    new PersonalGUI(employee).handleInput(m);
                 } else if (employee instanceof BankManager) {
                     new BankManagerGUI((BankManager) employee).handleInput(m);
                 } else {
