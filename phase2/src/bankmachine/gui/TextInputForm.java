@@ -26,6 +26,10 @@ public abstract class TextInputForm implements Form {
         this(prompt, attributes, 0, null);
     }
 
+    public TextInputForm(String prompt, String[] attributes, int numPasswordFields) {
+        this(prompt, attributes, numPasswordFields, null);
+    }
+
     public TextInputForm(String prompt, String[] attributes, int numPasswordFields, String[] userTypes) {
         this.prompt = prompt;
         this.attributes = attributes;

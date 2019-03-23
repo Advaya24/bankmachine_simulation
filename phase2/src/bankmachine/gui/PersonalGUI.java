@@ -48,7 +48,7 @@ public class PersonalGUI implements Inputtable {
             case "Request Creation Of A New Account":
                 newAccountCreationInput(m);
                 return;
-            case "Settings": new UserGUI(client).handleInput(m); break;
+            case "Settings": new UserGUI(client, this).handleInput(m); return;
             case "Accounts":
                 client.printAccountSummary();
                 JPanel panel = null;
@@ -97,7 +97,7 @@ public class PersonalGUI implements Inputtable {
         System.out.println("Welcome, "+client.getName()+"!");
             System.out.println("Select an action");
             String[] options = {
-                "Accounts", "Request Creation Of A New Account", "Settings", "Exit"
+                "Accounts", "Request Creation Of A New Account", "Update Profile", "Exit"
             };
             m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
                 @Override
