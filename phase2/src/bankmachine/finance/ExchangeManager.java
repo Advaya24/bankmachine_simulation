@@ -11,13 +11,13 @@ import java.util.List;
 
 public class ExchangeManager {
 
-    String cryptodata;
-    String from_code;
-    String from_name;
-    String to_currcode;
-    String to_currency;
-    String exchange;
-    String datetime;
+    private String cryptodata;
+    private String from_code;
+    private String from_name;
+    private String to_currcode;
+    private String to_currency;
+    private String exchange;
+    private String datetime;
 
 
     /***
