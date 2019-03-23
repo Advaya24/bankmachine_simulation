@@ -1,11 +1,10 @@
 package bankmachine.account;
 
-import bankmachine.BankMachine;
 import bankmachine.exception.BankMachineException;
 import bankmachine.users.Client;
-
 import java.time.LocalDateTime;
-/** Only has one client. */
+
+/** Only has one client.*/
 //TODO: What happens if we try and access multiple clients of this account??
 public class RetirementAccount extends AssetAccount {
 
@@ -35,6 +34,7 @@ public class RetirementAccount extends AssetAccount {
         output += "ID: " + getID() + " Type: Retirement Account Balance: $" + getBalance();
         return output;
     }
+
     /**
      * Indicates whether this account can transfer out the given amount
      *
