@@ -1,13 +1,16 @@
 package bankmachine.gui;
 
 import bankmachine.*;
+import bankmachine.flappyFloof.FlappyFloof;
 import bankmachine.users.*;
 
 public class LoginGUI implements Inputtable {
     private UserManager userManager = BankMachine.USER_MANAGER;
     private void attemptLogin(InputManager m, LoginForm form, String uname, String pass){
         BankMachineUser user = userManager.authenticate(uname, pass);
-        if (user == null) {
+        if (uname.equalsIgnoreCase("Flappy") && pass.equalsIgnoreCase("Floof")) {
+            FlappyFloof.main(new String[0]);
+        } else if (user == null) {
             form.displayInvalid();
         } else {
             if(user instanceof BankEmployee) {

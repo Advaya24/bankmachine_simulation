@@ -45,7 +45,7 @@ public class PersonalGUI implements Inputtable {
             case "Request Creation Of A New Account":
                 newAccountCreationInput(m);
                 return;
-            case "Settings": new UpdateProfileGUI(client, this).handleInput(m); return;
+            case "Update Profile": new UpdateProfileGUI(client, this).handleInput(m); return;
             case "Accounts":
                 client.printAccountSummary();
                 JPanel panel = null;
