@@ -178,8 +178,43 @@ public class BankEmployeeGUI implements Inputtable {
     public void removeCompletedRequests(InputManager m) {
         if (employee.getCreationRequests().size() == 0) {
             System.out.println("No pending creation requests");
+            m.setPanel(new AlertMessageForm("No pending creation requests!") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
         } else {
-            employee.getCreationRequests().remove(m.selectItem(employee.getCreationRequests()));
+//            employee.getCreationRequests().remove(m.selectItem(employee.getCreationRequests()));
+            String[] options = new String[employee.getCreationRequests().size()];
+            for (int i = 0; i < options.length; i++) {
+                options[i] = "Request " + (i+1);
+            }
+
+            m.setPanel(new AccountSummaryForm(employee.getCreationRequestArray(), new OptionsForm<String>(options, "Select request to delete:" ) {
+
+                @Override
+                public void onSelection(String s) {
+                    String alertMessage = "Failure";
+                    for (int i = 0; i < options.length; i++) {
+                        if (options[i].equals(s)){
+                            employee.removeCreationRequest(i);
+                            alertMessage = "Success";
+                        }
+                    }
+                    m.setPanel(new AlertMessageForm(alertMessage) {
+                        @Override
+                        public void onOK() {
+                            handleInput(m);
+                        }
+                    });
+                }
+            }.getMainPanel()) {
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
         }
     }
 
@@ -203,7 +238,7 @@ public class BankEmployeeGUI implements Inputtable {
                 return;
             case "Remove Completed Creation Requests":
                 removeCompletedRequests(m);
-                break;
+                return;
             default:
                 break;
         }

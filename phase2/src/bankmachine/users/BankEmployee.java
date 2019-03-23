@@ -72,6 +72,9 @@ public abstract class BankEmployee extends Client {
         return outstandingCreationRequests;
     }
 
+    public void removeCreationRequest(int requestIndex) {
+        outstandingCreationRequests.remove(requestIndex);
+    }
 
     /**
      * Create a new account for client of type accountType. Return true if the account was created.
