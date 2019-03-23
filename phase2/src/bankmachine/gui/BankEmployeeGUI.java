@@ -185,7 +185,6 @@ public class BankEmployeeGUI implements Inputtable {
                 }
             });
         } else {
-//            employee.getCreationRequests().remove(m.selectItem(employee.getCreationRequests()));
             String[] options = new String[employee.getCreationRequests().size()];
             for (int i = 0; i < options.length; i++) {
                 options[i] = "Request " + (i+1);

@@ -17,17 +17,29 @@ public class PersonalGUI implements Inputtable {
     }
 
     public void newAccountCreationInput(InputManager m){
-        System.out.println("Choose a type of account:");
-        List<String> accTypes = new ArrayList<>(Arrays.asList(
-                "Chequing account", "Credit card account",
-                "Line of credit account", "Savings account", "Cancel"
-        ));
-        String selection = m.selectItem(accTypes);
-        if (selection.equals("Cancel")){
-            return;
-        }
+        String[] accountTypes ={"Chequing account", "Credit card account",
+                "Line of credit account", "Savings account"};
+        m.setPanel(new SearchForm("Select type of account", new OptionsForm<String>(accountTypes, ""){
+            @Override
+            public void onSelection(String s) {
+                addCreationRequest(s, m);
+            }
+        }.getMainPanel()) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+        });
+    }
+    private void addCreationRequest(String request, InputManager m) {
         BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);
-        manager.addCreationRequest(client.getUsername() + " requests a " + selection);
+        manager.addCreationRequest(client.getUsername() + " requests a " + request);
+        m.setPanel(new AlertMessageForm("Account Creation Request Sent") {
+            @Override
+            public void onOK() {
+                handleInput(m);
+            }
+        });
     }
 
     public void handleSelection(InputManager m, String s){
@@ -35,7 +47,7 @@ public class PersonalGUI implements Inputtable {
             case "Exit": m.mainLoop(); return;
             case "Request Creation Of A New Account":
                 newAccountCreationInput(m);
-                break;
+                return;
             case "Settings": new UserGUI(client).handleInput(m); break;
             case "Accounts":
                 client.printAccountSummary();
@@ -83,7 +95,6 @@ public class PersonalGUI implements Inputtable {
     @Override
     public void handleInput(InputManager m){
         System.out.println("Welcome, "+client.getName()+"!");
-//        while (true){ // Commented loop out because it caused an infinite loop
             System.out.println("Select an action");
             String[] options = {
                 "Accounts", "Request Creation Of A New Account", "Settings", "Exit"
@@ -94,6 +105,6 @@ public class PersonalGUI implements Inputtable {
                     handleSelection(m, s);
                 }
             });
-//        }
+
     }
 }
