@@ -31,10 +31,6 @@ public class BankManagerGUI implements Inputtable {
      */
     private void inputAddBills(InputManager m) {
         int[] denominations = {5, 10, 20, 50};
-//        for (int i : denominations) {
-//            int quantity = m.getInteger("How many " + i + "s? ");
-//            BankMachine.getBillManager().addBills(i, quantity);
-//        }
         String[] attributes = new String[denominations.length];
         for (int i = 0; i < denominations.length; i++) {
             attributes[i] =  denominations[i] + "s";
@@ -111,15 +107,6 @@ public class BankManagerGUI implements Inputtable {
                 }
             });
         }
-
-//        if (account.getTransactions().size() == 0) {
-//            System.out.println("There are no transactions!");
-//            return;
-//        }
-//        System.out.println("Select a transaction");
-//        Transaction transaction = m.selectItem(account.getTransactions());
-//        manager.undoRecentTransaction(transaction);
-//        System.out.println("Successful!");
     }
 
     private void inputGetTime(InputManager m) {
@@ -293,17 +280,6 @@ public class BankManagerGUI implements Inputtable {
      * @param m the input manager handling this
      */
     private void inputCreateClient(InputManager m) {
-//        String name = m.getInput("Enter a name: ");
-//        String username = m.getInput("Enter a username: ");
-//        String phone = m.getPhone();
-//        String email = m.getEmail();
-//        String pwd = m.getInput("Enter a password: ");
-//        Client client = BankMachine.USER_MANAGER.newClient(name, email, phone, username, pwd);
-//        if(client == null){
-//            System.out.println("A client with that username exists!");
-//        } else {
-//            System.out.println("Client created");
-//        }
         String[] attributes = {"Name", "Email", "Phone", "Username", "Password", "Confirm Password"};
         m.setPanel(new TextInputForm("Create new client", attributes, 2) {
             @Override

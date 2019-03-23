@@ -1,10 +1,10 @@
 package bankmachine.gui;
 
 import bankmachine.*;
-import bankmachine.users.BankMachineUser;
-import bankmachine.users.BankManager;
-import bankmachine.users.Client;
-import bankmachine.users.UserManager;
+import bankmachine.users.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginGUI implements Inputtable {
     private UserManager userManager = BankMachine.USER_MANAGER;
@@ -13,9 +13,9 @@ public class LoginGUI implements Inputtable {
         if (user == null) {
             form.displayInvalid();
         } else {
-            if (user instanceof BankManager){
-                new BankManagerGUI((BankManager) user).handleInput(m);
-            } else if(user instanceof Client){
+            if(user instanceof BankEmployee) {
+                new EmployeeChoiceGUI((BankEmployee)user).handleInput(m);
+            } else {
                 new ClientGUI((Client) user).handleInput(m);
             }
         }
