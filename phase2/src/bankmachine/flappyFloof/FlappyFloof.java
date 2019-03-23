@@ -308,5 +308,8 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             jump();
         }
+        if(e.getKeyCode()==KeyEvent.VK_E){
+            System.exit(0);
+        }
     }
 }
