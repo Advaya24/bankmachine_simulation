@@ -6,9 +6,6 @@ import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class PersonalGUI implements Inputtable {
     private Client client;
@@ -48,7 +45,7 @@ public class PersonalGUI implements Inputtable {
             case "Request Creation Of A New Account":
                 newAccountCreationInput(m);
                 return;
-            case "Settings": new UserGUI(client, this).handleInput(m); return;
+            case "Settings": new UpdateProfileGUI(client, this).handleInput(m); return;
             case "Accounts":
                 client.printAccountSummary();
                 JPanel panel = null;

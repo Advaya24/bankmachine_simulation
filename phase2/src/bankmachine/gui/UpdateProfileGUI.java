@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserGUI implements Inputtable{
+public class UpdateProfileGUI implements Inputtable{
     private BankMachineUser user;
     private PersonalGUI gui;
-    public UserGUI(BankMachineUser user, PersonalGUI gui){
+    public UpdateProfileGUI(BankMachineUser user, PersonalGUI gui){
         this.user = user;
         this.gui = gui;
     }
