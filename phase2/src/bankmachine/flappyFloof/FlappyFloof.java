@@ -1,5 +1,7 @@
 package bankmachine.flappyFloof;
 
+import bankmachine.gui.InputManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -35,11 +37,14 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     public ArrayList<Rectangle> columns;
     /** A random object that is used to procedurally generate the obstacles within the game.*/
     public Random rand;
+    public InputManager m;
 //    /** A Repainter Object that handles repainting all the entities within the JFrame*/
 //    public Repainter repainter;
+    public JFrame jframe;
 
-    public FlappyFloof(){
+    public FlappyFloof(InputManager m){
         Timer timer = new Timer(20, this);
+        this.m = m;
         renderer = new Renderer();
         rand = new Random();
         jFrameSetUp();
@@ -55,7 +60,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
      * Sets up the JFrame
      */
     public void jFrameSetUp(){
-        JFrame jframe = new JFrame();
+        jframe = new JFrame();
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);
@@ -234,7 +239,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     }
 
     public static void main(String[] args){
-        flappyFloof = new FlappyFloof();
+        flappyFloof = new FlappyFloof(new InputManager());
     }
 
     /**
@@ -307,6 +312,10 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     public void keyReleased(KeyEvent e){
         if(e.getKeyCode() == KeyEvent.VK_SPACE){
             jump();
+        }
+        if(e.getKeyCode()==KeyEvent.VK_E){
+            jframe.setVisible(false);
+            m.mainLoop();
         }
     }
 }
