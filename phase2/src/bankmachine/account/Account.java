@@ -22,7 +22,7 @@ public abstract class Account implements Serializable, Identifiable {
     /** The client whose account this is */
     protected Client primaryClient;
     /** The multiple owners of this account*/
-    private ArrayList<Client> clients;
+    protected ArrayList<Client> clients;
     /** The list of transactions made on this account */
     ArrayList<Transaction> transactions = new ArrayList<>();
     /** The date of creation of this account */
