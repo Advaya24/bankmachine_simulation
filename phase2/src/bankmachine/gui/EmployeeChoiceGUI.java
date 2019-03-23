@@ -21,7 +21,7 @@ public class EmployeeChoiceGUI implements Inputtable {
                 } else if (employee instanceof BankManager) {
                     new BankManagerGUI((BankManager) employee).handleInput(m);
                 } else {
-                    // Make BankEmployeeGUI and implement here.
+                    new BankEmployeeGUI(employee).handleInput(m);
                 }
             }
         });

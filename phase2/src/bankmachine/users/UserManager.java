@@ -1,5 +1,6 @@
 package bankmachine.users;
 
+import bankmachine.BankMachine;
 import bankmachine.TrackingFactory;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
@@ -62,6 +63,29 @@ public class UserManager extends TrackingFactory<BankMachineUser>
             return;
         }
         addInstance(c);
+    }
+
+    /**
+     * Creates a new bank employee
+     *
+     * @param name        the name of the manager
+     * @param email       the email id of the manager
+     * @param phoneNumber the phone number of the manager
+     * @param username    the username of the manager
+     * @param password    the password for this manager's login
+     */
+    @Nullable
+    public BankEmployee newEmployee(String name, String email, String phoneNumber, String username, String password) {
+
+        //TODO: Change this after new employee type is made... Only for GUI testing
+        BankEmployee c = new BankEmployee(nextID, name, email, phoneNumber, username, password){
+
+        };
+        if (users.containsKey(c.getUsername())) {
+            return null;
+        }
+        addInstance(c);
+        return c;
     }
 
     /**

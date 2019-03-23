@@ -18,14 +18,19 @@ public abstract class TextInputForm implements Form {
     private String prompt;
     private int numPasswordFields;
     private JPasswordField[] passwordFields;
+    private boolean asksForTypeOfUser;
+    private JComboBox<String> typeOfUserDropdown;
+    private String[] userTypes;
 
     public TextInputForm(String prompt, String[] attributes) {
-        this(prompt, attributes, 0);
+        this(prompt, attributes, 0, null);
     }
-    public TextInputForm(String prompt, String[] attributes, int numPasswordFields) {
+
+    public TextInputForm(String prompt, String[] attributes, int numPasswordFields, String[] userTypes) {
         this.prompt = prompt;
         this.attributes = attributes;
         this.numPasswordFields = numPasswordFields;
+        this.userTypes = userTypes;
     }
 
     @Override
@@ -34,9 +39,16 @@ public abstract class TextInputForm implements Form {
     }
 
     private void createUIComponents() {
-        panel = new JPanel();
-        inputGrid = new JPanel(new GridLayout(2*attributes.length+2, 0));
-        buttonGrid = new JPanel(new GridLayout(1,2));
+
+        int numFieldsToAdd = 0;
+        if (userTypes != null) {
+            numFieldsToAdd += 2;
+            this.asksForTypeOfUser = true;
+        }
+        panel = new JPanel(new BorderLayout(10, 0));
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 100, 0, 100));
+        inputGrid = new JPanel(new GridLayout(2 * attributes.length + 2 + numFieldsToAdd, 0));
+        buttonGrid = new JPanel(new GridLayout(1, 2));
         okButton = new JButton("OK");
         cancelButton = new JButton("Cancel");
 
@@ -45,29 +57,49 @@ public abstract class TextInputForm implements Form {
         passwordFields = new JPasswordField[numPasswordFields];
         promptLabel = new JLabel(prompt);
 
-        inputGrid.add(promptLabel);
+        typeOfUserDropdown = new JComboBox<>();
+        if (asksForTypeOfUser) {
+            for (String userType : userTypes) {
+                typeOfUserDropdown.addItem(userType);
+            }
+        }
 
-        for (int i = 0; i < attributes.length-numPasswordFields; i++) {
+        inputGrid.add(promptLabel);
+        if (asksForTypeOfUser) {
+            inputGrid.add(new JLabel("Type of user"));
+            inputGrid.add(typeOfUserDropdown);
+        }
+
+        for (int i = 0; i < attributes.length - numPasswordFields; i++) {
             labels[i] = new JLabel(attributes[i]);
             textFields[i] = new JTextField();
             inputGrid.add(labels[i]);
             inputGrid.add(textFields[i]);
         }
-        for (int i = attributes.length-numPasswordFields, j = 0; i < attributes.length; i++, j++) {
+        for (int i = attributes.length - numPasswordFields, j = 0; i < attributes.length; i++, j++) {
             labels[i] = new JLabel(attributes[i]);
             passwordFields[j] = new JPasswordField();
             inputGrid.add(labels[i]);
             inputGrid.add(passwordFields[j]);
         }
 
-//        panel.add(inputGrid, BorderLayout.CENTER);
+
         okButton.addActionListener(e -> {
-            String[] inputStrings = new String[attributes.length];
+            int numInputs = attributes.length;
+            if (asksForTypeOfUser) {
+                numInputs += 1;
+            }
+            String[] inputStrings = new String[numInputs];
             for (int i = 0; i < textFields.length; i++) {
                 inputStrings[i] = textFields[i].getText();
             }
             for (int i = textFields.length, j = 0; i < attributes.length; i++, j++) {
                 inputStrings[i] = String.valueOf(passwordFields[j].getPassword());
+            }
+            if (asksForTypeOfUser) {
+
+                inputStrings[numInputs - 1] = (String) typeOfUserDropdown.getSelectedItem();
+
             }
             onOk(inputStrings);
         });
@@ -80,11 +112,12 @@ public abstract class TextInputForm implements Form {
 
         buttonGrid.add(okButton);
         buttonGrid.add(cancelButton);
-//        panel.add(buttonGrid, BorderLayout.SOUTH);
+
         inputGrid.add(buttonGrid);
-        panel.add(inputGrid);
+        panel.add(inputGrid, BorderLayout.CENTER);
     }
 
     public abstract void onCancel();
+
     public abstract void onOk(String[] strings);
 }

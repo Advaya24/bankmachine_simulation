@@ -21,35 +21,7 @@ public class BankManager extends BankEmployee {
         super(id, name, email, phoneNumber, username, default_password);
     }
 
-    /**
-     * Create a new account for client of type accountType. Return true if the account was created.
-     *
-     * @param client      the client for whom the account needs to be created
-     * @param accountType the type of account to create
-     * @return whether account creation succeeded
-     */
-    public boolean createAccount(Client client, String accountType, LocalDateTime creationDate) {
-        AccountFactory factory = BankMachine.accFactory;
-        switch (accountType) {
-            case "Chequing account":
-                factory.newChequingAccount(0, client, creationDate);
-                break;
-            case "Credit card account":
-                factory.newCreditCardAccount(0, client, creationDate);
-                break;
-            case "Line of credit account":
-                factory.newLineOfCreditAccount(0, client, creationDate);
-                break;
-            case "Savings account":
-                factory.newSavingsAccount(0, client, creationDate);
-                break;
-            default:
-                System.out.println("Invalid account type. Please try again.");
-                return false;
-        }
-        return true;
-    }
-
+    // TODO: Decide if this method is needed
     /**
      * Creates a new Client for the Bank
      *
@@ -62,6 +34,7 @@ public class BankManager extends BankEmployee {
     public Client createClient(String name, String email, String phoneNumber, String username, String default_password) {
         return BankMachine.USER_MANAGER.newClient(name, email, phoneNumber, username, default_password);
     }
+
 
 
     public String toString(){
