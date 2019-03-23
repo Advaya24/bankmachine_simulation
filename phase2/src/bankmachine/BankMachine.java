@@ -1,5 +1,6 @@
 package bankmachine;
 
+import bankmachine.account.RetirementAccount;
 import bankmachine.fileManager.FileSearcher;
 import bankmachine.fileManager.TimeInfo;
 import bankmachine.account.Account;
@@ -25,6 +26,9 @@ public class BankMachine {
             for (Account a : accFactory.getInstances()) {
                 if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
+                }
+                if (a instanceof RetirementAccount){
+                    ((RetirementAccount) a).autoDeposit();
                 }
             }
         }
