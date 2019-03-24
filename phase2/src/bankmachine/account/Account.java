@@ -15,18 +15,12 @@ import java.util.ArrayList;
  * An account containing a balance
  */
 public abstract class Account implements Serializable, Identifiable {
-    /** The current balance of the account, in dollars */
-    protected double balance;
-    /** The unique id for this account */
-    private final int id;
-    /** The client whose account this is */
-    protected Client primaryClient;
-    /** The multiple owners of this account*/
-    protected ArrayList<Client> clients;
-    /** The list of transactions made on this account */
-    ArrayList<Transaction> transactions = new ArrayList<>();
-    /** The date of creation of this account */
-    protected LocalDateTime creationDate;
+    protected double balance; //The current balance of the account, in dollars
+    private final int id; //The unique ID for this account
+    protected Client primaryClient; //The main owner of the account
+    protected ArrayList<Client> clients; //The list of owners for this account (if multiple)
+    ArrayList<Transaction> transactions = new ArrayList<>(); // The list of transactions made on this account
+    protected LocalDateTime creationDate; // The date of creation of this account
 
     public Account(int id, double balance, Client client, LocalDateTime creationDate) {
         client.addAccount(this);
@@ -53,7 +47,7 @@ public abstract class Account implements Serializable, Identifiable {
     }
 
     /**
-     * Transfer money out of this account. see transferIn
+     * Transfer money out of this account (See transferIn)
      *
      * @param other  the account to transfer into
      * @param amount the amount to transfer
@@ -63,7 +57,7 @@ public abstract class Account implements Serializable, Identifiable {
     }
 
     /**
-     * Transfer money out. Returns false if account doesn't have enough money
+     * Transfer money out. Returns false if account doesn't have enough money.
      *
      * @param amount the amount to transfer
      */
@@ -111,14 +105,13 @@ public abstract class Account implements Serializable, Identifiable {
         DepositReader deposit = new DepositReader("/deposits.txt");
         this.transferIn(deposit.getQuantity());
         if(!deposit.isCheque()){
-            int denominations[] = BillManager.DENOMINATIONS;
-            int quantities[] = deposit.getBillCounts();
-            for (int i=0; i<4; i++){
+            int[] denominations = BillManager.DENOMINATIONS;
+            int[] quantities = deposit.getBillCounts();
+            for (int i = 0; i < 4; i++){
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
     }
-
 
     /**
      * Add a secondary client to this account.
@@ -149,8 +142,8 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to be transferred out
      * @return true iff this account can transfer out this amount
      */
-    public abstract boolean canTransferOut(double amount);
 
+    public abstract boolean canTransferOut(double amount);
     /* Getters */
     public int getID() {
         return id;
