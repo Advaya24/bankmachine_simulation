@@ -3,37 +3,42 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-
 import com.google.gson.*;
-
 import java.net.URLConnection;
 import java.util.*;
 
+/** Class that is used to access external APIs and gets JSON information. Used for ExchangeManager and StockManager
+ * Main method data() returns linked list of necessary JSON data.
+ */
+
 public class JsonManager {
 
-    String sURL;
-    URL url;
-    URLConnection request;
-    JsonParser jp;
-    JsonElement root;
-    JsonObject rootobj;
+    private String sURL;
+    private String input;
+    private String input2;
+    private String type;
+    private String header;
+    private JsonObject jsonheader;
 
-    String input;
-    String input2;
-    String type;
-    String header;
-
-    JsonObject jsonheader;
-
+    /***
+     * Constructor used to assign inputs and type.
+     * @param input For stocks: Stock code e.g. AAPL or MSFT. For currency conversion: origin currency e.g. USD
+     * @param input2 For stocks: set to null in StockManager by default. For CC: destination currency e.g. CNY
+     * @param type type of data (either "stock" or "exchange")
+     */
     public JsonManager(String input, String input2, String type) {
         this.input = input;
         this.input2 = input2;
         this.type = type;
-
-
     }
 
+    /*** Main method used to retrieve JSON data and return LinkedList of that data.
+     *
+     * @return LinkedList of necessary data only
+     * @throws IOException
+     */
     public LinkedList data() throws IOException {
+
         if (type.equals("stock")) {
             sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + input + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
             header = "Time Series (5min)";
@@ -44,13 +49,13 @@ public class JsonManager {
 
         }
 
-        url = new URL(sURL);
-        request = url.openConnection();
+        URL url = new URL(sURL);
+        URLConnection request = url.openConnection();
         request.connect();
 
-        jp = new JsonParser(); //from gson
-        root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
-        rootobj = root.getAsJsonObject(); //May be an array, may be an object.
+        JsonParser jp = new JsonParser(); //from gson
+        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+        JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
 
         if(type.equals("stock")) {
 
