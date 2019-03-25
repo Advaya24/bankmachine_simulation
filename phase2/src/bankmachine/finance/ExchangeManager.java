@@ -27,22 +27,17 @@ public class ExchangeManager {
      * @throws IOException
      */
 
-    public ExchangeManager(String inputcurrency, String outputcurrency){
+    public ExchangeManager(String inputcurrency, String outputcurrency) throws IOException {
         // Initializes Json Manager class, passing in stock code and data type (stock)
+        JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
 
-        try {
-            JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
+        // Json Manager Class Returns linked list of data
+        LinkedList data = s1.data();
 
-            // Json Manager Class Returns linked list of data
-            LinkedList data = s1.data();
+        cryptodata = (String) data.get(1);
 
-            cryptodata = (String) data.get(1);
-
-            // Automatic Formatter - needed to format JSON hierarchy
-            formatter();
-        } catch (IOException e){
-            System.out.println("IOException Error!");
-        }
+        // Automatic Formatter - needed to format JSON hierarchy
+        formatter();
 
     }
 
@@ -64,30 +59,31 @@ public class ExchangeManager {
 
     }
 
-    public String getCryptoCode(){
+    public String getCryptoCode() {
         return from_code;
     }
 
-    public String getCryptoName(){
+    public String getCryptoName() {
         return from_name;
     }
 
-    public String getCurrencyCode(){
+    public String getCurrencyCode() {
         return to_currcode;
     }
-    public String getCurrencyName(){
+
+    public String getCurrencyName() {
         return to_currency;
     }
 
-    public Double getExchange(){
+    public Double getExchange() {
         return Double.parseDouble(exchange);
     }
 
-    public String getTime(){
+    public String getTime() {
         return datetime;
     }
 
-    public String getAll(){
-        return(from_code + " " + from_name + " " +  to_currcode + " " + to_currency + " " + exchange + " " + datetime);
+    public String getAll() {
+        return (from_code + " " + from_name + " " + to_currcode + " " + to_currency + " " + exchange + " " + datetime);
     }
 }
