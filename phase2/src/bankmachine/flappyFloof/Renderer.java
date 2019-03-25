@@ -14,6 +14,6 @@ public class Renderer extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        FlappyFloof.flappyFloof.repaint(g);
+        FlappyFloof.flappyFloof.repainter.repaint(g);
     }
 }
