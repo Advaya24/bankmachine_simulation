@@ -8,7 +8,7 @@ public class DepositReader {
     private ReadFile reader;
     private boolean isCheque;
     private double quantity;
-    private int billCounts[] = {0,0,0,0};
+    private int[] billCounts = {0, 0, 0, 0};
 
     public DepositReader(String path){
         reader = new ReadFile(path);
