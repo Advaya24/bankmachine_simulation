@@ -15,7 +15,7 @@ import java.util.Random;
  * YouTube video: https://www.youtube.com/watch?v=I1qTZaUcFX0
  */
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
+public class FlappyFloof implements ActionListener{//, MouseListener, KeyListener {
 
     /**The floof itself*/
     public static FlappyFloof flappyFloof;
@@ -42,11 +42,13 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     public InputManager m;
     /**Used to change //TODO*/
     public JFrame jframe;
+    public KeyPressHandler keyPressHandler;
 
     public FlappyFloof(InputManager m){
-        this.m = m;
+        this.m = m;//TODO: Why do you exist?
         renderer = new Renderer();
         rand = new Random();
+        keyPressHandler = new KeyPressHandler(this,m);
         jFrameSetUp(m);
         floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
         columns = new ArrayList<>();
@@ -69,9 +71,9 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);
-        jframe.addMouseListener(this);
-        jframe.addKeyListener(this);
-        jframe.setTitle("Flappy Floof");
+        jframe.addMouseListener(keyPressHandler);
+        jframe.addKeyListener(keyPressHandler);
+//        jframe.setTitle("Flappy Floof");
         jframe.setResizable(false);
         jframe.setVisible(true);
     }
@@ -106,9 +108,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-
         int speed = 10;
-
         ticks++;
         if(started) {
             for (Rectangle column: columns) {
@@ -219,16 +219,14 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     public void jump(){
         if(gameOver){
             gameOver = false;
-
+            //Reset the game
             floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
-            columns.clear();
+            columns = new ArrayList<>();
             yMotion = 0;
             score = 0;
-
-            addColumn(true);
-            addColumn(true);
-            addColumn(true);
-            addColumn(true);
+            for(int i=0;i<=3;i++){
+                addColumn(true);
+            }
         }
 
         if(!started){
@@ -242,84 +240,84 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         }
     }
 
+//    /**
+//     * Invoked when the mouse button has been clicked (pressed
+//     * and released) on a component.
+//     */
+//    @Override
+//    public void mouseClicked(MouseEvent e){
+//        jump();
+//    }
+//
+//    /**
+//     * Invoked when a mouse button has been pressed on a component.
+//     */
+//    @Override
+//    public void mousePressed(MouseEvent e){
+//
+//    }
+//
+//    /**
+//     * Invoked when a mouse button has been released on a component.
+//     */
+//    @Override
+//    public void mouseReleased(MouseEvent e){
+//
+//    }
+//
+//    /**
+//     * Invoked when the mouse enters a component.
+//     */
+//    @Override
+//    public void mouseEntered(MouseEvent e){
+//
+//    }
+//
+//    /**
+//     * Invoked when the mouse exits a component.
+//     */
+//    @Override
+//    public void mouseExited(MouseEvent e){
+//
+//    }
+//
+//    /**
+//     * Invoked when a key has been typed.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key typed event.
+//     */
+//    @Override
+//    public void keyTyped(KeyEvent e){
+//
+//    }
+//
+//    /**
+//     * Invoked when a key has been pressed.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key pressed event.
+//     */
+//    @Override
+//    public void keyPressed(KeyEvent e){
+//        if(e.getKeyCode()==KeyEvent.VK_E){
+////            jframe.setVisible(false);
+//            m.mainLoop();
+//        }
+//    }
+//
+//    /**
+//     * Invoked when a key has been released.
+//     * See the class description for {@link KeyEvent} for a definition of
+//     * a key released event.
+//     */
+//    @Override
+//    public void keyReleased(KeyEvent e){
+//        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+//            jump();
+//        }
+//    }
+
+
     public static void main(String[] args){
         flappyFloof = new FlappyFloof(new InputManager());
-    }
-
-    /**
-     * Invoked when the mouse button has been clicked (pressed
-     * and released) on a component.
-     */
-    @Override
-    public void mouseClicked(MouseEvent e){
-        jump();
-    }
-
-    /**
-     * Invoked when a mouse button has been pressed on a component.
-     */
-    @Override
-    public void mousePressed(MouseEvent e){
-
-    }
-
-    /**
-     * Invoked when a mouse button has been released on a component.
-     */
-    @Override
-    public void mouseReleased(MouseEvent e){
-
-    }
-
-    /**
-     * Invoked when the mouse enters a component.
-     */
-    @Override
-    public void mouseEntered(MouseEvent e){
-
-    }
-
-    /**
-     * Invoked when the mouse exits a component.
-     */
-    @Override
-    public void mouseExited(MouseEvent e){
-
-    }
-
-    /**
-     * Invoked when a key has been typed.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key typed event.
-     */
-    @Override
-    public void keyTyped(KeyEvent e){
-
-    }
-
-    /**
-     * Invoked when a key has been pressed.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key pressed event.
-     */
-    @Override
-    public void keyPressed(KeyEvent e){
-
-    }
-
-    /**
-     * Invoked when a key has been released.
-     * See the class description for {@link KeyEvent} for a definition of
-     * a key released event.
-     */
-    @Override
-    public void keyReleased(KeyEvent e){
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-            jump();
-        }
-        if(e.getKeyCode()==KeyEvent.VK_E){
-//            jframe.setVisible(false);
-            m.mainLoop();
-        }
     }
 }
