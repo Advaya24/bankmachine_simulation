@@ -2,6 +2,8 @@ package bankmachine.users;
 
 import bankmachine.BankMachine;
 import bankmachine.TrackingFactory;
+import bankmachine.account.AccountFactory;
+import bankmachine.account.ChequingAccount;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
 import bankmachine.users.BankMachineUser;
@@ -9,6 +11,7 @@ import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 
@@ -27,6 +30,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         }
     }
 
+
     /**
      * Creates a new client
      *
@@ -44,6 +48,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
             return null;
         }
         addInstance(c);
+        createPrimaryAccount(c);
         return c;
     }
 
@@ -63,6 +68,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
             return;
         }
         addInstance(c);
+        createPrimaryAccount(c);
     }
 
     /**
@@ -81,7 +87,14 @@ public class UserManager extends TrackingFactory<BankMachineUser>
             return null;
         }
         addInstance(c);
+        createPrimaryAccount(c);
         return c;
+    }
+
+    public void createPrimaryAccount(Client client){
+        AccountFactory factory = new AccountFactory(this);
+        factory.newChequingAccount(0, client, LocalDateTime.now());
+        ((ChequingAccount)client.getClientsAccounts().get(0)).setPrimary(true);
     }
 
     /**

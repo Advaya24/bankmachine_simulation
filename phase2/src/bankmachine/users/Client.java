@@ -19,7 +19,7 @@ public class Client extends BankMachineUser {
 
     public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id,name,email, phoneNumber, username, default_password);
-        AccountFactory factory = BankMachine.accFactory;
+//        AccountFactory factory = BankMachine.accFactory;
 //        factory.newChequingAccount(0, this, LocalDateTime.now());
 //        ((ChequingAccount)this.clientsAccounts.get(0)).setPrimary(true);
     }

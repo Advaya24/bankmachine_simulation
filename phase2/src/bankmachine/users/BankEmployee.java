@@ -25,7 +25,7 @@ public abstract class BankEmployee extends Client {
     final private static ArrayList<String> outstandingCreationRequests = new ArrayList<>();
     protected double salary;
 
-    //TODO: decide what our bank employee will do.
+    //TODO: toString.
 
     public BankEmployee(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id, name, email, phoneNumber, username, default_password);
