@@ -66,7 +66,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     }
 
     /**
-     * Creates a new bank employee
+     * Creates a new bank intern
      *
      * @param name        the name of the manager
      * @param email       the email id of the manager
@@ -75,12 +75,8 @@ public class UserManager extends TrackingFactory<BankMachineUser>
      * @param password    the password for this manager's login
      */
     @Nullable
-    public BankEmployee newEmployee(String name, String email, String phoneNumber, String username, String password) {
-
-        //TODO: Change this after new employee type is made... Only for GUI testing
-        BankEmployee c = new BankEmployee(nextID, name, email, phoneNumber, username, password){
-
-        };
+    public BankEmployee newIntern(String name, String email, String phoneNumber, String username, String password) {
+        BankIntern c = new BankIntern(nextID, name, email, phoneNumber, username, password);
         if (users.containsKey(c.getUsername())) {
             return null;
         }

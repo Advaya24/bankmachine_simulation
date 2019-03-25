@@ -9,9 +9,9 @@ public class LoginGUI implements Inputtable {
     private void attemptLogin(InputManager m, LoginForm form, String uname, String pass){
         BankMachineUser user = userManager.authenticate(uname, pass);
         if (uname.equalsIgnoreCase("Flappy") && pass.equalsIgnoreCase("Floof")) {
-            FlappyFloof.main(new String[0]);
-//            FlappyFloof floofGame = new FlappyFloof(m);
-//            floofGame.startGame();
+//            FlappyFloof.main(new String[0]);
+            FlappyFloof floofGame = new FlappyFloof(m);
+            floofGame.startGame();
         } else if (user == null) {
             form.displayInvalid();
         } else {
