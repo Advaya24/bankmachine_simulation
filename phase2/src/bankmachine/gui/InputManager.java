@@ -86,7 +86,7 @@ public class InputManager extends JFrame{
 
     public InputManager() {
         input = new Scanner(System.in);
-        this.setSize(new Dimension(640, 480));
+        this.setSize(new Dimension(800, 800));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
