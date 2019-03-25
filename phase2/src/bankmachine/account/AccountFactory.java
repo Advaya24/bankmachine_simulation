@@ -79,4 +79,15 @@ public class AccountFactory extends TrackingFactory<Account> {
         SavingsAccount a = new SavingsAccount(getNextID(), balance, client, creationDate);
         addInstance(a);
     }
+
+    /**
+     * Creates new retirement account
+     *
+     * @param client       the client whose account this is
+     * @param creationDate the date of creation for this account
+     */
+    public void newRetirementAccount(Client client, LocalDateTime creationDate) {
+        RetirementAccount a = new RetirementAccount(getNextID(), client, creationDate);
+        addInstance(a);
+    }
 }

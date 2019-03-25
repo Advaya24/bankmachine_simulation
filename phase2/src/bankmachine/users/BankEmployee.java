@@ -98,6 +98,9 @@ public abstract class BankEmployee extends Client {
             case "Savings account":
                 factory.newSavingsAccount(0, client, creationDate);
                 break;
+            case "Retirement account":
+                factory.newRetirementAccount(client, creationDate);
+                break;
             default:
                 System.out.println("Invalid account type. Please try again.");
                 return false;

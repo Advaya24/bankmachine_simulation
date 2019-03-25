@@ -106,9 +106,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
 
         ticks++;
         if(started) {
-            for (int i = 0; i < columns.size(); i++) {
-                Rectangle column = columns.get(i);
-
+            for (Rectangle column: columns) {
                 column.x -= speed;
             }
 

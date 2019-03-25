@@ -124,7 +124,7 @@ public class BankEmployeeGUI implements Inputtable {
     }
 
     private void createAccountFor(Client client, InputManager m) {
-        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account"};
+        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account","Retirement account"};
         m.setPanel(new SearchForm("Select the type of account:", new OptionsForm<String>(accountTypes, "") {
             @Override
             public void onSelection(String s) {
