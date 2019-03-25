@@ -196,9 +196,8 @@ public class BankManagerGUI extends BankEmployeeGUI {
                     if (strings[6].equals("Client")) {
                         user = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
                     } else {
-                        user = BankMachine.USER_MANAGER.newEmployee(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                        user = BankMachine.USER_MANAGER.newIntern(strings[0], strings[1], strings[2], strings[3], strings[4]);
                     }
-//                    Client client1 = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
 
                     String alertMessage;
                     if (user == null) {
