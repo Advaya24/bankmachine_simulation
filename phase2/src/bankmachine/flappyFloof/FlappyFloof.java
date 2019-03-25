@@ -14,7 +14,9 @@ import java.util.Random;
  *
  * YouTube video: https://www.youtube.com/watch?v=I1qTZaUcFX0
  */
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
+
     /**The floof itself*/
     public static FlappyFloof flappyFloof;
     /** Parameters for the dimensions of the JFrame.*/
@@ -38,8 +40,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     /** A random object that is used to procedurally generate the obstacles within the game.*/
     public Random rand;
     public InputManager m;
-//    /** A Repainter Object that handles repainting all the entities within the JFrame*/
-//    public Repainter repainter;
+    /**Used to change //TODO*/
     public JFrame jframe;
 
     public FlappyFloof(InputManager m){
@@ -313,7 +314,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
             jump();
         }
         if(e.getKeyCode()==KeyEvent.VK_E){
-//            jframe.setVisible(false);
+            jframe.setVisible(false);
             m.mainLoop();
         }
     }
