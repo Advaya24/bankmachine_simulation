@@ -4,9 +4,12 @@ import bankmachine.BankMachine;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.CreditCardAccount;
 import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NegativeQuantityException;
 import bankmachine.exception.TransactionUndoException;
 import bankmachine.transaction.Transaction;
 import bankmachine.transaction.TransactionType;
+import bankmachine.account.Account;
+import bankmachine.account.ChequingAccount;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public abstract class BankEmployee extends Client {
      */
 
     final private static ArrayList<String> outstandingCreationRequests = new ArrayList<>();
+    protected double salary;
 
     //TODO: decide what our bank employee will do.
 
@@ -106,6 +110,18 @@ public abstract class BankEmployee extends Client {
                 return false;
         }
         return true;
+    }
+
+    //TODO this
+    public void receivePayment() {
+        Account primaryAccount = this.getPrimaryAccount();
+        try {
+            primaryAccount.transferIn(this.salary);
+        }
+        catch (NegativeQuantityException e) {
+            //salaries are always positive
+        }
+
     }
 
 
