@@ -26,7 +26,7 @@ public class MortgageCalculator {
     }
 
     /***
-     * Main method to calculate monthly mortgage.
+     * Main method to calculate monthly mortgage of property
      * @return Returns double of monthly quote
      */
     public Double getMortgage(){
