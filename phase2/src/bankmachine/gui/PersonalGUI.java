@@ -4,6 +4,7 @@ import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.finance.Exchange;
 import bankmachine.finance.ExchangeManager;
+import bankmachine.finance.MortgageCalculator;
 import bankmachine.finance.StockManager;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
@@ -125,8 +126,58 @@ public class PersonalGUI implements Inputtable {
     }
 
     private void handleMortgage(InputManager m) {
+        String[] attributes = {"Principal", "Interest rate", "Number of payment cycles"};
+
+        m.setPanel(new TextInputForm("Mortgage Calculator", attributes) {
+            @Override
+            public void onCancel() {
+                handleFinance(m);
+            }
+
+            @Override
+            public void onOk(String[] strings) {
+                String outputString;
+                try {
+                    MortgageCalculator mortgageCalculator = new MortgageCalculator(Double.parseDouble(strings[0]), Double.parseDouble(strings[1]), Integer.parseInt(strings[2]));
+                    outputString = "Monthly quote: " + mortgageCalculator.getMortgage();
+                } catch (NumberFormatException | NullPointerException e) {
+                    outputString = "At least one of the fields was given invalid input!";
+                }
+                m.setPanel(new AlertMessageForm(outputString) {
+                    @Override
+                    public void onOK() {
+                        handleMortgage(m);
+                    }
+                });
+            }
+        });
     }
 
+    private void inputGetAccounts(InputManager m) {
+        JPanel panel = null;
+        String[] accountSummary = client.getAccountSummary().clone();
+        if (client.getClientsAccounts().size() > 0) {
+            panel = new OptionsForm<Object>(client.getClientsAccounts().toArray(), ""){
+                @Override
+                public void onSelection(Object obj) {
+                    handleAccount(m, (Account)obj);
+                }
+            }.getMainPanel();
+        } else {
+            String[] tempAccountSummary = new String[accountSummary.length + 1];
+            for (int i = 0; i < accountSummary.length; i++) {
+                tempAccountSummary[i] = accountSummary[i];
+            }
+            tempAccountSummary[accountSummary.length] = "No accounts to show";
+            accountSummary = tempAccountSummary;
+        }
+        m.setPanel(new AccountSummaryForm(accountSummary, panel) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+        });
+    }
 
     private void handleSelection(InputManager m, String s){
         switch (s){
@@ -137,35 +188,11 @@ public class PersonalGUI implements Inputtable {
             case "Finance":
                 handleFinance(m);
                 return;
-            case "Update Profile": new UpdateProfileGUI(client, this).handleInput(m); return;
+            case "Update Profile":
+                new UpdateProfileGUI(client, this).handleInput(m);
+                return;
             case "Accounts":
-                client.printAccountSummary();
-                JPanel panel = null;
-                String[] accountSummary = client.getAccountSummary().clone();
-                if (client.getClientsAccounts().size() > 0) {
-                    panel = new OptionsForm<Object>(client.getClientsAccounts().toArray(), ""){
-                        @Override
-                        public void onSelection(Object obj) {
-                            handleAccount(m, (Account)obj);
-                        }
-                    }.getMainPanel();
-                } else {
-                    String[] tempAccountSummary = new String[accountSummary.length + 1];
-                    for (int i = 0; i < accountSummary.length; i++) {
-                        tempAccountSummary[i] = accountSummary[i];
-                    }
-                    tempAccountSummary[accountSummary.length] = "No accounts to show";
-                    accountSummary = tempAccountSummary;
-                }
-                m.setPanel(new AccountSummaryForm(accountSummary, panel) {
-                    @Override
-                    public void onCancel() {
-                        handleInput(m);
-                    }
-                });
-//                System.out.println("Please select an account:");
-//                Account account = m.selectItem(client.getClientsAccounts());
-
+                inputGetAccounts(m);
                 return;
             default:
                 break;
