@@ -44,7 +44,6 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     public JFrame jframe;
 
     public FlappyFloof(InputManager m){
-        Timer timer = new Timer(20, this);
         this.m = m;
         renderer = new Renderer();
         rand = new Random();
@@ -54,6 +53,11 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         for(int i=0;i<=3;i++){
             addColumn(true);
         }
+//        timer.start();
+        startGame();
+    }
+    public void startGame(){
+        Timer timer = new Timer(20, this);
         timer.start();
     }
 
@@ -175,11 +179,11 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         g.setColor(Color.CYAN);
         g.fillRect(0,0,WIDTH,HEIGHT);
 
-        g.setColor(Color.orange);
-        g.fillRect(0,HEIGHT-120,WIDTH,120);
-
         g.setColor(Color.green);
         g.fillRect(0,HEIGHT-120, WIDTH,120);
+
+        g.setColor(Color.orange);
+        g.fillRect(0,HEIGHT-100,WIDTH,120);
 
         g.setColor(Color.red);
         g.fillRect(floof.x,floof.y,floof.width,floof.height);
@@ -314,7 +318,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
             jump();
         }
         if(e.getKeyCode()==KeyEvent.VK_E){
-            jframe.setVisible(false);
+//            jframe.setVisible(false);
             m.mainLoop();
         }
     }
