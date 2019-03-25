@@ -83,19 +83,19 @@ public class BankEmployeeGUI implements Inputtable {
      * @return returns the selected client, null if there are no clients
      */
     void inputGetClient(InputManager m, Function<Client, Void> function) {
-        List<Client> clients = new ArrayList<>();
+        List<Client> users = new ArrayList<>();
         for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
             if (b instanceof Client) {
-                clients.add((Client) b);
+                users.add((Client) b);
             }
         }
         String prompt;
         JPanel panel = null;
-        if (clients.size() == 0) {
-            prompt = "There are no clients!";
+        if (users.size() == 0) {
+            prompt = "There are no users!";
         } else {
-            prompt = "Select a client";
-            OptionsForm<Object> optionsForm = new OptionsForm<Object>(clients.toArray(), "") {
+            prompt = "Select a user";
+            OptionsForm<Object> optionsForm = new OptionsForm<Object>(users.toArray(), "") {
                 @Override
                 public void onSelection(Object object) {
                     function.apply((Client) object);

@@ -43,9 +43,11 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     /**Used to change //TODO*/
     public JFrame jframe;
     public KeyPressHandler keyPressHandler;
+    public Repainter repainter;
 
     public FlappyFloof(InputManager m){
         this.m = m;//TODO: Why do you exist?
+        repainter = new Repainter(this);
         renderer = new Renderer();
         rand = new Random();
         keyPressHandler = new KeyPressHandler(this,m);
@@ -100,7 +102,6 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
 
         }
     }
-
     /**
      * Whenever the game is updated (as per the ActionListener Interface), this method updates all entities: The Floof,
      * new columns, deleting passed columns, and the like, and then repaints the JFrame.
@@ -165,52 +166,6 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     }
 
     /**
-     * Given a Rectangle Object <column>, this method paints it the required color (a rather dark green)
-     * @param g the Graphics context of this instance //TODO: Change this
-     * @param column the Rectangle object to be painted
-     */
-    public void paintColumn(Graphics g, Rectangle column){
-        g.setColor(Color.green.darker());
-        g.fillRect(column.x, column.y, column.width, column.height);
-    }
-
-    //TODO: Annotate
-    public void repaint(Graphics g){
-        g.setColor(Color.CYAN);
-        g.fillRect(0,0,WIDTH,HEIGHT);
-
-        g.setColor(Color.green);
-        g.fillRect(0,HEIGHT-120, WIDTH,120);
-
-        g.setColor(Color.orange);
-        g.fillRect(0,HEIGHT-100,WIDTH,120);
-
-        g.setColor(Color.red);
-        g.fillRect(floof.x,floof.y,floof.width,floof.height);
-
-        for(Rectangle column: columns){
-            paintColumn(g, column);
-        }
-
-        g.setColor(Color.white);
-        g.setFont(new Font("Arial", 1, 75));
-
-        if(!gameOver&&!started)
-        {
-            g.drawString("Space to start!", 150,HEIGHT/2-50);
-        }
-
-        if(gameOver){
-            g.drawString("Game Over!",WIDTH/2-150,HEIGHT/2-50 );
-            g.drawString( "'e' to exit",WIDTH/2-150,HEIGHT/2+50 );
-        }
-
-        if (!gameOver && started){
-            g.drawString(String.valueOf(score), WIDTH/2-25,100);
-        }
-    }
-
-    /**
      * This method is invoked if the Player attempts to jump in-game, and has three functions:
      * a) If the game is over, restarts the game
      * b) If the game hasn't started, starts the game
@@ -239,83 +194,6 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
             yMotion -= 15;
         }
     }
-
-//    /**
-//     * Invoked when the mouse button has been clicked (pressed
-//     * and released) on a component.
-//     */
-//    @Override
-//    public void mouseClicked(MouseEvent e){
-//        jump();
-//    }
-//
-//    /**
-//     * Invoked when a mouse button has been pressed on a component.
-//     */
-//    @Override
-//    public void mousePressed(MouseEvent e){
-//
-//    }
-//
-//    /**
-//     * Invoked when a mouse button has been released on a component.
-//     */
-//    @Override
-//    public void mouseReleased(MouseEvent e){
-//
-//    }
-//
-//    /**
-//     * Invoked when the mouse enters a component.
-//     */
-//    @Override
-//    public void mouseEntered(MouseEvent e){
-//
-//    }
-//
-//    /**
-//     * Invoked when the mouse exits a component.
-//     */
-//    @Override
-//    public void mouseExited(MouseEvent e){
-//
-//    }
-//
-//    /**
-//     * Invoked when a key has been typed.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key typed event.
-//     */
-//    @Override
-//    public void keyTyped(KeyEvent e){
-//
-//    }
-//
-//    /**
-//     * Invoked when a key has been pressed.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key pressed event.
-//     */
-//    @Override
-//    public void keyPressed(KeyEvent e){
-//        if(e.getKeyCode()==KeyEvent.VK_E){
-////            jframe.setVisible(false);
-//            m.mainLoop();
-//        }
-//    }
-//
-//    /**
-//     * Invoked when a key has been released.
-//     * See the class description for {@link KeyEvent} for a definition of
-//     * a key released event.
-//     */
-//    @Override
-//    public void keyReleased(KeyEvent e){
-//        if(e.getKeyCode() == KeyEvent.VK_SPACE){
-//            jump();
-//        }
-//    }
-
 
     public static void main(String[] args){
         flappyFloof = new FlappyFloof(new InputManager());
