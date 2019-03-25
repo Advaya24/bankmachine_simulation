@@ -23,7 +23,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * Creates new chequing account
      *
      * @param amount       the initial amount held by this account
-     * @param client       the client whose account this is
+     * @param client       the owner of the account
      * @param creationDate the date of creation for this account
      */
     public void newChequingAccount(int amount, Client client, LocalDateTime creationDate) {
@@ -35,7 +35,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      *
      * @param primary      whether or not this is a primary account
      * @param amount       the initial amount held by this account
-     * @param client       the client whose account this is
+     * @param client       the owner of the account
      * @param creationDate the date of creation for this account
      */
     public void newChequingAccount(boolean primary, int amount, Client client, LocalDateTime creationDate) {
@@ -48,7 +48,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * Creates new credit card account
      *
      * @param balance      initial balance of this account
-     * @param client       the client whose account this is
+     * @param client       the owner of the account
      * @param creationDate the date of creation for this account
      */
     public void newCreditCardAccount(int balance, Client client, LocalDateTime creationDate) {
@@ -60,7 +60,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * Creates new line of credit account
      *
      * @param balance      the initial balance of this account
-     * @param client       the client whose account this is
+     * @param client       the owner of the account
      * @param creationDate the date of creation for this account
      */
     public void newLineOfCreditAccount(int balance, Client client, LocalDateTime creationDate) {
@@ -72,7 +72,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      * Creates new savings account
      *
      * @param balance      the initial balance of this account
-     * @param client       the client whose account this is
+     * @param client       the owner of the account
      * @param creationDate the date of creation for this account
      */
     public void newSavingsAccount(int balance, Client client, LocalDateTime creationDate) {
