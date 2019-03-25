@@ -5,16 +5,23 @@ import bankmachine.transaction.Transaction;
 import bankmachine.account.*;
 import com.sun.istack.internal.Nullable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 /**A Client within this system.**/
 // Person working on this: Varun
 public class Client extends BankMachineUser {
+
     /**All the accounts this Client has**/
     private List<Account> clientsAccounts = new ArrayList<>();
+
+
     public Client(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id,name,email, phoneNumber, username, default_password);
+        AccountFactory factory = BankMachine.accFactory;
+        factory.newChequingAccount(0, this, LocalDateTime.now());
+        ((ChequingAccount)this.clientsAccounts.get(0)).setPrimary(true);
     }
 
     /**All the getters for this class' private variables:**/
