@@ -17,27 +17,8 @@ public class AccountGUI implements Inputtable {
     }
 
     public Account inputTransfer(InputManager m, double amount) throws BankMachineException {
-        String username =  m.getInput("Please input the username of the client." +
-                " If you would like to transfer between your accounts, enter your own username.");
-        Client client;
-        if(BankMachine.USER_MANAGER.get(username) == null){
-            System.out.println("This is not the username of one of our clients.");
-            return null;
-        }
-        else {
-            client = (Client)BankMachine.USER_MANAGER.get(username);
-        }
-        Account a;
-        if(client.equals(this.account.getClient())){
-            a = m.selectItem(client.getClientsAccounts());
-        } else {
-            a = client.getPrimaryAccount();
-        }
-        if (a == null){
-            return null;
-        }
-        this.account.transferOut(a, amount);
-        return a;
+        m.setPanel(new TransferForm(this.account));
+        return this.account;
     }
 
     private void handleSelection(InputManager m, String action) throws BankMachineException{

@@ -220,7 +220,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     }
 
     /**
-     * Get all BankManagers
+     * Get all Clients
      */
     public List<Client> getClients(){
         List<Client> bankManagers = new ArrayList<>();
