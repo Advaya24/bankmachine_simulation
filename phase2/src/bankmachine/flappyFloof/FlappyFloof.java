@@ -47,7 +47,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         this.m = m;
         renderer = new Renderer();
         rand = new Random();
-        jFrameSetUp();
+        jFrameSetUp(m);
         floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
         columns = new ArrayList<>();
         for(int i=0;i<=3;i++){
@@ -59,8 +59,8 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
     /**
      * Sets up the JFrame
      */
-    public void jFrameSetUp(){
-        jframe = new JFrame();
+    public void jFrameSetUp(InputManager m){
+        jframe = m;
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);
@@ -106,9 +106,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
 
         ticks++;
         if(started) {
-            for (int i = 0; i < columns.size(); i++) {
-                Rectangle column = columns.get(i);
-
+            for (Rectangle column: columns) {
                 column.x -= speed;
             }
 
@@ -190,15 +188,16 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
         }
 
         g.setColor(Color.white);
-        g.setFont(new Font("Arial", 1, 100));
+        g.setFont(new Font("Arial", 1, 75));
 
         if(!gameOver&&!started)
         {
-            g.drawString("Click to start!", 75,HEIGHT/2-50);
+            g.drawString("Space to start!", 150,HEIGHT/2-50);
         }
 
         if(gameOver){
-            g.drawString("Game Over!",100,HEIGHT/2-50 );
+            g.drawString("Game Over!",WIDTH/2-150,HEIGHT/2-50 );
+            g.drawString( "'e' to exit",WIDTH/2-150,HEIGHT/2+50 );
         }
 
         if (!gameOver && started){
@@ -314,7 +313,7 @@ public class FlappyFloof implements ActionListener, MouseListener, KeyListener {
             jump();
         }
         if(e.getKeyCode()==KeyEvent.VK_E){
-            jframe.setVisible(false);
+//            jframe.setVisible(false);
             m.mainLoop();
         }
     }

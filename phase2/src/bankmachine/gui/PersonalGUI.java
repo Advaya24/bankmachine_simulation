@@ -15,7 +15,7 @@ public class PersonalGUI implements Inputtable {
 
     public void newAccountCreationInput(InputManager m){
         String[] accountTypes ={"Chequing account", "Credit card account",
-                "Line of credit account", "Savings account"};
+                "Line of credit account", "Savings account","Retirement account"};
         m.setPanel(new SearchForm("Select type of account", new OptionsForm<String>(accountTypes, ""){
             @Override
             public void onSelection(String s) {
