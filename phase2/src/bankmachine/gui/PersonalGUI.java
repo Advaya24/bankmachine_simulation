@@ -126,7 +126,7 @@ public class PersonalGUI implements Inputtable {
     }
 
     private void handleMortgage(InputManager m) {
-        String[] attributes = {"Principal", "Interest rate %", "Number of payment cycles"};
+        String[] attributes = {"Principal", "Annual interest rate %", "Number of payment cycles"};
 
         m.setPanel(new TextInputForm("Mortgage Calculator", attributes) {
             @Override
@@ -138,7 +138,7 @@ public class PersonalGUI implements Inputtable {
             public void onOk(String[] strings) {
                 String outputString;
                 try {
-                    MortgageCalculator mortgageCalculator = new MortgageCalculator(Double.parseDouble(strings[0]), Double.parseDouble(strings[1])/100, Integer.parseInt(strings[2]));
+                    MortgageCalculator mortgageCalculator = new MortgageCalculator(Double.parseDouble(strings[0]), Double.parseDouble(strings[1])/1200, Integer.parseInt(strings[2]));
                     outputString = "Monthly quote: " + mortgageCalculator.getMortgage();
                 } catch (NumberFormatException | NullPointerException e) {
                     outputString = "At least one of the fields was given invalid input!";
