@@ -17,14 +17,12 @@ import java.util.Random;
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FlappyFloof implements ActionListener{//, MouseListener, KeyListener {
 
-    /**The floof itself*/
-    public static FlappyFloof flappyFloof;
     /** Parameters for the dimensions of the JFrame.*/
     public final int WIDTH = 800, HEIGHT = 800;
     /** The Object that helps to render the Jframe itself.*/
     public  Renderer renderer;
     /** A Rectangle Object representing our floof.*/
-    public Rectangle floof;
+    public Rectangle floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
     /** An integer value that is used to see whether the floof needs to start being affected by gravity or not.*/
     public int ticks;
     /** An integer value that is used to determine how fast the floof is falling at any point of time.*/
@@ -36,9 +34,9 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     /** A boolean value that is used to determine whether the Player has started the game or not.*/
     public boolean started;
     /** An ArrayList of Rectangle Objects that stores the obstacles currently within the game.*/
-    public ArrayList<Rectangle> columns;
+    public ArrayList<Rectangle> columns = new ArrayList<>();
     /** A random object that is used to procedurally generate the obstacles within the game.*/
-    public Random rand;
+    public Random rand = new Random();
     public InputManager m;
     /**Used to change //TODO*/
     public JFrame jframe;
@@ -48,27 +46,22 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     public FlappyFloof(InputManager m){
         this.m = m;//TODO: Why do you exist?
         repainter = new Repainter(this);
-        renderer = new Renderer();
-        rand = new Random();
-        keyPressHandler = new KeyPressHandler(this,m);
-        jFrameSetUp(m);
-        floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
-        columns = new ArrayList<>();
+        renderer = new Renderer(this);
         for(int i=0;i<=3;i++){
             addColumn(true);
         }
-//        timer.start();
-        startGame();
+        setUp(m);
     }
     public void startGame(){
-        Timer timer = new Timer(20, this);
+        Timer timer = new Timer(15, this);
         timer.start();
     }
 
     /**
      * Sets up the JFrame
      */
-    public void jFrameSetUp(InputManager m){
+    public void setUp(InputManager m){
+        keyPressHandler = new KeyPressHandler(this,m);
         jframe = m;
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +71,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
 //        jframe.setTitle("Flappy Floof");
         jframe.setResizable(false);
         jframe.setVisible(true);
+
     }
 
     /**
@@ -176,7 +170,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
             gameOver = false;
             //Reset the game
             floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
-            columns = new ArrayList<>();
+            columns.clear();
             yMotion = 0;
             score = 0;
             for(int i=0;i<=3;i++){
@@ -196,6 +190,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     }
 
     public static void main(String[] args){
-        flappyFloof = new FlappyFloof(new InputManager());
+        FlappyFloof flappyFloof = new FlappyFloof(new InputManager());
+        flappyFloof.startGame();
     }
 }
