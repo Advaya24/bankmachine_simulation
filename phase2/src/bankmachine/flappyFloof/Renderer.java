@@ -3,10 +3,13 @@ package bankmachine.flappyFloof;
 import javax.swing.*;
 import java.awt.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class Renderer extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    FlappyFloof flappyFloof;
+    /** The Flappyfloof object that holds the instance of the current game*/
+    private FlappyFloof flappyFloof;
+
     public Renderer(FlappyFloof floof){
         this.flappyFloof = floof;
     }

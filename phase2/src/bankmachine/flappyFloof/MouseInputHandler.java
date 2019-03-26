@@ -1,23 +1,17 @@
 package bankmachine.flappyFloof;
 
 import bankmachine.gui.InputManager;
-import jdk.internal.util.xml.impl.Input;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class MouseInputHandler implements MouseListener {
     /** The Flappyfloof object that holds the instance of the current game*/
     private FlappyFloof floof;
-    /** The InputManager (A Jframe) that is used as the GUI for the entire application */
-    private InputManager oldFrame;
-    /** The InputManager for this game */
-    private InputManager gameFrame;
 
-    public MouseInputHandler(FlappyFloof floof, InputManager gameFrame, InputManager oldFrame){
+    public MouseInputHandler(FlappyFloof floof){
         this.floof = floof;
-        this.gameFrame = gameFrame;
-        this.oldFrame = oldFrame;
     }
     /**
      * Invoked when the mouse button has been clicked (pressed
@@ -41,11 +35,6 @@ public class MouseInputHandler implements MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e){
-//        if (e.getButton()== MouseEvent.BUTTON2_MASK){
-//            m.dispose();
-//            System.out.println("Hi");
-//            m.mainLoop();
-//        }
     }
 
     /**

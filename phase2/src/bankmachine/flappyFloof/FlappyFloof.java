@@ -72,7 +72,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     public void setUp(){
         jframe.dispose();
         keyPressHandler = new KeyPressHandler(this, jframe, originalInputManager);
-        mouseInputHandler = new MouseInputHandler(this, jframe, originalInputManager);
+        mouseInputHandler = new MouseInputHandler(this);
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);
