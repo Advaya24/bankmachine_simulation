@@ -4,6 +4,7 @@ import bankmachine.gui.InputManager;
 
 import java.awt.event.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class KeyPressHandler implements KeyListener {
     /**The Flappyfloof object that holds the instance of the current game*/
     private FlappyFloof floof;
@@ -37,6 +38,7 @@ public class KeyPressHandler implements KeyListener {
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_E){
             gameFrame.setVisible(false);
+            gameFrame.dispose();
             oldFrame.setVisible(true);
             oldFrame.mainLoop();
         }

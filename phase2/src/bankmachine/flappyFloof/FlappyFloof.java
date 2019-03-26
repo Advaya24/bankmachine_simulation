@@ -17,7 +17,7 @@ import java.util.Random;
  *
  * YouTube video: https://www.youtube.com/watch?v=I1qTZaUcFX0
  */
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"WeakerAccess", "CanBeFinal","SpellCheckingInspection"})
 public class FlappyFloof implements ActionListener{//, MouseListener, KeyListener {
 
     /** Parameters for the dimensions of the JFrame.*/
