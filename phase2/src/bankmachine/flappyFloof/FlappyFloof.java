@@ -64,6 +64,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
      * Sets up the JFrame
      */
     public void setUp(){
+        jframe.dispose();
         keyPressHandler = new KeyPressHandler(this,jframe);
         mouseInputHandler = new MouseInputHandler(this, jframe);
         jframe.add(renderer);
@@ -71,7 +72,6 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
         jframe.setSize(WIDTH, HEIGHT);
         jframe.addMouseListener(mouseInputHandler);
         jframe.addKeyListener(keyPressHandler);
-//        jframe.setTitle("Flappy Floof");
         jframe.setResizable(false);
         jframe.setVisible(true);
 
@@ -117,38 +117,11 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
                 yMotion += 2;
             }
 
-            for (int i = 0; i < columns.size(); i++) {
-                Rectangle column = columns.get(i);
-                if (column.x + column.width < 0) {
-                    columns.remove(column);
-                    if (column.y == 0) {
-                        addColumn(false);
-                    }
-                }
-            }
+            deleteColumns();
 
             floof.y += yMotion;
 
-            for (Rectangle column : columns) {
-                if(column.y == 0 &&floof.x + floof.width/2 > column.x + column.width/2-5 &&
-                        floof.x + floof.width/2 < column.x+column.width/2+5){
-                    score++;
-                }
-                if (column.intersects(floof)) {
-                    gameOver = true;
-                    if(floof.x <= column.x) {
-                        floof.x = column.x - floof.width;
-                    }
-                    else{
-                        if(column.y!=0){
-                            floof.y = column.y - floof.height;
-                        }
-                        else if(floof.y < column.height){
-                            floof.y = column.height;
-                        }
-                    }
-                }
-            }
+            checkIntersection();
 
             if (floof.y > HEIGHT - 120 || floof.y < 0) {
                 floof.y = HEIGHT - 120;
@@ -160,6 +133,49 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
             }
         }
         renderer.repaint();
+    }
+
+    /**
+     * Goes through all columns and sees if any of them are out of the frame. If so, it removes this column from
+     * our ArrayList.
+     */
+    public void deleteColumns(){
+        for (int i = 0; i < columns.size(); i++) {
+            Rectangle column = columns.get(i);
+            if (column.x + column.width < 0) {
+                columns.remove(column);
+                if (column.y == 0) {
+                    addColumn(false);
+                }
+            }
+        }
+    }
+
+    /**
+     * Goes through all columns in our ArrayList and sees if the Player has contacted any of them. If they have,
+     * the game ends, and the floof object will be carried off-screen by the next column.
+     */
+    public void checkIntersection(){
+        for (Rectangle column : columns) {
+            if(column.y == 0 &&floof.x + floof.width/2 > column.x + column.width/2-5 &&
+                    floof.x + floof.width/2 < column.x+column.width/2+5){
+                score++;
+            }
+            if (column.intersects(floof)) {
+                gameOver = true;
+                if(floof.x <= column.x) {
+                    floof.x = column.x - floof.width;
+                }
+                else{
+                    if(column.y!=0){
+                        floof.y = column.y - floof.height;
+                    }
+                    else if(floof.y < column.height){
+                        floof.y = column.height;
+                    }
+                }
+            }
+        }
     }
 
     /**

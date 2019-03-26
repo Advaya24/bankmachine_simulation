@@ -10,6 +10,7 @@ public class MouseInputHandler implements MouseListener {
     private FlappyFloof floof;
     /** The InputManager (A Jframe) that is used as the GUI for the entire application */
     private InputManager m;
+
     public MouseInputHandler(FlappyFloof floof, InputManager m){
         this.floof = floof;
         this.m = m;
@@ -36,7 +37,11 @@ public class MouseInputHandler implements MouseListener {
      */
     @Override
     public void mouseReleased(MouseEvent e){
-
+//        if (e.getButton()== MouseEvent.BUTTON2_MASK){
+//            m.dispose();
+//            System.out.println("Hi");
+//            m.mainLoop();
+//        }
     }
 
     /**

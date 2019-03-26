@@ -9,6 +9,7 @@ public class KeyPressHandler implements KeyListener {
     private FlappyFloof floof;
     /** The InputManager (A Jframe) that is used as the GUI for the entire application */
     private InputManager m;
+
     public KeyPressHandler(FlappyFloof floof, InputManager m){
         this.floof = floof;
         this.m = m;
@@ -33,6 +34,7 @@ public class KeyPressHandler implements KeyListener {
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_E){
             m.dispose();
+            System.out.println("Hi");
             m.mainLoop();
         }
     }
