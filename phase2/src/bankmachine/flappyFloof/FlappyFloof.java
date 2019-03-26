@@ -37,32 +37,30 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     public ArrayList<Rectangle> columns = new ArrayList<>();
     /** A random object that is used to procedurally generate the obstacles within the game.*/
     public Random rand = new Random();
-    public InputManager m;
     /**Used to change //TODO*/
-    public JFrame jframe;
+    public InputManager jframe;
     public KeyPressHandler keyPressHandler;
     public Repainter repainter;
 
     public FlappyFloof(InputManager m){
-        this.m = m;//TODO: Why do you exist?
+        this.jframe = m;//TODO: Why do you exist?
         repainter = new Repainter(this);
         renderer = new Renderer(this);
         for(int i=0;i<=3;i++){
             addColumn(true);
         }
-        setUp(m);
+        setUp();
     }
     public void startGame(){
-        Timer timer = new Timer(15, this);
+        Timer timer = new Timer(20, this);
         timer.start();
     }
 
     /**
      * Sets up the JFrame
      */
-    public void setUp(InputManager m){
-        keyPressHandler = new KeyPressHandler(this,m);
-        jframe = m;
+    public void setUp(){
+        keyPressHandler = new KeyPressHandler(this,jframe);
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);

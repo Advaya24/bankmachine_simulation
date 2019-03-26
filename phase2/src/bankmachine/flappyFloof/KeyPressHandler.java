@@ -70,7 +70,6 @@ public class KeyPressHandler implements MouseListener, KeyListener {
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_E){
-//            m.setVisible(false);
             m.dispose();
             m.mainLoop();
         }
