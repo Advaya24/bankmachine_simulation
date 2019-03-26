@@ -240,8 +240,10 @@ public class PersonalGUI implements Inputtable {
                     outputString = "Invalid input for username!";
                 }
 
-                if (client == null && outputString.equals("")) {
-                    outputString = "User with that username not found";
+                if (client == null) {
+                    if (outputString.equals("")) {
+                        outputString = "User with that username not found";
+                    }
                 } else if (client.getPrimaryAccount() == null) {
                     outputString = "The selected client does not have an account you can transfer to!";
                 } else {
@@ -254,7 +256,7 @@ public class PersonalGUI implements Inputtable {
                             transferComplete = true;
                             outputString = "Transferred successfully!";
                         } catch (BankMachineException e) {
-                            outputString = e.getMessage();
+                            outputString = e.toString();
                         }
                     } catch (NumberFormatException | NullPointerException e) {
                         outputString = "Invalid amount!";
@@ -280,6 +282,81 @@ public class PersonalGUI implements Inputtable {
         });
     }
 
+    private void handleInternalTransfer(InputManager m) {
+        List<Account> accountList = client.getClientsAccounts();
+        if (accountList.size() < 2) {
+            m.setPanel(new AlertMessageForm("No account(s) to transfer between!") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
+        } else {
+            m.setPanel(new InternalTransferForm(accountList) {
+                @Override
+                public void onOk(Account fromAccount, Account toAccount, String amountString) {
+                    String outputString;
+                    boolean transferComplete = false;
+                    if (fromAccount.getID() == toAccount.getID()) {
+                        outputString = "Cannot transfer to same account!";
+                    } else {
+                        try {
+                            double amount = Double.parseDouble(amountString);
+                            fromAccount.transferOut(toAccount, amount);
+                            outputString = "Transferred Successfully!";
+                            transferComplete = true;
+                        } catch (NumberFormatException e) {
+                            outputString = "Invalid amount!";
+                        } catch (BankMachineException e2) {
+                            outputString = e2.toString();
+                        }
+                    }
+                    if (transferComplete) {
+                        m.setPanel(new AlertMessageForm(outputString) {
+                            @Override
+                            public void onOK() {
+                                handleInput(m);
+                            }
+                        });
+                    } else {
+                        m.setPanel(new AlertMessageForm(outputString) {
+                            @Override
+                            public void onOK() {
+                                handleInternalTransfer(m);
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
+        }
+    }
+
+    private void transferMenu(InputManager m) {
+        String[] options = {"Internal Transfer", "Transfer to other user"};
+        m.setPanel(new SearchForm("What kind of transfer?", new OptionsForm<String>(options, "") {
+            @Override
+            public void onSelection(String s) {
+                switch (s) {
+                    case "Internal Transfer":
+                        handleInternalTransfer(m);
+                        return;
+                    case "Transfer to other user":
+                        selectAccountForTransfer(m);
+                }
+            }
+        }.getMainPanel()) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+        });
+    }
+
     private void handleSelection(InputManager m, String s){
         switch (s){
             case "Exit": m.mainLoop(); return;
@@ -287,7 +364,7 @@ public class PersonalGUI implements Inputtable {
                 newAccountCreationInput(m);
                 return;
             case "Transfer":
-                selectAccountForTransfer(m);
+                transferMenu(m);
                 return;
             case "Finance":
                 handleFinance(m);
@@ -310,7 +387,6 @@ public class PersonalGUI implements Inputtable {
         }
         new AccountGUI(account).handleInput(m);
     }
-
 
     @Override
     public void handleInput(InputManager m){

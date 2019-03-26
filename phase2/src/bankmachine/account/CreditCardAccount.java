@@ -63,9 +63,13 @@ public class CreditCardAccount extends DebtAccount {
     public void transferOut(int amount) throws TransferException {
         throw new TransferException("Cannot transfer out of a credit card account.");
     }
+    public void transferOut(double amount) throws TransferException {
+        throw new TransferException("Cannot transfer out of a credit card account.");
+    }
 
     public String toString() {
         String output = "";
+        output += "ID: " + getID() + " Type: Credit Card Account Balance: $" + getBalance();
         return output;
     }
 }
