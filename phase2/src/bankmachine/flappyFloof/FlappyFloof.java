@@ -42,12 +42,14 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     public Random rand = new Random();
     /**Used to change //TODO*/
     public InputManager jframe;
+    public InputManager originalInputManager;
     public KeyPressHandler keyPressHandler;
     public MouseInputHandler mouseInputHandler;
     public Repainter repainter;
 
     public FlappyFloof(InputManager m){
-        this.jframe = m;//TODO: Why do you exist?
+        this.originalInputManager = m;//TODO: Why do you exist?
+        this.jframe = new InputManager();
         repainter = new Repainter(this);
         renderer = new Renderer(this);
         for(int i=0;i<=3;i++){
@@ -65,8 +67,8 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
      */
     public void setUp(){
         jframe.dispose();
-        keyPressHandler = new KeyPressHandler(this,jframe);
-        mouseInputHandler = new MouseInputHandler(this, jframe);
+        keyPressHandler = new KeyPressHandler(this, jframe, originalInputManager);
+        mouseInputHandler = new MouseInputHandler(this, jframe, originalInputManager);
         jframe.add(renderer);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setSize(WIDTH, HEIGHT);

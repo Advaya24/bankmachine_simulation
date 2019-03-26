@@ -8,11 +8,14 @@ public class KeyPressHandler implements KeyListener {
     /**The Flappyfloof object that holds the instance of the current game*/
     private FlappyFloof floof;
     /** The InputManager (A Jframe) that is used as the GUI for the entire application */
-    private InputManager m;
+    private InputManager oldFrame;
+    /** The InputManager for this game */
+    private InputManager gameFrame;
 
-    public KeyPressHandler(FlappyFloof floof, InputManager m){
+    public KeyPressHandler(FlappyFloof floof, InputManager gameFrame, InputManager oldFrame){
         this.floof = floof;
-        this.m = m;
+        this.gameFrame = gameFrame;
+        this.oldFrame = oldFrame;
     }
 
     /**
@@ -33,9 +36,10 @@ public class KeyPressHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_E){
-            m.dispose();
+            gameFrame.setVisible(false);
             System.out.println("Hi");
-            m.mainLoop();
+            oldFrame.setVisible(true);
+            oldFrame.mainLoop();
         }
     }
 
