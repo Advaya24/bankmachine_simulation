@@ -8,11 +8,12 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**Note: While almost all of the code within this package itself has been replicated from a YouTube video,
- * The documentation for all the methods and attributes are original and has been done by the members of Group 0336.
+/**Note: While the main idea of the code within this package itself has been replicated from a YouTube video,
+ * the documentation for all the methods and attributes are original and has been done by the members of Group 0336.
  * Additionally, the code has been majorly refactored. The original code had everything within this class and
  * Renderer.java. This violated the Single Responsibility Principle; hence, it has been refactored and we now have 5
- * classes in this package, each with their own responsibilities.
+ * classes in this package, each with their own responsibilities, along with a slew of modifications to make it completible
+ * with our existing GUI and application.
  * Thank you!
  *
  * YouTube video: https://www.youtube.com/watch?v=I1qTZaUcFX0
@@ -67,7 +68,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     }
 
     /**
-     * Sets up the JFrame
+     * Sets up the JFrame with the required properties and Listeners
      */
     public void setUp(){
         jframe.dispose();
