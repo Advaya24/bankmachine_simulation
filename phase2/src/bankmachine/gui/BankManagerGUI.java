@@ -225,6 +225,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
         switch (s) {
             case "Shutdown":
                 m.exit();
+                System.exit(0); // TODO: find a better fix
                 return;
             case "Undo a Transaction":
                 inputUndoTransaction(m);
