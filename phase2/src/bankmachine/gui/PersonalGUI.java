@@ -2,15 +2,19 @@ package bankmachine.gui;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
+import bankmachine.exception.BankMachineException;
 import bankmachine.finance.Exchange;
 import bankmachine.finance.ExchangeManager;
 import bankmachine.finance.MortgageCalculator;
 import bankmachine.finance.StockManager;
+import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PersonalGUI implements Inputtable {
     private Client client;
@@ -179,11 +183,111 @@ public class PersonalGUI implements Inputtable {
         });
     }
 
+    private void selectAccountForTransfer(InputManager m) {
+        Account[] accounts = getTransferAccounts(this.client);
+
+        if (accounts.length == 0) {
+            m.setPanel(new AlertMessageForm("No accounts to transfer from!") {
+                @Override
+                public void onOK() {
+                    handleInput(m);
+                }
+            });
+        } else {
+            m.setPanel(new SearchForm("Select account to transfer from:", new OptionsForm<Account>(accounts, ""){
+                @Override
+                public void onSelection(Account account) {
+                    handleTransfer(m , account);
+                }
+            }.getMainPanel()) {
+                @Override
+                public void onCancel() {
+                    handleInput(m);
+                }
+            });
+        }
+    }
+
+    private Account[] getTransferAccounts(Client client) {
+        List<Account> listOfTransferAccounts = new ArrayList<>();
+        for (Account account: client.getClientsAccounts()) {
+            if (account.canTransferOut(0)) {
+                listOfTransferAccounts.add(account);
+            }
+        }
+        Account[] arrayOfTransferAccounts = new Account[listOfTransferAccounts.size()];
+        listOfTransferAccounts.toArray(arrayOfTransferAccounts);
+        return arrayOfTransferAccounts;
+    }
+
+    private void handleTransfer(InputManager m, Account account) {
+        String[] attributes = {"Username of recipient", "Amount to transfer"};
+        m.setPanel(new TextInputForm("Transfer money", attributes) {
+            @Override
+            public void onCancel() {
+                handleInput(m);
+            }
+
+            @Override
+            public void onOk(String[] strings) {
+                String outputString = "";
+                boolean transferComplete = false;
+                Client client = null;
+
+                try {
+                    client = (Client) BankMachine.USER_MANAGER.get(strings[0]);
+                } catch (NullPointerException e) {
+                    outputString = "Invalid input for username!";
+                }
+
+                if (client == null && outputString.equals("")) {
+                    outputString = "User with that username not found";
+                } else if (client.getPrimaryAccount() == null) {
+                    outputString = "The selected client does not have an account you can transfer to!";
+                } else {
+                    double amount;
+                    try {
+                        amount = Double.parseDouble(strings[1]);
+                        amount = ((double)Math.round(amount*100))/100.0;
+                        try {
+                            account.transferOut(client.getPrimaryAccount(), amount);
+                            transferComplete = true;
+                            outputString = "Transferred successfully!";
+                        } catch (BankMachineException e) {
+                            outputString = e.getMessage();
+                        }
+                    } catch (NumberFormatException | NullPointerException e) {
+                        outputString = "Invalid amount!";
+                    }
+                }
+
+                if (transferComplete) {
+                    m.setPanel(new AlertMessageForm(outputString) {
+                        @Override
+                        public void onOK() {
+                            handleInput(m);
+                        }
+                    });
+                } else {
+                    m.setPanel(new AlertMessageForm(outputString) {
+                        @Override
+                        public void onOK() {
+                            handleTransfer(m, account);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     private void handleSelection(InputManager m, String s){
         switch (s){
             case "Exit": m.mainLoop(); return;
             case "Request Creation Of A New Account":
                 newAccountCreationInput(m);
+                return;
+            case "Transfer":
+                selectAccountForTransfer(m);
                 return;
             case "Finance":
                 handleFinance(m);
@@ -213,7 +317,7 @@ public class PersonalGUI implements Inputtable {
         System.out.println("Welcome, "+client.getName()+"!");
             System.out.println("Select an action");
             String[] options = {
-                "Accounts", "Request Creation Of A New Account", "Finance", "Update Profile", "Exit"
+                "Accounts", "Request Creation Of A New Account", "Transfer", "Finance", "Update Profile", "Exit"
             };
             m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
                 @Override
