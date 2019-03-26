@@ -139,6 +139,7 @@ public class InputManager extends JFrame{
     public void exit(){
         BankMachine.USER_MANAGER.saveData();
         this.dispose();
+        System.exit(0);
     }
 
     //TODO replace all usages of this with GUIs
