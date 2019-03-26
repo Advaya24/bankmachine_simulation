@@ -366,6 +366,12 @@ public class PersonalGUI implements Inputtable {
             case "Transfer":
                 transferMenu(m);
                 return;
+            // TODO: implement this
+            case "Withdraw":
+                return;
+            // TODO: implement this
+            case "Deposit":
+                return;
             case "Finance":
                 handleFinance(m);
                 return;
@@ -393,7 +399,7 @@ public class PersonalGUI implements Inputtable {
         System.out.println("Welcome, "+client.getName()+"!");
             System.out.println("Select an action");
             String[] options = {
-                "Accounts", "Request Creation Of A New Account", "Transfer", "Finance", "Update Profile", "Exit"
+                "Accounts", "Request Creation Of A New Account", "Transfer", "Withdraw", "Deposit","Finance", "Update Profile", "Exit"
             };
             m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
                 @Override
