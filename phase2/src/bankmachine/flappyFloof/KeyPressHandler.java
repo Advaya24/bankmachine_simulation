@@ -37,7 +37,6 @@ public class KeyPressHandler implements KeyListener {
     public void keyPressed(KeyEvent e){
         if(e.getKeyCode()==KeyEvent.VK_E){
             gameFrame.setVisible(false);
-            System.out.println("Hi");
             oldFrame.setVisible(true);
             oldFrame.mainLoop();
         }

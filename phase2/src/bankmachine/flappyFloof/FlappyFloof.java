@@ -42,9 +42,13 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     public Random rand = new Random();
     /**Used to change //TODO*/
     public InputManager jframe;
+    /** The InputManager of the entire application */
     public InputManager originalInputManager;
+    /** The KeyPressHandler object that detects keyboard input and calls the appropriate method */
     public KeyPressHandler keyPressHandler;
+    /**The MouseInputHandler object that detects mouse input and calls the appropriate method */
     public MouseInputHandler mouseInputHandler;
+    /**The Repainter object that is responsible for painting all objects in the JFrame */
     public Repainter repainter;
 
     public FlappyFloof(InputManager m){
