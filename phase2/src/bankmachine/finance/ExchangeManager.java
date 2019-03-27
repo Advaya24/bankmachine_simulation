@@ -27,7 +27,7 @@ public class ExchangeManager {
      * @throws IOException
      */
 
-    public ExchangeManager(String inputcurrency, String outputcurrency) throws FinanceException {
+    public ExchangeManager(String inputcurrency, String outputcurrency) throws FinanceException, ArrayIndexOutOfBoundsException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
         JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
@@ -43,7 +43,7 @@ public class ExchangeManager {
     }
 
     // Formatter Class for formatting JSON API output (stock specific)
-    public void formatter() {
+    public void formatter() throws ArrayIndexOutOfBoundsException{
 
         // Replaces JSON { and } root and node symbols
         cryptodata = cryptodata.replace("{", "");
