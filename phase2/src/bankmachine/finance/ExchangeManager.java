@@ -27,7 +27,7 @@ public class ExchangeManager {
      * @throws IOException
      */
 
-    public ExchangeManager(String inputcurrency, String outputcurrency) throws IOException {
+    public ExchangeManager(String inputcurrency, String outputcurrency) throws FinanceException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
         JsonManager s1 = new JsonManager(inputcurrency, outputcurrency, "exchange");
