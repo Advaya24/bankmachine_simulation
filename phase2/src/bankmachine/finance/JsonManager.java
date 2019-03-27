@@ -37,7 +37,7 @@ public class JsonManager {
      * @return LinkedList of necessary data only
      * @throws IOException
      */
-    public LinkedList data() throws FinanceException{
+    public LinkedList data() throws FinanceException, NullPointerException{
 
         if (type.equals("stock")) {
             sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + input + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
