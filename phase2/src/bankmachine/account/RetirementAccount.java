@@ -31,8 +31,7 @@ public class RetirementAccount extends AssetAccount {
 
     public String toString() {
         String output = "";
-        output += "ID: " + getID() + " Type: Retirement Account Balance: $" + getBalance();
-        return output;
+        return "ID: " + getID() + " Type: Retirement Account Balance: $" + getBalance();
     }
 
     /**
