@@ -30,7 +30,7 @@ public class Exchange {
      * Method that returns String representation of exchange amount (with target currency name)
      * @return String of value and currency name
      */
-    public String makeExchange() throws FinanceException {
+    public String makeExchange() throws FinanceException, ArrayIndexOutOfBoundsException {
             ExchangeManager em = new ExchangeManager(from_currency, to_currency);
             Double exchangerate = em.getExchange();
             return amount + " " + from_currency + " is equal to " + (exchangerate * amount) + " " + em.getCurrencyName();
