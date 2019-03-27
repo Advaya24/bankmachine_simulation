@@ -45,17 +45,22 @@ public class ExchangeManager {
     // Formatter Class for formatting JSON API output (stock specific)
     public void formatter() throws ArrayIndexOutOfBoundsException{
 
-        // Replaces JSON { and } root and node symbols
-        cryptodata = cryptodata.replace("{", "");
-        cryptodata = cryptodata.replace("}", "");
+        try {
 
-        List<String> items = Arrays.asList(cryptodata.split("\\s*,\\s*"));
-        from_code = ((items.get(0)).split(":")[1]).replace("\"", "");
-        from_name = ((items.get(1)).split(":")[1]).replace("\"", "");
-        to_currcode = ((items.get(2)).split(":")[1]).replace("\"", "");
-        to_currency = ((items.get(3)).split(":")[1]).replace("\"", "");
-        exchange = ((items.get(4)).split(":")[1]).replace("\"", "");
-        datetime = ((items.get(5)).split(":")[1]).replace("\"", "");
+            // Replaces JSON { and } root and node symbols
+            cryptodata = cryptodata.replace("{", "");
+            cryptodata = cryptodata.replace("}", "");
+
+            List<String> items = Arrays.asList(cryptodata.split("\\s*,\\s*"));
+            from_code = ((items.get(0)).split(":")[1]).replace("\"", "");
+            from_name = ((items.get(1)).split(":")[1]).replace("\"", "");
+            to_currcode = ((items.get(2)).split(":")[1]).replace("\"", "");
+            to_currency = ((items.get(3)).split(":")[1]).replace("\"", "");
+            exchange = ((items.get(4)).split(":")[1]).replace("\"", "");
+            datetime = ((items.get(5)).split(":")[1]).replace("\"", "");
+        }catch(ArrayIndexOutOfBoundsException a){
+            exchange = "$&$&$&$&$&$&$&";
+        }
 
 
     }
