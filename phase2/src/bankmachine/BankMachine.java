@@ -9,6 +9,7 @@ import bankmachine.account.SavingsAccount;
 import bankmachine.gui.InputManager;
 import bankmachine.transaction.TransactionFactory;
 import bankmachine.users.UserManager;
+import bankmachine.users.*;
 
 import java.io.File;
 
@@ -31,7 +32,13 @@ public class BankMachine {
                     ((RetirementAccount) a).autoDeposit();
                 }
             }
+            for (BankMachineUser user : USER_MANAGER.getInstances()) {
+                if (user instanceof BankEmployee) {
+                    ((BankEmployee ) user).receivePayment();
+                }
+            }
         }
+
         timeInfo.setLastMonth(currentMonth);
     }
 

@@ -32,15 +32,15 @@ public abstract class BankEmployee extends Client {
     }
 
 
-    /**
-     * Allows the Manager to add bills of a certain denomination to the ATM
-     *
-     * @param denomination the denomination of the bills being added
-     * @param amount       the number of bills being added.
-     */
-    public void addBills(int denomination, int amount) {
-        BankMachine.getBillManager().addBills(denomination, amount);
-    }
+//    /**
+//     * Allows the Manager to add bills of a certain denomination to the ATM
+//     *
+//     * @param denomination the denomination of the bills being added
+//     * @param amount       the number of bills being added.
+//     */
+//    public void addBills(int denomination, int amount) {
+//        BankMachine.getBillManager().addBills(denomination, amount);
+//    }
 
 
     /**
