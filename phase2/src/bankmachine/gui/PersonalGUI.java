@@ -3,10 +3,7 @@ package bankmachine.gui;
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
-import bankmachine.finance.Exchange;
-import bankmachine.finance.ExchangeManager;
-import bankmachine.finance.MortgageCalculator;
-import bankmachine.finance.StockManager;
+import bankmachine.finance.*;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
@@ -88,7 +85,7 @@ public class PersonalGUI implements Inputtable {
                     StockManager stockManager = new StockManager(strings[0]);
                     outputString.append("Information for ").append(strings[0]).append(":");
                     outputString.append(stockManager.getAll());
-                } catch (IOException e) {
+                } catch (FinanceException | NullPointerException e) {
                     outputString.append("Invalid stock code!");
                 }
                 m.setPanel(new AlertMessageForm(outputString.toString()) {
@@ -113,9 +110,13 @@ public class PersonalGUI implements Inputtable {
             public void onOk(String[] strings) {
                 String outputString;
                 try {
-                    Exchange exchange = new Exchange(strings[0], strings[1], Double.parseDouble(strings[2]));
+                    double amount = Double.parseDouble(strings[2]);
+                    if (amount <= 0) {
+                        throw new NumberFormatException();
+                    }
+                    Exchange exchange = new Exchange(strings[0], strings[1], amount);
                     outputString = exchange.makeExchange();
-                } catch (IOException | NumberFormatException | NullPointerException e) {
+                } catch (NumberFormatException | NullPointerException | FinanceException e) {
                     outputString = "At least one of the currency codes or amounts were invalid!";
                 }
 

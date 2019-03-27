@@ -3,7 +3,7 @@ package bankmachine.finance;
 import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws IOException { //Main method to test read / write of files
+    public static void main(String[] args) throws FinanceException { //Main method to test read / write of files
 
         // Creates new StockManager with code NVS
         StockManager sm = new StockManager("NVS");

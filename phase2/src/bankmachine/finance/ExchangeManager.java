@@ -43,7 +43,7 @@ public class ExchangeManager {
     }
 
     // Formatter Class for formatting JSON API output (stock specific)
-    public void formatter() throws ArrayIndexOutOfBoundsException{
+    public void formatter() throws ArrayIndexOutOfBoundsException {
 
         try {
 
@@ -81,7 +81,7 @@ public class ExchangeManager {
         return to_currency;
     }
 
-    public Double getExchange() {
+    public Double getExchange() throws NumberFormatException {
         return Double.parseDouble(exchange);
     }
 

@@ -4,6 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Note: This file(directory) searching algorithm was based off a similar file searching algorithm found on the internet.
+ */
+
 public class FileSearcher {
 
     /**
