@@ -1,7 +1,5 @@
 package bankmachine.flappyFloof;
 
-import bankmachine.gui.InputManager;
-
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
