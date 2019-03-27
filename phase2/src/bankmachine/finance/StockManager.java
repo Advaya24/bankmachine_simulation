@@ -64,19 +64,19 @@ public class StockManager {
     }
 
     public double getOpen(){
-        return Double.parseDouble(open);
+        return ((double)Math.round(100*(Double.parseDouble(open)))/100.0);
     }
 
     public double getHigh(){
-        return Double.parseDouble(high);
+        return ((double)Math.round(100*(Double.parseDouble(high)))/100.0);
     }
 
     public double getLow(){
-        return Double.parseDouble(low);
+        return ((double)Math.round(100*(Double.parseDouble(low)))/100.0);
     }
 
     public double getClose(){
-        return Double.parseDouble(close);
+        return ((double)Math.round(100*(Double.parseDouble(close)))/100.0);
     }
 
     public Integer getVolume(){
@@ -84,7 +84,7 @@ public class StockManager {
     }
 
     public String getAll() {
-        return ("Open: " + open + " High: " + high + " Low: " + low + " Close: " + close + " Volume: " + volume);
+        return ("Open: " + getOpen() + " High: " + getHigh() + " Low: " + getLow() + " Close: " + getClose() + " Volume: " + volume);
     }
 
 
