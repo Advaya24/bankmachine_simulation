@@ -37,7 +37,7 @@ public class JsonManager {
      * @return LinkedList of necessary data only
      * @throws IOException
      */
-    public LinkedList data() throws IOException {
+    public LinkedList data() throws FinanceException{
 
         if (type.equals("stock")) {
             sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + input + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
@@ -49,21 +49,25 @@ public class JsonManager {
 
         }
 
-        URL url = new URL(sURL);
-        URLConnection request = url.openConnection();
-        request.connect();
+        try {
+            URL url = new URL(sURL);
+            URLConnection request = url.openConnection();
+            request.connect();
 
-        JsonParser jp = new JsonParser(); //from gson
-        JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
-        JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
+            JsonParser jp = new JsonParser(); //from gson
+            JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent())); //Convert the input stream to a json element
+            JsonObject rootobj = root.getAsJsonObject(); //May be an array, may be an object.
 
-        if(type.equals("stock")) {
+            if (type.equals("stock")) {
 
-            jsonheader = rootobj.getAsJsonObject(header);
-        }
+                jsonheader = rootobj.getAsJsonObject(header);
+            }
 
-        if(type.equals("exchange")){
-            jsonheader = rootobj;
+            if (type.equals("exchange")) {
+                jsonheader = rootobj;
+            }
+        } catch(IOException e){
+            throw new FinanceException("FinanceException");
         }
 
         LinkedList<String> linkedlist = new LinkedList<String>();

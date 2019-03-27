@@ -25,7 +25,7 @@ public class StockManager {
      * @throws IOException Throws Exception for JSON Manager
      */
 
-    public StockManager(String stockcode) throws IOException {
+    public StockManager(String stockcode) throws FinanceException {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
         // Second parameter is null as this parameter is only needed for conversion of two currencies
