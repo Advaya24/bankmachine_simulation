@@ -5,9 +5,13 @@ import bankmachine.BillManager;
 import java.io.IOException;
 
 public class DepositReader {
+    /** An object that allows us to read text from out files, to detect deposits made. */
     private ReadFile reader;
+    /** A boolean representing whether the current Deposit is a cheque or not. */
     private boolean isCheque;
+    /** A double representing how much money is involved in this Deposit. */
     private double quantity;
+    /** An Array representing how many 5,10,20, and 50 dollar bills are in the system.*/
     private int[] billCounts = {0, 0, 0, 0};
 
     public DepositReader(String path){
@@ -15,13 +19,25 @@ public class DepositReader {
         this.readFile();
     }
 
+    /**
+     * Returns whether this Deposit is in the form of a cheque or not
+     * @return whether this Deposit is in the form of a cheque or not
+     */
     public boolean isCheque(){
         return isCheque;
     }
+
+    /**
+     * Returns the value of this Deposit
+     * @return the value of this Deposit
+     */
     public double getQuantity(){
         return quantity;
     }
 
+    /**
+     * //TODO: HELP
+     */
     private void readFile() {
         String contents;
         try {
@@ -59,6 +75,10 @@ public class DepositReader {
         writer.clearData();
     }
 
+    /**
+     * Returns an array representing how many of each bill is within the system.
+     * @return an array representing how many of each bill is within the system.
+     */
     public int[] getBillCounts(){
         return billCounts;
     }
