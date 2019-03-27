@@ -27,7 +27,7 @@ Upon the first start, the entire database of clients and accounts will be empty.
 The only way to make the first login is through the standard BankManager, with username: admin, password: admin. This
 will log you in as a Bank Manager called Brad.
 
-Once logged in, the Bank Manager has the option of accessing the bank or their own personal account.
+Once logged in, the Bank Manager has the option of accessing the bank (like a client) or their own personal account.
 
 # Bank Manager (Accessing the bank)
 
@@ -36,7 +36,7 @@ Once logged in, the Bank Manager has the option of accessing the bank or their o
     to fill in regarding the type of user and client's information:
         * The Bank Manager can create clients or employees. Note that an employee has less power than a Bank Manager but
         more power than a client.
-        //TODO: elaborate maybe on what they do
+            ** An employee can only create accounts, add bills, and view and remove creation requests.
         * Emails are of the form string1@string2.string3, where string1 and string2 being any two arbitrary strings
         (containing alphanumeric characters as well as . and -), and string3 is a two or three character-long string of
         letters only.
@@ -56,38 +56,71 @@ Once logged in, the Bank Manager has the option of accessing the bank or their o
         Savings account, and a Retirement account) for any client, including themselves.
 
     # Undo transaction
-        * Choose a client and an account
+        * Choose a client and an account.
         // TODO: does it see all the transactions?
 
     # Set time
         * Sets the date. Note, this can be used to test whether interest for the savings account is being calculated.
 
-
-# Employee
-
-    #
+    # Other actions: add bills (should be done in whole numbers and at least one bill must be added in order for action
+    to go through),
 
 
-# Client
+# Employee (Accessing the bank)
+    # Note that an employee can only create accounts, add bills, and view and remove creation request. See bank manager
+    above for more details on each action.
+
+
+# Client (includes the personal accounts of a bank manager and employee)
     # Accounts
-        * Selecting this button allows the client to access their accounts and to perform transactions
-        * For transactions, currency must be added as a number to exactly two decimal places.
+        * Selecting this button allows the client to access their accounts and to perform transactions.
 
-Depositing money:
-Deposits are made using cheques or cash bills using the following syntax in the deposits.txt file:
-    * Cheques - write the amount to be deposited in the first line.
-        E.g. a deposit of $250 made by a cheque:
-        250
-        E.g. another deposit of $250 made by a cheque:
-        250.00
-    * Cash - write only in the first four lines the amount of bills of each denomination in ascending order.
-        E.g. a deposit of $250 by 3 bills of $50, 4 bills of $20, 2 bills of $10 and 0 bills of $5:
-        0
-        2
-        4
-        3
-After writing to deposits.txt, the user then selects the account to be deposited to, and lastly the deposit option.
-NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users' privacy).
+    # Request Creation of new account
+        * Selecting this button allows the client to request the bank manager/employee to help them create an account.
+
+    # Finances
+        * Special feature that allows the client to check stocks, calculate exchange rates, and calculate their mortgage.
+            * Stocks: real-time stock viewer that allows you to check the current stock rate for a certain stock code.
+            * Exchange: allows you to convert a certain country's currency to another. Note that the amount should be
+            entered like any monetary value (2 decimal places).
+            * Mortgage calculator: helps the client calculate their mortgage. Note that principal should be entered
+            like any monetary value (2 decimal places) and interest rates are entered as (TODO: find out if it is /100 or if it a decimal place.)
+
+    # Update profile
+        * Allows client to change their phone number, email, or password.
+
+    # Transfer
+        * Internal transfer: allows a client to transfer money from one of their accounts to another. Note that //TODO: which ones can't transfer again?
+        * Transfer to other user: allows
+
+    # Other buttons: Withdraw and Deposit follow the specifications in the instructions. Note that monetary values should
+    be entered as a number to 2 decimal places.
+
+
+# Special user (flappy floof)
+    * If the username "flappy" and the password "floof" is entered in the login page, a game called flappy floof appears.
+    This game is played like "flappy birds", where pressing the "space bar" allows for the cube to "fly". To exit this
+    mode, simply press on "e" key on the keyboard.
+
+
+## Other remarks
+
+# Depositing money:
+    Deposits are made using cheques or cash (bills) using the following syntax in the deposits.txt file:
+        * Cheques - write the amount to be deposited in the first line.
+            E.g. a deposit of $250 made by a cheque:
+            250
+            E.g. another deposit of $250 made by a cheque:
+            250.00
+        * Cash - write only in the first four lines the amount of bills of each denomination in ascending order.
+            E.g. a deposit of $250 by 3 bills of $50, 4 bills of $20, 2 bills of $10 and 0 bills of $5:
+            0
+            2
+            4
+            3
+    After writing to deposits.txt, the user then selects the account to be deposited to, and lastly the deposit option.
+    NOTE: If the deposit goes through, the contents of deposits.txt will be erased (for the sake of previous users'
+    privacy).
 
 
 ## Side-notes

@@ -17,3 +17,10 @@ TODOS for today:
 [Phase 2] Enter password twice!
 [Phase 2] Add a way that each client has their own Bank Manager
 [Phase 2] GUI?
+
+To fix:
+[ ] Fix email and phone number input so that it scans for the right formats
+[ ] transactions don't work
+
+Questions:
+*Why are there 2 displays when only one account was made?
