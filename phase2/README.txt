@@ -27,7 +27,8 @@ Upon the first start, the entire database of clients and accounts will be empty.
 The only way to make the first login is through the standard BankManager, with username: admin, password: admin. This
 will log you in as a Bank Manager called Brad.
 
-Once logged in, the Bank Manager has the option of accessing the bank (like a client) or their own personal account.
+Once logged in, the Bank Manager has the option of accessing the bank as a client (their own personal accounts) or as a
+manager (with their special abilities described below).
 
 # Bank Manager (Accessing the bank)
 
@@ -71,7 +72,8 @@ Once logged in, the Bank Manager has the option of accessing the bank (like a cl
     above for more details on each action.
 
 
-# Client (includes the personal accounts of a bank manager and employee)
+# Client (includes the personal accounts of a bank manager and employees)
+    * Every client has a primary chequing account that is automatically created when the client is added to the system.
     # Accounts
         * Selecting this button allows the client to access their accounts and to perform transactions.
 
