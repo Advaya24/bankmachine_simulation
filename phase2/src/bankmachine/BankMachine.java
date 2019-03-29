@@ -1,28 +1,39 @@
 package bankmachine;
 
-import bankmachine.account.RetirementAccount;
-import bankmachine.fileManager.FileSearcher;
-import bankmachine.fileManager.TimeInfo;
 import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
+import bankmachine.account.RetirementAccount;
 import bankmachine.account.SavingsAccount;
+import bankmachine.fileManager.FileSearcher;
+import bankmachine.fileManager.TimeInfo;
 import bankmachine.gui.InputManager;
 import bankmachine.transaction.TransactionFactory;
+import bankmachine.users.BankEmployee;
+import bankmachine.users.BankMachineUser;
 import bankmachine.users.UserManager;
-import bankmachine.users.*;
 
 import java.io.File;
 
 public class BankMachine {
-    /** A String representing where the data required for this information is stored. */
+    /**
+     * A String representing where the data required for this information is stored.
+     */
     final public static String DATA_PATH = findDataPath();
-    /** A TimeInfo object that allows the application to keep track of what time it is.*/
+    /**
+     * A TimeInfo object that allows the application to keep track of what time it is.
+     */
     final public static TimeInfo timeInfo = new TimeInfo();
-    /** A UserManager object that stores all the Users within the System */
+    /**
+     * A UserManager object that stores all the Users within the System
+     */
     final public static UserManager USER_MANAGER = new UserManager(DATA_PATH + "/clientData.ser");
-    /** An AccountFactory object that is used to generate and store new accounts */
+    /**
+     * An AccountFactory object that is used to generate and store new accounts
+     */
     final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
-    /** A TransactionFactory object that is used to generate and store new transactions */
+    /**
+     * A TransactionFactory object that is used to generate and store new transactions
+     */
     final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
 
     /**
@@ -37,13 +48,13 @@ public class BankMachine {
                 if (a instanceof SavingsAccount) {
                     ((SavingsAccount) a).applyInterest();
                 }
-                if (a instanceof RetirementAccount){
+                if (a instanceof RetirementAccount) {
                     ((RetirementAccount) a).autoDeposit();
                 }
             }
             for (BankMachineUser user : USER_MANAGER.getInstances()) {
                 if (user instanceof BankEmployee) {
-                    ((BankEmployee ) user).receivePayment();
+                    ((BankEmployee) user).receivePayment();
                 }
             }
         }

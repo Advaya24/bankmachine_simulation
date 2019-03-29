@@ -1,7 +1,5 @@
 package bankmachine.finance;
 
-import java.io.IOException;
-
 public class Main {
     public static void main(String[] args) throws FinanceException { //Main method to test read / write of files
 

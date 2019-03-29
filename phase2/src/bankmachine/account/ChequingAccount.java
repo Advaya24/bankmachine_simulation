@@ -5,7 +5,6 @@ import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.exception.TransferException;
 import bankmachine.users.Client;
 
-
 import java.time.LocalDateTime;
 
 /**
@@ -33,7 +32,7 @@ public class ChequingAccount extends AssetAccount {
      * @param amount the amount to transfer
      */
     public void transferOut(int amount) throws TransferException {
-        if (amount < 1){
+        if (amount < 1) {
             throw new NegativeQuantityException();
         }
         if (!canTransferOut(amount)) {

@@ -18,7 +18,7 @@ public class AddUserGUIHandler {
         Account[] accounts = new Account[this.client.getClientsAccounts().size()];
         this.client.getClientsAccounts().toArray(accounts);
 
-        m.setPanel(new SearchForm("Select account to add user to", new OptionsForm<Account>(accounts, ""){
+        m.setPanel(new SearchForm("Select account to add user to", new OptionsForm<Account>(accounts, "") {
             @Override
             public void onSelection(Account account) {
                 addUserTo(account, m);
@@ -30,6 +30,7 @@ public class AddUserGUIHandler {
             }
         });
     }
+
     private void addUserTo(Account account, InputManager m) {
         String[] attributes = {"Username of user to add"};
         m.setPanel(new TextInputForm("Add user to " + account.toString(), attributes) {

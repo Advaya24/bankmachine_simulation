@@ -9,7 +9,6 @@ import bankmachine.users.BankMachineUser;
 import bankmachine.users.Client;
 
 import javax.swing.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -30,7 +29,7 @@ public class BankEmployeeGUI implements Inputtable {
     /**
      * Search client by username
      *
-     * @param m the input manager handling this
+     * @param m        the input manager handling this
      * @param function a function which takes a Client and returns nothing
      * @return returns the selected client, null if there are no clients
      */

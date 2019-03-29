@@ -10,7 +10,7 @@ import bankmachine.gui.*;
 public class FinanceGUIHandler {
     private PersonalGUI gui;
 
-    public FinanceGUIHandler(PersonalGUI gui){
+    public FinanceGUIHandler(PersonalGUI gui) {
         this.gui = gui;
     }
 
@@ -112,7 +112,7 @@ public class FinanceGUIHandler {
             public void onOk(String[] strings) {
                 String outputString;
                 try {
-                    MortgageCalculator mortgageCalculator = new MortgageCalculator(Double.parseDouble(strings[0]), Double.parseDouble(strings[1])/1200, Integer.parseInt(strings[2]));
+                    MortgageCalculator mortgageCalculator = new MortgageCalculator(Double.parseDouble(strings[0]), Double.parseDouble(strings[1]) / 1200, Integer.parseInt(strings[2]));
                     outputString = "Monthly quote: " + mortgageCalculator.getMortgage();
                 } catch (NumberFormatException | NullPointerException e) {
                     outputString = "At least one of the fields was given invalid input!";

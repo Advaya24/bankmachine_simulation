@@ -5,14 +5,17 @@ import bankmachine.users.Client;
 
 public class PersonalGUI implements Inputtable {
     private Client client;
+
     public PersonalGUI(Client c) {
         this.client = c;
     }
 
 
-    private void handleSelection(InputManager m, String s){
-        switch (s){
-            case "Logout": m.mainLoop(); return;
+    private void handleSelection(InputManager m, String s) {
+        switch (s) {
+            case "Logout":
+                m.mainLoop();
+                return;
             case "Request Creation Of A New Account":
                 new NewCreationRequestGUIHandler(this, this.client).handleNewAccountCreationInput(m);
                 return;
@@ -41,18 +44,18 @@ public class PersonalGUI implements Inputtable {
     }
 
     @Override
-    public void handleInput(InputManager m){
-        System.out.println("Welcome, "+client.getName()+"!");
-            System.out.println("Select an action");
-            String[] options = {
+    public void handleInput(InputManager m) {
+        System.out.println("Welcome, " + client.getName() + "!");
+        System.out.println("Select an action");
+        String[] options = {
                 "Accounts", "Request Creation Of A New Account", "Transfer", "Withdraw", "Deposit", "Finance", "Add User To Account", "Update Profile", "Logout"
-            };
-            m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
-                @Override
-                public void onSelection(String s) {
-                    handleSelection(m, s);
-                }
-            });
+        };
+        m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
+            @Override
+            public void onSelection(String s) {
+                handleSelection(m, s);
+            }
+        });
 
     }
 }

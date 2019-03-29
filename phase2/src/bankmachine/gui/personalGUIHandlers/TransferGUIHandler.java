@@ -7,7 +7,6 @@ import bankmachine.gui.*;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +31,10 @@ public class TransferGUIHandler {
                 }
             });
         } else {
-            m.setPanel(new SearchForm("Select account to transfer from:", new OptionsForm<Account>(accounts, ""){
+            m.setPanel(new SearchForm("Select account to transfer from:", new OptionsForm<Account>(accounts, "") {
                 @Override
                 public void onSelection(Account account) {
-                    handleTransfer(m , account);
+                    handleTransfer(m, account);
                 }
             }.getMainPanel()) {
                 @Override
@@ -48,7 +47,7 @@ public class TransferGUIHandler {
 
     public Account[] getTransferAccounts(Client client) {
         List<Account> listOfTransferAccounts = new ArrayList<>();
-        for (Account account: client.getClientsAccounts()) {
+        for (Account account : client.getClientsAccounts()) {
             if (account.canTransferOut(0)) {
                 listOfTransferAccounts.add(account);
             }
@@ -88,7 +87,7 @@ public class TransferGUIHandler {
                 } else {
                     try {
                         amount = Double.parseDouble(strings[1]);
-                        amount = ((double)Math.round(amount*100))/100.0;
+                        amount = ((double) Math.round(amount * 100)) / 100.0;
                         try {
                             account.transferOut(client.getPrimaryAccount(), amount);
                             transferComplete = true;

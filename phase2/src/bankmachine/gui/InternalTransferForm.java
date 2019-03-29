@@ -2,12 +2,11 @@ package bankmachine.gui;
 
 import bankmachine.account.Account;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
-import javax.swing.*;
-import java.awt.*;
 
 @SuppressWarnings("Duplicates")
 public abstract class InternalTransferForm implements Form {
@@ -41,7 +40,7 @@ public abstract class InternalTransferForm implements Form {
 
         fromAccountDropDown = new JComboBox<>();
         toAccountDropBox = new JComboBox<>();
-        for (Account account: this.accountList) {
+        for (Account account : this.accountList) {
             fromAccountDropDown.addItem(account);
             toAccountDropBox.addItem(account);
         }
@@ -64,7 +63,7 @@ public abstract class InternalTransferForm implements Form {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    onOk((Account)fromAccountDropDown.getSelectedItem(), (Account)toAccountDropBox.getSelectedItem(), amountTextField.getText());
+                    onOk((Account) fromAccountDropDown.getSelectedItem(), (Account) toAccountDropBox.getSelectedItem(), amountTextField.getText());
                 } catch (ClassCastException | NullPointerException ex) {
                     onOk(null, null, null);
                 }

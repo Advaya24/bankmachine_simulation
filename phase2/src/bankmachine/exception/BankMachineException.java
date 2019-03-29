@@ -6,7 +6,8 @@ package bankmachine.exception;
  */
 public abstract class BankMachineException extends Throwable {
     protected String info;
-    public BankMachineException(String info){
+
+    public BankMachineException(String info) {
         this.info = info;
     }
 

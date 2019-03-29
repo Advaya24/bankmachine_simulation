@@ -1,16 +1,10 @@
 package bankmachine.gui.bankEmployeeGUIHandlers;
 
-import bankmachine.BankMachine;
 import bankmachine.gui.*;
 import bankmachine.users.BankEmployee;
-import bankmachine.users.BankMachineUser;
 import bankmachine.users.Client;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Function;
 
 public class AccountCreationGUIHandler {
     private BankEmployeeGUI gui;
@@ -35,7 +29,7 @@ public class AccountCreationGUIHandler {
 
 
     private void createAccountFor(Client client, InputManager m) {
-        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account","Retirement account"};
+        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account", "Retirement account"};
         m.setPanel(new SearchForm("Select the type of account:", new OptionsForm<String>(accountTypes, "") {
             @Override
             public void onSelection(String s) {

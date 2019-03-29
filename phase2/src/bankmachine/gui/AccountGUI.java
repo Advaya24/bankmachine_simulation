@@ -1,18 +1,16 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
-import bankmachine.exception.BankMachineException;
-import bankmachine.exception.NotEnoughMoneyException;
-import bankmachine.users.BankManager;
-import bankmachine.users.Client;
-import bankmachine.transaction.TransactionType;
 import bankmachine.account.Account;
+import bankmachine.exception.BankMachineException;
+import bankmachine.transaction.TransactionType;
 
 import java.time.LocalDateTime;
 
 public class AccountGUI implements Inputtable {
     private Account account;
-    public AccountGUI(Account a){
+
+    public AccountGUI(Account a) {
         account = a;
     }
 
@@ -21,21 +19,21 @@ public class AccountGUI implements Inputtable {
         return this.account;
     }
 
-    private void handleSelection(InputManager m, String action) throws BankMachineException{
+    private void handleSelection(InputManager m, String action) throws BankMachineException {
         if (action.equals("Cancel")) {
             return;
         }
         TransactionType type = null;
         boolean status = false;
-        if (action.equals("See Creation Date")){
+        if (action.equals("See Creation Date")) {
             System.out.println(account.getCreationDate());
         }
-        if (action.equals("Deposit")){
+        if (action.equals("Deposit")) {
             account.deposit();
         } else {
             double amount = m.getMoney();
             Account destination = null;
-            switch(action){
+            switch (action) {
                 case "Withdraw":
                     type = TransactionType.WITHDRAW;
                     account.withdraw(amount);
@@ -50,7 +48,7 @@ public class AccountGUI implements Inputtable {
                     status = destination != null;
                     break;
             }
-            if (status){
+            if (status) {
                 BankMachine.transFactory.newTransaction(
                         amount, account, destination, LocalDateTime.now(), type
                 );
@@ -62,14 +60,14 @@ public class AccountGUI implements Inputtable {
     @Override
     public void handleInput(InputManager m) {
         String[] options = {
-            "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
+                "Transfer", "Withdraw", "Deposit", "Pay Bill", "See Creation Date", "Cancel"
         };
         m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
             @Override
             public void onSelection(String s) {
                 try {
                     handleSelection(m, s);
-                } catch (BankMachineException e){
+                } catch (BankMachineException e) {
                     System.out.println(e.toString());
                     // TODO: exception handling
                 }

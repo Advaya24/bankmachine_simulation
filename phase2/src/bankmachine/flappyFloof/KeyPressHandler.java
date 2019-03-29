@@ -2,18 +2,25 @@ package bankmachine.flappyFloof;
 
 import bankmachine.gui.InputManager;
 
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class KeyPressHandler implements KeyListener {
-    /**The Flappyfloof object that holds the instance of the current game*/
+    /**
+     * The Flappyfloof object that holds the instance of the current game
+     */
     private FlappyFloof floof;
-    /** The InputManager (A Jframe) that is used as the GUI for the entire application */
+    /**
+     * The InputManager (A Jframe) that is used as the GUI for the entire application
+     */
     private InputManager oldFrame;
-    /** The InputManager for this game */
+    /**
+     * The InputManager for this game
+     */
     private InputManager gameFrame;
 
-    public KeyPressHandler(FlappyFloof floof, InputManager gameFrame, InputManager oldFrame){
+    public KeyPressHandler(FlappyFloof floof, InputManager gameFrame, InputManager oldFrame) {
         this.floof = floof;
         this.gameFrame = gameFrame;
         this.oldFrame = oldFrame;
@@ -25,7 +32,7 @@ public class KeyPressHandler implements KeyListener {
      * a key typed event.
      */
     @Override
-    public void keyTyped(KeyEvent e){
+    public void keyTyped(KeyEvent e) {
 
     }
 
@@ -35,8 +42,8 @@ public class KeyPressHandler implements KeyListener {
      * a key pressed event.
      */
     @Override
-    public void keyPressed(KeyEvent e){
-        if(e.getKeyCode()==KeyEvent.VK_E){
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_E) {
             gameFrame.setVisible(false);
             gameFrame.dispose();
             oldFrame.setVisible(true);
@@ -50,8 +57,8 @@ public class KeyPressHandler implements KeyListener {
      * a key released event.
      */
     @Override
-    public void keyReleased(KeyEvent e){
-        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             floof.jump();
         }
     }

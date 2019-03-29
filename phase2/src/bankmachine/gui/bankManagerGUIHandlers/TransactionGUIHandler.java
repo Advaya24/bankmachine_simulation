@@ -15,6 +15,7 @@ public class TransactionGUIHandler {
         this.gui = gui;
         this.manager = manager;
     }
+
     public void handleUndoTransaction(InputManager m) {
         gui.handleSearchClient(m, (Client client) -> {
             undoTransactionsForClient(client, m);

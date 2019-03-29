@@ -14,10 +14,10 @@ public class NewCreationRequestGUIHandler {
         this.client = client;
     }
 
-    public void handleNewAccountCreationInput(InputManager m){
-        String[] accountTypes ={"Chequing account", "Credit card account",
-                "Line of credit account", "Savings account","Retirement account"};
-        m.setPanel(new SearchForm("Select type of account", new OptionsForm<String>(accountTypes, ""){
+    public void handleNewAccountCreationInput(InputManager m) {
+        String[] accountTypes = {"Chequing account", "Credit card account",
+                "Line of credit account", "Savings account", "Retirement account"};
+        m.setPanel(new SearchForm("Select type of account", new OptionsForm<String>(accountTypes, "") {
             @Override
             public void onSelection(String s) {
                 addCreationRequest(s, m);
@@ -29,6 +29,7 @@ public class NewCreationRequestGUIHandler {
             }
         });
     }
+
     private void addCreationRequest(String request, InputManager m) {
         BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);
         manager.addCreationRequest(client.getUsername() + " requests a " + request);

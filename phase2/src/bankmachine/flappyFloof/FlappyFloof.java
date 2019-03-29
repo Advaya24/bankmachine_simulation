@@ -4,65 +4,98 @@ import bankmachine.gui.InputManager;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**Note: While the main idea of the code within this package itself has been replicated from a YouTube video,
+/**
+ * Note: While the main idea of the code within this package itself has been replicated from a YouTube video,
  * the documentation for all the methods and attributes are original and has been done by the members of Group 0336.
  * Additionally, the code has been majorly refactored. The original code had everything within this class and
  * Renderer.java. This violated the Single Responsibility Principle; hence, it has been refactored and we now have 5
  * classes in this package, each with their own responsibilities, along with a slew of modifications to make it completible
  * with our existing GUI and application.
  * Thank you!
- *
+ * <p>
  * YouTube video: https://www.youtube.com/watch?v=I1qTZaUcFX0
  */
-@SuppressWarnings({"WeakerAccess", "CanBeFinal","SpellCheckingInspection"})
-public class FlappyFloof implements ActionListener{//, MouseListener, KeyListener {
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "SpellCheckingInspection"})
+public class FlappyFloof implements ActionListener {//, MouseListener, KeyListener {
 
-    /** Parameters for the dimensions of the JFrame.*/
+    /**
+     * Parameters for the dimensions of the JFrame.
+     */
     public final int WIDTH = 800, HEIGHT = 800;
-    /** The Object that helps to render the Jframe itself.*/
-    public  Renderer renderer;
-    /** A Rectangle Object representing our floof.*/
-    public Rectangle floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
-    /** An integer value that is used to see whether the floof needs to start being affected by gravity or not.*/
+    /**
+     * The Object that helps to render the Jframe itself.
+     */
+    public Renderer renderer;
+    /**
+     * A Rectangle Object representing our floof.
+     */
+    public Rectangle floof = new Rectangle(WIDTH / 2 - 10, HEIGHT / 2 - 10, 20, 20);
+    /**
+     * An integer value that is used to see whether the floof needs to start being affected by gravity or not.
+     */
     public int ticks;
-    /** An integer value that is used to determine how fast the floof is falling at any point of time.*/
+    /**
+     * An integer value that is used to determine how fast the floof is falling at any point of time.
+     */
     public int yMotion;
-    /** An integer value that stores the score (how many pipes have been passed through) of the player.*/
+    /**
+     * An integer value that stores the score (how many pipes have been passed through) of the player.
+     */
     public int score;
-    /** A boolean value that is used to determine and handle cases where the game has ended.*/
+    /**
+     * A boolean value that is used to determine and handle cases where the game has ended.
+     */
     public boolean gameOver;
-    /** A boolean value that is used to determine whether the Player has started the game or not.*/
+    /**
+     * A boolean value that is used to determine whether the Player has started the game or not.
+     */
     public boolean started;
-    /** An ArrayList of Rectangle Objects that stores the obstacles currently within the game.*/
+    /**
+     * An ArrayList of Rectangle Objects that stores the obstacles currently within the game.
+     */
     public ArrayList<Rectangle> columns = new ArrayList<>();
-    /** A random object that is used to procedurally generate the obstacles within the game.*/
+    /**
+     * A random object that is used to procedurally generate the obstacles within the game.
+     */
     public Random rand = new Random();
-    /**Used to change //TODO*/
+    /**
+     * Used to change //TODO
+     */
     public InputManager jframe;
-    /** The InputManager of the entire application */
+    /**
+     * The InputManager of the entire application
+     */
     public InputManager originalInputManager;
-    /** The KeyPressHandler object that detects keyboard input and calls the appropriate method */
+    /**
+     * The KeyPressHandler object that detects keyboard input and calls the appropriate method
+     */
     public KeyPressHandler keyPressHandler;
-    /**The MouseInputHandler object that detects mouse input and calls the appropriate method */
+    /**
+     * The MouseInputHandler object that detects mouse input and calls the appropriate method
+     */
     public MouseInputHandler mouseInputHandler;
-    /**The Repainter object that is responsible for painting all objects in the JFrame */
+    /**
+     * The Repainter object that is responsible for painting all objects in the JFrame
+     */
     public Repainter repainter;
 
-    public FlappyFloof(InputManager m){
+    public FlappyFloof(InputManager m) {
         this.originalInputManager = m;//TODO: Why do you exist?
         this.jframe = new InputManager();
         repainter = new Repainter(this);
         renderer = new Renderer(this);
-        for(int i=0;i<=3;i++){
+        for (int i = 0; i <= 3; i++) {
             addColumn(true);
         }
         setUp();
     }
-    public void startGame(){
+
+    public void startGame() {
         Timer timer = new Timer(20, this);
         timer.start();
     }
@@ -70,7 +103,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
     /**
      * Sets up the JFrame with the required properties and Listeners
      */
-    public void setUp(){
+    public void setUp() {
         jframe.dispose();
         keyPressHandler = new KeyPressHandler(this, jframe, originalInputManager);
         mouseInputHandler = new MouseInputHandler(this);
@@ -86,37 +119,37 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
 
     /**
      * Procedurally generates new obstacles (here referred to as columns) and adds them to the columns ArrayList.
+     *
      * @param start whether the Player has started the game or not.
      */
-    public void addColumn(boolean start){
+    public void addColumn(boolean start) {
         int space = 300;
         int width = 100;
         int height = 50 + rand.nextInt(300);
-        if(start)
-        {
+        if (start) {
             columns.add(new Rectangle(WIDTH + width + columns.size() * 300,
-                     HEIGHT - height - 120, width, height));
+                    HEIGHT - height - 120, width, height));
             columns.add(new Rectangle(WIDTH + width + (columns.size() - 1) * 300,
                     0, width, HEIGHT - height - space));
-        }
-        else
-        {
-            columns.add(new Rectangle(columns.get(columns.size()-1).x + 600, HEIGHT-height-120, width, height));
-            columns.add(new Rectangle(columns.get(columns.size()-1).x, 0, width, HEIGHT-height-space));
+        } else {
+            columns.add(new Rectangle(columns.get(columns.size() - 1).x + 600, HEIGHT - height - 120, width, height));
+            columns.add(new Rectangle(columns.get(columns.size() - 1).x, 0, width, HEIGHT - height - space));
 
         }
     }
+
     /**
      * Whenever the game is updated (as per the ActionListener Interface), this method updates all entities: The Floof,
      * new columns, deleting passed columns, and the like, and then repaints the JFrame.
+     *
      * @param e an ActionEvent
      */
     @Override
     public void actionPerformed(ActionEvent e) {
         int speed = 10;
         ticks++;
-        if(started) {
-            for (Rectangle column: columns) {
+        if (started) {
+            for (Rectangle column : columns) {
                 column.x -= speed;
             }
 
@@ -135,7 +168,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
                 gameOver = true;
             }
 
-            if(floof.y + yMotion >= HEIGHT-120){
+            if (floof.y + yMotion >= HEIGHT - 120) {
                 floof.y = HEIGHT - 120 - floof.height;
             }
         }
@@ -146,7 +179,7 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
      * Goes through all columns and sees if any of them are out of the frame. If so, it removes this column from
      * our ArrayList.
      */
-    public void deleteColumns(){
+    public void deleteColumns() {
         for (int i = 0; i < columns.size(); i++) {
             Rectangle column = columns.get(i);
             if (column.x + column.width < 0) {
@@ -162,22 +195,20 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
      * Goes through all columns in our ArrayList and sees if the Player has contacted any of them. If they have,
      * the game ends, and the floof object will be carried off-screen by the next column.
      */
-    public void checkIntersection(){
+    public void checkIntersection() {
         for (Rectangle column : columns) {
-            if(column.y == 0 &&floof.x + floof.width/2 > column.x + column.width/2-5 &&
-                    floof.x + floof.width/2 < column.x+column.width/2+5){
+            if (column.y == 0 && floof.x + floof.width / 2 > column.x + column.width / 2 - 5 &&
+                    floof.x + floof.width / 2 < column.x + column.width / 2 + 5) {
                 score++;
             }
             if (column.intersects(floof)) {
                 gameOver = true;
-                if(floof.x <= column.x) {
+                if (floof.x <= column.x) {
                     floof.x = column.x - floof.width;
-                }
-                else{
-                    if(column.y!=0){
+                } else {
+                    if (column.y != 0) {
                         floof.y = column.y - floof.height;
-                    }
-                    else if(floof.y < column.height){
+                    } else if (floof.y < column.height) {
                         floof.y = column.height;
                     }
                 }
@@ -191,31 +222,30 @@ public class FlappyFloof implements ActionListener{//, MouseListener, KeyListene
      * b) If the game hasn't started, starts the game
      * c) If the game has started and is not over, sets the Floof's yMotion attribute in order to move it upwards.
      */
-    public void jump(){
-        if(gameOver){
+    public void jump() {
+        if (gameOver) {
             gameOver = false;
             //Reset the game
-            floof = new Rectangle(WIDTH/2-10, HEIGHT/2-10,20,20);
+            floof = new Rectangle(WIDTH / 2 - 10, HEIGHT / 2 - 10, 20, 20);
             columns.clear();
             yMotion = 0;
             score = 0;
-            for(int i=0;i<=3;i++){
+            for (int i = 0; i <= 3; i++) {
                 addColumn(true);
             }
         }
 
-        if(!started){
+        if (!started) {
             started = true;
-        }
-        else if(!gameOver){
-            if(yMotion > 0){
+        } else if (!gameOver) {
+            if (yMotion > 0) {
                 yMotion = 0;
             }
             yMotion -= 15;
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         FlappyFloof flappyFloof = new FlappyFloof(new InputManager());
         flappyFloof.startGame();
     }

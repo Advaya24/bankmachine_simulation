@@ -8,7 +8,7 @@ import bankmachine.users.BankManager;
 public class BankManagerGUI extends BankEmployeeGUI {
     private BankManager manager;
     @SuppressWarnings("FieldCanBeLocal")
-    private final String[] specialResponsibilities =  {
+    private final String[] specialResponsibilities = {
             "Create User", "Set Time", "Undo a Transaction", "Shutdown"
     };
 
@@ -17,21 +17,20 @@ public class BankManagerGUI extends BankEmployeeGUI {
         manager = b;
         String[] options = new String[responsibilities.length + specialResponsibilities.length];
 
-        for(int i = 0; i < responsibilities.length; i++) {
+        for (int i = 0; i < responsibilities.length; i++) {
             if (!responsibilities[i].equals("Logout"))
-            options[i] = responsibilities[i];
+                options[i] = responsibilities[i];
         }
         for (int i = 0; i < specialResponsibilities.length; i++) {
             if (!specialResponsibilities[i].equals("Shutdown")) {
                 options[i + responsibilities.length - 1] = specialResponsibilities[i];
             }
         }
-        options[options.length-2] = "Logout";
-        options[options.length-1] = "Shutdown";
+        options[options.length - 2] = "Logout";
+        options[options.length - 1] = "Shutdown";
 
         responsibilities = options;
     }
-
 
 
     void handleSelection(InputManager m, String s) {

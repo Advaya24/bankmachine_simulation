@@ -14,6 +14,4 @@ public class BankIntern extends BankEmployee {
     }
 
 
-
-
 }

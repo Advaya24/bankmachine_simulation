@@ -22,7 +22,7 @@ public class AddBillsGUIHandler {
         int[] denominations = {5, 10, 20, 50};
         String[] attributes = new String[denominations.length];
         for (int i = 0; i < denominations.length; i++) {
-            attributes[i] =  denominations[i] + "s";
+            attributes[i] = denominations[i] + "s";
         }
         m.setPanel(new TextInputForm("How many of each?", attributes) {
             @Override

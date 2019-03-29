@@ -1,6 +1,6 @@
 package bankmachine.fileManager;
 
-import bankmachine.*;
+import bankmachine.BankMachine;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
@@ -15,7 +15,7 @@ public class Main {
         // Auto-constructor added for good practice
     }
 
-    public static void main(String[] args) throws IOException{ //Main method to test read / write of files
+    public static void main(String[] args) throws IOException { //Main method to test read / write of files
 
         //File does not exist exception test
 //        String exception_test = "DNE.txt";
@@ -66,8 +66,8 @@ public class Main {
         final String fileManagerPath = BankMachine.DATA_PATH;
 
         // Test ObjectFileWriter and ObjectFileReader
-        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>( fileManagerPath + "/testObjectFile.ser");
-        BankMachineUser singleUser = new BankManager(0, "Advaya","hi@lol.com","0552343","Test username 1", "testPassword");
+        ObjectFileWriter<BankMachineUser> writer = new ObjectFileWriter<>(fileManagerPath + "/testObjectFile.ser");
+        BankMachineUser singleUser = new BankManager(0, "Advaya", "hi@lol.com", "0552343", "Test username 1", "testPassword");
 
         writer.clear();
         if (writer.write(singleUser)) {
@@ -77,7 +77,7 @@ public class Main {
         }
         ArrayList<BankMachineUser> users = new ArrayList<>();
         for (int i = 2; i <= 5; i++) {
-            users.add(new BankManager(i,"Name"+i,"email"+i+"@lol.com","Number"+i, "Test username " + i, "testPassword" + i));
+            users.add(new BankManager(i, "Name" + i, "email" + i + "@lol.com", "Number" + i, "Test username " + i, "testPassword" + i));
         }
         if (writer.writeAll(users)) {
             System.out.println("Wrote array list to file");
@@ -103,8 +103,9 @@ public class Main {
 
         if (optionalClient != null && optionalClient instanceof Client) {
             ((Client) optionalClient).printAccountSummary();
+        } else {
+            System.out.println("Client not found :(");
         }
-        else { System.out.println("Client not found :("); }
         //BankMachine.USER_MANAGER.getMap().clear();
         for (int i = 1; i <= 5; i++) {
             clientManager.newClient("Test " + i, "test" + i + "@gmail.com", "666124123" + i, "Test username " + i, "testPassword" + i);

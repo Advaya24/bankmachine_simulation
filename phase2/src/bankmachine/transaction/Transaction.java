@@ -43,7 +43,7 @@ public class Transaction implements Serializable, Identifiable {
         transactionMadeTo = to;
         transactionDate = datetime;
         transactionType = type;
-        if(type==TransactionType.BILL){
+        if (type == TransactionType.BILL) {
             transactionMadeTo = null;
         }
         this.id = id;
@@ -99,7 +99,7 @@ public class Transaction implements Serializable, Identifiable {
         transactionType = new_type;
     }
 
-    public String toString(){
+    public String toString() {
         return "Transaction between " + getFrom().getClient().getUsername() + " and " +
                 getTo().getClient().getUsername() + " of $" + getAmount();
     }

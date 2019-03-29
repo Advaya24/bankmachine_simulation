@@ -4,8 +4,8 @@ import bankmachine.BankMachine;
 import bankmachine.exception.BankMachineException;
 import bankmachine.exception.NegativeQuantityException;
 import bankmachine.exception.TransferException;
-import bankmachine.users.Client;
 import bankmachine.fileManager.WriteFile;
+import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +20,7 @@ public class CreditCardAccount extends DebtAccount {
 
     /**
      * Indicates whether this account can transfer out the given amount
+     *
      * @param amount the amount to be transferred out
      * @return false always
      */
@@ -63,6 +64,7 @@ public class CreditCardAccount extends DebtAccount {
     public void transferOut(int amount) throws TransferException {
         throw new TransferException("Cannot transfer out of a credit card account.");
     }
+
     public void transferOut(double amount) throws TransferException {
         throw new TransferException("Cannot transfer out of a credit card account.");
     }

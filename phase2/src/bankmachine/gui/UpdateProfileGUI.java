@@ -2,14 +2,11 @@ package bankmachine.gui;
 
 import bankmachine.users.BankMachineUser;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-public class UpdateProfileGUI implements Inputtable{
+public class UpdateProfileGUI implements Inputtable {
     private BankMachineUser user;
     private PersonalGUI gui;
-    public UpdateProfileGUI(BankMachineUser user, PersonalGUI gui){
+
+    public UpdateProfileGUI(BankMachineUser user, PersonalGUI gui) {
         this.user = user;
         this.gui = gui;
     }
@@ -22,7 +19,7 @@ public class UpdateProfileGUI implements Inputtable{
     @Override
     public void handleInput(InputManager m) {
         String[] options = {"Phone Number", "Email", "Password"};
-        m.setPanel(new SearchForm("What would you like to update?", new OptionsForm<String>(options, ""){
+        m.setPanel(new SearchForm("What would you like to update?", new OptionsForm<String>(options, "") {
             @Override
             public void onSelection(String s) {
                 handleSelection(m, s);
@@ -57,6 +54,7 @@ public class UpdateProfileGUI implements Inputtable{
 //        }
 //        System.out.println("Set new " + action + " to " + value);
     }
+
     private void updatePhoneNumber(InputManager m) {
         String[] attributes = {"New Phone Number"};
         m.setPanel(new TextInputForm("Update Phone Number", attributes) {

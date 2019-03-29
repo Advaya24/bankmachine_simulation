@@ -30,7 +30,7 @@ public class SavingsAccount extends AssetAccount {
      */
     public void applyInterest() {
         double newBalance = this.balance * (1 + this.interestRate);
-        this.balance = Math.round(newBalance*100)/100.0;
+        this.balance = Math.round(newBalance * 100) / 100.0;
     }
 
     public String toString() {

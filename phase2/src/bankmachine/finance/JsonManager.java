@@ -1,13 +1,19 @@
 package bankmachine.finance;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import com.google.gson.*;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Map;
 
-/** Class that is used to access external APIs and gets JSON information. Used for ExchangeManager and StockManager
+/**
+ * Class that is used to access external APIs and gets JSON information. Used for ExchangeManager and StockManager
  * Main method data() returns linked list of necessary JSON data.
  */
 
@@ -37,14 +43,14 @@ public class JsonManager {
      * @return LinkedList of necessary data only
      * @throws IOException
      */
-    public LinkedList data() throws FinanceException, NullPointerException{
+    public LinkedList data() throws FinanceException, NullPointerException {
 
         if (type.equals("stock")) {
             sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=" + input + "&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
             header = "Time Series (5min)";
         }
         if (type.equals("exchange")) {
-            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + input + "&to_currency="+input2+"&apikey=MSOJPA23LLK8HUOQ";
+            sURL = "https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + input + "&to_currency=" + input2 + "&apikey=MSOJPA23LLK8HUOQ";
             header = "Realtime Currency Exchange Rate";
 
         }
@@ -66,7 +72,7 @@ public class JsonManager {
             if (type.equals("exchange")) {
                 jsonheader = rootobj;
             }
-        } catch(IOException e){
+        } catch (IOException e) {
             throw new FinanceException("FinanceException");
         }
 

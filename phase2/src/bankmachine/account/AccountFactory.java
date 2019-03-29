@@ -1,6 +1,6 @@
 package bankmachine.account;
 
-import bankmachine.*;
+import bankmachine.TrackingFactory;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.Client;
 import bankmachine.users.UserManager;

@@ -6,7 +6,6 @@ import bankmachine.gui.BankManagerGUI;
 import bankmachine.gui.InputManager;
 import bankmachine.gui.TextInputForm;
 import bankmachine.users.BankMachineUser;
-import bankmachine.users.BankManager;
 
 public class UserCreationGUIHandler {
     private BankManagerGUI gui;
@@ -38,7 +37,7 @@ public class UserCreationGUIHandler {
                             handleUserCreation(m);
                         }
                     });
-                } else if (strings[0].equals("") || strings[1].equals("") || strings[2].equals("") || strings[3].equals("") || strings[4].equals("")){
+                } else if (strings[0].equals("") || strings[1].equals("") || strings[2].equals("") || strings[3].equals("") || strings[4].equals("")) {
                     m.setPanel(new AlertMessageForm("Can't leave any field empty!") {
                         @Override
                         public void onOK() {

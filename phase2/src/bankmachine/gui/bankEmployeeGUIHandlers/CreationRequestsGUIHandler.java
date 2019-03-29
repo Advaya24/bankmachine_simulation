@@ -51,16 +51,16 @@ public class CreationRequestsGUIHandler {
         } else {
             String[] options = new String[employee.getCreationRequests().size()];
             for (int i = 0; i < options.length; i++) {
-                options[i] = "Request " + (i+1);
+                options[i] = "Request " + (i + 1);
             }
 
-            m.setPanel(new AccountSummaryForm(employee.getCreationRequestArray(), new OptionsForm<String>(options, "Select request to delete:" ) {
+            m.setPanel(new AccountSummaryForm(employee.getCreationRequestArray(), new OptionsForm<String>(options, "Select request to delete:") {
 
                 @Override
                 public void onSelection(String s) {
                     String alertMessage = "Failure";
                     for (int i = 0; i < options.length; i++) {
-                        if (options[i].equals(s)){
+                        if (options[i].equals(s)) {
                             employee.removeCreationRequest(i);
                             alertMessage = "Success";
                         }

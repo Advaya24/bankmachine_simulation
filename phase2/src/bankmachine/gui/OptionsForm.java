@@ -6,18 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class OptionsForm<T> implements Form {
-    private T options[];
+    private T[] options;
     private JPanel panel;
     private JPanel buttonGrid;
     private JLabel promptLabel;
     private String prompt;
 
-    public OptionsForm(T[] options, String prompt){
+    public OptionsForm(T[] options, String prompt) {
         this.options = options;
         this.prompt = prompt;
     }
 
-    public JPanel getMainPanel(){
+    public JPanel getMainPanel() {
         return panel;
     }
 
@@ -25,11 +25,11 @@ public abstract class OptionsForm<T> implements Form {
 
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
-        buttonGrid = new JPanel(new GridLayout(0,2));
+        buttonGrid = new JPanel(new GridLayout(0, 2));
         promptLabel = new JLabel(prompt);
         promptLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(promptLabel, BorderLayout.NORTH);
-        for (int i=0; i<options.length; i++){
+        for (int i = 0; i < options.length; i++) {
             JButton b = new JButton(options[i].toString());
             final int index = i;
             b.addActionListener(new ActionListener() {

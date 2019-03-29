@@ -7,7 +7,6 @@ import bankmachine.exception.NegativeQuantityException;
 import bankmachine.exception.NotEnoughBillsException;
 import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.gui.*;
-import bankmachine.gui.personalGUIHandlers.TransferGUIHandler;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
 
@@ -17,7 +16,7 @@ public class WithdrawGUIHandler {
     private PersonalGUI gui;
     private Client client;
 
-    public WithdrawGUIHandler(PersonalGUI gui, Client client){
+    public WithdrawGUIHandler(PersonalGUI gui, Client client) {
         this.gui = gui;
         this.client = client;
     }

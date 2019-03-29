@@ -10,7 +10,7 @@ public class DepositGUIHandler {
     private PersonalGUI gui;
     private Client client;
 
-    public DepositGUIHandler(PersonalGUI gui, Client client){
+    public DepositGUIHandler(PersonalGUI gui, Client client) {
         this.gui = gui;
         this.client = client;
     }
@@ -19,7 +19,7 @@ public class DepositGUIHandler {
         Account[] accounts = new Account[this.client.getClientsAccounts().size()];
         this.client.getClientsAccounts().toArray(accounts);
 
-        m.setPanel(new SearchForm("Select account to deposit money to", new OptionsForm<Account>(accounts, ""){
+        m.setPanel(new SearchForm("Select account to deposit money to", new OptionsForm<Account>(accounts, "") {
             @Override
             public void onSelection(Account account) {
                 try {
