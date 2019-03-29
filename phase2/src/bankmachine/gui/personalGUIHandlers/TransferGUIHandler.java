@@ -1,8 +1,9 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
+import bankmachine.gui.*;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
 

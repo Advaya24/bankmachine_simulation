@@ -1,5 +1,6 @@
 package bankmachine.gui;
 
+import bankmachine.gui.personalGUIHandlers.*;
 import bankmachine.users.Client;
 
 public class PersonalGUI implements Inputtable {

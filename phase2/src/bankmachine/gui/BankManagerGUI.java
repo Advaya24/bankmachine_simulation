@@ -43,7 +43,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
 
 
     private void inputUndoTransaction(InputManager m) {
-        inputGetClient(m, (Client client) -> {
+        handleSearchClient(m, (Client client) -> {
             undoTransactionsForClient(client, m);
             return null;
         });

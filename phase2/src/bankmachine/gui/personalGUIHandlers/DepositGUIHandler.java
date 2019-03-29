@@ -1,8 +1,9 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.account.Account;
 import bankmachine.exception.NegativeQuantityException;
 import bankmachine.exception.NoDepositException;
+import bankmachine.gui.*;
 import bankmachine.users.Client;
 
 public class DepositGUIHandler {

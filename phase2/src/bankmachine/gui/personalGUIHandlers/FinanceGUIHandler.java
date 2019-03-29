@@ -1,10 +1,11 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 
 import bankmachine.finance.Exchange;
 import bankmachine.finance.FinanceException;
 import bankmachine.finance.MortgageCalculator;
 import bankmachine.finance.StockManager;
+import bankmachine.gui.*;
 
 public class FinanceGUIHandler {
     private PersonalGUI gui;

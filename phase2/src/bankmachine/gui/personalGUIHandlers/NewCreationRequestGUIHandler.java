@@ -1,6 +1,7 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
+import bankmachine.gui.*;
 import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 

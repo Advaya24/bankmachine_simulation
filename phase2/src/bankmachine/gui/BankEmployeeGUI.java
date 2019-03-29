@@ -1,6 +1,9 @@
 package bankmachine.gui;
 
 import bankmachine.BankMachine;
+import bankmachine.gui.bankEmployeeGUIHandlers.AccountCreationGUIHandler;
+import bankmachine.gui.bankEmployeeGUIHandlers.AddBillsGUIHandler;
+import bankmachine.gui.bankEmployeeGUIHandlers.CreationRequestsGUIHandler;
 import bankmachine.users.BankEmployee;
 import bankmachine.users.BankMachineUser;
 import bankmachine.users.Client;
@@ -25,64 +28,13 @@ public class BankEmployeeGUI implements Inputtable {
     };
 
     /**
-     * Displays options for adding bills to the bankmachine
-     *
-     * @param m the input manager handling this
-     */
-    private void inputAddBills(InputManager m) {
-        int[] denominations = {5, 10, 20, 50};
-        String[] attributes = new String[denominations.length];
-        for (int i = 0; i < denominations.length; i++) {
-            attributes[i] =  denominations[i] + "s";
-        }
-        m.setPanel(new TextInputForm("How many of each?", attributes) {
-            @Override
-            public void onCancel() {
-                handleInput(m);
-            }
-
-            @Override
-            public void onOk(String[] strings) {
-                int[] arrayNumBillsToAdd = new int[strings.length];
-                for (int i = 0; i < strings.length; i++) {
-                    try {
-                        int numBills = Integer.parseInt(strings[i]);
-                        if (numBills > 0) {
-                            arrayNumBillsToAdd[i] = numBills;
-                        } else {
-                            throw new NumberFormatException();
-                        }
-                    } catch (NumberFormatException e) {
-                        m.setPanel(new AlertMessageForm("Invalid input for at least one denomination!") {
-                            @Override
-                            public void onOK() {
-                                inputAddBills(m);
-                            }
-                        });
-                        return;
-                    }
-                }
-                for (int i = 0; i < arrayNumBillsToAdd.length; i++) {
-                    BankMachine.getBillManager().addBills(denominations[i], arrayNumBillsToAdd[i]);
-                }
-                m.setPanel(new AlertMessageForm("Success!") {
-                    @Override
-                    public void onOK() {
-                        handleInput(m);
-                    }
-                });
-            }
-        });
-    }
-
-    /**
-     * Displays all clients and allows the employee to select a client
+     * Search client by username
      *
      * @param m the input manager handling this
      * @param function a function which takes a Client and returns nothing
      * @return returns the selected client, null if there are no clients
      */
-    void inputGetClient(InputManager m, Function<Client, Void> function) {
+    public void handleSearchClient(InputManager m, Function<Client, Void> function) {
         List<Client> users = new ArrayList<>();
         for (BankMachineUser b : BankMachine.USER_MANAGER.getInstances()) {
             if (b instanceof Client) {
@@ -111,128 +63,22 @@ public class BankEmployeeGUI implements Inputtable {
         });
     }
 
-    /**
-     * Displays options for creating a new account
-     *
-     * @param m the input manager handling this
-     */
-    private void inputCreateAccount(InputManager m) {
-        inputGetClient(m, (Client client1) -> {
-            createAccountFor(client1, m);
-            return null;
-        });
-    }
-
-    private void createAccountFor(Client client, InputManager m) {
-        String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account","Retirement account"};
-        m.setPanel(new SearchForm("Select the type of account:", new OptionsForm<String>(accountTypes, "") {
-            @Override
-            public void onSelection(String s) {
-                String alertMessage;
-                if (employee.createAccount(client, s, LocalDateTime.now())) {
-                    alertMessage = "Account created.";
-                } else {
-                    alertMessage = "There was some problem with the creation. Try again later.";
-                }
-                m.setPanel(new AlertMessageForm(alertMessage) {
-                    @Override
-                    public void onOK() {
-                        handleInput(m);
-                    }
-                });
-            }
-        }.getMainPanel()) {
-            @Override
-            public void onCancel() {
-                handleInput(m);
-            }
-        });
-    }
-
-    private void showCreationRequests(InputManager m) {
-
-        if (employee.getCreationRequestArray().length == 0) {
-            m.setPanel(new AlertMessageForm("No Pending Requests!") {
-                @Override
-                public void onOK() {
-                    handleInput(m);
-                }
-            });
-        } else {
-            m.setPanel(new AccountSummaryForm(employee.getCreationRequestArray(), new JPanel()) {
-                @Override
-                public void onCancel() {
-                    handleInput(m);
-                }
-            });
-        }
-
-    }
-
-    /**
-     * Displays outstanding account creation requests and allows employee to choose one to remove
-     *
-     * @param m the input manager handling this
-     */
-    public void removeCompletedRequests(InputManager m) {
-        if (employee.getCreationRequests().size() == 0) {
-            System.out.println("No pending creation requests");
-            m.setPanel(new AlertMessageForm("No pending creation requests!") {
-                @Override
-                public void onOK() {
-                    handleInput(m);
-                }
-            });
-        } else {
-            String[] options = new String[employee.getCreationRequests().size()];
-            for (int i = 0; i < options.length; i++) {
-                options[i] = "Request " + (i+1);
-            }
-
-            m.setPanel(new AccountSummaryForm(employee.getCreationRequestArray(), new OptionsForm<String>(options, "Select request to delete:" ) {
-
-                @Override
-                public void onSelection(String s) {
-                    String alertMessage = "Failure";
-                    for (int i = 0; i < options.length; i++) {
-                        if (options[i].equals(s)){
-                            employee.removeCreationRequest(i);
-                            alertMessage = "Success";
-                        }
-                    }
-                    m.setPanel(new AlertMessageForm(alertMessage) {
-                        @Override
-                        public void onOK() {
-                            handleInput(m);
-                        }
-                    });
-                }
-            }.getMainPanel()) {
-                @Override
-                public void onCancel() {
-                    handleInput(m);
-                }
-            });
-        }
-    }
-
     void handleSelection(InputManager m, String s) {
         switch (s) {
             case "Logout":
                 m.mainLoop();
                 return;
             case "Add Bills":
-                inputAddBills(m);
+                new AddBillsGUIHandler(this).handleAddBills(m);
                 return;
             case "Create Account":
-                inputCreateAccount(m);
+                new AccountCreationGUIHandler(this, this.employee).handleCreateAccount(m);
                 return;
             case "View Account Creation Requests":
-                employee.viewAccountCreationRequests();
-                showCreationRequests(m);
+                new CreationRequestsGUIHandler(this, this.employee).showCreationRequests(m);
                 return;
             case "Remove Completed Creation Requests":
-                removeCompletedRequests(m);
+                new CreationRequestsGUIHandler(this, this.employee).removeCompletedRequests(m);
                 return;
             default:
                 break;

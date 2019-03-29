@@ -1,4 +1,4 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
@@ -6,6 +6,8 @@ import bankmachine.exception.BankMachineException;
 import bankmachine.exception.NegativeQuantityException;
 import bankmachine.exception.NotEnoughBillsException;
 import bankmachine.exception.NotEnoughMoneyException;
+import bankmachine.gui.*;
+import bankmachine.gui.personalGUIHandlers.TransferGUIHandler;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
 
@@ -20,7 +22,7 @@ public class WithdrawGUIHandler {
         this.client = client;
     }
 
-    void handleWithdraw(InputManager m) {
+    public void handleWithdraw(InputManager m) {
         Account[] accounts = new TransferGUIHandler(this.gui, this.client).getTransferAccounts(this.client);
         m.setPanel(new SearchForm("Select account to withdraw from", new OptionsForm<Account>(accounts, "") {
             @Override

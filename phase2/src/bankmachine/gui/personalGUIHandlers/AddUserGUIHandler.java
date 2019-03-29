@@ -1,7 +1,8 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
+import bankmachine.gui.*;
 import bankmachine.users.Client;
 
 public class AddUserGUIHandler {
