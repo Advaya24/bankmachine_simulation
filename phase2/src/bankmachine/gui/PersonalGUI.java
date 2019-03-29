@@ -2,10 +2,7 @@ package bankmachine.gui;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
-import bankmachine.exception.BankMachineException;
-import bankmachine.exception.NegativeQuantityException;
-import bankmachine.exception.NotEnoughBillsException;
-import bankmachine.exception.NotEnoughMoneyException;
+import bankmachine.exception.*;
 import bankmachine.finance.*;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.BankMachineUser;
@@ -443,7 +440,7 @@ public class PersonalGUI implements Inputtable {
                             handleInput(m);
                         }
                     });
-                } catch (NegativeQuantityException e) {
+                } catch (NegativeQuantityException | NoDepositException e) {
                     m.setPanel(new AlertMessageForm(e.toString()) {
                         @Override
                         public void onOK() {

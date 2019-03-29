@@ -1,6 +1,7 @@
 package bankmachine.fileManager;
 
 import bankmachine.BillManager;
+import bankmachine.exception.NoDepositException;
 
 import java.io.IOException;
 
@@ -14,7 +15,7 @@ public class DepositReader {
     /** An Array representing how many 5,10,20, and 50 dollar bills are in the system.*/
     private int[] billCounts = {0, 0, 0, 0};
 
-    public DepositReader(String path){
+    public DepositReader(String path) throws NoDepositException {
         reader = new ReadFile(path);
         this.readFile();
     }
@@ -38,7 +39,7 @@ public class DepositReader {
     /**
      * //TODO: HELP
      */
-    private void readFile() {
+    private void readFile() throws NoDepositException {
         String contents;
         try {
             contents = reader.getData();
@@ -47,7 +48,7 @@ public class DepositReader {
             return;
         }
         String[] lines = contents.split("\\r?\\n");
-        if(lines.length == 0){ return; }
+        if(lines.length == 0 || lines[0].equals("")){ throw new NoDepositException(); }
         quantity = 0.0;
         if (lines.length < 4){
             isCheque = true;

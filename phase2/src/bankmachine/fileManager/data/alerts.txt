@@ -1,5 +1,5 @@
 WARNING: This bank machine currently has less than 20 bills of at least one denomination: 
-* There are 5 $50 bills.
-* There are 5 $20 bills.
-* There are 4 $5 bills.
-* There are 5 $10 bills.
+* There are 10 $50 bills.
+* There are 10 $20 bills.
+* There are 9 $5 bills.
+* There are 10 $10 bills.

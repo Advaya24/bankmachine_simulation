@@ -101,7 +101,7 @@ public abstract class Account implements Serializable, Identifiable {
      * Deposit money into this account if possible.
      * If deposits.txt is one line,//TODO: Finish annotations
      */
-    public void deposit() throws NegativeQuantityException {
+    public void deposit() throws NegativeQuantityException, NoDepositException {
         DepositReader deposit = new DepositReader("/deposits.txt");
         this.transferIn(deposit.getQuantity());
         if(!deposit.isCheque()){
