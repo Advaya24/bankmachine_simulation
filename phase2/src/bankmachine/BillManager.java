@@ -1,9 +1,14 @@
 package bankmachine;
 
 import bankmachine.exception.NotEnoughBillsException;
+import bankmachine.fileManager.ObjectFileReader;
+import bankmachine.fileManager.ObjectFileWriter;
 import bankmachine.fileManager.WriteFile;
+import bankmachine.users.BankMachineUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class BillManager {
 
@@ -11,14 +16,32 @@ public class BillManager {
 
     /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
     * $5, $10, $20, $50*/
-    private HashMap<Integer, Integer> bills = new HashMap<Integer, Integer>() {
-        {
-            put(5, 0);
-            put(10, 0);
-            put(20, 0);
-            put(50, 0);
+    private HashMap<Integer, Integer> bills = new HashMap<>();
+    private String rootPath;
+    public BillManager(String path){
+        this.rootPath=path;
+        ObjectFileReader<Integer> reader = new ObjectFileReader<>(rootPath);
+        List<Integer> billList;
+        try {
+            billList = reader.read();
+            for (int i=0; i<DENOMINATIONS.length; i++){
+                bills.put(DENOMINATIONS[i], billList.get(i));
+            }
+        } catch (RuntimeException e) {
+            for(int i:DENOMINATIONS){
+                this.bills.put(i, 0);
+            }
         }
-    };
+    }
+    public void saveData() {
+        ObjectFileWriter<Integer> writer = new ObjectFileWriter<>(rootPath);
+        List<Integer> billList = new ArrayList<>();
+        for (int i:DENOMINATIONS){
+            billList.add(bills.get(i));
+        }
+        writer.clear();
+        writer.writeAll(billList);
+    }
 
     public HashMap<Integer, Integer> getBills() {
         return bills;

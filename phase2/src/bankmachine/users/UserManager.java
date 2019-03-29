@@ -1,14 +1,10 @@
 package bankmachine.users;
 
-import bankmachine.BankMachine;
 import bankmachine.TrackingFactory;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.ChequingAccount;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
-import bankmachine.users.BankMachineUser;
-import bankmachine.users.BankManager;
-import bankmachine.users.Client;
 import com.sun.istack.internal.Nullable;
 
 import java.time.LocalDateTime;

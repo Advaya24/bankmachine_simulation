@@ -45,11 +45,11 @@ public class BankMachine {
     /**
      * A Manager Object for all the bills of the various denominations within the system.
      */
-    private static BillManager billManager;
+    private static BillManager billManager = new BillManager(DATA_PATH + "/billData.ser");
 
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(USER_MANAGER::saveData, "Shutdown-thread"));
-        billManager = new BillManager();
+        Runtime.getRuntime().addShutdownHook(new Thread(billManager::saveData, "Shutdown-thread"));
         executeEveryMonth();
 
         InputManager inputManager = new InputManager();
@@ -57,6 +57,7 @@ public class BankMachine {
             inputManager.mainLoop();
         } finally {
             USER_MANAGER.saveData();
+            billManager.saveData();
         }
     }
 

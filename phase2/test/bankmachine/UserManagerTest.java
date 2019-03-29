@@ -68,9 +68,10 @@ public class UserManagerTest {
                 clients.add(b);
             }
         }
-        assertEquals(1, clients.size());
+        // One automatic bankmanager, and reimu
+        assertEquals(2, clients.size());
 
-        List<Account> accounts = ((Client) clients.get(0)).getClientsAccounts();
+        List<Account> accounts = ((Client) clients.get(1)).getClientsAccounts();
         assertEquals(3, accounts.size());
         assertEquals(120, accounts.get(0).getBalance());
     }

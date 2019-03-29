@@ -17,7 +17,7 @@ public class BillManagerTest {
 
     @BeforeEach
     public void setUp(){
-        this.billManager = new BillManager();
+        this.billManager = new BillManager("");
         //BillManager bankMachine = new BillManager();
         billManager.addBills(50, 20);
         billManager.addBills(20, 20);
