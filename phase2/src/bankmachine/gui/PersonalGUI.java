@@ -1,59 +1,19 @@
 package bankmachine.gui;
 
-import bankmachine.BankMachine;
-import bankmachine.account.Account;
-import bankmachine.exception.*;
-import bankmachine.finance.*;
-import bankmachine.transaction.TransactionType;
-import bankmachine.users.BankMachineUser;
-import bankmachine.users.BankManager;
 import bankmachine.users.Client;
-
-import javax.swing.*;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class PersonalGUI implements Inputtable {
     private Client client;
-    public PersonalGUI(Client c){
+    public PersonalGUI(Client c) {
         this.client = c;
     }
-
-    private void newAccountCreationInput(InputManager m){
-        String[] accountTypes ={"Chequing account", "Credit card account",
-                "Line of credit account", "Savings account","Retirement account"};
-        m.setPanel(new SearchForm("Select type of account", new OptionsForm<String>(accountTypes, ""){
-            @Override
-            public void onSelection(String s) {
-                addCreationRequest(s, m);
-            }
-        }.getMainPanel()) {
-            @Override
-            public void onCancel() {
-                handleInput(m);
-            }
-        });
-    }
-    private void addCreationRequest(String request, InputManager m) {
-        BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);
-        manager.addCreationRequest(client.getUsername() + " requests a " + request);
-        m.setPanel(new AlertMessageForm("Account Creation Request Sent") {
-            @Override
-            public void onOK() {
-                handleInput(m);
-            }
-        });
-    }
-
 
 
     private void handleSelection(InputManager m, String s){
         switch (s){
             case "Logout": m.mainLoop(); return;
             case "Request Creation Of A New Account":
-                newAccountCreationInput(m);
+                new NewCreationRequestGUIHandler(this, this.client).handleNewAccountCreationInput(m);
                 return;
             case "Transfer":
                 new TransferGUIHandler(this, this.client).transferMenu(m);
