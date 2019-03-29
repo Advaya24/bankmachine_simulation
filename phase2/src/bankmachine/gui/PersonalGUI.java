@@ -48,38 +48,6 @@ public class PersonalGUI implements Inputtable {
     }
 
 
-    private void handleDeposit(InputManager m) {
-        Account[] accounts = new Account[this.client.getClientsAccounts().size()];
-        this.client.getClientsAccounts().toArray(accounts);
-
-        m.setPanel(new SearchForm("Select account to deposit money to", new OptionsForm<Account>(accounts, ""){
-            @Override
-            public void onSelection(Account account) {
-                try {
-                    account.deposit();
-                    m.setPanel(new AlertMessageForm("Success!") {
-                        @Override
-                        public void onOK() {
-                            handleInput(m);
-                        }
-                    });
-                } catch (NegativeQuantityException | NoDepositException e) {
-                    m.setPanel(new AlertMessageForm(e.toString()) {
-                        @Override
-                        public void onOK() {
-                            handleInput(m);
-                        }
-                    });
-                }
-            }
-        }.getMainPanel()) {
-            @Override
-            public void onCancel() {
-                handleInput(m);
-            }
-        });
-    }
-
 
     private void handleSelection(InputManager m, String s){
         switch (s){
@@ -94,7 +62,7 @@ public class PersonalGUI implements Inputtable {
                 new WithdrawGUIHandler(this, this.client).handleWithdraw(m);
                 return;
             case "Deposit":
-                handleDeposit(m);
+                new DepositGUIHandler(this, this.client).handleDeposit(m);
                 return;
             case "Finance":
                 new FinanceGUIHandler(this).handleFinance(m);
