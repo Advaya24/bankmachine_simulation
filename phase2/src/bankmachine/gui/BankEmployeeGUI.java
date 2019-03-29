@@ -21,7 +21,7 @@ public class BankEmployeeGUI implements Inputtable {
 
     String[] responsibilities = {
             "View Account Creation Requests", "Remove Completed Creation Requests",
-            "Create Account", "Add Bills", "Exit"
+            "Create Account", "Add Bills", "Logout"
     };
 
     /**
@@ -218,7 +218,7 @@ public class BankEmployeeGUI implements Inputtable {
 
     void handleSelection(InputManager m, String s) {
         switch (s) {
-            case "Exit":
+            case "Logout":
                 m.mainLoop();
                 return;
             case "Add Bills":

@@ -27,7 +27,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
         options = new String[responsibilities.length+specialResponsibilities.length];
 
         for(int i = 0; i < responsibilities.length; i++) {
-            if (!responsibilities[i].equals("Exit"))
+            if (!responsibilities[i].equals("Logout"))
             options[i] = responsibilities[i];
         }
         for (int i = 0; i < specialResponsibilities.length; i++) {
@@ -35,7 +35,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
                 options[i + responsibilities.length - 1] = specialResponsibilities[i];
             }
         }
-        options[options.length-2] = "Exit";
+        options[options.length-2] = "Logout";
         options[options.length-1] = "Shutdown";
 
         responsibilities = options;
