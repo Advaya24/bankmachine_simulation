@@ -1,13 +1,9 @@
 package bankmachine.gui;
 
-import bankmachine.BankMachine;
 import bankmachine.gui.bankManagerGUIHandlers.DateTimeGUIHandler;
 import bankmachine.gui.bankManagerGUIHandlers.TransactionGUIHandler;
 import bankmachine.gui.bankManagerGUIHandlers.UserCreationGUIHandler;
 import bankmachine.users.BankManager;
-
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
 
 public class BankManagerGUI extends BankEmployeeGUI {
     private BankManager manager;
