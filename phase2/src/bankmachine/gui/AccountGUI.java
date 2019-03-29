@@ -58,6 +58,7 @@ public class AccountGUI implements Inputtable {
         }
     }
 
+
     @Override
     public void handleInput(InputManager m) {
         String[] options = {

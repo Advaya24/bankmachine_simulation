@@ -37,7 +37,7 @@ public class DepositReader {
     }
 
     /**
-     * //TODO: HELP
+     * Reads from deposits.txt, parses the quantities/amounts and wipes out old data from the file
      */
     private void readFile() throws NoDepositException {
         String contents;
