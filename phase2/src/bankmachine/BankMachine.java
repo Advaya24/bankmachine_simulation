@@ -14,12 +14,21 @@ import bankmachine.users.*;
 import java.io.File;
 
 public class BankMachine {
+    /** A String representing where the data required for this information is stored. */
     final public static String DATA_PATH = findDataPath();
+    /** A TimeInfo object that allows the application to keep track of what time it is.*/
     final public static TimeInfo timeInfo = new TimeInfo();
+    /** A UserManager object that stores all the Users within the System */
     final public static UserManager USER_MANAGER = new UserManager(DATA_PATH + "/clientData.ser");
+    /** An AccountFactory object that is used to generate and store new accounts */
     final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
+    /** A TransactionFactory object that is used to generate and store new transactions */
     final public static TransactionFactory transFactory = new TransactionFactory(accFactory);
 
+    /**
+     * Every month, this method is used to execute time-sensitive functionality, such as applying
+     * interest and updating all retirement accounts.
+     */
     private static void executeEveryMonth() {
         int lastMonth = timeInfo.getLastMonth();
         int currentMonth = timeInfo.getCurrentMonth();
@@ -38,7 +47,6 @@ public class BankMachine {
                 }
             }
         }
-
         timeInfo.setLastMonth(currentMonth);
     }
 
