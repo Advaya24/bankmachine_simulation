@@ -24,7 +24,7 @@ public class PayBillGUIHandler {
                 }
             });
         } else {
-            m.setPanel(new SearchForm("Select account to pay bill from", new OptionsForm<Account>(accounts, ""){
+            m.setPanel(new SearchForm("Select account to pay bill from", new OptionsForm<Account>(accounts, "") {
                 @Override
                 public void onSelection(Account account) {
                     payBillUsing(account, m);
