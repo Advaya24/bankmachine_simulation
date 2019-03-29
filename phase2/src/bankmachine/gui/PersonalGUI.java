@@ -28,6 +28,8 @@ public class PersonalGUI implements Inputtable {
             case "Deposit":
                 new DepositGUIHandler(this, this.client).handleDeposit(m);
                 return;
+            case "Pay Bill":
+                new PayBillGUIHandler(this, this.client).handlePayBill(m);
             case "Finance":
                 new FinanceGUIHandler(this).handleFinance(m);
                 return;
@@ -48,7 +50,7 @@ public class PersonalGUI implements Inputtable {
         System.out.println("Welcome, " + client.getName() + "!");
         System.out.println("Select an action");
         String[] options = {
-                "Accounts", "Request Creation Of A New Account", "Transfer", "Withdraw", "Deposit", "Finance", "Add User To Account", "Update Profile", "Logout"
+                "Accounts", "Request Creation Of A New Account", "Transfer", "Withdraw", "Deposit", "Pay Bill", "Finance", "Add User To Account", "Update Profile", "Logout"
         };
         m.setPanel(new OptionsForm<String>(options, "What would you like to do?") {
             @Override

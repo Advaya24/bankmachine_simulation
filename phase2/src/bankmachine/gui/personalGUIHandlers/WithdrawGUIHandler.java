@@ -22,7 +22,8 @@ public class WithdrawGUIHandler {
     }
 
     public void handleWithdraw(InputManager m) {
-        Account[] accounts = new TransferGUIHandler(this.gui, this.client).getTransferAccounts(this.client);
+        Account[] accounts = new Account[this.client.getClientsAccounts().size()];
+        this.client.getClientsAccounts().toArray(accounts);
         m.setPanel(new SearchForm("Select account to withdraw from", new OptionsForm<Account>(accounts, "") {
             @Override
             public void onSelection(Account account) {
@@ -64,15 +65,8 @@ public class WithdrawGUIHandler {
                             handleWithdrawFor(account, m);
                         }
                     });
-                } catch (NotEnoughMoneyException | NotEnoughBillsException | NegativeQuantityException e) {
-                    m.setPanel(new AlertMessageForm(e.toString()) {
-                        @Override
-                        public void onOK() {
-                            handleWithdrawFor(account, m);
-                        }
-                    });
                 } catch (BankMachineException e) {
-                    m.setPanel(new AlertMessageForm("Failed... Something went wrong!") {
+                    m.setPanel(new AlertMessageForm(e.toString()) {
                         @Override
                         public void onOK() {
                             handleWithdrawFor(account, m);
