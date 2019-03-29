@@ -84,8 +84,16 @@ public class BankMachine {
      */
     public static String findDataPath() {
         FileSearcher fileSearcher = new FileSearcher();
-        fileSearcher.setFileNameToSearch("fileManager");
+        fileSearcher.setFileNameToSearch("phase2");
         fileSearcher.searchForDirectoryIn(new File(System.getProperty("user.dir")));
+        final File ROOT_DIR;
+        if (fileSearcher.getResult().size() > 0) {
+            ROOT_DIR = new File(fileSearcher.getResult().get(0));
+        } else {
+            ROOT_DIR = new File(System.getProperty("user.dir"));
+        }
+        fileSearcher.setFileNameToSearch("fileManager");
+        fileSearcher.searchForDirectoryIn(ROOT_DIR);
         final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
         fileSearcher.clearResults();
         fileSearcher.setFileNameToSearch("data");
