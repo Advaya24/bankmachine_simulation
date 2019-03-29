@@ -7,6 +7,7 @@ import bankmachine.transaction.TransactionType;
 
 import java.time.LocalDateTime;
 
+// TODO: Get rid of this class
 public class AccountGUI implements Inputtable {
     private Account account;
 

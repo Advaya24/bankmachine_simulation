@@ -1,9 +1,13 @@
 package bankmachine.gui.personalGUIHandlers;
 
+import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.TransferException;
 import bankmachine.gui.*;
+import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
+
+import java.time.LocalDateTime;
 
 public class PayBillGUIHandler {
     private PersonalGUI gui;
@@ -52,6 +56,7 @@ public class PayBillGUIHandler {
                 try {
                     amount = Double.parseDouble(strings[0]);
                     account.payBill(amount);
+                    BankMachine.transFactory.newTransaction(amount, account, null, LocalDateTime.now(), TransactionType.BILL);
                     m.setPanel(new AlertMessageForm("Success!") {
                         @Override
                         public void onOK() {
