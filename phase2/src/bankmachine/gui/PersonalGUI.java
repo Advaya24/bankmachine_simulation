@@ -80,62 +80,6 @@ public class PersonalGUI implements Inputtable {
         });
     }
 
-    private void handleAddUser(InputManager m) {
-        Account[] accounts = new Account[this.client.getClientsAccounts().size()];
-        this.client.getClientsAccounts().toArray(accounts);
-
-        m.setPanel(new SearchForm("Select account to add user to", new OptionsForm<Account>(accounts, ""){
-            @Override
-            public void onSelection(Account account) {
-                addUserTo(account, m);
-            }
-        }.getMainPanel()) {
-            @Override
-            public void onCancel() {
-                handleInput(m);
-            }
-        });
-    }
-    private void addUserTo(Account account, InputManager m) {
-        String[] attributes = {"Username of user to add"};
-        m.setPanel(new TextInputForm("Add user to " + account.toString(), attributes) {
-            @Override
-            public void onCancel() {
-                handleAddUser(m);
-            }
-
-            @Override
-            public void onOk(String[] strings) {
-                try {
-                    client = (Client) BankMachine.USER_MANAGER.get(strings[0]);
-                } catch (NullPointerException e) {
-                    m.setPanel(new AlertMessageForm("Invalid input for username!") {
-                        @Override
-                        public void onOK() {
-                            addUserTo(account, m);
-                        }
-                    });
-                }
-
-                if (client == null) {
-                    m.setPanel(new AlertMessageForm("User not found") {
-                        @Override
-                        public void onOK() {
-                            addUserTo(account, m);
-                        }
-                    });
-                } else {
-                    account.addSecondaryClient(client);
-                    m.setPanel(new AlertMessageForm("Successfully added " + client.toString()) {
-                        @Override
-                        public void onOK() {
-                            handleInput(m);
-                        }
-                    });
-                }
-            }
-        });
-    }
 
     private void handleSelection(InputManager m, String s){
         switch (s){
@@ -156,7 +100,7 @@ public class PersonalGUI implements Inputtable {
                 new FinanceGUIHandler(this).handleFinance(m);
                 return;
             case "Add User To Account":
-                handleAddUser(m);
+                new AddUserGUIHandler(this, this.client).handleAddUser(m);
                 return;
             case "Update Profile":
                 new UpdateProfileGUI(client, this).handleInput(m);
