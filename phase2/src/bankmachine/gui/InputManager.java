@@ -142,10 +142,6 @@ public class InputManager extends JFrame {
         System.exit(0);
     }
 
-    //TODO replace all usages of this with GUIs
-    public <T> T selectItem(List<T> x) {
-        return x.get(0);
-    }
 
     // Following method kept for future use:
 //    private void PerformTransaction(Account a) {
