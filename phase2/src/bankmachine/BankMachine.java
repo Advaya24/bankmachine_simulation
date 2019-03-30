@@ -27,10 +27,12 @@ public class BankMachine {
      * A UserManager object that stores all the Users within the System
      */
     final public static UserManager USER_MANAGER = new UserManager(DATA_PATH + "/clientData.ser");
-    /**
-     * An AccountFactory object that is used to generate and store new accounts
-     */
-    final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
+//    /**
+//     * An AccountFactory object that is used to generate and store new accounts
+//     */
+//    final public static AccountFactory accFactory = new AccountFactory(USER_MANAGER);
+
+    final public static AccountFactory accFactory = USER_MANAGER.getAccountFactory();
     /**
      * A TransactionFactory object that is used to generate and store new transactions
      */
