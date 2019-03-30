@@ -26,7 +26,6 @@ public class TransactionGUIHandler {
 
     private void undoTransactionsForClient(Client client, InputManager m) {
         if (client.getClientsAccounts().size() == 0) {
-            System.out.println("There are no accounts!");
             m.setPanel(new AlertMessageForm("There are no accounts") {
                 @Override
                 public void onOK() {
@@ -34,7 +33,6 @@ public class TransactionGUIHandler {
                 }
             });
         } else {
-            System.out.println("Select an account");
             m.setPanel(new SearchForm("Select an account", new OptionsForm<Object>(client.getClientsAccounts().toArray(), "") {
                 @Override
                 public void onSelection(Object object) {
