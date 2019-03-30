@@ -83,6 +83,7 @@ manager (with their special abilities described below).
     # Finances
         * Special feature that allows the client to check stocks, calculate exchange rates, and calculate their mortgage.
             * Stocks: real-time stock viewer that allows you to check the current stock rate for a certain stock code.
+                ** Stock codes can be found on google, but you can use these as an example "NYSE:S, N"
             * Exchange: allows you to convert a certain country's currency to another. Note that the amount should be
             entered like any monetary value (2 decimal places).
             * Mortgage calculator: helps the client calculate their mortgage. Note that principal should be entered
