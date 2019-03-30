@@ -28,6 +28,7 @@ public class AccountFactory extends TrackingFactory<Account> {
      */
     public void newChequingAccount(int amount, Client client, LocalDateTime creationDate) {
         newChequingAccount(false, amount, client, creationDate);
+
     }
 
     /**
