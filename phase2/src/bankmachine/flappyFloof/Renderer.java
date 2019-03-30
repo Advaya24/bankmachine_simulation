@@ -19,7 +19,7 @@ public class Renderer extends JPanel {
     /**
      * Paints the JPanel, and our Floof.
      *
-     * @param g //TODO: HELP
+     * @param g the graphics context in which to paint our component
      */
     @Override
     protected void paintComponent(Graphics g) {

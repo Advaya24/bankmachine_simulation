@@ -53,7 +53,7 @@ public class Repainter {
     /**
      * Given a Rectangle Object <column>, this method paints it the required color (a rather dark green)
      *
-     * @param g      the Graphics context of this instance //TODO: Change this
+     * @param g      the Graphics context in which to paint this Rectangle
      * @param column the Rectangle object to be painted
      */
     public void paintColumn(Graphics g, Rectangle column) {
