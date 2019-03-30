@@ -65,11 +65,9 @@ public class UserCreationGUIHandler {
 
                         String alertMessage;
                         if (user == null) {
-                            System.out.println("A user with that username exists!");
                             alertMessage = "A user with that username exists!";
 
                         } else {
-                            System.out.println("User created");
                             alertMessage = "User created";
                         }
                         m.setPanel(new AlertMessageForm(alertMessage) {
