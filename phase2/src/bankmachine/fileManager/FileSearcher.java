@@ -53,8 +53,6 @@ public class FileSearcher {
                 }
 
 
-            } else {
-                System.out.println(file.getAbsoluteFile() + "Permission Denied");
             }
         }
     }

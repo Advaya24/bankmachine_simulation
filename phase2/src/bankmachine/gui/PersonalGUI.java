@@ -51,8 +51,6 @@ public class PersonalGUI implements Inputtable {
 
     @Override
     public void handleInput(InputManager m) {
-        System.out.println("Welcome, " + client.getName() + "!");
-        System.out.println("Select an action");
         String[] options = {
                 "Account Summary", "Request Creation Of A New Account", "Transfer", "Withdraw", "Deposit", "Pay Bill", "Finance", "Add User To Account", "Update Profile", "Logout"
         };
