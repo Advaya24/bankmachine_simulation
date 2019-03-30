@@ -1,4 +1,4 @@
-package bankmachine.stocks;
+package bankmachine.finance;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,6 +15,14 @@ public class stockManager {
 
     private String stockdate;
     private String stockinfo;
+    private String open;
+    private String high;
+    private String low;
+    private String close;
+    private String volume;
+
+
+
 
     public stockManager(String code) throws IOException {
         String sURL = "https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol="+code+"&interval=5min&outputsize=compact&apikey=MSOJPA23LLK8HUOQ";
@@ -45,19 +53,28 @@ public class stockManager {
         stockinfo = stockinfo.replace("{", "");
         stockinfo = stockinfo.replace("}", "");
 
+        //System.out.println(stockinfo);
+
         List<String> items = Arrays.asList(stockinfo.split("\\s*,\\s*"));
-        System.out.println(items.get(0));
+        List<String> data_values = new ArrayList<>();
 
+        for (String s : items) {
+            s.replaceAll("\"", "");
+            String s1 = s.substring(s.indexOf(":")+1);
 
-
-
+            data_values.add(s1);
+        }
+        open = data_values.get(0);
+        high = data_values.get(1);
+        low = data_values.get(2);
+        close = data_values.get(3);
+        volume = data_values.get(4);
+        //System.out.println("Open: " + open);
     }
 
+    public void stockInfo(){
+        System.out.println("Open:");
 
-
-
-
-
-
+    }
 
 }
