@@ -1,5 +1,6 @@
 package bankmachine.gui;
 
+import bankmachine.BankMachine;
 import bankmachine.gui.bankManagerGUIHandlers.DateTimeGUIHandler;
 import bankmachine.gui.bankManagerGUIHandlers.TransactionGUIHandler;
 import bankmachine.gui.bankManagerGUIHandlers.UserCreationGUIHandler;
@@ -9,7 +10,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
     private BankManager manager;
     @SuppressWarnings("FieldCanBeLocal")
     private final String[] specialResponsibilities = {
-            "Create User", "Set Time", "Undo a Transaction", "Shutdown"
+            "Run Monthly Functions", "Create User", "Set Time", "Undo a Transaction", "Shutdown"
     };
 
     public BankManagerGUI(BankManager b) {
@@ -39,6 +40,15 @@ public class BankManagerGUI extends BankEmployeeGUI {
             case "Shutdown":
                 m.exit();
                 return;
+            case "Run Monthly Functions":
+                BankMachine.executeEveryMonth();
+                m.setPanel(new AlertMessageForm("Done!") {
+                    @Override
+                    public void onOK() {
+                        handleInput(m);
+                    }
+                });
+                return;
             case "Undo a Transaction":
                 new TransactionGUIHandler(this, this.manager).handleUndoTransaction(m);
                 return;
@@ -49,6 +59,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
                 new UserCreationGUIHandler(this).handleUserCreation(m);
                 return;
             default:
+                break;
         }
     }
 }
