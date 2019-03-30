@@ -63,7 +63,7 @@ public class TransactionGUIHandler {
                 @Override
                 public void onSelection(Object o) {
                     try {
-                        manager.undoRecentTransaction((Transaction) o);
+                        ((Transaction) o).undo();
                         m.setPanel(new AlertMessageForm("Success!") {
                             @Override
                             public void onOK() {

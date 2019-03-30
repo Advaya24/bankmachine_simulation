@@ -1,6 +1,7 @@
 package bankmachine.gui.bankManagerGUIHandlers;
 
 import bankmachine.BankMachine;
+import bankmachine.exception.BankMachineException;
 import bankmachine.gui.AlertMessageForm;
 import bankmachine.gui.BankManagerGUI;
 import bankmachine.gui.InputManager;
@@ -20,7 +21,7 @@ public class UserCreationGUIHandler {
      * @param m the input manager handling this
      */
     public void handleUserCreation(InputManager m) {
-        String[] attributes = {"Name", "Email", "Phone", "Username", "Password", "Confirm Password"};
+        String[] attributes = {"Name", "Email", "Phone (xxx-xxx-xxxx)", "Username", "Password", "Confirm Password"};
         String[] userTypes = {"Client", "Employee"};
         m.setPanel(new TextInputForm("Create new user", attributes, 2, userTypes) {
             @Override
@@ -30,48 +31,59 @@ public class UserCreationGUIHandler {
 
             @Override
             public void onOk(String[] strings) {
-                if (!strings[4].equals(strings[5])) {
-                    m.setPanel(new AlertMessageForm("Passwords didn't match!") {
-                        @Override
-                        public void onOK() {
-                            handleUserCreation(m);
-                        }
-                    });
-                } else if (strings[0].equals("") || strings[1].equals("") || strings[2].equals("") || strings[3].equals("") || strings[4].equals("")) {
-                    m.setPanel(new AlertMessageForm("Can't leave any field empty!") {
-                        @Override
-                        public void onOK() {
-                            handleUserCreation(m);
-                        }
-                    });
-                } else if (strings[6] == null) {
-                    m.setPanel(new AlertMessageForm("Must select type of User") {
-                        @Override
-                        public void onOK() {
-                            handleUserCreation(m);
-                        }
-                    });
-                } else {
-                    BankMachineUser user;
-                    if (strings[6].equals("Client")) {
-                        user = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                try {
+                    m.checkEmail(strings[1]);
+                    m.checkPhone(strings[2]);
+                    if (!strings[4].equals(strings[5])) {
+                        m.setPanel(new AlertMessageForm("Passwords didn't match!") {
+                            @Override
+                            public void onOK() {
+                                handleUserCreation(m);
+                            }
+                        });
+                    } else if (strings[0].equals("") || strings[1].equals("") || strings[2].equals("") || strings[3].equals("") || strings[4].equals("")) {
+                        m.setPanel(new AlertMessageForm("Can't leave any field empty!") {
+                            @Override
+                            public void onOK() {
+                                handleUserCreation(m);
+                            }
+                        });
+                    } else if (strings[6] == null) {
+                        m.setPanel(new AlertMessageForm("Must select type of User") {
+                            @Override
+                            public void onOK() {
+                                handleUserCreation(m);
+                            }
+                        });
                     } else {
-                        user = BankMachine.USER_MANAGER.newIntern(strings[0], strings[1], strings[2], strings[3], strings[4]);
-                    }
+                        BankMachineUser user;
+                        if (strings[6].equals("Client")) {
+                            user = BankMachine.USER_MANAGER.newClient(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                        } else {
+                            user = BankMachine.USER_MANAGER.newIntern(strings[0], strings[1], strings[2], strings[3], strings[4]);
+                        }
 
-                    String alertMessage;
-                    if (user == null) {
-                        System.out.println("A user with that username exists!");
-                        alertMessage = "A user with that username exists!";
+                        String alertMessage;
+                        if (user == null) {
+                            System.out.println("A user with that username exists!");
+                            alertMessage = "A user with that username exists!";
 
-                    } else {
-                        System.out.println("User created");
-                        alertMessage = "User created";
+                        } else {
+                            System.out.println("User created");
+                            alertMessage = "User created";
+                        }
+                        m.setPanel(new AlertMessageForm(alertMessage) {
+                            @Override
+                            public void onOK() {
+                                gui.handleInput(m);
+                            }
+                        });
                     }
-                    m.setPanel(new AlertMessageForm(alertMessage) {
+                } catch (BankMachineException e) {
+                    m.setPanel(new AlertMessageForm(e.toString()) {
                         @Override
                         public void onOK() {
-                            gui.handleInput(m);
+                            handleUserCreation(m);
                         }
                     });
                 }

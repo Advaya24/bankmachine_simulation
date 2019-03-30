@@ -2,6 +2,8 @@ package bankmachine.gui;
 
 
 import bankmachine.BankMachine;
+import bankmachine.exception.InvalidEmailException;
+import bankmachine.exception.InvalidPhoneNumberException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -75,6 +77,18 @@ public class InputManager extends JFrame {
             } else {
                 return i;
             }
+        }
+    }
+
+    public void checkEmail(String email) throws InvalidEmailException {
+        if (!emailRe.matcher(email).matches()) {
+            throw new InvalidEmailException();
+        }
+    }
+
+    public void checkPhone(String phone) throws InvalidPhoneNumberException {
+        if (!phoneRe.matcher(phone).matches()) {
+            throw new InvalidPhoneNumberException();
         }
     }
 

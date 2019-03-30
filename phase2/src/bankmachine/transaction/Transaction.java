@@ -2,6 +2,9 @@ package bankmachine.transaction;
 
 import bankmachine.Identifiable;
 import bankmachine.account.Account;
+import bankmachine.account.CreditCardAccount;
+import bankmachine.exception.BankMachineException;
+import bankmachine.exception.TransactionUndoException;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -104,6 +107,28 @@ public class Transaction implements Serializable, Identifiable {
                 getTo().getClient().getUsername() + " of $" + getAmount();
     }
 
+
+    /**
+     * Allows the Manager to undo the most recent transaction on any account, except for Bill Payments.
+     */
+
+    public void undo() throws BankMachineException {
+        if (this.getType() == TransactionType.BILL) {
+            throw new TransactionUndoException("Error, you cannot undo a Bill Payment.");
+        } else {
+            if (!getTo().canTransferOut(getAmount())) {
+                throw new TransactionUndoException("You cannot undo this transaction; the account doesn't have enough money!");
+            }
+            if (getTo() instanceof CreditCardAccount) {
+                throw new TransactionUndoException("You cannot undo this transaction; it was made to a Credit Card Account");
+            } else {
+                getFrom().transferIn(getAmount());
+                getTo().transferOut(getAmount());
+                getFrom().getTransactions().remove(this);
+                getTo().getTransactions().remove(this);
+            }
+        }
+    }
     //Following method kept here as a record
     /*
      * Performs the transaction between the two Accounts
