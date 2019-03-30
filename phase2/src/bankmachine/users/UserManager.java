@@ -1,6 +1,7 @@
 package bankmachine.users;
 
 import bankmachine.TrackingFactory;
+import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.ChequingAccount;
 import bankmachine.fileManager.ObjectFileReader;
@@ -16,6 +17,7 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     private String rootPath;
 
     private HashMap<String, BankMachineUser> users = new HashMap<>();
+    private AccountFactory accountFactory;
 
     public UserManager(String path) {
         this.rootPath = path;
@@ -24,6 +26,11 @@ public class UserManager extends TrackingFactory<BankMachineUser>
             this.newManager("Brad", "brad@hi.com", "01231", "admin", "admin");
             this.saveData();
         }
+        this.accountFactory = new AccountFactory(this);
+    }
+
+    public AccountFactory getAccountFactory() {
+        return this.accountFactory;
     }
 
 
@@ -88,8 +95,8 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     }
 
     public void createPrimaryAccount(Client client) {
-        AccountFactory factory = new AccountFactory(this);
-        factory.newChequingAccount(0, client, LocalDateTime.now());
+        //AccountFactory factory = new AccountFactory(this);
+        this.accountFactory.newChequingAccount(true, 0, client, LocalDateTime.now());
         ((ChequingAccount) client.getClientsAccounts().get(0)).setPrimary(true);
     }
 
