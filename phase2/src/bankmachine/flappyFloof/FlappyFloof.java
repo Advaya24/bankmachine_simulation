@@ -64,7 +64,7 @@ public class FlappyFloof implements ActionListener {//, MouseListener, KeyListen
      */
     public Random rand = new Random();
     /**
-     * Used to change //TODO
+     * Used to display all items in the GUI
      */
     public InputManager jframe;
     /**
@@ -85,7 +85,7 @@ public class FlappyFloof implements ActionListener {//, MouseListener, KeyListen
     public Repainter repainter;
 
     public FlappyFloof(InputManager m) {
-        this.originalInputManager = m;//TODO: Why do you exist?
+        this.originalInputManager = m;
         this.jframe = new InputManager();
         repainter = new Repainter(this);
         renderer = new Renderer(this);

@@ -40,28 +40,4 @@ public class BankManager extends BankEmployee {
     }
 
 
-    /**
-     * Allows the Manager to undo the most recent transaction on any account, except for Bill Payments.
-     *
-     * @param transaction the Transaction that needs to be undone.
-     */
-
-    public void undoRecentTransaction(Transaction transaction) throws BankMachineException {
-        if (transaction.getType() == TransactionType.BILL) {
-            throw new TransactionUndoException("Error, you cannot undo a Bill Payment.");
-        } else {
-            if (!transaction.getTo().canTransferOut(transaction.getAmount())) {
-                throw new TransactionUndoException("You cannot undo this transaction; the account doesn't have enough money!");
-            }
-            if (transaction.getTo() instanceof CreditCardAccount) {
-                throw new TransactionUndoException("You cannot undo this transaction; it was made to a Credit Card Account");
-            } else {
-                transaction.getFrom().transferIn(transaction.getAmount());
-                transaction.getTo().transferOut(transaction.getAmount());
-                transaction.getFrom().getTransactions().remove(transaction);
-                transaction.getTo().getTransactions().remove(transaction);
-            }
-        }
-    }
-
 }

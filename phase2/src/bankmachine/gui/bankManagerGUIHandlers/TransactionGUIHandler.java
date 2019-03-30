@@ -50,6 +50,7 @@ public class TransactionGUIHandler {
     }
 
     private void inputGetTransactionFor(Account account, InputManager m) {
+        //TODO: Change this if statement. The way it currently works, we're not
         if (account.getTransactions().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no transactions!") {
                 @Override
@@ -62,7 +63,7 @@ public class TransactionGUIHandler {
                 @Override
                 public void onSelection(Object o) {
                     try {
-                        manager.undoRecentTransaction((Transaction) o);
+                        ((Transaction) o).undo();
                         m.setPanel(new AlertMessageForm("Success!") {
                             @Override
                             public void onOK() {

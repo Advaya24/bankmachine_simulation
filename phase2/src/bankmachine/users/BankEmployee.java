@@ -106,7 +106,7 @@ public abstract class BankEmployee extends Client {
         return true;
     }
 
-    //TODO this
+
     public void receivePayment() {
         Account primaryAccount = this.getPrimaryAccount();
         try {
@@ -114,7 +114,6 @@ public abstract class BankEmployee extends Client {
         } catch (NegativeQuantityException e) {
             //salaries are always positive
         }
-
     }
 
 
