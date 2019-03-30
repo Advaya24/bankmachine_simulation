@@ -30,6 +30,7 @@ public class PersonalGUI implements Inputtable {
                 return;
             case "Pay Bill":
                 new PayBillGUIHandler(this, this.client).handlePayBill(m);
+                return;
             case "Finance":
                 new FinanceGUIHandler(this).handleFinance(m);
                 return;
