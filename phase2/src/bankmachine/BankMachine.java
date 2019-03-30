@@ -40,7 +40,7 @@ public class BankMachine {
      * Every month, this method is used to execute time-sensitive functionality, such as applying
      * interest and updating all retirement accounts.
      */
-    private static void executeEveryMonth() {
+    public static void executeEveryMonth() {
         int lastMonth = timeInfo.getLastMonth();
         int currentMonth = timeInfo.getCurrentMonth();
         if (currentMonth != lastMonth && timeInfo.getTime().getDayOfMonth() == 1) {
