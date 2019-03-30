@@ -41,7 +41,6 @@ public class CreationRequestsGUIHandler {
      */
     public void removeCompletedRequests(InputManager m) {
         if (employee.getCreationRequests().size() == 0) {
-            System.out.println("No pending creation requests");
             m.setPanel(new AlertMessageForm("No pending creation requests!") {
                 @Override
                 public void onOK() {
