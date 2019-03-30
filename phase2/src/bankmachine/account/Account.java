@@ -121,8 +121,12 @@ public abstract class Account implements Serializable, Identifiable {
      * @param client to be added.
      */
     public void addSecondaryClient(Client client) {
-        this.clients.add(client);
+        if (!client.getClientsAccounts().contains(this)) {
+            this.clients.add(client);
+            client.addAccount(this);
+        }
     }
+
 
     /**
      * Withdraw specified amount, if possible
