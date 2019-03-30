@@ -24,7 +24,7 @@ public abstract class DebtAccount extends Account {
     public void transferOut(int amount) throws TransferException {
         if (amount < 0) {
             throw new NegativeQuantityException();
-        } else if (this.balance - amount < -1000){
+        } else if (this.balance - amount < -1000) {
             throw new DebtLimitException();
         }
         this.balance -= amount;

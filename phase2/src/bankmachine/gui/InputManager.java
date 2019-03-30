@@ -7,11 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
-import java.util.*;
 import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
-public class InputManager extends JFrame{
+public class InputManager extends JFrame {
 
     /**
      * Pattern for emails
@@ -107,22 +107,22 @@ public class InputManager extends JFrame{
         }
     }
 
-    public LocalDateTime getDate(){
+    public LocalDateTime getDate() {
 
-        while (true){
+        while (true) {
             int year = getInteger("Enter the year: ");
             int month = getInteger("Enter the month (1-12): ");
             int day = getInteger("Enter the day (1-31): ");
             try {
                 return LocalDateTime.of(year, month, day, 0, 0);
-            } catch (DateTimeException e){
+            } catch (DateTimeException e) {
                 System.out.println("Invalid date");
             }
         }
     }
 
 
-    public void setPanel(Form form){
+    public void setPanel(Form form) {
         this.getContentPane().removeAll();
         this.repaint();
         this.getContentPane().add(form.getMainPanel(), BorderLayout.CENTER);
@@ -136,16 +136,12 @@ public class InputManager extends JFrame{
         new LoginGUI().handleInput(this);
     }
 
-    public void exit(){
+    public void exit() {
         BankMachine.USER_MANAGER.saveData();
         this.dispose();
         System.exit(0);
     }
 
-    //TODO replace all usages of this with GUIs
-    public <T> T selectItem(List<T> x){
-        return x.get(0);
-    }
 
     // Following method kept for future use:
 //    private void PerformTransaction(Account a) {

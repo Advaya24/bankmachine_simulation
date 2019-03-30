@@ -1,15 +1,9 @@
 package bankmachine.users;
 
 import bankmachine.BankMachine;
-import bankmachine.account.AccountFactory;
-import bankmachine.account.CreditCardAccount;
-import bankmachine.exception.BankMachineException;
-import bankmachine.exception.NegativeQuantityException;
-import bankmachine.exception.TransactionUndoException;
-import bankmachine.transaction.Transaction;
-import bankmachine.transaction.TransactionType;
 import bankmachine.account.Account;
-import bankmachine.account.ChequingAccount;
+import bankmachine.account.AccountFactory;
+import bankmachine.exception.NegativeQuantityException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -19,7 +13,6 @@ public abstract class BankEmployee extends Client {
     /**
      * Abstract class to describe a bank employee.
      * Any bank employee can refill the ATM with more bills, and add and create new account requests.
-     *
      */
 
     final private static ArrayList<String> outstandingCreationRequests = new ArrayList<>();
@@ -45,6 +38,7 @@ public abstract class BankEmployee extends Client {
 
     /**
      * Adds an account creation request to the list of creation requests
+     *
      * @param newRequest the description for the creation request
      */
     public void addCreationRequest(String newRequest) {
@@ -59,7 +53,7 @@ public abstract class BankEmployee extends Client {
         if (outstandingCreationRequests.size() == 0) {
             System.out.println("No pending creation requests");
         }
-        for(String request: outstandingCreationRequests) {
+        for (String request : outstandingCreationRequests) {
             System.out.println(request);
         }
     }
@@ -67,7 +61,7 @@ public abstract class BankEmployee extends Client {
     public String[] getCreationRequestArray() {
         String[] arrayOutstandingCreationRequests = new String[outstandingCreationRequests.size()];
         for (int i = 0; i < outstandingCreationRequests.size(); i++) {
-            arrayOutstandingCreationRequests[i] = "Request " + (i+1) + ": " + outstandingCreationRequests.get(i);
+            arrayOutstandingCreationRequests[i] = "Request " + (i + 1) + ": " + outstandingCreationRequests.get(i);
         }
         return arrayOutstandingCreationRequests;
     }
@@ -117,8 +111,7 @@ public abstract class BankEmployee extends Client {
         Account primaryAccount = this.getPrimaryAccount();
         try {
             primaryAccount.transferIn(this.salary);
-        }
-        catch (NegativeQuantityException e) {
+        } catch (NegativeQuantityException e) {
             //salaries are always positive
         }
 

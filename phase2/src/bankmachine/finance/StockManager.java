@@ -1,6 +1,9 @@
 package bankmachine.finance;
+
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /*** Class that handles stock information from external API - Uses JsonManager Class to Parse Data
  * API Information: https://www.alphavantage.co/documentation/
@@ -8,7 +11,8 @@ import java.util.*;
 
 public class StockManager {
 
-    /** Global Variables used to handle Stock data
+    /**
+     * Global Variables used to handle Stock data
      */
 
     private String stockdate;
@@ -21,6 +25,7 @@ public class StockManager {
 
     /**
      * Constructor for StockManager - takes in stock code (e.g. AAPL or MSFT) as parameter
+     *
      * @param stockcode NASDAQ Stock Code abbreviation (e.g. AAPL = Apple)
      * @throws IOException Throws Exception for JSON Manager
      */
@@ -29,13 +34,13 @@ public class StockManager {
 
         // Initializes Json Manager class, passing in stock code and data type (stock)
         // Second parameter is null as this parameter is only needed for conversion of two currencies
-        JsonManager s1 = new JsonManager(stockcode, null,"stock");
+        JsonManager s1 = new JsonManager(stockcode, null, "stock");
 
         // Json Manager Class Returns linked list of data
         LinkedList data = s1.data();
 
-        stockdate = (String)data.get(0);
-        stockinfo = (String)data.get(1);
+        stockdate = (String) data.get(0);
+        stockinfo = (String) data.get(1);
 
         // Automatic Formatter - needed to format JSON hierarchy
         formatter();
@@ -43,7 +48,7 @@ public class StockManager {
     }
 
     // Formatter Class for formatting JSON API output (stock specific)
-    public void formatter(){
+    public void formatter() {
 
         // Replaces JSON { and } root and node symbols
         stockinfo = stockinfo.replace("{", "");
@@ -59,35 +64,33 @@ public class StockManager {
 
     }
 
-    public String getTime(){
+    public String getTime() {
         return stockdate;
     }
 
-    public double getOpen(){
-        return ((double)Math.round(100*(Double.parseDouble(open)))/100.0);
+    public double getOpen() {
+        return ((double) Math.round(100 * (Double.parseDouble(open))) / 100.0);
     }
 
-    public double getHigh(){
-        return ((double)Math.round(100*(Double.parseDouble(high)))/100.0);
+    public double getHigh() {
+        return ((double) Math.round(100 * (Double.parseDouble(high))) / 100.0);
     }
 
-    public double getLow(){
-        return ((double)Math.round(100*(Double.parseDouble(low)))/100.0);
+    public double getLow() {
+        return ((double) Math.round(100 * (Double.parseDouble(low))) / 100.0);
     }
 
-    public double getClose(){
-        return ((double)Math.round(100*(Double.parseDouble(close)))/100.0);
+    public double getClose() {
+        return ((double) Math.round(100 * (Double.parseDouble(close))) / 100.0);
     }
 
-    public Integer getVolume(){
+    public Integer getVolume() {
         return Integer.parseInt(volume);
     }
 
     public String getAll() {
         return ("Open: " + getOpen() + " High: " + getHigh() + " Low: " + getLow() + " Close: " + getClose() + " Volume: " + volume);
     }
-
-
 
 
 }

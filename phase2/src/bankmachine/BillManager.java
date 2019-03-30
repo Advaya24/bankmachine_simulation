@@ -4,7 +4,6 @@ import bankmachine.exception.NotEnoughBillsException;
 import bankmachine.fileManager.ObjectFileReader;
 import bankmachine.fileManager.ObjectFileWriter;
 import bankmachine.fileManager.WriteFile;
-import bankmachine.users.BankMachineUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,31 +11,35 @@ import java.util.List;
 
 public class BillManager {
 
-    public static final int DENOMINATIONS[] = {5, 10, 20, 50};
+    public static final int[] DENOMINATIONS = {5, 10, 20, 50};
 
-    /** Dictionary containing the number of bills of each type the machine has. Order of denomination:
-    * $5, $10, $20, $50*/
+    /**
+     * Dictionary containing the number of bills of each type the machine has. Order of denomination:
+     * $5, $10, $20, $50
+     */
     private HashMap<Integer, Integer> bills = new HashMap<>();
     private String rootPath;
-    public BillManager(String path){
-        this.rootPath=path;
+
+    public BillManager(String path) {
+        this.rootPath = path;
         ObjectFileReader<Integer> reader = new ObjectFileReader<>(rootPath);
         List<Integer> billList;
         try {
             billList = reader.read();
-            for (int i=0; i<DENOMINATIONS.length; i++){
+            for (int i = 0; i < DENOMINATIONS.length; i++) {
                 bills.put(DENOMINATIONS[i], billList.get(i));
             }
         } catch (RuntimeException e) {
-            for(int i:DENOMINATIONS){
+            for (int i : DENOMINATIONS) {
                 this.bills.put(i, 0);
             }
         }
     }
+
     public void saveData() {
         ObjectFileWriter<Integer> writer = new ObjectFileWriter<>(rootPath);
         List<Integer> billList = new ArrayList<>();
-        for (int i:DENOMINATIONS){
+        for (int i : DENOMINATIONS) {
             billList.add(bills.get(i));
         }
         writer.clear();
@@ -49,6 +52,7 @@ public class BillManager {
 
     /**
      * Increase the amount of bills of denomination billType by amount quantity stored in BillManager.
+     *
      * @param billType which denomination to add
      * @param quantity how many bills to add
      */
@@ -64,10 +68,11 @@ public class BillManager {
 
     /**
      * Withdraw amount from this BillManager.
+     *
      * @param amount amount to be withdrawn.
      */
     public void withdrawBills(double amount) throws NotEnoughBillsException {
-        if (amount % 5 != 0){
+        if (amount % 5 != 0) {
             throw new NotEnoughBillsException("Withdraw amount must be a whole multiple of $5");
         }
         int amountLeft = (int) amount;

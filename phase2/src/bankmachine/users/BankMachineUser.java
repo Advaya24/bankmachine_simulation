@@ -2,9 +2,8 @@ package bankmachine.users;
 
 import bankmachine.Identifiable;
 
-import java.util.Observable;
-
 import java.io.Serializable;
+import java.util.Observable;
 
 // managed by: Advaya
 public abstract class BankMachineUser extends Observable implements Serializable, Identifiable {

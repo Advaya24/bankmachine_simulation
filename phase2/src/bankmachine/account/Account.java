@@ -1,13 +1,15 @@
 package bankmachine.account;
 
-import bankmachine.*;
+import bankmachine.BankMachine;
+import bankmachine.BillManager;
+import bankmachine.Identifiable;
 import bankmachine.exception.*;
 import bankmachine.fileManager.DepositReader;
 import bankmachine.fileManager.WriteFile;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.Client;
 
-import java.io.*;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public abstract class Account implements Serializable, Identifiable {
      * @param other  the other account
      * @param amount the amount to transfer
      */
-    public void transferIn(Account other, double amount) throws BankMachineException{
+    public void transferIn(Account other, double amount) throws BankMachineException {
         if (amount < 0) {
             throw new NegativeQuantityException();
         }
@@ -104,10 +106,10 @@ public abstract class Account implements Serializable, Identifiable {
     public void deposit() throws NegativeQuantityException, NoDepositException {
         DepositReader deposit = new DepositReader("/deposits.txt");
         this.transferIn(deposit.getQuantity());
-        if(!deposit.isCheque()){
+        if (!deposit.isCheque()) {
             int[] denominations = BillManager.DENOMINATIONS;
             int[] quantities = deposit.getBillCounts();
-            for (int i = 0; i < 4; i++){
+            for (int i = 0; i < 4; i++) {
                 BankMachine.getBillManager().addBills(denominations[i], quantities[i]);
             }
         }
@@ -115,6 +117,7 @@ public abstract class Account implements Serializable, Identifiable {
 
     /**
      * Add a secondary client to this account.
+     *
      * @param client to be added.
      */
     public void addSecondaryClient(Client client) {
@@ -127,7 +130,7 @@ public abstract class Account implements Serializable, Identifiable {
      * @param amount the amount to withdraw
      */
     public void withdraw(double amount) throws BankMachineException {
-        if(!canTransferOut(amount)){
+        if (!canTransferOut(amount)) {
             throw new NotEnoughMoneyException(this);
         }
         BankMachine.getBillManager().withdrawBills(amount);
@@ -144,23 +147,29 @@ public abstract class Account implements Serializable, Identifiable {
      */
 
     public abstract boolean canTransferOut(double amount);
+
     /* Getters */
     public int getID() {
         return id;
     }
+
     public double getBalance() {
-        return ((double)Math.round(100*balance))/100.0;
+        return ((double) Math.round(100 * balance)) / 100.0;
     }
+
     public ArrayList<Transaction> getTransactions() {
         return transactions;
     }
+
     //TODO: Rename this to getPrimaryClient OR refactor AccountGUI
     public Client getClient() {
         return primaryClient;
     }
+
     public ArrayList<Client> getClients() {
         return clients;
     }
+
     public LocalDateTime getCreationDate() {
         return this.creationDate;
     }

@@ -5,8 +5,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 public abstract class LoginForm implements Form {
     private JPanel panel1;
@@ -45,21 +43,23 @@ public abstract class LoginForm implements Form {
     public String getName() {
         return usernameTextField.getText();
     }
+
     public String getPass() {
         return passwordPasswordField.getText();
     }
 
-    public void displayInvalid(){
+    public void displayInvalid() {
         invalidLabel.setVisible(true);
         //this.getMainPanel().repaint();
     }
 
-    public void removeInvalid(){
+    public void removeInvalid() {
         invalidLabel.setVisible(false);
     }
 
     public JPanel getMainPanel() {
         return panel1;
     }
+
     public abstract void onLogin();
 }

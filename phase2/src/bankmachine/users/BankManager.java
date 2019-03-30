@@ -1,14 +1,11 @@
 package bankmachine.users;
 
 import bankmachine.BankMachine;
+import bankmachine.account.CreditCardAccount;
 import bankmachine.exception.BankMachineException;
 import bankmachine.exception.TransactionUndoException;
 import bankmachine.transaction.Transaction;
 import bankmachine.transaction.TransactionType;
-import bankmachine.account.*;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 
 /**
  * A Bank Manager within the system
@@ -23,6 +20,7 @@ public class BankManager extends BankEmployee {
     }
 
     // TODO: Decide if this method is needed
+
     /**
      * Creates a new Client for the Bank
      *
@@ -37,8 +35,8 @@ public class BankManager extends BankEmployee {
     }
 
 
-    public String toString(){
-        return "Manager "+getName();
+    public String toString() {
+        return "Manager " + getName();
     }
 
 

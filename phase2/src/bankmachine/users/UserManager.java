@@ -87,10 +87,10 @@ public class UserManager extends TrackingFactory<BankMachineUser>
         return c;
     }
 
-    public void createPrimaryAccount(Client client){
+    public void createPrimaryAccount(Client client) {
         AccountFactory factory = new AccountFactory(this);
         factory.newChequingAccount(0, client, LocalDateTime.now());
-        ((ChequingAccount)client.getClientsAccounts().get(0)).setPrimary(true);
+        ((ChequingAccount) client.getClientsAccounts().get(0)).setPrimary(true);
     }
 
     /**
@@ -218,10 +218,10 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     /**
      * Get all BankManagers
      */
-    public List<BankManager> getBankManagers(){
+    public List<BankManager> getBankManagers() {
         List<BankManager> bankManagers = new ArrayList<>();
-        for(BankMachineUser c:getInstances()){
-            if(c instanceof BankManager){
+        for (BankMachineUser c : getInstances()) {
+            if (c instanceof BankManager) {
                 bankManagers.add((BankManager) c);
             }
         }
@@ -231,10 +231,10 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     /**
      * Get all Clients
      */
-    public List<Client> getClients(){
+    public List<Client> getClients() {
         List<Client> bankManagers = new ArrayList<>();
-        for(BankMachineUser c:getInstances()){
-            if(c instanceof Client){
+        for (BankMachineUser c : getInstances()) {
+            if (c instanceof Client) {
                 bankManagers.add((Client) c);
             }
         }

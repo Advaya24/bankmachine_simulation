@@ -1,8 +1,6 @@
 package bankmachine.finance;
 
 
-import java.io.IOException;
-
 /**
  * Class that handles Exchanges across currencies (including Crypto currencies)
  */
@@ -19,7 +17,7 @@ public class Exchange {
      * @param amount Double amount of currency to exchange
      */
 
-    public Exchange(String from_currency, String to_currency, Double amount){
+    public Exchange(String from_currency, String to_currency, Double amount) {
         this.from_currency = from_currency;
         this.to_currency = to_currency;
         this.amount = amount;
@@ -28,14 +26,14 @@ public class Exchange {
 
     /**
      * Method that returns String representation of exchange amount (with target currency name)
+     *
      * @return String of value and currency name
      */
     public String makeExchange() throws FinanceException, NumberFormatException {
-            ExchangeManager em = new ExchangeManager(from_currency, to_currency);
-            Double exchangerate = em.getExchange();
-            return amount + " " + from_currency + " is equal to " + (exchangerate * amount) + " " + em.getCurrencyName();
+        ExchangeManager em = new ExchangeManager(from_currency, to_currency);
+        Double exchangerate = em.getExchange();
+        return amount + " " + from_currency + " is equal to " + (exchangerate * amount) + " " + em.getCurrencyName();
     }
-
 
 
 }

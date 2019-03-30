@@ -58,7 +58,7 @@ public class ExchangeManager {
             to_currency = ((items.get(3)).split(":")[1]).replace("\"", "");
             exchange = ((items.get(4)).split(":")[1]).replace("\"", "");
             datetime = ((items.get(5)).split(":")[1]).replace("\"", "");
-        }catch(ArrayIndexOutOfBoundsException a){
+        } catch (ArrayIndexOutOfBoundsException a) {
             exchange = "$&$&$&$&$&$&$&";
         }
 
