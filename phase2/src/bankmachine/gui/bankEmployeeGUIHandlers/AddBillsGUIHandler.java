@@ -7,6 +7,9 @@ import bankmachine.gui.InputManager;
 import bankmachine.gui.TextInputForm;
 
 public class AddBillsGUIHandler {
+    /**
+     * The GUI of the Bank Employee currently using the system
+     */
     private BankEmployeeGUI gui;
 
     public AddBillsGUIHandler(BankEmployeeGUI gui) {
