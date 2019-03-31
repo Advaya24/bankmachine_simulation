@@ -43,22 +43,26 @@ public class BankMachine {
      * interest and updating all retirement accounts.
      */
     public static void executeEveryMonth() {
+        for (Account a : accFactory.getInstances()) {
+            if (a instanceof SavingsAccount) {
+                ((SavingsAccount) a).applyInterest();
+            }
+            if (a instanceof RetirementAccount) {
+                ((RetirementAccount) a).autoDeposit();
+            }
+        }
+        for (BankMachineUser user : USER_MANAGER.getInstances()) {
+            if (user instanceof BankEmployee) {
+                ((BankEmployee) user).receivePayment();
+            }
+        }
+    }
+
+    private static void checkMonthlyFunctions(){
         int lastMonth = timeInfo.getLastMonth();
         int currentMonth = timeInfo.getCurrentMonth();
         if (currentMonth != lastMonth && timeInfo.getTime().getDayOfMonth() == 1) {
-            for (Account a : accFactory.getInstances()) {
-                if (a instanceof SavingsAccount) {
-                    ((SavingsAccount) a).applyInterest();
-                }
-                if (a instanceof RetirementAccount) {
-                    ((RetirementAccount) a).autoDeposit();
-                }
-            }
-            for (BankMachineUser user : USER_MANAGER.getInstances()) {
-                if (user instanceof BankEmployee) {
-                    ((BankEmployee) user).receivePayment();
-                }
-            }
+            executeEveryMonth();
         }
         timeInfo.setLastMonth(currentMonth);
     }
@@ -71,7 +75,7 @@ public class BankMachine {
     public static void main(String[] args) {
         Runtime.getRuntime().addShutdownHook(new Thread(USER_MANAGER::saveData, "Shutdown-thread"));
         Runtime.getRuntime().addShutdownHook(new Thread(billManager::saveData, "Shutdown-thread"));
-        executeEveryMonth();
+        checkMonthlyFunctions();
 
         InputManager inputManager = new InputManager();
         try {
