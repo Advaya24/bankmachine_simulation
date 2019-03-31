@@ -8,7 +8,13 @@ import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 public class TransactionGUIHandler {
+    /**
+     * The GUI of the Bank Manager using the system
+     */
     private BankManagerGUI gui;
+    /**
+     * The Bank Manager using the system
+     */
     private BankManager manager;
 
     public TransactionGUIHandler(BankManagerGUI gui, BankManager manager) {
@@ -16,6 +22,10 @@ public class TransactionGUIHandler {
         this.manager = manager;
     }
 
+    /**
+     *  Handles undoing a transaction
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleUndoTransaction(InputManager m) {
         gui.handleSearchClient(m, (Client client) -> {
             undoTransactionsForClient(client, m);
@@ -24,6 +34,11 @@ public class TransactionGUIHandler {
 
     }
 
+    /**
+     * Undoes all transactions on an account
+     * @param client the client that the transactions are being undone for
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void undoTransactionsForClient(Client client, InputManager m) {
         if (client.getClientsAccounts().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no accounts") {
@@ -47,6 +62,11 @@ public class TransactionGUIHandler {
         }
     }
 
+    /**
+     * Gets transactions for the input account
+     * @param account the account we're getting the transactions on
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void inputGetTransactionFor(Account account, InputManager m) {
         if (account.getTransactions().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no transactions!") {
