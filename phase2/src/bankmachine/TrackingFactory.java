@@ -10,7 +10,7 @@ public abstract class TrackingFactory<T extends Identifiable> {
     /**
      * Add a list of instances to the factory
      *
-     * @param instances the instances to add
+     * @param instances the instances to add to the Factory
      */
     public void extend(List<T> instances) {
         this.instances.addAll(instances);
