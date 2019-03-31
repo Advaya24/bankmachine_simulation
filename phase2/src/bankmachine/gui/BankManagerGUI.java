@@ -60,7 +60,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
                 });
                 return;
             case "Undo a Transaction":
-                new TransactionGUIHandler(this, this.manager).handleUndoTransaction(m);
+                new TransactionGUIHandler(this).handleUndoTransaction(m);
                 return;
             case "Set Time":
                 new DateTimeGUIHandler(this).handleGetDateTime(m);

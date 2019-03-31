@@ -12,14 +12,9 @@ public class TransactionGUIHandler {
      * The GUI of the Bank Manager using the system
      */
     private BankManagerGUI gui;
-    /**
-     * The Bank Manager using the system
-     */
-    private BankManager manager;
 
-    public TransactionGUIHandler(BankManagerGUI gui, BankManager manager) {
+    public TransactionGUIHandler(BankManagerGUI gui) {
         this.gui = gui;
-        this.manager = manager;
     }
 
     /**
