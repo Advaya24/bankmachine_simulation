@@ -8,6 +8,9 @@ import bankmachine.users.Client;
 import bankmachine.users.UserManager;
 
 public class LoginGUI implements Inputtable {
+    /**
+     * A UserManager object that is used to authenticate users
+     */
     private UserManager userManager = BankMachine.USER_MANAGER;
 
     /**

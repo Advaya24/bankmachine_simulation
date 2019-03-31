@@ -4,9 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class AlertMessageForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * An ok button
+     */
     private JButton okButton;
+    /**
+     * The label that displays alerts
+     */
     private JLabel alertLabel;
+    /**
+     * An alert message that is displayed
+     */
     private String alertMessage;
 
     public AlertMessageForm(String alertMessage) {

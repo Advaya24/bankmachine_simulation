@@ -4,10 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class SearchForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * A label that displays required prompts
+     */
     private JLabel promptLabel;
+    /**
+     * A panel that allows the application to display a list of clients in the system
+     */
     private JPanel clientSelectionGrid;
+    /**
+     * The content of any prompt displayed
+     */
     private String prompt;
+    /**
+     * A cancel button
+     */
     private JButton cancelButton;
 
     public SearchForm(String prompt, JPanel clientSelectionGrid) {

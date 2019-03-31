@@ -4,6 +4,9 @@ import bankmachine.gui.personalGUIHandlers.*;
 import bankmachine.users.Client;
 
 public class PersonalGUI implements Inputtable {
+    /**
+     * The current client using the system
+     */
     private Client client;
 
     public PersonalGUI(Client c) {

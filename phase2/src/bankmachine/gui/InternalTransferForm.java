@@ -10,16 +10,49 @@ import java.util.List;
 
 @SuppressWarnings("Duplicates")
 public abstract class InternalTransferForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * A panel that holds all input fields
+     */
     private JPanel inputGrid;
+    /**
+     * A panel that holds all buttons shown to the user
+     */
     private JPanel buttonGrid;
+    /**
+     * The labels that display the transfer opetions
+     */
     private JLabel[] labels;
+    /**
+     * All accounts a user can transfer from
+     */
     private JComboBox<Account> fromAccountDropDown;
+    /**
+     * All accounts a user can transfer to
+     */
     private JComboBox<Account> toAccountDropBox;
+    /**
+     * A text field that the user can input the amount into
+     */
     private JTextField amountTextField;
+    /**
+     * A label that displays required prompts
+     */
     private JLabel promptLabel;
+    /**
+     * An ok button
+     */
     private JButton okButton;
+    /**
+     * A cancel button
+     */
     private JButton cancelButton;
+    /**
+     * A list of all accounts that are displayed
+     */
     private List<Account> accountList;
 
     public InternalTransferForm(List<Account> accountList) {

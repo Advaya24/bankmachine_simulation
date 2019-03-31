@@ -7,10 +7,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class LoginForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel1;
+    /**
+     * A text field used to input usernames
+     */
     private JTextField usernameTextField;
+    /**
+     * A password field
+     */
     private JPasswordField passwordPasswordField;
+    /**
+     * A button used to attempt to log in
+     */
     private JButton login;
+    /**
+     * A label to display a message if a username-password pair is not valid
+     */
     private JLabel invalidLabel;
 
     public LoginForm() {

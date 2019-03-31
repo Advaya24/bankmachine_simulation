@@ -7,8 +7,14 @@ import bankmachine.gui.bankManagerGUIHandlers.UserCreationGUIHandler;
 import bankmachine.users.BankManager;
 
 public class BankManagerGUI extends BankEmployeeGUI {
+    /**
+     * The BankManager currently using the system
+     */
     private BankManager manager;
     @SuppressWarnings("FieldCanBeLocal")
+    /**
+     * The Special responsibilities available to a Bank Manager
+     */
     private final String[] specialResponsibilities = {
             "Run Monthly Functions", "Create User", "Set Time", "Undo a Transaction", "Shutdown"
     };

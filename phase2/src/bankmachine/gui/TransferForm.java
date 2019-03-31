@@ -11,13 +11,37 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class TransferForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel1;
+    /**
+     * A ComboBox that holds the users in drop down format
+     */
     private JComboBox<Client> userSelect;
+    /**
+     * A ComboBox that holds the accounts in drop down format
+     */
     private JComboBox<Account> accountsSelect;
+    /**
+     * A text field that accepts the amount of money to be transferred
+     */
     private JTextField amountInput;
+    /**
+     * A panel to display the accounts
+     */
     private JPanel accountPanel;
+    /**
+     * A button to activate the transfer functionality
+     */
     private JButton transferButton;
+    /**
+     * A label to display any error messages
+     */
     private JLabel errors;
+    /**
+     * The account of the client
+     */
     private Account account;
 
     public TransferForm(Account account) {

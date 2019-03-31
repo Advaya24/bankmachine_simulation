@@ -14,13 +14,18 @@ import java.util.List;
 import java.util.function.Function;
 
 public class BankEmployeeGUI implements Inputtable {
+    /**
+     * the Bank Employee currently using the system
+     */
     private BankEmployee employee;
 
     public BankEmployeeGUI(BankEmployee employee) {
         this.employee = employee;
     }
 
-
+    /**
+     * A list of responsibilities that a Bank Employee has
+     */
     String[] responsibilities = {
             "View Account Creation Requests", "Remove Completed Creation Requests",
             "Create Account", "Add Bills", "Logout"

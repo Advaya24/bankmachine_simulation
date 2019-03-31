@@ -3,7 +3,13 @@ package bankmachine.gui;
 import bankmachine.users.BankMachineUser;
 
 public class UpdateProfileGUI implements Inputtable {
+    /**
+     * The user using this system
+     */
     private BankMachineUser user;
+    /**
+     * The PersonalGUi of the user
+     */
     private PersonalGUI gui;
 
     public UpdateProfileGUI(BankMachineUser user, PersonalGUI gui) {

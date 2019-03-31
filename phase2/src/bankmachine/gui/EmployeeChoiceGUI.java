@@ -4,6 +4,9 @@ import bankmachine.users.BankEmployee;
 import bankmachine.users.BankManager;
 
 public class EmployeeChoiceGUI implements Inputtable {
+    /**
+     * the Bank Employee currently using the system
+     */
     private BankEmployee employee;
 
     public EmployeeChoiceGUI(BankEmployee employee) {
