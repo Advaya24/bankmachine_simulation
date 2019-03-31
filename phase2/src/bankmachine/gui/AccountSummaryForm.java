@@ -3,13 +3,33 @@ package bankmachine.gui;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A Form for summarizing accounts.
+ */
 public abstract class AccountSummaryForm implements Form {
-    //TODO: Document this please :)
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * The grid containing the labels to be displayed
+     */
     private JPanel labelGrid;
+    /**
+     * The labels that display the account summary
+     */
     private JLabel[] labels;
+    /**
+     * Array of strings that comprise of the account summary
+     */
     private String[] messages;
+    /**
+     * Panel containing an options grid for accounts (can get null panel if not required)
+     */
     private JPanel accountsPanel;
+    /**
+     * A cancel button
+     */
     private JButton cancelButton;
 
     public AccountSummaryForm(String[] messages, JPanel accountsPanel) {
