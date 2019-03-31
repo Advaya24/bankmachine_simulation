@@ -22,6 +22,7 @@ public class NewCreationRequestGUIHandler {
 
     /**
      * Creates new accounts for the client
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleNewAccountCreationInput(InputManager m) {
@@ -42,8 +43,9 @@ public class NewCreationRequestGUIHandler {
 
     /**
      * Adds a Creation Request for an account
+     *
      * @param request the request for an account being processed
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m       the InputManager that displays the GUI and accepts input
      */
     private void addCreationRequest(String request, InputManager m) {
         BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);

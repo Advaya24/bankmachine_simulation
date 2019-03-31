@@ -47,10 +47,10 @@ public class TransactionFactory extends TrackingFactory<Transaction> {
     public void newTransaction(double amount, Account from, Account to, LocalDateTime datetime, TransactionType type) {
         Transaction t = new Transaction(getNextID(), amount, from, to, datetime, type);
         addInstance(t);
-        if (from != null){
+        if (from != null) {
             from.getTransactions().add(t);
         }
-        if (to != null){
+        if (to != null) {
             to.getTransactions().add(t);
         }
     }

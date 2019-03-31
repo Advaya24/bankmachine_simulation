@@ -4,7 +4,6 @@ import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
 import bankmachine.gui.*;
 import bankmachine.transaction.Transaction;
-import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 public class TransactionGUIHandler {
@@ -18,7 +17,8 @@ public class TransactionGUIHandler {
     }
 
     /**
-     *  Handles undoing a transaction
+     * Handles undoing a transaction
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleUndoTransaction(InputManager m) {
@@ -31,8 +31,9 @@ public class TransactionGUIHandler {
 
     /**
      * Displays all accounts for client and allows them to choose account to undo transaction from
+     *
      * @param client the client that the transactions are being undone for
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m      the InputManager that displays the GUI and accepts input
      */
     private void undoTransactionsForClient(Client client, InputManager m) {
         if (client.getClientsAccounts().size() == 0) {
@@ -59,8 +60,9 @@ public class TransactionGUIHandler {
 
     /**
      * Shows transactions from account and gets the transaction to be deleted
+     *
      * @param account the account we're getting the transactions on
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m       the InputManager that displays the GUI and accepts input
      */
     private void inputGetTransactionToUndoFor(Account account, InputManager m) {
         if (account.getTransactions().size() == 0) {

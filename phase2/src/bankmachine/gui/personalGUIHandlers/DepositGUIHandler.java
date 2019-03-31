@@ -23,6 +23,7 @@ public class DepositGUIHandler {
 
     /**
      * Deposits money in the system
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleDeposit(InputManager m) {

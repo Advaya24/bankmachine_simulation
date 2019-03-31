@@ -7,10 +7,6 @@ import bankmachine.exception.InvalidPhoneNumberException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class InputManager extends JFrame {
@@ -36,6 +32,7 @@ public class InputManager extends JFrame {
 
     /**
      * Matches email to regex and throws exception if it doesn't match
+     *
      * @param email the string to match
      * @throws InvalidEmailException the email was in invalid format
      */
@@ -47,6 +44,7 @@ public class InputManager extends JFrame {
 
     /**
      * Matches phone to regex and throws exception if it doesn't match
+     *
      * @param phone the string to match
      * @throws InvalidPhoneNumberException the phone was in invalid format
      */
@@ -69,6 +67,7 @@ public class InputManager extends JFrame {
 
     /**
      * Sets panel for JFrame
+     *
      * @param form the form whose main panel is to be the current panel
      */
     public void setPanel(Form form) {

@@ -28,6 +28,7 @@ public class TransferGUIHandler {
 
     /**
      * Selects the account to transfer from
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     private void selectAccountForTransfer(InputManager m) {
@@ -57,6 +58,7 @@ public class TransferGUIHandler {
 
     /**
      * Gets accounts for the client that they can transfer money from
+     *
      * @param client the client the accounts are gotten from
      * @return an array of all eligible accounts for this client
      */
@@ -74,7 +76,8 @@ public class TransferGUIHandler {
 
     /**
      * Transfers money out of this account
-     * @param m the InputManager that displays the GUI and accepts input
+     *
+     * @param m       the InputManager that displays the GUI and accepts input
      * @param account the account to transfer from
      */
     private void handleTransfer(InputManager m, Account account) {
@@ -142,6 +145,7 @@ public class TransferGUIHandler {
 
     /**
      * Transfers money between two accounts of this client
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     private void handleInternalTransfer(InputManager m) {
@@ -202,6 +206,7 @@ public class TransferGUIHandler {
 
     /**
      * Displays the menu for the transfers that are possible
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void transferMenu(InputManager m) {

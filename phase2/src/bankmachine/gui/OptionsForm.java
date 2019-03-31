@@ -41,6 +41,7 @@ public abstract class OptionsForm<T> implements Form {
 
     /**
      * Abstract method that handles option selection
+     *
      * @param t a Generic Object
      */
     public abstract void onSelection(T t);

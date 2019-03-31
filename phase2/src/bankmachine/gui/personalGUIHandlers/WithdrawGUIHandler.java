@@ -3,9 +3,6 @@ package bankmachine.gui.personalGUIHandlers;
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
-import bankmachine.exception.NegativeQuantityException;
-import bankmachine.exception.NotEnoughBillsException;
-import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.gui.*;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
@@ -29,6 +26,7 @@ public class WithdrawGUIHandler {
 
     /**
      * Withdraws money from an account
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleWithdraw(InputManager m) {
@@ -49,8 +47,9 @@ public class WithdrawGUIHandler {
 
     /**
      * Withdraws money from an account
+     *
      * @param account the account to be withdrawn from
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m       the InputManager that displays the GUI and accepts input
      */
     private void handleWithdrawFor(Account account, InputManager m) {
         String[] attributes = {"Enter withdrawal amount"};

@@ -26,6 +26,7 @@ public class PayBillGUIHandler {
 
     /**
      * Displays list of accounts to pay the bill from and pays the bill from selected account
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handlePayBill(InputManager m) {
@@ -54,8 +55,9 @@ public class PayBillGUIHandler {
 
     /**
      * Pays a bill from a chosen account
+     *
      * @param account the account to pay the bill from
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m       the InputManager that displays the GUI and accepts input
      */
     private void payBillUsing(Account account, InputManager m) {
         String[] attributes = {"Enter amount"};

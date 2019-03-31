@@ -69,6 +69,7 @@ public class BankEmployeeGUI implements Inputtable {
 
     /**
      * Determines what behaviour needs to be executed based on the user input.
+     *
      * @param m InputManager object that is used to accept input
      * @param s represents the User Input
      */
@@ -97,6 +98,7 @@ public class BankEmployeeGUI implements Inputtable {
 
     /**
      * When called, accepts an input from the user and calls the method to handle that input.
+     *
      * @param m InputManager object that is used to accept input
      */
     @Override
