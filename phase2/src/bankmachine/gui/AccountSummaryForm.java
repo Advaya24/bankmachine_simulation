@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class AccountSummaryForm implements Form {
+    //TODO: Document this please :)
     private JPanel panel;
     private JPanel labelGrid;
     private JLabel[] labels;
