@@ -6,7 +6,13 @@ import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 public class NewCreationRequestGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public NewCreationRequestGUIHandler(PersonalGUI gui, Client client) {
@@ -14,6 +20,10 @@ public class NewCreationRequestGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Creates new accounts for the client
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleNewAccountCreationInput(InputManager m) {
         String[] accountTypes = {"Chequing account", "Credit card account",
                 "Line of credit account", "Savings account", "Retirement account"};
@@ -30,6 +40,11 @@ public class NewCreationRequestGUIHandler {
         });
     }
 
+    /**
+     * Adds a Creation Request for an account
+     * @param request the request for an account being processed
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void addCreationRequest(String request, InputManager m) {
         BankManager manager = BankMachine.USER_MANAGER.getBankManagers().get(0);
         manager.addCreationRequest(client.getUsername() + " requests a " + request);

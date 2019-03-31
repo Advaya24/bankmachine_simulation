@@ -10,7 +10,13 @@ import bankmachine.users.Client;
 import java.time.LocalDateTime;
 
 public class PayBillGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public PayBillGUIHandler(PersonalGUI gui, Client client) {
@@ -18,6 +24,10 @@ public class PayBillGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Allows the user to pay bills
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handlePayBill(InputManager m) {
         Account[] accounts = new TransferGUIHandler(this.gui, this.client).getTransferAccounts(client);
         if (accounts.length == 0) {
@@ -42,6 +52,11 @@ public class PayBillGUIHandler {
         }
     }
 
+    /**
+     * Pays a bill from a certain account
+     * @param account the account to pay the bill from
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void payBillUsing(Account account, InputManager m) {
         String[] attributes = {"Enter amount"};
         m.setPanel(new TextInputForm("Pay bill", attributes) {

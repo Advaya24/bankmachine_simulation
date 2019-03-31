@@ -6,7 +6,13 @@ import bankmachine.gui.*;
 import bankmachine.users.Client;
 
 public class AddUserGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public AddUserGUIHandler(PersonalGUI gui, Client client) {
@@ -14,6 +20,10 @@ public class AddUserGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Adds a user to another account
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleAddUser(InputManager m) {
         Account[] accounts = new Account[this.client.getClientsAccounts().size()];
         this.client.getClientsAccounts().toArray(accounts);

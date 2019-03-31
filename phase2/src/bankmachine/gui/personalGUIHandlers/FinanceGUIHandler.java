@@ -8,12 +8,19 @@ import bankmachine.finance.StockManager;
 import bankmachine.gui.*;
 
 public class FinanceGUIHandler {
+    /**
+     * the GUI of the user using this system
+     */
     private PersonalGUI gui;
 
     public FinanceGUIHandler(PersonalGUI gui) {
         this.gui = gui;
     }
 
+    /**
+     *  Handles all finance operations available to the user
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleFinance(InputManager m) {
         String[] financeOptions = {"Stocks", "Exchange", "Mortgage"};
 
@@ -39,6 +46,10 @@ public class FinanceGUIHandler {
         });
     }
 
+    /**
+     *  Handles all the stock functionality of the application
+     * @param m  the InputManager that displays the GUI and accepts input
+     */
     private void handleStocks(InputManager m) {
         String[] attributes = {"Stock code"};
         m.setPanel(new TextInputForm("Real-time Stock Viewer", attributes) {
