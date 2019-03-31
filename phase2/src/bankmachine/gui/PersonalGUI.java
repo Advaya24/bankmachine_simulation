@@ -15,6 +15,7 @@ public class PersonalGUI implements Inputtable {
 
     /**
      * Determines what behaviour needs to be executed based on the user input.
+     *
      * @param m InputManager object that is used to accept input
      * @param s represents the User Input
      */
@@ -48,7 +49,7 @@ public class PersonalGUI implements Inputtable {
                 new AddUserGUIHandler(this, this.client).handleAddUser(m);
                 return;
             case "Update Profile":
-                new UpdateProfileGUI(client, this).handleInput(m);
+                new UpdateProfileGUIHandler(client, this).handleInput(m);
                 return;
             default:
                 break;
@@ -58,6 +59,7 @@ public class PersonalGUI implements Inputtable {
 
     /**
      * When called, accepts an input from the user and calls the method to handle that input.
+     *
      * @param m InputManager object that is used to accept input
      */
     @Override

@@ -22,6 +22,7 @@ public class AccountSummaryGUIHandler {
 
     /**
      * Displays the account summary of the current client
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleAccountSummary(InputManager m) {

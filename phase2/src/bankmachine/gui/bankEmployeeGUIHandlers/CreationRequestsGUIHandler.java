@@ -22,6 +22,7 @@ public class CreationRequestsGUIHandler {
 
     /**
      * Shows all creation requests
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void showCreationRequests(InputManager m) {

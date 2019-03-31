@@ -58,7 +58,7 @@ public class BankMachine {
         }
     }
 
-    private static void checkMonthlyFunctions(){
+    private static void checkMonthlyFunctions() {
         int lastMonth = timeInfo.getLastMonth();
         int currentMonth = timeInfo.getCurrentMonth();
         if (currentMonth != lastMonth && timeInfo.getTime().getDayOfMonth() == 1) {

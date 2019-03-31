@@ -1,7 +1,6 @@
 package bankmachine.users;
 
 import bankmachine.TrackingFactory;
-import bankmachine.account.Account;
 import bankmachine.account.AccountFactory;
 import bankmachine.account.ChequingAccount;
 import bankmachine.fileManager.ObjectFileReader;

@@ -121,8 +121,9 @@ public abstract class InternalTransferForm implements Form {
 
     /**
      * Abstract method that is used to handle internal transfers.
-     * @param fromAccount the account that the transfer is made from
-     * @param toAccount the account that the transfer is made to
+     *
+     * @param fromAccount  the account that the transfer is made from
+     * @param toAccount    the account that the transfer is made to
      * @param amountString the amount of money being transferred.
      */
     public abstract void onOk(Account fromAccount, Account toAccount, String amountString);

@@ -41,6 +41,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
 
     /**
      * Determines what behaviour needs to be executed based on the user input.
+     *
      * @param m InputManager object that is used to accept input
      * @param s represents the User Input
      */

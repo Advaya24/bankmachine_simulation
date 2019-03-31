@@ -18,7 +18,8 @@ public class FinanceGUIHandler {
     }
 
     /**
-     *  Handles all finance operations available to the user
+     * Handles all finance operations available to the user
+     *
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleFinance(InputManager m) {
@@ -47,8 +48,9 @@ public class FinanceGUIHandler {
     }
 
     /**
-     *  Handles all the stock functionality of the application
-     * @param m  the InputManager that displays the GUI and accepts input
+     * Handles all the stock functionality of the application
+     *
+     * @param m the InputManager that displays the GUI and accepts input
      */
     private void handleStocks(InputManager m) {
         String[] attributes = {"Stock code"};
@@ -78,6 +80,11 @@ public class FinanceGUIHandler {
         });
     }
 
+    /**
+     * Handles exchange functionality
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void handleExchange(InputManager m) {
         String[] attributes = {"From", "To", "Amount"};
         m.setPanel(new TextInputForm("Real-time Exchange Rates", attributes) {
@@ -110,6 +117,11 @@ public class FinanceGUIHandler {
         });
     }
 
+    /**
+     * Handles mortgage calculator functionality
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void handleMortgage(InputManager m) {
         String[] attributes = {"Principal", "Annual interest rate %", "Number of payment cycles"};
 

@@ -35,8 +35,9 @@ public class AccountCreationGUIHandler {
 
     /**
      * Creates an account for the client
+     *
      * @param client the client who the account is being created for
-     * @param m the InputManager that displays the GUI and accepts input
+     * @param m      the InputManager that displays the GUI and accepts input
      */
     private void createAccountFor(Client client, InputManager m) {
         String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account", "Retirement account"};
