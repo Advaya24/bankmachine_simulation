@@ -78,6 +78,10 @@ public class FinanceGUIHandler {
         });
     }
 
+    /**
+     * Handles exchange functionality
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void handleExchange(InputManager m) {
         String[] attributes = {"From", "To", "Amount"};
         m.setPanel(new TextInputForm("Real-time Exchange Rates", attributes) {
@@ -110,6 +114,10 @@ public class FinanceGUIHandler {
         });
     }
 
+    /**
+     * Handles mortgage calculator functionality
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void handleMortgage(InputManager m) {
         String[] attributes = {"Principal", "Annual interest rate %", "Number of payment cycles"};
 
