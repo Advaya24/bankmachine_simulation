@@ -15,6 +15,9 @@ public abstract class SearchForm implements Form {
         this.clientSelectionGrid = clientSelectionGrid;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         promptLabel = new JLabel(prompt);
@@ -30,10 +33,16 @@ public abstract class SearchForm implements Form {
 
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 }

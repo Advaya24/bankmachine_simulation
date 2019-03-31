@@ -31,6 +31,10 @@ public class TransferForm implements Form {
         });
     }
 
+    /**
+     * Tries to transfer between clients/accounts, and displays the appropriate message if the operation
+     * cannot be performed
+     */
     private void tryTransfer() {
         Client client = (Client) userSelect.getSelectedItem();
         if (client == null) {
@@ -62,6 +66,9 @@ public class TransferForm implements Form {
         }
     }
 
+    /**
+     * //TODO: DOCUMENT
+     */
     private void checkHideAccountSelect() {
         Client selected = (Client) userSelect.getSelectedItem();
         if (selected == null) {
@@ -74,6 +81,9 @@ public class TransferForm implements Form {
         }
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         List<Client> clients = BankMachine.USER_MANAGER.getClients();
         Client[] clientArr = new Client[clients.size()];
@@ -86,6 +96,9 @@ public class TransferForm implements Form {
         accountsSelect = new JComboBox<>(accountArr);
     }
 
+    /**
+     * @return returns the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel1;

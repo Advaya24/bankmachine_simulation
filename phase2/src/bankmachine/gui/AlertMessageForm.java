@@ -13,6 +13,9 @@ public abstract class AlertMessageForm implements Form {
         this.alertMessage = alertMessage;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         alertLabel = new JLabel(alertMessage);
@@ -24,7 +27,9 @@ public abstract class AlertMessageForm implements Form {
         panel.add(okButton, BorderLayout.SOUTH);
     }
 
-
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;

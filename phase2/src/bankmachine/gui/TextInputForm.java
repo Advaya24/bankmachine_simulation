@@ -37,11 +37,17 @@ public abstract class TextInputForm implements Form {
         this.userTypes = userTypes;
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
 
         int numFieldsToAdd = 0;
@@ -121,7 +127,13 @@ public abstract class TextInputForm implements Form {
         panel.add(inputGrid, BorderLayout.CENTER);
     }
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 
+    /**
+     * Abstract method that determines what happens when the Ok button is used.
+     */
     public abstract void onOk(String[] strings);
 }

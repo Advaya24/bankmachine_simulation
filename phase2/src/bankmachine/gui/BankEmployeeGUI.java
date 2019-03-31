@@ -62,6 +62,11 @@ public class BankEmployeeGUI implements Inputtable {
         });
     }
 
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     void handleSelection(InputManager m, String s) {
         switch (s) {
             case "Logout":
@@ -85,6 +90,10 @@ public class BankEmployeeGUI implements Inputtable {
         handleInput(m);
     }
 
+    /**
+     * When called, accepts an input from the user and calls the method to handle that input.
+     * @param m InputManager object that is used to accept input
+     */
     @Override
     public void handleInput(InputManager m) {
         m.setPanel(new OptionsForm<String>(responsibilities, "What would you like to do?") {

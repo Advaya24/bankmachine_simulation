@@ -17,12 +17,22 @@ public abstract class OptionsForm<T> implements Form {
         this.prompt = prompt;
     }
 
+    /**
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Abstract method that handles option selection
+     * @param t a Generic Object
+     */
     public abstract void onSelection(T t);
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         buttonGrid = new JPanel(new GridLayout(0, 2));

@@ -26,11 +26,17 @@ public abstract class InternalTransferForm implements Form {
         this.accountList = accountList;
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         inputGrid = new JPanel(new GridLayout(6, 1));
@@ -80,7 +86,16 @@ public abstract class InternalTransferForm implements Form {
         panel.add(buttonGrid, BorderLayout.SOUTH);
     }
 
+    /**
+     * Abstract method that is used to handle internal transfers.
+     * @param fromAccount the account that the transfer is made from
+     * @param toAccount the account that the transfer is made to
+     * @param amountString the amount of money being transferred.
+     */
     public abstract void onOk(Account fromAccount, Account toAccount, String amountString);
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 }

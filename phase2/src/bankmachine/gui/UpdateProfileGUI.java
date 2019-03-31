@@ -115,6 +115,10 @@ public class UpdateProfileGUI implements Inputtable {
         });
     }
 
+    /**
+     * Handles updating a user's password
+     * @param m the InputManager responsible for displaying the GUI and accepting input from the user
+     */
     private void updatePassword(InputManager m) {
         String[] attributes = {"New Password", "Confirm New Password"};
         m.setPanel(new TextInputForm("Update password", attributes, 2) {
@@ -152,6 +156,11 @@ public class UpdateProfileGUI implements Inputtable {
         });
     }
 
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     private void handleSelection(InputManager m, String s) {
         switch (s) {
             case "Phone Number":

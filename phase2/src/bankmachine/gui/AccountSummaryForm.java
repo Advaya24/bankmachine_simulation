@@ -16,11 +16,17 @@ public abstract class AccountSummaryForm implements Form {
         this.accountsPanel = accountsPanel;
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         labelGrid = new JPanel(new GridLayout(messages.length, 1));
@@ -43,5 +49,8 @@ public abstract class AccountSummaryForm implements Form {
         panel.add(cancelButton, BorderLayout.SOUTH);
     }
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 }

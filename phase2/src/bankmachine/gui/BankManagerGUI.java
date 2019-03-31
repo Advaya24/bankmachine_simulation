@@ -33,7 +33,11 @@ public class BankManagerGUI extends BankEmployeeGUI {
         responsibilities = options;
     }
 
-
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     void handleSelection(InputManager m, String s) {
         super.handleSelection(m, s);
         switch (s) {
