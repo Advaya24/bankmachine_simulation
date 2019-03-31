@@ -48,7 +48,7 @@ public class PersonalGUI implements Inputtable {
                 new AddUserGUIHandler(this, this.client).handleAddUser(m);
                 return;
             case "Update Profile":
-                new UpdateProfileGUI(client, this).handleInput(m);
+                new UpdateProfileGUIHandler(client, this).handleInput(m);
                 return;
             default:
                 break;
