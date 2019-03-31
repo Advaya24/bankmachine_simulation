@@ -21,7 +21,7 @@ public class AddUserGUIHandler {
     }
 
     /**
-     * Adds a user to another account
+     * Displays accounts and takes selection for the account where the user is to be added
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleAddUser(InputManager m) {
@@ -41,6 +41,11 @@ public class AddUserGUIHandler {
         });
     }
 
+    /**
+     * Adds user (taking username as keyboard input) to selected account
+     * @param account the account to which the user is added
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void addUserTo(Account account, InputManager m) {
         String[] attributes = {"Username of user to add"};
         m.setPanel(new TextInputForm("Add user to " + account.toString(), attributes) {

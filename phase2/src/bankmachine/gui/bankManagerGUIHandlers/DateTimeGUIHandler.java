@@ -20,7 +20,7 @@ public class DateTimeGUIHandler {
     }
 
     /**
-     * Displays the date and time
+     * Displays the date and time input gui
      * @param m the InputManager that displays the GUI and accepts input
      */
     public void handleGetDateTime(InputManager m) {
