@@ -50,21 +50,24 @@ manager (with their special abilities described below).
 
     # View account creation requests
         * The Bank Manager should check this before starting anything! The Bank Manager should also remove completed tasks
-        by selecting the "remove completed creation requests" action.
+        by selecting the "remove completed creation requests" action, after performing the task.
 
     # Creating a new account
         * Allows the Bank Manager to create any account (Chequing account, Credit card account, Line of credit account,
-        Savings account, and a Retirement account) for any client, including themselves.
+        Savings account, and Retirement account) for any client, including themselves.
 
     # Undo transaction
-        * Choose a client and an account.
-        // TODO: does it see all the transactions?
+        * Choose a client and an account. This should allow the bank manager to see the most recent transactions
+        (excluding withdrawal and pay bills) and will allow them to reverse that transaction.
 
-    # Set time
-        * Sets the date. Note, this can be used to test whether interest for the savings account is being calculated.
+    # Set time and Run monthly functions
+        * Set time: sets the date.
+        * Run monthly functions: advances the date to the first of the next month. This can be used to test whether
+        interest for the savings account is being calculated and whether the retirement account is working.
+        * Note, a date must be set prior to clicking on the "run monthly functions" button.
 
     # Other actions: add bills (should be done in whole numbers and at least one bill must be added in order for action
-    to go through),
+    to go through), and logout (switches user).
 
 
 # Employee (Accessing the bank)
@@ -74,8 +77,10 @@ manager (with their special abilities described below).
 
 # Client (includes the personal accounts of a bank manager and employees)
     * Every client has a primary chequing account that is automatically created when the client is added to the system.
-    # Accounts
-        * Selecting this button allows the client to access their accounts and to perform transactions.
+
+    # Account summary
+        * Selecting this button allows the client to view the balances of each account, and the total amount of money
+        they have in all accounts.
 
     # Request Creation of new account
         * Selecting this button allows the client to request the bank manager/employee to help them create an account.
@@ -83,27 +88,38 @@ manager (with their special abilities described below).
     # Finances
         * Special feature that allows the client to check stocks, calculate exchange rates, and calculate their mortgage.
             * Stocks: real-time stock viewer that allows you to check the current stock rate for a certain stock code.
-                ** Stock codes can be found on google, but you can use these as an example "NYSE:S, N"
-            * Exchange: allows you to convert a certain country's currency to another. Note that the amount should be
-            entered like any monetary value (2 decimal places).
+                ** Stock codes can be found on google, but you can use these as an example "NYSE:S" and "NYSE:APY".
+            * Exchange: allows you to convert a certain country's currency to another.
+                ** Note that the amount should be entered like any monetary value (2 decimal places).
+                ** For "From" and "To", please enter the currency of a certain country that you would like to check
+                exchange rates for. For example, from "CAD" (Canadian) to "USD" (American).
             * Mortgage calculator: helps the client calculate their mortgage. Note that principal should be entered
-            like any monetary value (2 decimal places) and interest rates are entered as (TODO: find out if it is /100 or if it a decimal place.)
+            like any monetary value (2 decimal places) and interest rates are entered as a whole number (% form without
+            the "%" sign).
 
     # Update profile
         * Allows client to change their phone number, email, or password.
 
     # Transfer
-        * Internal transfer: allows a client to transfer money from one of their accounts to another. Note that //TODO: which ones can't transfer again?
-        * Transfer to other user: allows
+        * Internal transfer: allows a client to transfer money from one of their accounts to another. Note that account
+         specifications still apply (e.g. can't transfer money out of a credit card account) /
+        * Transfer to other user: allows a client to transfer money to another user. Please note that the other's user's
+        name (not the user name) must be known.
 
-    # Other buttons: Withdraw and Deposit follow the specifications in the instructions. Note that monetary values should
-    be entered as a number to 2 decimal places.
+    # Add User to Account
+        * Allows the user to form a "joint account" with another existing user. Select the account you would like to
+        share ownership with and enter the other user's name.
+        * Note that there could only be ONE other person a user can share their account with (cannot have a 3 way joint
+        account).
+
+    # Other buttons: Withdraw, Pay Bills, and Deposit follow the specifications in the instructions. Note that monetary
+    values should be entered as a number to 2 decimal places.
 
 
 # Special user (flappy floof)
-    * If the username "flappy" and the password "floof" is entered in the login page, a game called flappy floof appears.
-    This game is played like "flappy birds", where pressing the "space bar" allows for the cube to "fly". To exit this
-    mode, simply press on "e" key on the keyboard.
+    * If the username "Flappy" and the password "floof" is entered in the login page, a game called flappy floof appears.
+    This game is played like "flappy birds", where pressing the "space bar" or clicking the mouse, allows for the cube
+    to "fly". To exit this mode, simply press on "e" key on the keyboard.
 
 
 ## Other remarks
