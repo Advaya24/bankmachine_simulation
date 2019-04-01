@@ -42,6 +42,10 @@ public class Main {
         MortgageCalculator mc = new MortgageCalculator(100000.0, 0.005, 180);
         System.out.println(mc.getMortgage());
 
+        Exchange emm2 = new Exchange("USD", "TTT", 100.0);
+        System.out.println(emm2.makeExchange());
+
+
 
     }
 
