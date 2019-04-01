@@ -94,7 +94,7 @@ manager (with their special abilities described below).
                 ** For "From" and "To", please enter the currency of a certain country that you would like to check
                 exchange rates for. For example, from "CAD" (Canadian) to "USD" (American).
             * Mortgage calculator: helps the client calculate their mortgage. Note that principal should be entered
-            like any monetary value (2 decimal places) and interest rates are entered as a whole number (% form without
+            like any monetary value (2 decimal places) and interest rate is given as any positive number (% form without
             the "%" sign).
 
     # Update profile
