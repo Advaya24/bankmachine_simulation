@@ -39,7 +39,7 @@ public class AddBillsGUIHandler {
                 for (int i = 0; i < strings.length; i++) {
                     try {
                         int numBills = Integer.parseInt(strings[i]);
-                        if (numBills > 0) {
+                        if (numBills >= 0) {
                             arrayNumBillsToAdd[i] = numBills;
                         } else {
                             throw new NumberFormatException();
