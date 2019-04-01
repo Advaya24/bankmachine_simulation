@@ -1,6 +1,4 @@
 package bankmachine.finance;
-
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +22,8 @@ public class ExchangeManager {
      * Constructor for Exchange Class - takes in input currency and output (target) currency
      * @param inputcurrency
      * @param outputcurrency
-     * @throws IOException
+     * @throws FinanceException
+     * @throws ArrayIndexOutOfBoundsException
      */
 
     public ExchangeManager(String inputcurrency, String outputcurrency) throws FinanceException, ArrayIndexOutOfBoundsException {
@@ -39,14 +38,16 @@ public class ExchangeManager {
 
         // Automatic Formatter - needed to format JSON hierarchy
         formatter();
-
     }
+
+    /**
+     * Main method used to format JSON Manager output to get only relevant data needed
+     * @throws ArrayIndexOutOfBoundsException thrown if linkedlist from JSON output is empty
+     */
 
     // Formatter Class for formatting JSON API output (stock specific)
     public void formatter() throws ArrayIndexOutOfBoundsException {
-
         try {
-
             // Replaces JSON { and } root and node symbols
             cryptodata = cryptodata.replace("{", "");
             cryptodata = cryptodata.replace("}", "");
@@ -58,37 +59,66 @@ public class ExchangeManager {
             to_currency = ((items.get(3)).split(":")[1]).replace("\"", "");
             exchange = ((items.get(4)).split(":")[1]).replace("\"", "");
             datetime = ((items.get(5)).split(":")[1]).replace("\"", "");
+
+            // Passes conflicting string to evoke later exception
         } catch (ArrayIndexOutOfBoundsException a) {
             exchange = "$&$&$&$&$&$&$&";
         }
-
-
     }
 
+    /**
+     * Getter for Cryptocurrency Code (eg. BTC)
+     * @return String of this code
+     */
     public String getCryptoCode() {
         return from_code;
     }
 
+    /***
+     * Getter for CryptoCurrency Name (eg. Bitcoin)
+     * @return String of this name
+     */
     public String getCryptoName() {
         return from_name;
     }
 
+    /**
+     * Getter for Currency Code (eg. USD)
+     * @return String of this code
+     */
     public String getCurrencyCode() {
         return to_currcode;
     }
 
+    /**
+     * Getter for Currency Name (e.g. US Dollar)
+     * @return String of this name
+     */
     public String getCurrencyName() {
         return to_currency;
     }
 
+    /**
+     * Getter for the exchange rate of the two inputted currencies
+     * @return Double of exchange rate
+     * @throws NumberFormatException
+     */
     public Double getExchange() throws NumberFormatException {
         return Double.parseDouble(exchange);
     }
 
+    /**
+     * Get time of when exchange rate was last updated
+     * @return String of date / time
+     */
     public String getTime() {
         return datetime;
     }
 
+    /***
+     * Simple formatted output of all critical data used in GUI
+     * @return String of all critical data
+     */
     public String getAll() {
         return (from_code + " " + from_name + " " + to_currcode + " " + to_currency + " " + exchange + " " + datetime);
     }
