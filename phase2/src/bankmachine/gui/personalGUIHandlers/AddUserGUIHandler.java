@@ -33,7 +33,7 @@ public class AddUserGUIHandler {
         m.setPanel(new SearchForm("Select account to add user to", new OptionsForm<Account>(accounts, "") {
             @Override
             public void onSelection(Account account) {
-                addUserTo(account, m);
+                addUserTo(account, m, client);
             }
         }.getMainPanel()) {
             @Override
@@ -49,12 +49,12 @@ public class AddUserGUIHandler {
      * @param account the account to which the user is added
      * @param m       the InputManager that displays the GUI and accepts input
      */
-    private void addUserTo(Account account, InputManager m) {
+    private void addUserTo(Account account, InputManager m, Client user) {
         String[] attributes = {"Username of user to add"};
         m.setPanel(new TextInputForm("Add user to " + account.toString(), attributes) {
             @Override
             public void onCancel() {
-                handleAddUser(m);
+                new AddUserGUIHandler(gui, user).handleAddUser(m);
             }
 
             @Override
@@ -65,7 +65,7 @@ public class AddUserGUIHandler {
                     m.setPanel(new AlertMessageForm("Invalid input for username!") {
                         @Override
                         public void onOK() {
-                            addUserTo(account, m);
+                            addUserTo(account, m, user);
                         }
                     });
                 }
@@ -74,7 +74,7 @@ public class AddUserGUIHandler {
                     m.setPanel(new AlertMessageForm("User not found") {
                         @Override
                         public void onOK() {
-                            addUserTo(account, m);
+                            addUserTo(account, m, user);
                         }
                     });
                 } else {
@@ -97,7 +97,7 @@ public class AddUserGUIHandler {
                         m.setPanel(new AlertMessageForm(e.toString()) {
                             @Override
                             public void onOK() {
-                                addUserTo(account, m);
+                                addUserTo(account, m, user);
                             }
                         });
                     }
