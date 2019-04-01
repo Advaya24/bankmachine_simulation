@@ -21,11 +21,11 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     public UserManager(String path) {
         this.rootPath = path;
         this.loadData();
+        this.accountFactory = new AccountFactory(this);
         if (this.users.size() == 0) {
             this.newManager("Brad", "brad@hi.com", "01231", "admin", "admin");
             this.saveData();
         }
-        this.accountFactory = new AccountFactory(this);
     }
 
     public AccountFactory getAccountFactory() {
