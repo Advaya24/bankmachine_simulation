@@ -23,7 +23,7 @@ public class RetirementAccount extends AssetAccount {
     public void autoDeposit() {
         try {
             Account account = primaryClient.getPrimaryAccount();
-            double balance = account.getBalance() / 5;
+            double balance = account.getBalance()*0.05;
             account.transferOut(balance);
             transferIn(balance);
         } catch (BankMachineException e) {//Should never happen
