@@ -5,6 +5,7 @@ import bankmachine.exception.BankMachineException;
 import bankmachine.gui.*;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.Client;
+import org.mockito.internal.matchers.Null;
 
 public class TransactionGUIHandler {
     /**
@@ -65,7 +66,7 @@ public class TransactionGUIHandler {
      * @param m       the InputManager that displays the GUI and accepts input
      */
     private void inputGetTransactionToUndoFor(Account account, InputManager m) {
-        if (account.getTransactions().size() == 0) {
+        if (account.getTransactions() == null || account.getTransactions().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no transactions!") {
                 @Override
                 public void onOK() {
@@ -73,33 +74,43 @@ public class TransactionGUIHandler {
                 }
             });
         } else {
-            m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Object>(account.getTransactions().toArray(), "") {
-                @Override
-                public void onSelection(Object o) {
-                    try {
-                        ((Transaction) o).undo();
-                        m.setPanel(new AlertMessageForm("Success!") {
-                            @Override
-                            public void onOK() {
-                                gui.handleInput(m);
-                            }
-                        });
-                    } catch (BankMachineException e) {
-                        e.printStackTrace();
-                        m.setPanel(new AlertMessageForm("Failure!") {
-                            @Override
-                            public void onOK() {
-                                gui.handleInput(m);
-                            }
-                        });
+            Transaction[] transactions = new Transaction[account.getTransactions().size()];
+            account.getTransactions().toArray(transactions);
+            try {
+                m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Transaction>(transactions, "") {
+                    @Override
+                    public void onSelection(Transaction t) {
+                        try {
+                            t.undo();
+                            m.setPanel(new AlertMessageForm("Success!") {
+                                @Override
+                                public void onOK() {
+                                    gui.handleInput(m);
+                                }
+                            });
+                        } catch (BankMachineException | NullPointerException e) {
+                            m.setPanel(new AlertMessageForm("Failure!") {
+                                @Override
+                                public void onOK() {
+                                    gui.handleInput(m);
+                                }
+                            });
+                        }
                     }
-                }
-            }.getMainPanel()) {
-                @Override
-                public void onCancel() {
-                    gui.handleInput(m);
-                }
-            });
+                }.getMainPanel()) {
+                    @Override
+                    public void onCancel() {
+                        gui.handleInput(m);
+                    }
+                });
+            } catch (NullPointerException e) {
+                m.setPanel(new AlertMessageForm("Something went wrong! Please try again later!") {
+                    @Override
+                    public void onOK() {
+                        gui.handleInput(m);
+                    }
+                });
+            }
         }
 
     }

@@ -23,7 +23,7 @@ public abstract class InternalTransferForm implements Form {
      */
     private JPanel buttonGrid;
     /**
-     * The labels that display the transfer opetions
+     * The labels that display the transfer operations
      */
     private JLabel[] labels;
     /**

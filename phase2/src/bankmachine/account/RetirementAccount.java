@@ -1,6 +1,7 @@
 package bankmachine.account;
 
 import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NegativeQuantityException;
 import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
@@ -8,7 +9,6 @@ import java.time.LocalDateTime;
 /**
  * Only has one client.
  */
-//TODO: What happens if we try and access multiple clients of this account??
 public class RetirementAccount extends AssetAccount {
 
     public RetirementAccount(int id, Client client, LocalDateTime creationDate) {
@@ -23,10 +23,13 @@ public class RetirementAccount extends AssetAccount {
     public void autoDeposit() {
         try {
             Account account = primaryClient.getPrimaryAccount();
-            double balance = account.getBalance() / 5;
+            double balance = account.getBalance()*0.05;
             account.transferOut(balance);
             transferIn(balance);
-        } catch (BankMachineException e) {//Should never happen
+        }catch (NegativeQuantityException e) {
+            System.err.println("Checking Account has negative balance!");
+        }
+        catch (BankMachineException e){//Should never happen
             System.err.println("Never happening");
         }
     }
