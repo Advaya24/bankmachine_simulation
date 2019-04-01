@@ -7,8 +7,14 @@ import bankmachine.gui.bankManagerGUIHandlers.UserCreationGUIHandler;
 import bankmachine.users.BankManager;
 
 public class BankManagerGUI extends BankEmployeeGUI {
+    /**
+     * The BankManager currently using the system
+     */
     private BankManager manager;
     @SuppressWarnings("FieldCanBeLocal")
+    /**
+     * The Special responsibilities available to a Bank Manager
+     */
     private final String[] specialResponsibilities = {
             "Run Monthly Functions", "Create User", "Set Time", "Undo a Transaction", "Shutdown"
     };
@@ -33,7 +39,12 @@ public class BankManagerGUI extends BankEmployeeGUI {
         responsibilities = options;
     }
 
-
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     *
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     void handleSelection(InputManager m, String s) {
         super.handleSelection(m, s);
         switch (s) {
@@ -50,7 +61,7 @@ public class BankManagerGUI extends BankEmployeeGUI {
                 });
                 return;
             case "Undo a Transaction":
-                new TransactionGUIHandler(this, this.manager).handleUndoTransaction(m);
+                new TransactionGUIHandler(this).handleUndoTransaction(m);
                 return;
             case "Set Time":
                 new DateTimeGUIHandler(this).handleGetDateTime(m);

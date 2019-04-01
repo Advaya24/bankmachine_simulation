@@ -2,11 +2,18 @@ package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
+import bankmachine.exception.AccountAlreadyOwnedException;
 import bankmachine.gui.*;
 import bankmachine.users.Client;
 
 public class AddUserGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public AddUserGUIHandler(PersonalGUI gui, Client client) {
@@ -14,6 +21,11 @@ public class AddUserGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Displays accounts and takes selection for the account where the user is to be added
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleAddUser(InputManager m) {
         Account[] accounts = new Account[this.client.getClientsAccounts().size()];
         this.client.getClientsAccounts().toArray(accounts);
@@ -31,6 +43,12 @@ public class AddUserGUIHandler {
         });
     }
 
+    /**
+     * Adds user (taking username as keyboard input) to selected account
+     *
+     * @param account the account to which the user is added
+     * @param m       the InputManager that displays the GUI and accepts input
+     */
     private void addUserTo(Account account, InputManager m) {
         String[] attributes = {"Username of user to add"};
         m.setPanel(new TextInputForm("Add user to " + account.toString(), attributes) {
@@ -60,13 +78,29 @@ public class AddUserGUIHandler {
                         }
                     });
                 } else {
-                    account.addSecondaryClient(client);
-                    m.setPanel(new AlertMessageForm("Successfully added " + client.toString()) {
-                        @Override
-                        public void onOK() {
-                            gui.handleInput(m);
-                        }
-                    });
+                    try {
+                        account.addSecondaryClient(client);
+                        m.setPanel(new AlertMessageForm("Successfully added " + client.toString()) {
+                            @Override
+                            public void onOK() {
+                                gui.handleInput(m);
+                            }
+                        });
+                    } catch (NullPointerException e) {
+                        m.setPanel(new AlertMessageForm("Cannot add user to this type of account!") {
+                            @Override
+                            public void onOK() {
+                                handleAddUser(m);
+                            }
+                        });
+                    } catch (AccountAlreadyOwnedException e) {
+                        m.setPanel(new AlertMessageForm(e.toString()) {
+                            @Override
+                            public void onOK() {
+                                addUserTo(account, m);
+                            }
+                        });
+                    }
                 }
             }
         });

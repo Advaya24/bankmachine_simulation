@@ -12,7 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TransferGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public TransferGUIHandler(PersonalGUI gui, Client client) {
@@ -20,6 +26,11 @@ public class TransferGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Selects the account to transfer from
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void selectAccountForTransfer(InputManager m) {
         Account[] accounts = getTransferAccounts(this.client);
 
@@ -45,6 +56,12 @@ public class TransferGUIHandler {
         }
     }
 
+    /**
+     * Gets accounts for the client that they can transfer money from
+     *
+     * @param client the client the accounts are gotten from
+     * @return an array of all eligible accounts for this client
+     */
     public Account[] getTransferAccounts(Client client) {
         List<Account> listOfTransferAccounts = new ArrayList<>();
         for (Account account : client.getClientsAccounts()) {
@@ -57,6 +74,12 @@ public class TransferGUIHandler {
         return arrayOfTransferAccounts;
     }
 
+    /**
+     * Transfers money out of this account
+     *
+     * @param m       the InputManager that displays the GUI and accepts input
+     * @param account the account to transfer from
+     */
     private void handleTransfer(InputManager m, Account account) {
         String[] attributes = {"Username of recipient", "Amount to transfer"};
         m.setPanel(new TextInputForm("Transfer money", attributes) {
@@ -120,6 +143,11 @@ public class TransferGUIHandler {
         });
     }
 
+    /**
+     * Transfers money between two accounts of this client
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     private void handleInternalTransfer(InputManager m) {
         List<Account> accountList = client.getClientsAccounts();
         if (accountList.size() < 2) {
@@ -176,6 +204,11 @@ public class TransferGUIHandler {
         }
     }
 
+    /**
+     * Displays the menu for the transfers that are possible
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void transferMenu(InputManager m) {
         String[] options = {"Internal Transfer", "Transfer to other user"};
         m.setPanel(new SearchForm("What kind of transfer?", new OptionsForm<String>(options, "") {

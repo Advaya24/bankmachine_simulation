@@ -4,18 +4,23 @@ import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
 import bankmachine.gui.*;
 import bankmachine.transaction.Transaction;
-import bankmachine.users.BankManager;
 import bankmachine.users.Client;
 
 public class TransactionGUIHandler {
+    /**
+     * The GUI of the Bank Manager using the system
+     */
     private BankManagerGUI gui;
-    private BankManager manager;
 
-    public TransactionGUIHandler(BankManagerGUI gui, BankManager manager) {
+    public TransactionGUIHandler(BankManagerGUI gui) {
         this.gui = gui;
-        this.manager = manager;
     }
 
+    /**
+     * Handles undoing a transaction
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleUndoTransaction(InputManager m) {
         gui.handleSearchClient(m, (Client client) -> {
             undoTransactionsForClient(client, m);
@@ -24,6 +29,12 @@ public class TransactionGUIHandler {
 
     }
 
+    /**
+     * Displays all accounts for client and allows them to choose account to undo transaction from
+     *
+     * @param client the client that the transactions are being undone for
+     * @param m      the InputManager that displays the GUI and accepts input
+     */
     private void undoTransactionsForClient(Client client, InputManager m) {
         if (client.getClientsAccounts().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no accounts") {
@@ -36,7 +47,7 @@ public class TransactionGUIHandler {
             m.setPanel(new SearchForm("Select an account", new OptionsForm<Object>(client.getClientsAccounts().toArray(), "") {
                 @Override
                 public void onSelection(Object object) {
-                    inputGetTransactionFor((Account) object, m);
+                    inputGetTransactionToUndoFor((Account) object, m);
                 }
             }.getMainPanel()) {
                 @Override
@@ -47,8 +58,13 @@ public class TransactionGUIHandler {
         }
     }
 
-    private void inputGetTransactionFor(Account account, InputManager m) {
-        //TODO: Change this if statement. The way it currently works, we're not
+    /**
+     * Shows transactions from account and gets the transaction to be deleted
+     *
+     * @param account the account we're getting the transactions on
+     * @param m       the InputManager that displays the GUI and accepts input
+     */
+    private void inputGetTransactionToUndoFor(Account account, InputManager m) {
         if (account.getTransactions().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no transactions!") {
                 @Override

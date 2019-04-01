@@ -6,10 +6,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class OptionsForm<T> implements Form {
+    /**
+     * A Generic object to store all options available
+     */
     private T[] options;
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * A panel that holds all buttons on this part of the application
+     */
     private JPanel buttonGrid;
+    /**
+     * A label to display prompts
+     */
     private JLabel promptLabel;
+    /**
+     * The content of any prompt displayed
+     */
     private String prompt;
 
     public OptionsForm(T[] options, String prompt) {
@@ -17,12 +32,23 @@ public abstract class OptionsForm<T> implements Form {
         this.prompt = prompt;
     }
 
+    /**
+     * @return the main JPanel
+     */
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Abstract method that handles option selection
+     *
+     * @param t a Generic Object
+     */
     public abstract void onSelection(T t);
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         buttonGrid = new JPanel(new GridLayout(0, 2));

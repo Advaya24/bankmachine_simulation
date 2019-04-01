@@ -1,12 +1,21 @@
-package bankmachine.gui;
+package bankmachine.gui.personalGUIHandlers;
 
+import bankmachine.exception.InvalidEmailException;
+import bankmachine.exception.InvalidPhoneNumberException;
+import bankmachine.gui.*;
 import bankmachine.users.BankMachineUser;
 
-public class UpdateProfileGUI implements Inputtable {
+public class UpdateProfileGUIHandler implements Inputtable {
+    /**
+     * The user using this system
+     */
     private BankMachineUser user;
+    /**
+     * The PersonalGUi of the user
+     */
     private PersonalGUI gui;
 
-    public UpdateProfileGUI(BankMachineUser user, PersonalGUI gui) {
+    public UpdateProfileGUIHandler(BankMachineUser user, PersonalGUI gui) {
         this.user = user;
         this.gui = gui;
     }
@@ -30,31 +39,13 @@ public class UpdateProfileGUI implements Inputtable {
                 gui.handleInput(m);
             }
         });
-//        System.out.println("Select an option");
-//        String action = m.selectItem(options);
-//        if (action.equals("Cancel")) {
-//            return;
-//        }
-//        String value;
-//        switch (action) {
-//            case "Phone Number":
-//                value = m.getPhone();
-//                user.setPhoneNumber(value);
-//                break;
-//            case "Email":
-//                value = m.getEmail();
-//                user.setEmail(value);
-//                break;
-//            case "Password":
-//                value = m.getInput("Enter a new password");
-//                user.setPassword(value);
-//                break;
-//            default:
-//                return;
-//        }
-//        System.out.println("Set new " + action + " to " + value);
     }
 
+    /**
+     * Takes input for new phone number and updates it
+     *
+     * @param m the input manager that handles this
+     */
     private void updatePhoneNumber(InputManager m) {
         String[] attributes = {"New Phone Number"};
         m.setPanel(new TextInputForm("Update Phone Number", attributes) {
@@ -65,19 +56,29 @@ public class UpdateProfileGUI implements Inputtable {
 
             @Override
             public void onOk(String[] strings) {
-                if (strings[0] == null || strings[0].equals("")) {
-                    m.setPanel(new AlertMessageForm("Phone Number cannot be empty!") {
+                try {
+                    if (strings[0] == null || strings[0].equals("")) {
+                        m.setPanel(new AlertMessageForm("Phone Number cannot be empty!") {
+                            @Override
+                            public void onOK() {
+                                updatePhoneNumber(m);
+                            }
+                        });
+                    } else {
+                        m.checkPhone(strings[0]);
+                        user.setPhoneNumber(strings[0]);
+                        m.setPanel(new AlertMessageForm("Updated Phone Number Successfully") {
+                            @Override
+                            public void onOK() {
+                                gui.handleInput(m);
+                            }
+                        });
+                    }
+                } catch (InvalidPhoneNumberException e) {
+                    m.setPanel(new AlertMessageForm(e.toString()) {
                         @Override
                         public void onOK() {
                             updatePhoneNumber(m);
-                        }
-                    });
-                } else {
-                    user.setPhoneNumber(strings[0]);
-                    m.setPanel(new AlertMessageForm("Updated Phone Number Successfully") {
-                        @Override
-                        public void onOK() {
-                            gui.handleInput(m);
                         }
                     });
                 }
@@ -85,6 +86,11 @@ public class UpdateProfileGUI implements Inputtable {
         });
     }
 
+    /**
+     * Takes input for new email and updates it
+     *
+     * @param m
+     */
     private void updateEmail(InputManager m) {
         String[] attributes = {"New Email"};
         m.setPanel(new TextInputForm("Update Email", attributes) {
@@ -95,19 +101,29 @@ public class UpdateProfileGUI implements Inputtable {
 
             @Override
             public void onOk(String[] strings) {
-                if (strings[0] == null || strings[0].equals("")) {
-                    m.setPanel(new AlertMessageForm("Email cannot be empty!") {
+                try {
+                    if (strings[0] == null || strings[0].equals("")) {
+                        m.setPanel(new AlertMessageForm("Email cannot be empty!") {
+                            @Override
+                            public void onOK() {
+                                updateEmail(m);
+                            }
+                        });
+                    } else {
+                        m.checkEmail(strings[0]);
+                        user.setEmail(strings[0]);
+                        m.setPanel(new AlertMessageForm("Updated Email Successfully") {
+                            @Override
+                            public void onOK() {
+                                gui.handleInput(m);
+                            }
+                        });
+                    }
+                } catch (InvalidEmailException e) {
+                    m.setPanel(new AlertMessageForm(e.toString()) {
                         @Override
                         public void onOK() {
                             updateEmail(m);
-                        }
-                    });
-                } else {
-                    user.setEmail(strings[0]);
-                    m.setPanel(new AlertMessageForm("Updated Email Successfully") {
-                        @Override
-                        public void onOK() {
-                            gui.handleInput(m);
                         }
                     });
                 }
@@ -115,6 +131,11 @@ public class UpdateProfileGUI implements Inputtable {
         });
     }
 
+    /**
+     * Handles updating a user's password
+     *
+     * @param m the InputManager responsible for displaying the GUI and accepting input from the user
+     */
     private void updatePassword(InputManager m) {
         String[] attributes = {"New Password", "Confirm New Password"};
         m.setPanel(new TextInputForm("Update password", attributes, 2) {
@@ -152,6 +173,12 @@ public class UpdateProfileGUI implements Inputtable {
         });
     }
 
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     *
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     private void handleSelection(InputManager m, String s) {
         switch (s) {
             case "Phone Number":

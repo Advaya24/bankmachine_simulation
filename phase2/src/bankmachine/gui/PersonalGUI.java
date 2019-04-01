@@ -4,13 +4,21 @@ import bankmachine.gui.personalGUIHandlers.*;
 import bankmachine.users.Client;
 
 public class PersonalGUI implements Inputtable {
+    /**
+     * The current client using the system
+     */
     private Client client;
 
     public PersonalGUI(Client c) {
         this.client = c;
     }
 
-
+    /**
+     * Determines what behaviour needs to be executed based on the user input.
+     *
+     * @param m InputManager object that is used to accept input
+     * @param s represents the User Input
+     */
     private void handleSelection(InputManager m, String s) {
         switch (s) {
             case "Logout":
@@ -41,7 +49,7 @@ public class PersonalGUI implements Inputtable {
                 new AddUserGUIHandler(this, this.client).handleAddUser(m);
                 return;
             case "Update Profile":
-                new UpdateProfileGUI(client, this).handleInput(m);
+                new UpdateProfileGUIHandler(client, this).handleInput(m);
                 return;
             default:
                 break;
@@ -49,6 +57,11 @@ public class PersonalGUI implements Inputtable {
         handleInput(m);
     }
 
+    /**
+     * When called, accepts an input from the user and calls the method to handle that input.
+     *
+     * @param m InputManager object that is used to accept input
+     */
     @Override
     public void handleInput(InputManager m) {
         String[] options = {

@@ -10,12 +10,20 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 
 public class DateTimeGUIHandler {
+    /**
+     * The GUI of the Bank Manager using the sustem
+     */
     private BankManagerGUI gui;
 
     public DateTimeGUIHandler(BankManagerGUI gui) {
         this.gui = gui;
     }
 
+    /**
+     * Displays the date and time input gui
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleGetDateTime(InputManager m) {
         String[] attributes = {"Year (YYYY):", "Month (1-12)", "Day (1-31)"};
         m.setPanel(new TextInputForm("Date-Time settings", attributes) {
@@ -46,6 +54,11 @@ public class DateTimeGUIHandler {
         });
     }
 
+    /**
+     * Sets the time to the input parameter
+     *
+     * @param localDateTime the new localDateTime object
+     */
     private void setTime(LocalDateTime localDateTime) {
         BankMachine.getTimeInfo().setTime(localDateTime);
     }

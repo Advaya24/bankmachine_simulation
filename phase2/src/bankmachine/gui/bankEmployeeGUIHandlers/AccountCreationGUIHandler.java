@@ -7,7 +7,13 @@ import bankmachine.users.Client;
 import java.time.LocalDateTime;
 
 public class AccountCreationGUIHandler {
+    /**
+     * The GUI of the Bank Employee
+     */
     private BankEmployeeGUI gui;
+    /**
+     * The Bank Employee currently using the system
+     */
     private BankEmployee employee;
 
     public AccountCreationGUIHandler(BankEmployeeGUI gui, BankEmployee employee) {
@@ -27,7 +33,12 @@ public class AccountCreationGUIHandler {
         });
     }
 
-
+    /**
+     * Creates an account for the client
+     *
+     * @param client the client who the account is being created for
+     * @param m      the InputManager that displays the GUI and accepts input
+     */
     private void createAccountFor(Client client, InputManager m) {
         String[] accountTypes = {"Chequing account", "Credit card account", "Line of credit account", "Savings account", "Retirement account"};
         m.setPanel(new SearchForm("Select the type of account:", new OptionsForm<String>(accountTypes, "") {

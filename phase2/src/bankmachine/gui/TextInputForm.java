@@ -6,20 +6,65 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public abstract class TextInputForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * The panel holding all input fields
+     */
     private JPanel inputGrid;
+    /**
+     * The panel holding all buttons
+     */
     private JPanel buttonGrid;
+    /**
+     * An array of all attributes of this panel
+     */
     private String[] attributes;
+    /**
+     * An array of all label objects in this panel
+     */
     private JLabel[] labels;
+    /**
+     * An array of all text fields in this panel
+     */
     private JTextField[] textFields;
+    /**
+     * An ok button
+     */
     private JButton okButton;
+    /**
+     * A cancel button
+     */
     private JButton cancelButton;
+    /**
+     * A panel to display prompts
+     */
     private JLabel promptLabel;
+    /**
+     * The content of prompts displayed
+     */
     private String prompt;
+    /**
+     * The number of password fields
+     */
     private int numPasswordFields;
+    /**
+     * An array of password fields in this panel
+     */
     private JPasswordField[] passwordFields;
+    /**
+     * Boolean representing if this panel asks for what type the user is or not
+     */
     private boolean asksForTypeOfUser;
+    /**
+     * A ComboBox that holds the types of users in drop down format
+     */
     private JComboBox<String> typeOfUserDropdown;
+    /**
+     * An array of User Types
+     */
     private String[] userTypes;
 
     public TextInputForm(String prompt, String[] attributes) {
@@ -37,11 +82,17 @@ public abstract class TextInputForm implements Form {
         this.userTypes = userTypes;
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
 
         int numFieldsToAdd = 0;
@@ -121,7 +172,13 @@ public abstract class TextInputForm implements Form {
         panel.add(inputGrid, BorderLayout.CENTER);
     }
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 
+    /**
+     * Abstract method that determines what happens when the Ok button is used.
+     */
     public abstract void onOk(String[] strings);
 }

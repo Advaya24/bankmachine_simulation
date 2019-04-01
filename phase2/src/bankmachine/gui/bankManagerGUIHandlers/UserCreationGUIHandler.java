@@ -9,6 +9,9 @@ import bankmachine.gui.TextInputForm;
 import bankmachine.users.BankMachineUser;
 
 public class UserCreationGUIHandler {
+    /**
+     * The GUI for the Bank Manager using the system
+     */
     private BankManagerGUI gui;
 
     public UserCreationGUIHandler(BankManagerGUI gui) {

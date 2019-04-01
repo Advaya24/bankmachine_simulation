@@ -3,9 +3,6 @@ package bankmachine.gui.personalGUIHandlers;
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
 import bankmachine.exception.BankMachineException;
-import bankmachine.exception.NegativeQuantityException;
-import bankmachine.exception.NotEnoughBillsException;
-import bankmachine.exception.NotEnoughMoneyException;
 import bankmachine.gui.*;
 import bankmachine.transaction.TransactionType;
 import bankmachine.users.Client;
@@ -13,7 +10,13 @@ import bankmachine.users.Client;
 import java.time.LocalDateTime;
 
 public class WithdrawGUIHandler {
+    /**
+     * The GUI of the client using the system
+     */
     private PersonalGUI gui;
+    /**
+     * The client using the system
+     */
     private Client client;
 
     public WithdrawGUIHandler(PersonalGUI gui, Client client) {
@@ -21,6 +24,11 @@ public class WithdrawGUIHandler {
         this.client = client;
     }
 
+    /**
+     * Withdraws money from an account
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void handleWithdraw(InputManager m) {
         Account[] accounts = new Account[this.client.getClientsAccounts().size()];
         this.client.getClientsAccounts().toArray(accounts);
@@ -37,6 +45,12 @@ public class WithdrawGUIHandler {
         });
     }
 
+    /**
+     * Withdraws money from an account
+     *
+     * @param account the account to be withdrawn from
+     * @param m       the InputManager that displays the GUI and accepts input
+     */
     private void handleWithdrawFor(Account account, InputManager m) {
         String[] attributes = {"Enter withdrawal amount"};
         m.setPanel(new TextInputForm("Withdraw Money", attributes) {

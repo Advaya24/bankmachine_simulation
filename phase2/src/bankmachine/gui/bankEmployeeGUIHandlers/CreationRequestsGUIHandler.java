@@ -6,7 +6,13 @@ import bankmachine.users.BankEmployee;
 import javax.swing.*;
 
 public class CreationRequestsGUIHandler {
+    /**
+     * The GUI of the Bank Employee using the system
+     */
     private BankEmployeeGUI gui;
+    /**
+     * The current Bank Employee using the system
+     */
     private BankEmployee employee;
 
     public CreationRequestsGUIHandler(BankEmployeeGUI gui, BankEmployee employee) {
@@ -14,6 +20,11 @@ public class CreationRequestsGUIHandler {
         this.employee = employee;
     }
 
+    /**
+     * Shows all creation requests
+     *
+     * @param m the InputManager that displays the GUI and accepts input
+     */
     public void showCreationRequests(InputManager m) {
 
         if (employee.getCreationRequestArray().length == 0) {

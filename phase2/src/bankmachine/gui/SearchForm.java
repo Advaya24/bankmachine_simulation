@@ -4,10 +4,25 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class SearchForm implements Form {
+    /**
+     * The main panel
+     */
     private JPanel panel;
+    /**
+     * A label that displays required prompts
+     */
     private JLabel promptLabel;
+    /**
+     * A panel that allows the application to display a list of clients in the system
+     */
     private JPanel clientSelectionGrid;
+    /**
+     * The content of any prompt displayed
+     */
     private String prompt;
+    /**
+     * A cancel button
+     */
     private JButton cancelButton;
 
     public SearchForm(String prompt, JPanel clientSelectionGrid) {
@@ -15,6 +30,9 @@ public abstract class SearchForm implements Form {
         this.clientSelectionGrid = clientSelectionGrid;
     }
 
+    /**
+     * Creates all the UI Components required to display the GUI.
+     */
     private void createUIComponents() {
         panel = new JPanel(new BorderLayout());
         promptLabel = new JLabel(prompt);
@@ -30,10 +48,16 @@ public abstract class SearchForm implements Form {
 
     }
 
+    /**
+     * @return the main JPanel
+     */
     @Override
     public JPanel getMainPanel() {
         return panel;
     }
 
+    /**
+     * Abstract method that determines what happens when the Cancel button is used.
+     */
     public abstract void onCancel();
 }
