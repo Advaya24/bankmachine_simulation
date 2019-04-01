@@ -1,6 +1,8 @@
 package bankmachine.account;
 
+import bankmachine.BankMachine;
 import bankmachine.exception.BankMachineException;
+import bankmachine.exception.NegativeQuantityException;
 import bankmachine.users.Client;
 
 import java.time.LocalDateTime;
@@ -26,7 +28,10 @@ public class RetirementAccount extends AssetAccount {
             double balance = account.getBalance()*0.05;
             account.transferOut(balance);
             transferIn(balance);
-        } catch (BankMachineException e) {//Should never happen
+        }catch (NegativeQuantityException e) {
+            System.err.println("Checking Account has negative balance!");
+        }
+        catch (BankMachineException e){//Should never happen
             System.err.println("Never happening");
         }
     }
