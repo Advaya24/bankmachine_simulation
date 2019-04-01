@@ -65,7 +65,7 @@ public class TransactionGUIHandler {
      * @param m       the InputManager that displays the GUI and accepts input
      */
     private void inputGetTransactionToUndoFor(Account account, InputManager m) {
-        if (account.getTransactions().size() == 0) {
+        if (account.getTransactions() == null || account.getTransactions().size() == 0) {
             m.setPanel(new AlertMessageForm("There are no transactions!") {
                 @Override
                 public void onOK() {
