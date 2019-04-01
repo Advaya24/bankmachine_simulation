@@ -5,6 +5,7 @@ import bankmachine.exception.BankMachineException;
 import bankmachine.gui.*;
 import bankmachine.transaction.Transaction;
 import bankmachine.users.Client;
+import org.mockito.internal.matchers.Null;
 
 public class TransactionGUIHandler {
     /**
@@ -84,8 +85,7 @@ public class TransactionGUIHandler {
                                 gui.handleInput(m);
                             }
                         });
-                    } catch (BankMachineException e) {
-                        e.printStackTrace();
+                    } catch (BankMachineException | NullPointerException e) {
                         m.setPanel(new AlertMessageForm("Failure!") {
                             @Override
                             public void onOK() {
