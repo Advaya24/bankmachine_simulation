@@ -107,6 +107,7 @@ public class BankMachine {
         } else {
             ROOT_DIR = new File(System.getProperty("user.dir"));
         }
+        fileSearcher.clearResults();
         fileSearcher.setFileNameToSearch("fileManager");
         fileSearcher.searchForDirectoryIn(ROOT_DIR);
         final String FILE_MANAGER_PATH = fileSearcher.getResult().get(0);
