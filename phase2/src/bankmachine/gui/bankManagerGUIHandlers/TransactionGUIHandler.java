@@ -74,11 +74,13 @@ public class TransactionGUIHandler {
                 }
             });
         } else {
-            m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Object>(account.getTransactions().toArray(), "") {
+            Transaction[] transactions = new Transaction[account.getTransactions().size()];
+            account.getTransactions().toArray(transactions);
+            m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Transaction>(transactions, "") {
                 @Override
-                public void onSelection(Object o) {
+                public void onSelection(Transaction t) {
                     try {
-                        ((Transaction) o).undo();
+                        t.undo();
                         m.setPanel(new AlertMessageForm("Success!") {
                             @Override
                             public void onOK() {
