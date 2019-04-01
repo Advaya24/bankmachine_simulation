@@ -10,7 +10,7 @@ public class BankIntern extends BankEmployee {
 
     @Override
     public String toString() {
-        return "Intern " + this.getName();
+        return "Intern " + this.getName() + " (" + getUsername() + ")";
     }
 
 

@@ -104,7 +104,7 @@ public class Client extends BankMachineUser {
 
     @Override
     public String toString() {
-        return "Client " + getName();
+        return "Client " + getName() + " (" + getUsername() + ")";
     }
 
 
@@ -120,7 +120,10 @@ public class Client extends BankMachineUser {
         return this.clientsAccounts.get(0);
     }
 
-
+    /**
+     *
+     * @return
+     */
     public String[] getAccountSummary() {
         String[] summaryStrings = new String[clientsAccounts.size() + 2];
         summaryStrings[0] = "Account summary for username: " + getUsername();

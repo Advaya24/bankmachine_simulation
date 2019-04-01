@@ -31,7 +31,7 @@ public class BankManager extends BankEmployee {
 
 
     public String toString() {
-        return "Manager " + getName();
+        return "Manager " + getName() + " (" + getUsername() + ")";
     }
 
 
