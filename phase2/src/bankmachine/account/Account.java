@@ -120,10 +120,12 @@ public abstract class Account implements Serializable, Identifiable {
      *
      * @param client to be added.
      */
-    public void addSecondaryClient(Client client) {
+    public void addSecondaryClient(Client client) throws AccountAlreadyOwnedException {
         if (!client.getClientsAccounts().contains(this)) {
             this.clients.add(client);
             client.addAccount(this);
+        } else {
+            throw new AccountAlreadyOwnedException();
         }
     }
 

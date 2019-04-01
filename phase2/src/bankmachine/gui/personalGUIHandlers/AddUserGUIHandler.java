@@ -2,6 +2,7 @@ package bankmachine.gui.personalGUIHandlers;
 
 import bankmachine.BankMachine;
 import bankmachine.account.Account;
+import bankmachine.exception.AccountAlreadyOwnedException;
 import bankmachine.gui.*;
 import bankmachine.users.Client;
 
@@ -90,6 +91,13 @@ public class AddUserGUIHandler {
                             @Override
                             public void onOK() {
                                 handleAddUser(m);
+                            }
+                        });
+                    } catch (AccountAlreadyOwnedException e) {
+                        m.setPanel(new AlertMessageForm(e.toString()) {
+                            @Override
+                            public void onOK() {
+                                addUserTo(account, m);
                             }
                         });
                     }
