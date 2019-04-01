@@ -147,7 +147,7 @@ public class Client extends BankMachineUser {
         for (int i = 0; i < clientsAccounts.size(); i++) {
             summaryStrings[i + 1] = clientsAccounts.get(i).toString();
         }
-        summaryStrings[clientsAccounts.size() + 1] = "Net total: " + getNetTotal();
+        summaryStrings[clientsAccounts.size() + 1] = "Net total: $" + getNetTotal();
         return summaryStrings;
     }
 
