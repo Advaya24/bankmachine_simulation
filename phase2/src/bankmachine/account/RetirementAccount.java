@@ -1,6 +1,5 @@
 package bankmachine.account;
 
-import bankmachine.BankMachine;
 import bankmachine.exception.BankMachineException;
 import bankmachine.exception.NegativeQuantityException;
 import bankmachine.users.Client;
