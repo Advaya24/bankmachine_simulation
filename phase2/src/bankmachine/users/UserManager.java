@@ -94,7 +94,6 @@ public class UserManager extends TrackingFactory<BankMachineUser>
     }
 
     public void createPrimaryAccount(Client client) {
-        //AccountFactory factory = new AccountFactory(this);
         this.accountFactory.newChequingAccount(true, 0, client, LocalDateTime.now());
         ((ChequingAccount) client.getClientsAccounts().get(0)).setPrimary(true);
     }

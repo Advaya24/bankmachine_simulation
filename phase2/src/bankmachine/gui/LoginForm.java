@@ -74,7 +74,6 @@ public abstract class LoginForm implements Form {
      */
     public void displayInvalid() {
         invalidLabel.setVisible(true);
-        //this.getMainPanel().repaint();
     }
 
     /**
