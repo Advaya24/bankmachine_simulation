@@ -76,32 +76,41 @@ public class TransactionGUIHandler {
         } else {
             Transaction[] transactions = new Transaction[account.getTransactions().size()];
             account.getTransactions().toArray(transactions);
-            m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Transaction>(transactions, "") {
-                @Override
-                public void onSelection(Transaction t) {
-                    try {
-                        t.undo();
-                        m.setPanel(new AlertMessageForm("Success!") {
-                            @Override
-                            public void onOK() {
-                                gui.handleInput(m);
-                            }
-                        });
-                    } catch (BankMachineException | NullPointerException e) {
-                        m.setPanel(new AlertMessageForm("Failure!") {
-                            @Override
-                            public void onOK() {
-                                gui.handleInput(m);
-                            }
-                        });
+            try {
+                m.setPanel(new SearchForm("Select a transaction:", new OptionsForm<Transaction>(transactions, "") {
+                    @Override
+                    public void onSelection(Transaction t) {
+                        try {
+                            t.undo();
+                            m.setPanel(new AlertMessageForm("Success!") {
+                                @Override
+                                public void onOK() {
+                                    gui.handleInput(m);
+                                }
+                            });
+                        } catch (BankMachineException | NullPointerException e) {
+                            m.setPanel(new AlertMessageForm("Failure!") {
+                                @Override
+                                public void onOK() {
+                                    gui.handleInput(m);
+                                }
+                            });
+                        }
                     }
-                }
-            }.getMainPanel()) {
-                @Override
-                public void onCancel() {
-                    gui.handleInput(m);
-                }
-            });
+                }.getMainPanel()) {
+                    @Override
+                    public void onCancel() {
+                        gui.handleInput(m);
+                    }
+                });
+            } catch (NullPointerException e) {
+                m.setPanel(new AlertMessageForm("Something went wrong! Please try again later!") {
+                    @Override
+                    public void onOK() {
+                        gui.handleInput(m);
+                    }
+                });
+            }
         }
 
     }

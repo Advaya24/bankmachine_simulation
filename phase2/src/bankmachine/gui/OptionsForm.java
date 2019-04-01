@@ -58,12 +58,7 @@ public abstract class OptionsForm<T> implements Form {
         for (int i = 0; i < options.length; i++) {
             JButton b = new JButton(options[i].toString());
             final int index = i;
-            b.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    onSelection(options[index]);
-                }
-            });
+            b.addActionListener(actionEvent -> onSelection(options[index]));
             buttonGrid.add(b);
         }
         panel.add(buttonGrid, BorderLayout.CENTER);
