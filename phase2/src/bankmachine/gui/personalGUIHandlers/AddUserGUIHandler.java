@@ -77,13 +77,22 @@ public class AddUserGUIHandler {
                         }
                     });
                 } else {
-                    account.addSecondaryClient(client);
-                    m.setPanel(new AlertMessageForm("Successfully added " + client.toString()) {
-                        @Override
-                        public void onOK() {
-                            gui.handleInput(m);
-                        }
-                    });
+                    try {
+                        account.addSecondaryClient(client);
+                        m.setPanel(new AlertMessageForm("Successfully added " + client.toString()) {
+                            @Override
+                            public void onOK() {
+                                gui.handleInput(m);
+                            }
+                        });
+                    } catch (NullPointerException e) {
+                        m.setPanel(new AlertMessageForm("Cannot add user to this type of account!") {
+                            @Override
+                            public void onOK() {
+                                handleAddUser(m);
+                            }
+                        });
+                    }
                 }
             }
         });
