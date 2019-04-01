@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 /**
  * Only has one client.
  */
-//TODO: What happens if we try and access multiple clients of this account??
 public class RetirementAccount extends AssetAccount {
 
     public RetirementAccount(int id, Client client, LocalDateTime creationDate) {
