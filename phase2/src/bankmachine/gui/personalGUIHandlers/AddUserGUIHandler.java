@@ -48,6 +48,7 @@ public class AddUserGUIHandler {
      *
      * @param account the account to which the user is added
      * @param m       the InputManager that displays the GUI and accepts input
+     * @param user    the user who wants to add a new user
      */
     private void addUserTo(Account account, InputManager m, Client user) {
         String[] attributes = {"Username of user to add"};
