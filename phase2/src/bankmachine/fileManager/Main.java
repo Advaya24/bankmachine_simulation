@@ -17,13 +17,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException { //Main method to test read / write of files
 
-        //File does not exist exception test
-//        String exception_test = "DNE.txt";
-//        ReadFile ex = new ReadFile(exception_test);
-//        System.out.println(ex.getData());
-//        System.out.println(ex.getLastUpdated());
-//
-//
         //Standard ReadFile test
 
         WriteFile out2 = new WriteFile("alerts.txt");
@@ -56,11 +49,6 @@ public class Main {
         out.writeData(output_content2, true);
 
         //No tester for writing to file that doesn't exist. As that file will simply be created
-
-        //Test for TimeInfo Class
-//        TimeInfo tf = new TimeInfo(); //Initializes new TimeInfo object
-//        tf.setTime("2018-07-31T9:12:54"); // Sets date and time in ISO 8601
-//        tf.getTime(); // Returns Date Object of ATM date + time
 
         // Setting up fileManager path
         final String fileManagerPath = BankMachine.DATA_PATH;

@@ -67,7 +67,7 @@ public class DepositReader {
             try {
                 quantity = Double.parseDouble(lines[0]);
             } catch (NumberFormatException e) {
-                return;
+                throw new NoDepositException();
             }
         } else {
             isCheque = false;
@@ -78,10 +78,10 @@ public class DepositReader {
                     billCount = Integer.parseInt(lines[i]);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
-                    return;
+                    throw new NoDepositException();
                 }
                 billCounts[i] = billCount;
-                quantity += quantity * denominations[i];
+                quantity += billCount * denominations[i];
             }
         }
         WriteFile writer = new WriteFile("/deposits.txt");

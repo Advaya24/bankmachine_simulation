@@ -101,7 +101,6 @@ public abstract class Account implements Serializable, Identifiable {
 
     /**
      * Deposit money into this account if possible.
-     * If deposits.txt is one line,//TODO: Finish annotations
      */
     public void deposit() throws NegativeQuantityException, NoDepositException {
         DepositReader deposit = new DepositReader("/deposits.txt");
@@ -120,10 +119,12 @@ public abstract class Account implements Serializable, Identifiable {
      *
      * @param client to be added.
      */
-    public void addSecondaryClient(Client client) {
+    public void addSecondaryClient(Client client) throws AccountAlreadyOwnedException {
         if (!client.getClientsAccounts().contains(this)) {
             this.clients.add(client);
             client.addAccount(this);
+        } else {
+            throw new AccountAlreadyOwnedException();
         }
     }
 
@@ -165,7 +166,6 @@ public abstract class Account implements Serializable, Identifiable {
         return transactions;
     }
 
-    //TODO: Rename this to getPrimaryClient OR refactor AccountGUI
     public Client getClient() {
         return primaryClient;
     }

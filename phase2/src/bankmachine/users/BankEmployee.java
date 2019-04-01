@@ -18,22 +18,10 @@ public abstract class BankEmployee extends Client {
     final private static ArrayList<String> outstandingCreationRequests = new ArrayList<>();
     protected double salary;
 
-    //TODO: toString.
 
     public BankEmployee(int id, String name, String email, String phoneNumber, String username, String default_password) {
         super(id, name, email, phoneNumber, username, default_password);
     }
-
-
-//    /**
-//     * Allows the Manager to add bills of a certain denomination to the ATM
-//     *
-//     * @param denomination the denomination of the bills being added
-//     * @param amount       the number of bills being added.
-//     */
-//    public void addBills(int denomination, int amount) {
-//        BankMachine.getBillManager().addBills(denomination, amount);
-//    }
 
 
     /**

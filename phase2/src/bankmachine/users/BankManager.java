@@ -14,8 +14,6 @@ public class BankManager extends BankEmployee {
         this.salary = 5280;
     }
 
-    // TODO: Decide if this method is needed
-
     /**
      * Creates a new Client for the Bank
      *
@@ -31,7 +29,7 @@ public class BankManager extends BankEmployee {
 
 
     public String toString() {
-        return "Manager " + getName();
+        return "Manager " + getName() + " (" + getUsername() + ")";
     }
 
 

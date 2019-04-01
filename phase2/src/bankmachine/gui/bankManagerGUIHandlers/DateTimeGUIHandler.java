@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 public class DateTimeGUIHandler {
     /**
-     * The GUI of the Bank Manager using the sustem
+     * The GUI of the Bank Manager using the system
      */
     private BankManagerGUI gui;
 
