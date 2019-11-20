@@ -1,7 +1,7 @@
 # bankmachine_simulation
 
 A program that simulates a single bank ATM, with an administrator known as BankManager and multiple clients.
-Users only interact with the ATM (no physical bank). They may perform actions on their accounts as well as profile.
+Users only interact with the ATM (no physical bank). They may perform actions on their accounts as well as profile. The project was made in two phases with the information given below relevant to phase 2.
 
 
 ## System Start-up
